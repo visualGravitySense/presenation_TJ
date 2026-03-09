@@ -83,7 +83,7 @@
     .d10{transition-delay:.5s}
 
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 48px; height: 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(240,237,232,0.94); backdrop-filter: blur(12px); border-bottom: 2px solid var(--navy); transition: background .3s; }
-    nav::after { content: 'SYS:ACTIVE — tootmisjuhtimine.ee'; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 500; letter-spacing: .2em; color: var(--orange); opacity: 0.7; white-space: nowrap; }
+    /* nav::after { content: 'SYS:ACTIVE — tootmisjuhtimine.ee'; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 500; letter-spacing: .2em; color: var(--orange); opacity: 0.7; white-space: nowrap; } */
     .nav-logo { display: flex; align-items: center; }
     .nav-logo img { height: 32px; width: auto; object-fit: contain; transition: transform .3s ease; filter: invert(1) sepia(1) saturate(3) hue-rotate(185deg) brightness(0.3); }
     .nav-logo img:hover { transform: scale(1.05); }
@@ -3322,6 +3322,303 @@
 
     /* Asukoht section bg */
     .asukoht-section { background: var(--paper) !important; }
+
+/* ── BURGER BUTTON ── */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  background: none; border: none;
+  cursor: pointer; padding: 4px;
+  z-index: 1100; flex-shrink: 0;
+}
+.nav-burger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--navy);
+  border-radius: 0;
+  transition: transform .25s ease, opacity .25s ease, width .25s ease;
+  transform-origin: center;
+}
+/* Animate to X */
+.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; width: 0; }
+.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── FULLSCREEN OVERLAY ── */
+.nav-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  z-index: 1050;
+  background: rgba(240,237,232,0.97);
+  backdrop-filter: blur(12px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px 48px;
+  /* Blueprint grid background */
+  background-image:
+    linear-gradient(rgba(28,35,51,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28,35,51,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-color: rgba(240,237,232,0.97);
+}
+.nav-overlay.open { display: flex; }
+
+/* Close button */
+.nav-overlay-close {
+  position: absolute; top: 20px; right: 20px;
+  background: none;
+  border: 1.5px solid var(--navyborder);
+  font-size: 18px; color: var(--ink2);
+  cursor: pointer; line-height: 1;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 2px;
+  transition: background .2s, color .2s, border-color .2s;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.nav-overlay-close:hover {
+  background: var(--navy);
+  color: var(--paper);
+  border-color: var(--navy);
+}
+
+/* Links list */
+.nav-overlay-links {
+  list-style: none;
+  display: flex; flex-direction: column;
+  align-items: center;
+  width: 100%; max-width: 360px;
+  gap: 0;
+}
+.nav-overlay-links li {
+  width: 100%;
+  border-bottom: 1.5px solid rgba(28,35,51,0.12);
+}
+.nav-overlay-links li:first-child {
+  border-top: 1.5px solid rgba(28,35,51,0.12);
+}
+.nav-overlay-links li a {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px; font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 16px 8px;
+  text-align: center;
+  transition: color .2s, background .2s;
+}
+.nav-overlay-links li a:hover {
+  color: var(--orange);
+  background: var(--orangebg);
+}
+
+/* CTA button inside overlay */
+.nav-overlay-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 28px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--orange);
+  text-decoration: none;
+  padding: 14px 40px;
+  border-radius: 2px;
+  transition: background .2s, transform .15s;
+}
+.nav-overlay-cta:hover {
+  background: var(--orange2);
+  transform: scale(1.02);
+}
+
+/* ── SHOW/HIDE ── */
+@media (max-width: 768px) {
+  .nav-links        { display: none !important; }
+  #nav-cta-desktop  { display: none !important; }
+  .nav-burger       { display: flex !important; }
+  nav               { padding: 0 20px !important; height: 56px !important; }
+}
+
+@media (max-width: 768px) {
+
+  /* Logo */
+  .footer-logo-mark { font-size: 18px !important; }
+  .footer-logo-sub  { font-size: 11px !important; letter-spacing: .13em !important; color: rgba(28,35,51,0.50) !important; }
+
+  /* Tagline */
+  .footer-tagline { font-size: 18px !important; }
+
+  /* Description */
+  .footer-desc {
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+    color: rgba(28,35,51,0.60) !important;
+  }
+
+  /* Section headers: PROGRAMM / INFO / KONTAKT */
+  .footer-col-title {
+    font-size: 12px !important;
+    letter-spacing: .13em !important;
+  }
+
+  /* Nav links */
+  .footer-links li a {
+    font-size: 17px !important;
+    padding: 11px 0 !important;
+    color: rgba(28,35,51,0.70) !important;
+  }
+
+  /* Contact labels: KOOLITAJA / TELEFON / E-POST */
+  .footer-contact-label {
+    font-size: 11px !important;
+    letter-spacing: .10em !important;
+    color: rgba(28,35,51,0.50) !important;
+  }
+
+  /* Contact values */
+  .footer-contact-val   { font-size: 16px !important; color: rgba(28,35,51,0.85) !important; }
+  .footer-contact-val a { font-size: 16px !important; }
+
+  /* Email wrap prevention */
+  .footer-contact-val a[href^="mailto"] {
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Bottom bar */
+  .footer-bottom-left    { font-size: 13px !important; color: rgba(28,35,51,0.55) !important; gap: 8px !important; }
+  .footer-bottom-links a { font-size: 13px !important; padding: 8px 0 !important; color: rgba(28,35,51,0.55) !important; }
+  .footer-moto           { font-size: 13px !important; opacity: 1 !important; }
+}
+
+@media (max-width: 768px) {
+
+  /* Logo */
+  .footer-logo-mark { font-size: 18px !important; }
+  .footer-logo-sub  {
+    font-size: 11px !important;
+    letter-spacing: .13em !important;
+    color: rgba(232,228,222,0.60) !important;
+  }
+
+  /* Tagline */
+  .footer-tagline {
+    font-size: 18px !important;
+    color: #6ea3e8 !important;
+  }
+
+  /* Description */
+  .footer-desc {
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+    color: rgba(232,228,222,0.75) !important;
+  }
+
+  /* Section headers: PROGRAMM / INFO / KONTAKT */
+  .footer-col-title {
+    font-size: 12px !important;
+    letter-spacing: .13em !important;
+  }
+
+  /* Nav links — bright enough on navy */
+  .footer-links li a {
+    font-size: 17px !important;
+    padding: 11px 0 !important;
+    color: rgba(232,228,222,0.80) !important;
+  }
+  .footer-links li a:hover { color: #e8e4de !important; }
+
+  /* Contact labels */
+  .footer-contact-label {
+    font-size: 11px !important;
+    letter-spacing: .10em !important;
+    color: rgba(232,228,222,0.55) !important;
+  }
+
+  /* Contact values */
+  .footer-contact-val {
+    font-size: 16px !important;
+    color: rgba(232,228,222,0.90) !important;
+  }
+  .footer-contact-val a { font-size: 16px !important; }
+
+  /* Email wrap */
+  .footer-contact-val a[href^="mailto"] {
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Bottom bar */
+  .footer-bottom-left {
+    font-size: 13px !important;
+    color: rgba(232,228,222,0.60) !important;
+    gap: 8px !important;
+  }
+  .footer-bottom-links a {
+    font-size: 13px !important;
+    padding: 8px 0 !important;
+    color: rgba(232,228,222,0.60) !important;
+  }
+  .footer-moto {
+    font-size: 13px !important;
+    opacity: 1 !important;
+    color: #6ea3e8 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .kliendid-section { padding: 72px 20px; }
+  .kl-grid { grid-template-columns: repeat(3, 1fr); }
+  .kl-stat-row { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 600px) {
+
+  /* 3 columns → vertical list */
+  .kl-stat-row {
+    grid-template-columns: 1fr !important;
+    gap: 2px !important;
+  }
+
+  /* Horizontal layout: big number left, label right */
+  .kl-stat {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 20px !important;
+    padding: 18px 24px !important;
+    text-align: left !important;
+    background: var(--paper) !important;
+    border: 1px solid var(--grid) !important;
+    border-radius: 2px !important;
+  }
+
+  /* Big number */
+  .kl-stat-num {
+    font-size: 40px !important;
+    line-height: 1 !important;
+    flex-shrink: 0 !important;
+    min-width: 80px !important;
+    color: var(--orange) !important;
+  }
+
+  /* Label — readable on light background */
+  .kl-stat-label {
+    font-size: 13px !important;
+    letter-spacing: .08em !important;
+    line-height: 1.4 !important;
+    color: rgba(28,35,51,0.65) !important;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -3332,10 +3629,27 @@
       <li><a href="#koolitaja">Koolitaja Andres Kase</a></li>
       <li><a href="#teekond">Koolitus</a></li>
       <li><a href="#kliendid">Kliendid</a></li>
-      <li><a href="https://tootmisjuhtimine.ee/blog" target="_blank" rel="noopener">Blogi</a></li>
+      <li><a href="#" target="_blank" rel="noopener">Blogi</a></li>
     </ul>
-    <a href="#registreeru" class="nav-cta">Registreeru</a>
+    <a href="#registreeru" class="nav-cta" id="nav-cta-desktop">Registreeru</a>
+    <button class="nav-burger" id="nav-burger" aria-label="Menüü">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="nav-overlay" id="nav-overlay">
+    <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Sulge">✕</button>
+    <ul class="nav-overlay-links">
+      <li><a href=""             onclick="closeMenu()">Tootmisjuhi koolitus</a></li>
+      <li><a href="#koolitaja"   onclick="closeMenu()">Koolitaja Andres Kase</a></li>
+      <li><a href="#teekond"     onclick="closeMenu()">Koolitus</a></li>
+      <li><a href="#kliendid"    onclick="closeMenu()">Kliendid</a></li>
+      <li><a href="https://tootmisjuhtimine.ee/blog" target="_blank" onclick="closeMenu()">Blogi</a></li>
+    </ul>
+    <a href="#registreeru" class="nav-overlay-cta" onclick="closeMenu()">
+      <span>Registreeru</span>
+    </a>
+  </div>
 
   <!-- 1. Hero -->
   <section class="hero" id="hero">
@@ -4107,7 +4421,7 @@
   </section>
 
   <!-- 11. Koolitaja -->
-  <section class="koolitaja-section">
+  <section class="koolitaja-section" id="koolitaja">
   <div class="koolitaja-inner">
 
     <!-- ══ LEFT ══ -->
@@ -4869,6 +5183,33 @@
       if (form) form.style.display = 'none';
       if (ok) ok.style.display = 'block';
     }
+
+    // Hamburger menu functionality
+    (function() {
+      const burger       = document.getElementById('nav-burger');
+      const overlay      = document.getElementById('nav-overlay');
+      const overlayClose = document.getElementById('nav-overlay-close');
+      if (!burger || !overlay) return;
+
+      function openMenu() {
+        burger.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      window.closeMenu = function() {
+        burger.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      burger.addEventListener('click', () =>
+        burger.classList.contains('open') ? closeMenu() : openMenu()
+      );
+      overlayClose.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeMenu();
+      });
+    })();
   </script>
 </body>
 </html>
