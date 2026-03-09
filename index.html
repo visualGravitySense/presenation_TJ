@@ -2775,6 +2775,9 @@
   .nav-links { display: none; } /* Hide nav links on mobile */
   .nav-cta { font-size: 11px; padding: 6px 16px; }
   
+  /* Show burger button on mobile */
+  .nav-burger { display: flex !important; }
+  
   /* Hero adjustments */
   .hero-cta-block { margin-bottom: 20px; }
   .hero-props { padding-top: 16px; }
@@ -2792,6 +2795,81 @@
   .form-input, .form-select, .form-textarea {
     font-size: 16px; /* Prevents zoom on iOS */
   }
+}
+
+/* Mobile font size improvements for better readability */
+@media (max-width: 768px) {
+  body { font-size: 16px; }
+
+  /* Card body text */
+  .card-desc, .miks-card-text, .hoiatus-text, .panel-list li,
+  .reg-desc, .footer-desc, .annab-item, .kellele-text,
+  .prog-desc, .arv-text, .kool-bio-text { font-size: 15px; line-height: 1.75; }
+
+  /* Card titles */
+  .card-title, .miks-card-title { font-size: 18px; }
+
+  /* Small uppercase labels — make readable */
+  .card-label, .miks-card-label, .form-label,
+  .footer-col-title, .reg-eyebrow, .stat-label { font-size: 11px; letter-spacing: .10em; }
+
+  /* Hero desc */
+  .hero-desc { font-size: 16px; font-weight: 400; }
+
+  /* Stat boxes */
+  .stat-desc { font-size: 14px; }
+
+  /* Testimonials */
+  .arv-quote { font-size: 16px; line-height: 1.8; }
+  .slide-highlight { font-size: 13px; }
+
+  /* Form inputs */
+  .form-input, .form-textarea { font-size: 16px; } 
+  /* ← обязательно 16px, иначе iOS Safari делает zoom при фокусе */
+
+  /* Footer */
+  .footer-links li a {
+    font-size: 16px;
+    color: rgba(245,244,240,0.75);  /* was 0.32 — nearly invisible */
+    padding: 10px 0;  /* bigger touch target */
+  }
+  .footer-desc {
+    font-size: 14px;
+    color: rgba(245,244,240,0.65);  /* was 0.32 */
+    line-height: 1.75;
+  }
+  .footer-col-title {
+    font-size: 11px;
+    letter-spacing: .14em;
+  }
+  .footer-contact-label {
+    font-size: 11px;  /* was 9px */
+    color: rgba(245,244,240,0.55);  /* was 0.32 */
+  }
+  .footer-contact-val {
+    font-size: 15px;  /* was 13px */
+    color: rgba(245,244,240,0.85);
+  }
+  .footer-logo-sub {
+    font-size: 10px;  /* was 9px */
+    color: rgba(245,244,240,0.55);
+  }
+  .footer-tagline {
+    font-size: 16px;
+  }
+  .footer-bottom-left {
+    font-size: 13px;
+    color: rgba(245,244,240,0.55);  /* was 0.32 */
+  }
+  .footer-bottom-links a {
+    font-size: 12px;
+    color: rgba(245,244,240,0.55);
+    padding: 8px 0;
+  }
+
+  /* Moodul rows */
+  .moodul-title { font-size: 15px; }
+  .moodul-desc { font-size: 13px; }
 }
 
 @media (max-width: 480px) {
@@ -3123,6 +3201,569 @@
     ::-webkit-scrollbar-track { background: var(--paper2); }
     ::-webkit-scrollbar-thumb { background: var(--ink); }
     ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* Kliendid — hidden items */
+    .kl-hidden { display: none; }
+    .kl-hidden.kl-visible {
+      display: flex;
+      animation: fadeIn .4s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* Burger button — hidden on desktop */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px; height: 40px;
+      background: none; border: none;
+      cursor: pointer; padding: 4px;
+      z-index: 1100;
+    }
+    .nav-burger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--ink);
+      transition: transform .3s, opacity .3s, width .3s;
+      transform-origin: center;
+    }
+    /* X state */
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Fullscreen overlay */
+    .nav-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 1050;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(12px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 32px 40px;
+    }
+    .nav-overlay.open { display: flex; }
+
+    /* Close X button inside overlay */
+    .nav-overlay-close {
+      position: absolute; top: 20px; right: 24px;
+      background: none; border: none;
+      font-size: 28px; color: rgba(245,244,240,0.5);
+      cursor: pointer; line-height: 1;
+      transition: color .2s;
+    }
+    .nav-overlay-close:hover { color: #0099cc; }
+
+    /* Links list */
+    .nav-overlay-links {
+      list-style: none;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 4px;
+      width: 100%;
+    }
+    .nav-overlay-links li a {
+      display: block;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px; font-weight: 600;
+      letter-spacing: .02em;
+      color: rgba(245,244,240,0.75);
+      text-decoration: none;
+      padding: 12px 24px;
+      text-align: center;
+      transition: color .2s;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      width: 100%; max-width: 320px;
+    }
+    .nav-overlay-links li a:hover { color: #0099cc; }
+
+    /* CTA link — highlighted */
+    .nav-overlay-cta {
+      margin-top: 16px;
+    }
+
+
+    @media (max-width: 768px) {
+
+  /* Logo */
+  .footer-logo-mark { font-size: 18px; }
+  .footer-logo-sub  { font-size: 12px; letter-spacing: .14em; color: rgba(245,244,240,0.55); }
+
+  /* Tagline */
+  .footer-tagline { font-size: 18px; }
+
+  /* Description */
+  .footer-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(245,244,240,0.65);
+  }
+
+  /* Section headers: PROGRAMM / INFO / KONTAKT */
+  .footer-col-title { font-size: 12px; letter-spacing: .13em; }
+
+  /* Nav links */
+  .footer-links li a {
+    font-size: 17px;
+    padding: 11px 0;
+    color: rgba(245,244,240,0.75);
+  }
+
+  /* Contact labels: KOOLITAJA / TELEFON / E-POST / SEMINARIPAIK */
+  .footer-contact-label {
+    font-size: 11px;
+    letter-spacing: .10em;
+    color: rgba(245,244,240,0.50);
+  }
+
+  /* Contact values: Andres Kase / 513 8403 / email / address */
+  .footer-contact-val      { font-size: 16px; color: rgba(245,244,240,0.90); }
+  .footer-contact-val a    { font-size: 16px; }
+
+  /* Bottom bar */
+  .footer-bottom-left    { font-size: 13px; color: rgba(245,244,240,0.55); gap: 8px; }
+  .footer-bottom-links a { font-size: 13px; padding: 8px 0; color: rgba(245,244,240,0.55); }
+  .footer-moto           { font-size: 13px; }
+}
+
+@media (max-width: 600px) {
+
+  /* 9 tabs → 3×3 grid */
+  .tabs-nav {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 2px !important;
+    border-bottom: none !important;
+  }
+
+  .tab-btn {
+    min-height: 52px !important;
+    padding: 10px 6px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    text-align: center !important;
+    border: 1px solid var(--border) !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  /* Day number — keep big and visible */
+  .tab-btn .tab-num {
+    font-size: 20px !important;
+    line-height: 1 !important;
+  }
+
+  /* Day label text (Seminar / Ettevõttekülastus) — shrink and clip */
+  .tab-btn .tab-label {
+    font-size: 9px !important;
+    letter-spacing: .06em !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 80px !important;
+  }
+
+  /* Active tab — blue top border same as desktop */
+  .tab-btn.active {
+    border-top: 2px solid var(--blue) !important;
+    background: var(--dark2) !important;
+  }
+
+  /* Remove the ::after pseudo underline — not needed in grid layout */
+  .tab-btn::after {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .kool-photo {
+    max-height: 320px !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    width: 100% !important;
+  }
+
+  /* Also constrain the card wrapper so it doesn't stretch */
+  .kool-photo-card {
+    max-height: 320px !important;
+    overflow: hidden !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* 4 boxes → 2×2 grid */
+  .timer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 3px !important;
+  }
+
+  .timer-box {
+    padding: 20px 10px !important;
+  }
+
+  .timer-num {
+    font-size: 44px !important;
+    line-height: 1 !important;
+  }
+
+  .timer-label {
+    font-size: 10px !important;
+    letter-spacing: .10em !important;
+    margin-top: 6px !important;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .moodul-row {
+    grid-template-columns: 52px 1fr !important;
+  }
+
+  /* Hide date column entirely */
+  .moodul-date {
+    display: none !important;
+  }
+
+  /* Slightly smaller module number */
+  .moodul-num {
+    font-size: 13px !important;
+    padding-top: 2px !important;
+  }
+
+  /* Ensure title and desc stay readable */
+  .moodul-title {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+  }
+
+  .moodul-desc {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+    margin-top: 4px !important;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .slide-top {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .slide-highlight {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+    max-height: 66px !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    border-left: none !important;
+    border-top: 1px solid var(--border) !important;
+    padding-left: 0 !important;
+    padding-top: 12px !important;
+    max-width: 100% !important;
+    cursor: pointer !important;
+    position: relative !important;
+  }
+
+  /* Fade out at bottom when clamped */
+  .slide-highlight::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0; left: 0; right: 0 !important;
+    height: 24px !important;
+    background: linear-gradient(transparent, var(--paper)) !important;
+    pointer-events: none !important;
+  }
+
+  /* Expanded state — remove clamp */
+  .slide-highlight.expanded {
+    -webkit-line-clamp: unset !important;
+    max-height: none !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+  .slide-highlight.expanded::after {
+    display: none !important;
+  }
+
+  /* "Loe rohkem" toggle button */
+  .slide-highlight-toggle {
+    display: block !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: .10em !important;
+    text-transform: uppercase !important;
+    color: var(--blue) !important;
+    background: none !important;
+    border: none !important;
+    padding: 6px 0 0 !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+  }
+
+  /* Hide toggle on desktop */
+  .slide-highlight-toggle { display: none; }
+}
+
+@media (max-width: 600px) {
+
+  /* Remove absolute positioning — flow into card naturally */
+  .price-badge {
+    position: static !important;
+    transform: none !important;
+    display: inline-block !important;
+    margin-bottom: 8px !important;
+    margin-left: 0 !important;
+    top: auto !important;
+    right: auto !important;
+  }
+
+  /* Stack price-header vertically so badge sits above title */
+  .price-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+
+  /* Make sure card doesn't clip the badge area */
+  .price-card {
+    overflow: visible !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .reg-text-card {
+    padding: 24px 20px !important;
+  }
+
+  .reg-form-card {
+    padding: 24px 20px !important;
+  }
+
+  /* While we're here — also fix input font-size to prevent
+     iOS Safari auto-zoom on field focus */
+  .form-input,
+  .form-textarea {
+    font-size: 16px !important;
+  }
+
+  /* Slightly reduce form title so it fits on one line */
+  .form-title {
+    font-size: 18px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Tighten gap between form fields */
+  .form-group {
+    margin-bottom: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Keep 2 columns but make items taller and text bigger */
+  .kl-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2px !important;
+  }
+
+  .kl-item {
+    min-height: 70px !important;
+    padding: 14px 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .kl-name {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+  }
+
+  /* Industry label below company name */
+  .kl-industry {
+    font-size: 10px !important;
+    margin-top: 3px !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .strip-photo {
+    height: 160px !important;
+    width: 220px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .strip-photo img {
+    height: 160px !important;
+    width: 220px !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+  }
+
+  /* Slow down animation slightly on mobile
+     so photos are easier to see */
+  .strip-track {
+    animation-duration: 35s !important;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Hide items 7+ on mobile by default */
+  .kl-item:nth-child(n+7):not(.kl-visible) {
+    display: none !important;
+  }
+
+  /* When mobile-expanded class is added to grid — show all */
+  .kl-grid.mobile-expanded .kl-item {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Stack stats vertically — 1 column instead of 3 */
+  .kl-stat-row {
+    grid-template-columns: 1fr !important;
+    gap: 2px !important;
+  }
+
+  .kl-stat {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 20px !important;
+    padding: 18px 24px !important;
+    text-align: left !important;
+  }
+
+  /* Number — bigger, left side */
+  .kl-stat-num {
+    font-size: 40px !important;
+    line-height: 1 !important;
+    flex-shrink: 0 !important;
+    min-width: 72px !important;
+  }
+
+  /* Label — right side, bigger and brighter */
+  .kl-stat-label {
+    font-size: 13px !important;
+    letter-spacing: .08em !important;
+    color: rgba(245,244,240,0.60) !important;
+    line-height: 1.4 !important;
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Force long email to wrap */
+  .contact-email,
+  .contact-val a[href^="mailto"],
+  a[href^="mailto"] {
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+  }
+
+  /* Also constrain the entire contact box */
+  .contact-box,
+  .kellele-contact,
+  .annab-contact {
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Constrain the row containing the email */
+  .contact-row,
+  .kellele-contact-row {
+    overflow: hidden !important;
+    min-width: 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Reduce card padding so content has more space */
+  .cert-wrap {
+    padding: 24px 20px !important;
+  }
+
+  /* Stack icon and title vertically */
+  .cert-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  /* Allow title to wrap freely */
+  .cert-header-name {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Body text bigger */
+  .cert-body {
+    font-size: 15px !important;
+    line-height: 1.75 !important;
+  }
+
+  /* Signature — stack vertically */
+  .cert-signature {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .cert-sig-info {
+    text-align: left !important;
+  }
+
+  .cert-sig-name {
+    font-size: 15px !important;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .kl-stat {
+    background: var(--bluebg) !important;
+    border: 1px solid var(--blueborder) !important;
+  }
+
+  /* Labels: dark enough to read on light bluebg background */
+  .kl-stat-label {
+    color: var(--ink2) !important;       /* dark grey, not near-invisible ink3 */
+    font-size: 13px !important;
+    letter-spacing: .08em !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Numbers: keep accent color but ensure contrast */
+  .kl-stat-num {
+    color: var(--accent) !important;
+    font-size: 40px !important;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -3136,7 +3777,25 @@
       <li><a href="https://tootmisjuhtimine.ee/blog" target="_blank" rel="noopener">Blogi</a></li>
     </ul>
     <a href="#registreeru" class="nav-cta">Registreeru</a>
+    <button class="nav-burger" id="nav-burger" aria-label="Menüü">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="nav-overlay" id="nav-overlay">
+    <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Sulge">✕</button>
+    <ul class="nav-overlay-links">
+      <li><a href="#teekond"   onclick="closeMenu()">Õppeteekond</a></li>
+      <li><a href="#miks-valida"      onclick="closeMenu()">Miks valida</a></li>
+      <li><a href="#paevane-arengutee"    onclick="closeMenu()">9-päevane programm</a></li>
+      <li><a href="#moodulid"  onclick="closeMenu()">Moodulid 2026–2027</a></li>
+      <li><a href="#tunnistus" onclick="closeMenu()">Tunnistus</a></li>
+      <li><a href="#hinnad"    onclick="closeMenu()">Hinnad</a></li>
+      <li><a href="#koolitaja" onclick="closeMenu()">Koolitaja</a></li>
+      <li><a href="#asukoht"   onclick="closeMenu()">Asukoht</a></li>
+      <li><a href="#registreeru" onclick="closeMenu()" class="nav-overlay-cta">Registreeru →</a></li>
+    </ul>
+  </div>
 
   <!-- 1. Hero -->
   <section class="hero" id="hero">
@@ -3684,7 +4343,8 @@
     </div>
   </section>
 
-  <section class="tunnistus-section">
+  <!-- 7. Tunnistus -->
+  <section class="tunnistus-section" id="tunnistus">
   <div class="tunnistus-inner">
 
     <!-- LEFT — Kellele -->
@@ -3801,6 +4461,9 @@
           <div class="slide-top">
             <div class="slide-author"><div class="slide-name" id="slide-name">Siim</div><div class="slide-role" id="slide-role">MRPeasy OÜ, Müügijuht</div></div>
             <div class="slide-highlight" id="slide-highlight">"Tõeliselt silmiav koolitus ..."</div>
+            <button class="slide-highlight-toggle" id="slide-toggle" onclick="toggleHighlight()">
+  Loe rohkem ↓
+</button>
           </div>
           <div class="slide-body">
             <div class="quote-mark">"</div>
@@ -3908,7 +4571,7 @@
   </section>
 
   <!-- 11. Koolitaja -->
-  <section class="koolitaja-section">
+  <section class="koolitaja-section" id="koolitaja">
   <div class="koolitaja-inner">
 
     <!-- ══ LEFT ══ -->
@@ -4013,7 +4676,7 @@
 </section>
 
   <!-- 12. Programm -->
-  <section class="prog-section">
+  <section class="prog-section" id="moodulid">
   <div class="prog-inner">
 
     <!-- HEADER -->
@@ -4554,10 +5217,16 @@
     let expanded = false;
     function toggleMore() {
       expanded = !expanded;
+      const grid = document.getElementById('kl-grid');
+
       document.querySelectorAll('.kl-hidden').forEach((el, i) => {
         if (expanded) { setTimeout(() => el.classList.add('kl-visible'), i * 18); }
         else { el.classList.remove('kl-visible'); }
       });
+
+      // Mobile: toggle all items visibility via class on grid
+      if (grid) grid.classList.toggle('mobile-expanded', expanded);
+
       const txt = document.getElementById('kl-btn-text');
       const cnt = document.getElementById('kl-btn-count');
       const arr = document.getElementById('kl-arrow');
@@ -4670,6 +5339,57 @@
       if (form) form.style.display = 'none';
       if (ok) ok.style.display = 'block';
     }
+  </script>
+
+  <!-- Hamburger menu functionality -->
+  <script>
+    const burger = document.getElementById('nav-burger');
+    const overlay = document.getElementById('nav-overlay');
+    const closeBtn = document.getElementById('nav-overlay-close');
+    
+    function openMenu() {
+      burger.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden'; // Prevent scroll when menu is open
+    }
+    
+    // Make closeMenu globally available for onclick handlers
+    window.closeMenu = function() {
+      burger.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = ''; // Restore scroll
+    }
+    
+    burger.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', window.closeMenu);
+    
+    // Close menu when clicking on overlay background
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        window.closeMenu();
+      }
+    });
+    
+    // Close menu on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) {
+        window.closeMenu();
+      }
+    });
+
+    function toggleHighlight() {
+  const toggle = event.target;
+  const slideTop = toggle.closest('.slide-top');
+  const el = slideTop.querySelector('.slide-highlight');
+  if (!el) return;
+  const expanded = el.classList.toggle('expanded');
+  toggle.textContent = expanded ? 'Peida ↑' : 'Loe rohkem ↓';
+}
+
+// Reset expand state when slide changes (if slider has prev/next buttons)
+// Call this inside your existing goToSlide() or equivalent function:
+// document.querySelector('.slide-highlight')?.classList.remove('expanded');
+// document.getElementById('slide-toggle').textContent = 'Loe rohkem ↓';
   </script>
 </body>
 </html>
