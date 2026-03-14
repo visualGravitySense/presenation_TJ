@@ -94,3 +94,52 @@ One accent colour. Used on: primary CTA button, one stat number per block, featu
 - [ ] Remove glassmorphism and glow effects
 - [ ] 12-column grid layout
 - [ ] Component library — cards, buttons, section headers
+
+
+
+---- -----   ------
+
+
+Читаю файл чтобы понять что там сделано.Теперь понятно — это светлая тема с Hero + Valu + Teekond, Industry 4.0 стиль, Exo 2 + Share Tech Mono + Rajdhani. Пишу Notion-коммит на эстонском.Notion не подключён. Напишу коммит как текст — Дмитрий скопирует в Notion сам.Notion pole ühendatud — ühenda see ülal ja proovin uuesti. Vahepeal siin on commit-tekst, mille saad kohe sisse kleepida:
+
+---
+
+**📋 Notion commit — eesti keeles**
+
+---
+
+**🗓 14. märts 2026 · Etapp: Disain v1 kinnitatud**
+
+### Põhileht — disain v1 valmis (`main-page-design-v1-ok.html`)
+
+Esimene kinnitatud versioon põhilehe UX prototüübist on valmis. Hele teema (Smart Factory / Industry 4.0 palette) koos kõigi põhisektsioonidega.
+
+**Tehtud tööd:**
+- **Hero** — OPSTAR PROFIT™ infograafik (8 interaktiivset noodiga SVG skeem), 3-veergeline allrida (Operatiiv / Süsteem / Areng), CTA nupud
+- **Ikooniribas** — 6 USP-i (100% praktiline, mõõdetavad tulemused, päris tehased, väike grupp, tunnistus, järeltugi)
+- **Valu / Võrdlus** — vasakul "Miks see koolitus?" võrdlustabel, paremal 6 valu-punkti uues kaardidesignis
+- **9-päevane teekond** — täielik tab-komponent (9 vahekaarti, progressiriba, tehase külastuse tag)
+- **LEAN + Ajalugu** — filosoofia + timeline (1950→2025)
+- **Arvamused** — slaideri 3×2 arvustust, automaatne liikumine
+- **Galerii** — masonry, lightbox
+- **Hinnad** — 3 kaarti (Eraisik / Ettevõte / Grupp)
+- **Ajakava 2026–2027** — staatuse tabeli (avatud / täitumas / tulemas)
+- **Ettevõtetele** — EIS 50% + benefits kaard
+- **Koolitaja Andres Kase** — bio, juhendatud lõputööd, LinkedIn
+- **Tunnistus** — sertifikaadi visuaal 3D hover-efektiga
+- **Asukoht** — kaardi placeholder + EIS bänner
+- **Hoiatus + taimer** — countdown kuni 30. sept 2026
+- **Registreeru** — vorm valideerimisega + success-olek
+- **Footer** — 4-veergeline, kõik lingid
+
+**Tehniline:**
+- Fonts: Exo 2 + Share Tech Mono + Rajdhani + Outfit
+- Palette: `--electric: #0066cc` · `--acid: #28a745` · hele taust
+- Kõik sektsioonid: reveal-animatsioon, hover-efektid, mobiilne vaade
+- Faili suurus: ~9 300 rida
+
+**Järgmine samm:** Andres Kase materjalide lisamine (fotod, logod, hinnad, kuupäevad) → Next.js arendus
+
+---
+
+Kui Notion on ühendatud — ütle ja saadan otse sinna.
