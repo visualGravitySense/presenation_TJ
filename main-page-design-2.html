@@ -1,0 +1,3684 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tootmisjuhtimine.ee — Hero Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Share+Tech+Mono&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══ TOKENS ══ */
+:root {
+  --bg:         #f7f8fa;
+  --white:      #0f1117;
+  --white2:     rgba(15,17,23,0.68);
+  --white3:     rgba(15,17,23,0.40);
+  --blue:       #0057d9;
+  --blue2:      #1a6ff0;
+  --blue-soft:  #3d8bff;
+  --bluebg:     rgba(0,87,217,0.07);
+  --red:        #d0021b;
+  --border:     rgba(0,87,217,0.12);
+  --card-bg:    rgba(255,255,255,0.82);
+  --card-shadow: 0 2px 32px rgba(0,87,217,0.10), 0 1px 4px rgba(0,0,0,0.06);
+    --bg:        #f7f8fa;
+  --abyss:     #ffffff;
+  --deep:      #eef1f6;
+  --surface:   #e4e8f0;
+  --white:     #0f1117;
+  --white2:    rgba(15,17,23,0.68);
+  --white3:    rgba(15,17,23,0.40);
+  --white4:    rgba(15,17,23,0.10);
+  --blue:      #0057d9;
+  --blue2:     #1a6ff0;
+  --blue-soft: #3d8bff;
+  --bluebg:    rgba(0,87,217,0.07);
+  --blueborder:rgba(0,87,217,0.16);
+  --red:       #d0021b;
+  --redbg:     rgba(208,2,27,0.07);
+  --redborder: rgba(208,2,27,0.22);
+  --gold:      #e07b00;
+  --goldbg:    rgba(224,123,0,0.08);
+
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  /* min-height: 100vh; */
+  /* display:flex; align-items:center; justify-content:center; */
+  padding:60px 24px;
+}
+
+/* ══ NAV ══ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 60px; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(247,248,250,0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Exo 2', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: -.01em;
+  color: var(--white); text-decoration: none;
+}
+.nav-logo-box {
+  width: 30px; height: 30px; background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; color: #fff;
+}
+.nav-links {
+  display: flex; gap: 28px; list-style: none;
+}
+.nav-links a {
+  font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--white2); text-decoration: none; transition: color .18s;
+}
+.nav-links a:hover { color: var(--blue); }
+.nav-cta {
+  background: var(--blue); color: #fff;
+  font-family: 'Exo 2', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 9px 22px; text-decoration: none;
+  transition: all .22s;
+  box-shadow: 0 4px 16px rgba(0,87,217,0.28);
+}
+.nav-cta:hover {
+  background: var(--blue2);
+  box-shadow: 0 6px 24px rgba(0,87,217,0.42);
+  transform: translateY(-1px);
+}
+
+/* ══ ANNOUNCEMENT BAR ══ */
+.announce-bar {
+  position: fixed; top: 60px; left: 0; right: 0; z-index: 99;
+  background: var(--white);
+  padding: 10px 48px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  border-bottom: 1px solid rgba(15,17,23,0.1);
+  animation: slideDown .5s ease .1s both;
+}
+@keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
+.announce-badge {
+  background: var(--red); color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  padding: 3px 9px; font-weight: 700; flex-shrink: 0;
+}
+.announce-text {
+  font-size: 13px; color: rgba(247,248,250,0.88); font-weight: 500;
+}
+.announce-link {
+  font-size: 13px; font-weight: 700; color: #fff;
+  text-decoration: none; display: flex; align-items: center; gap: 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.4); transition: border-color .18s;
+}
+.announce-link:hover { border-color: #fff; }
+.announce-close {
+  position: absolute; right: 24px;
+  background: none; border: none; color: rgba(247,248,250,0.6);
+  font-size: 18px; cursor: pointer; line-height: 1; padding: 4px;
+  transition: color .18s;
+}
+.announce-close:hover { color: #fff; }
+
+/* ══ HERO SECTION ══ */
+.hero {
+  min-height: 100vh;
+  padding: 148px 0 80px;
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center;
+}
+
+/* Multi-layer background */
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(160deg, #f7f8fa 0%, #eef2f9 40%, #f0f4fb 100%);
+}
+
+/* Fine grid */
+.hero-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,87,217,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,87,217,0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* Large glow behind infographic */
+.hero-glow {
+  position: absolute;
+  top: 50%; right: 8%;
+  transform: translateY(-50%);
+  width: 680px; height: 680px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,87,217,0.13) 0%,
+    rgba(0,87,217,0.07) 30%,
+    rgba(61,139,255,0.04) 60%,
+    transparent 75%
+  );
+  pointer-events: none;
+  animation: glowBreath 6s ease-in-out infinite;
+}
+@keyframes glowBreath {
+  0%,100% { transform: translateY(-50%) scale(1); opacity: 1; }
+  50%      { transform: translateY(-50%) scale(1.06); opacity: .85; }
+}
+
+/* Secondary soft glow top-left */
+.hero-glow-2 {
+  position: absolute; top: -10%; left: -5%;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0,87,217,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1280px; margin: 0 auto; padding: 0 64px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  width: 100%;
+}
+
+/* ══ LEFT COLUMN ══ */
+.hero-left { display: flex; flex-direction: column; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 28px;
+  animation: fadeUp .6s ease .1s both;
+}
+.hero-eyebrow::before {
+  content: ''; width: 36px; height: 1.5px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-soft));
+}
+
+.hero-h1 {
+  font-family: 'Exo 2', sans-serif;
+  font-size: clamp(48px, 5.5vw, 78px);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -.035em;
+  color: var(--white);
+  margin-bottom: 6px;
+  animation: fadeUp .6s ease .18s both;
+}
+.hero-h1-italic {
+  display: block;
+  font-style: italic;
+  font-weight: 900;
+  color: var(--blue);
+  position: relative;
+}
+/* Underline accent on italic */
+.hero-h1-italic::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-soft), transparent 85%);
+  border-radius: 2px;
+  animation: lineGrow .7s ease .7s both;
+  transform-origin: left;
+}
+@keyframes lineGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.hero-sub {
+  font-size: 17px; font-weight: 400; line-height: 1.75;
+  color: var(--white2); max-width: 480px;
+  margin: 30px 0 44px;
+  animation: fadeUp .6s ease .28s both;
+}
+
+/* CTA row */
+.hero-cta-row {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 20px;
+  animation: fadeUp .6s ease .36s both;
+}
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--blue); color: #fff;
+  font-family: 'Exo 2', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 16px 32px; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0,87,217,0.32), 0 1px 4px rgba(0,87,217,0.18);
+  transition: all .22s;
+}
+.btn-hero-primary:hover {
+  background: var(--blue2);
+  box-shadow: 0 8px 32px rgba(0,87,217,0.44), 0 2px 8px rgba(0,87,217,0.22);
+  transform: translateY(-2px);
+}
+.btn-hero-primary .arrow { font-size: 16px; transition: transform .2s; }
+.btn-hero-primary:hover .arrow { transform: translateX(3px); }
+
+.btn-hero-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--blue);
+  font-family: 'Exo 2', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .08em;
+  padding: 16px 28px; text-decoration: none;
+  border: 1.5px solid var(--border);
+  transition: all .22s;
+}
+.btn-hero-secondary:hover {
+  background: var(--bluebg);
+  border-color: rgba(0,87,217,0.3);
+  transform: translateY(-1px);
+}
+
+.hero-note {
+  font-size: 12.5px; color: var(--white3);
+  font-family: 'Share Tech Mono', monospace; letter-spacing: .04em;
+  animation: fadeUp .6s ease .42s both;
+}
+.hero-note span { color: var(--blue); font-weight: 600; }
+
+/* Stat row */
+.hero-stats {
+  display: flex; gap: 0;
+  margin-top: 44px; padding-top: 32px;
+  border-top: 1px solid var(--border);
+  animation: fadeUp .6s ease .5s both;
+}
+.hero-stat {
+  flex: 1; padding-right: 28px; margin-right: 28px;
+  border-right: 1px solid var(--border);
+}
+.hero-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.stat-num {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 36px; font-weight: 800; line-height: 1;
+  color: var(--white); letter-spacing: -.03em;
+}
+.stat-num sup { font-size: 18px; color: var(--blue); vertical-align: super; }
+.stat-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--white3); margin-top: 5px;
+}
+
+/* ══ RIGHT COLUMN — FLOATING INFOGRAPHIC ══ */
+.hero-right {
+  position: relative;
+  animation: fadeUp .6s ease .22s both;
+}
+
+/* Floating card — no hard border, just shadow + glass */
+.infographic-float {
+  background: var(--card-bg);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.04),
+    0 12px 48px rgba(0,87,217,0.10),
+    0 40px 80px rgba(0,87,217,0.07),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  padding: 32px 28px 24px;
+  position: relative;
+  /* Subtle top border accent */
+  border-top: 2px solid transparent;
+  background-clip: padding-box;
+}
+/* Top accent line */
+.infographic-float::before {
+  content: '';
+  position: absolute; top: -2px; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-soft), rgba(0,87,217,0.2));
+}
+
+/* Label */
+.infographic-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(0,87,217,0.4); text-align: center; margin-bottom: 20px;
+}
+
+/* SVG schema */
+.schema-svg { width: 100%; height: auto; display: block; }
+
+/* Schema node hover */
+.schema-node { cursor: pointer; }
+.schema-node rect, .schema-node circle { transition: fill .18s, stroke .18s; }
+.schema-node:hover rect { fill: rgba(0,87,217,0.14) !important; stroke: #0057d9 !important; }
+.schema-node:hover text { fill: #0057d9 !important; }
+
+/* Tooltip */
+.schema-tooltip {
+  position: fixed;
+  background: var(--white);
+  color: #f7f8fa;
+  padding: 11px 15px;
+  font-size: 12.5px; line-height: 1.5;
+  max-width: 210px; pointer-events: none;
+  z-index: 999; display: none;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.08);
+}
+.schema-tooltip strong {
+  display: block; color: var(--blue-soft);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px;
+}
+
+/* 3-col bottom strip */
+.infographic-cols {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--border); margin-top: 6px;
+}
+.infographic-col {
+  padding: 16px 14px 14px;
+  border-right: 1px solid var(--border);
+  transition: background .18s; cursor: default;
+}
+.infographic-col:last-child { border-right: none; }
+.infographic-col:hover { background: var(--bluebg); }
+.col-num-badge {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 24px; font-weight: 300; line-height: 1;
+  color: rgba(0,87,217,0.15); margin-bottom: 5px;
+}
+.col-eyebrow {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 5px;
+}
+.col-title {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 13px; font-weight: 700; color: var(--white); line-height: 1.3;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Floating animation for infographic */
+.hero-right { animation: fadeUp .6s ease .22s both, floatY 7s ease-in-out 1s infinite; }
+@keyframes floatY {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 1024px) {
+  .hero-inner { gap: 48px; padding: 0 40px; }
+  .hero-h1 { font-size: clamp(42px, 5vw, 62px); }
+}
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-right { max-width: 520px; margin: 0 auto; }
+  .hero { padding: 160px 0 60px; }
+}
+@media (max-width: 600px) {
+  .hero-inner { padding: 0 24px; }
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .announce-bar { padding: 10px 24px; }
+  .hero-h1 { font-size: 40px; }
+  .hero-stats { gap: 0; }
+  .hero-stat { padding-right: 16px; margin-right: 16px; }
+  .stat-num { font-size: 28px; }
+}
+/* ── ICON STRIP ── */
+.icon-strip {
+  background: var(--abyss);
+  border-bottom: 1px solid var(--white4);
+  position: relative;
+  overflow: hidden;
+}
+.icon-strip::before {
+  content:'';
+  position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--red) 0%, var(--blue) 40%, #28a745 80%, transparent 100%);
+  opacity:.35;
+}
+.icon-strip-inner {
+  max-width:1280px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(6,1fr);
+  gap:0;
+}
+.strip-item {
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  padding:22px 12px;
+  border-right:1px solid var(--white4);
+  cursor:default; transition:background .2s;
+  position:relative;
+}
+.strip-item:last-child { border-right:none; }
+.strip-item::after {
+  content:'';
+  position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:0; height:2px; background:var(--blue);
+  transition:width .25s;
+}
+.strip-item:hover { background:var(--bluebg); }
+.strip-item:hover::after { width:60%; }
+.strip-icon {
+  width:44px; height:44px;
+  background:var(--deep);
+  border:1px solid var(--white4);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px;
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.strip-item:hover .strip-icon {
+  background:var(--bluebg);
+  border-color:var(--blueborder);
+  transform:translateY(-2px);
+}
+.strip-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--white3); text-align:center; line-height:1.4;
+  transition:color .2s;
+}
+.strip-item:hover .strip-label { color:var(--blue); }
+
+
+/* ══ VALU SECTION ══ */
+.valu-section {
+  padding:120px 0 100px;
+  position:relative; overflow:hidden;
+  background:var(--bg);
+}
+
+/* Ambient background */
+.valu-section::before {
+  content:'';
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,87,217,0.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,87,217,0.038) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 100%);
+}
+
+/* Glow left */
+.valu-glow-l {
+  position:absolute; top:10%; left:-8%;
+  width:500px; height:500px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(0,87,217,0.07) 0%, transparent 70%);
+}
+/* Glow right */
+.valu-glow-r {
+  position:absolute; bottom:5%; right:-5%;
+  width:400px; height:400px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(208,2,27,0.05) 0%, transparent 70%);
+}
+
+.valu-inner {
+  max-width:1280px; margin:0 auto; padding:0 64px;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:72px; align-items:start;
+  position:relative; z-index:1;
+}
+@media(max-width:960px){ .valu-inner{grid-template-columns:1fr;gap:56px;padding:0 32px;} }
+@media(max-width:600px){ .valu-inner{padding:0 24px;} }
+
+
+/* ════════════════════
+   LEFT — VÕRDLUSTABEL
+════════════════════ */
+.compare-card {
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 12px 40px rgba(0,87,217,0.08),
+    0 40px 72px rgba(0,87,217,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.95);
+  position:relative; overflow:hidden;
+  animation:fadeUp .6s ease .1s both;
+}
+
+/* Left accent bar — gradient stripe */
+.compare-card::before {
+  content:'';
+  position:absolute; top:0; left:0; bottom:0; width:3px;
+  background:linear-gradient(180deg, var(--blue) 0%, var(--blue-soft) 50%, rgba(0,87,217,0.1) 100%);
+}
+/* Top accent line */
+.compare-card::after {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--blue), var(--blue-soft), rgba(0,87,217,0.15) 80%, transparent);
+}
+
+.compare-head {
+  padding:36px 40px 28px;
+  border-bottom:1px solid var(--white4);
+}
+.compare-eyebrow {
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:14px;
+  display:flex; align-items:center; gap:10px;
+}
+.compare-eyebrow::before { content:''; width:24px; height:1.5px; background:var(--blue); }
+
+.compare-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(22px,2.4vw,30px); font-weight:800; line-height:1.15;
+  letter-spacing:-.025em; color:var(--white); margin-bottom:12px;
+}
+.compare-desc {
+  font-size:14px; color:var(--white2); line-height:1.75;
+}
+
+/* Table */
+.compare-table {
+  width:100%; border-collapse:collapse;
+}
+.compare-table thead tr {
+  border-bottom:1px solid var(--white4);
+}
+.compare-table th {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--white3); font-weight:400;
+  padding:14px 40px 12px; text-align:left;
+}
+.compare-table th:not(:first-child) { text-align:center; }
+.compare-table th.col-us { color:var(--blue); }
+
+.compare-table tbody tr {
+  border-bottom:1px solid var(--white4);
+  transition:background .16s;
+  cursor:default;
+}
+.compare-table tbody tr:last-child { border-bottom:none; }
+.compare-table tbody tr:hover { background:rgba(0,87,217,0.03); }
+
+.compare-table td {
+  padding:14px 40px;
+  font-size:13.5px; color:var(--white2); line-height:1.5;
+  vertical-align:middle;
+}
+.compare-table td:not(:first-child) { text-align:center; }
+
+.tick-yes { color:var(--blue); font-size:16px; }
+.tick-no  { color:rgba(15,17,23,0.2); font-size:16px; }
+.tick-both { color:#28a745; font-size:16px; }
+
+/* Row number badge */
+.row-num {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:22px; height:22px; border-radius:50%;
+  background:var(--bluebg); border:1px solid var(--blueborder);
+  font-family:'Share Tech Mono',monospace; font-size:9px;
+  color:var(--blue); flex-shrink:0; margin-right:12px;
+}
+
+/* Compare bottom note */
+.compare-note {
+  padding:16px 40px;
+  background:var(--bluebg);
+  border-top:1px solid var(--blueborder);
+  font-size:12.5px; color:var(--blue); line-height:1.6;
+  display:flex; align-items:center; gap:10px;
+}
+.compare-note-icon { font-size:16px; flex-shrink:0; }
+
+
+/* ════════════════════
+   RIGHT — PAIN CARDS
+════════════════════ */
+.pain-col { display:flex; flex-direction:column; gap:0; }
+
+.pain-eyebrow-wrap {
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:32px;
+  animation:fadeUp .6s ease .15s both;
+}
+.pain-eyebrow {
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--white3);
+}
+.pain-eyebrow-line { flex:1; height:1px; background:var(--white4); }
+
+.pain-card {
+  display:flex; align-items:center; gap:0;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--white4);
+  border-top:none;
+  position:relative; overflow:hidden;
+  cursor:default;
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.pain-card:first-of-type { border-top:1px solid var(--white4); }
+
+/* Hover lift */
+.pain-card:hover {
+  background:rgba(255,255,255,0.95);
+  border-color:rgba(208,2,27,0.18);
+  transform:translateX(4px);
+  z-index:1;
+  box-shadow:0 4px 24px rgba(208,2,27,0.06), -4px 0 0 0 var(--red);
+}
+
+/* Left accent bar */
+.pain-accent {
+  width:3px; align-self:stretch; flex-shrink:0;
+  background:linear-gradient(180deg, rgba(208,2,27,0.25), rgba(208,2,27,0.1));
+  transition:background .2s;
+}
+.pain-card:hover .pain-accent {
+  background:linear-gradient(180deg, var(--red), rgba(208,2,27,0.5));
+}
+
+.pain-body {
+  display:flex; align-items:center; gap:16px;
+  padding:17px 22px; flex:1;
+}
+.pain-icon-wrap {
+  width:36px; height:36px; flex-shrink:0;
+  background:var(--redbg);
+  border:1px solid var(--redborder);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px;
+  transition:background .2s, border-color .2s, transform .2s;
+}
+.pain-card:hover .pain-icon-wrap {
+  background:rgba(208,2,27,0.12);
+  border-color:rgba(208,2,27,0.3);
+  transform:scale(1.05);
+}
+.pain-text {
+  font-size:14px; color:var(--white2); line-height:1.55; flex:1;
+  transition:color .2s;
+}
+.pain-card:hover .pain-text { color:var(--white); }
+
+/* Stagger animation */
+.pain-card:nth-child(1) { animation:fadeUp .5s ease .2s both; }
+.pain-card:nth-child(2) { animation:fadeUp .5s ease .28s both; }
+.pain-card:nth-child(3) { animation:fadeUp .5s ease .36s both; }
+.pain-card:nth-child(4) { animation:fadeUp .5s ease .44s both; }
+.pain-card:nth-child(5) { animation:fadeUp .5s ease .52s both; }
+.pain-card:nth-child(6) { animation:fadeUp .5s ease .60s both; }
+
+/* Pain bottom CTA */
+.pain-cta-row {
+  margin-top:28px;
+  display:flex; align-items:center; gap:16px;
+  animation:fadeUp .5s ease .68s both;
+}
+.pain-cta {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--red); color:#fff;
+  font-family:'Exo 2',sans-serif;
+  font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:13px 28px; text-decoration:none;
+  box-shadow:0 4px 20px rgba(208,2,27,0.28);
+  transition:all .22s;
+}
+.pain-cta:hover {
+  background:#b50018;
+  box-shadow:0 6px 28px rgba(208,2,27,0.42);
+  transform:translateY(-1px);
+}
+.pain-cta .arr { font-size:15px; transition:transform .2s; }
+.pain-cta:hover .arr { transform:translateX(3px); }
+
+.pain-cta-note {
+  font-size:12.5px; color:var(--white3); line-height:1.5;
+  font-family:'Share Tech Mono',monospace; letter-spacing:.04em;
+}
+.pain-cta-note span { color:var(--red); font-weight:700; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(22px); }
+  to   { opacity:1; transform:none; }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity:0; transform:translateY(24px);
+  transition:opacity .65s ease, transform .65s ease;
+}
+.reveal.visible { opacity:1; transform:none; }
+/* ══ SECTION ══ */
+.teekond-section {
+  padding:120px 0 100px;
+  position:relative; overflow:hidden;
+  background:var(--deep);
+}
+
+/* Grid bg */
+.teekond-section::before {
+  content:'';
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,87,217,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,87,217,0.04) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* Glows */
+.glow-tl {
+  position:absolute; top:-5%; left:-5%; width:600px; height:600px;
+  border-radius:50%; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(0,87,217,0.07) 0%, transparent 65%);
+}
+.glow-br {
+  position:absolute; bottom:-10%; right:-5%; width:500px; height:500px;
+  border-radius:50%; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(40,167,69,0.06) 0%, transparent 65%);
+}
+
+.teekond-inner {
+  max-width:1280px; margin:0 auto; padding:0 64px;
+  position:relative; z-index:1;
+}
+@media(max-width:768px){ .teekond-inner{padding:0 24px;} }
+
+/* ── HEADER ── */
+.section-header {
+  text-align:center; margin-bottom:64px;
+}
+.section-eyebrow {
+  display:inline-flex; align-items:center; gap:12px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:20px;
+}
+.section-eyebrow::before,.section-eyebrow::after {
+  content:''; width:32px; height:1.5px;
+  background:linear-gradient(90deg,var(--blue),var(--blue-soft));
+}
+.section-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(32px,4vw,52px); font-weight:900;
+  line-height:1.06; letter-spacing:-.03em; color:var(--white);
+  margin-bottom:6px;
+}
+.section-title em {
+  font-style:italic; color:var(--blue);
+  display:block;
+}
+.section-sub {
+  font-size:17px; color:var(--white2); line-height:1.7;
+  max-width:540px; margin:20px auto 0;
+}
+
+/* ── TABS ── */
+.tabs-nav {
+  display:flex; gap:3px; margin-bottom:3px;
+  background:rgba(255,255,255,0.5);
+  backdrop-filter:blur(12px);
+  padding:4px;
+  border:1px solid var(--white4);
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+.tab-btn {
+  flex:1; min-width:0;
+  background:transparent; border:none;
+  color:var(--white3);
+  font-family:'Exo 2',sans-serif;
+  font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  padding:14px 6px 12px;
+  cursor:pointer; text-align:center;
+  transition:all .2s;
+  position:relative;
+  border-radius:0 !important;
+}
+.tab-btn .tab-num {
+  display:block;
+  font-family:'Share Tech Mono',monospace;
+  font-size:18px; font-weight:400;
+  line-height:1; margin-bottom:4px;
+  color:inherit;
+  transition:color .2s;
+}
+.tab-btn::after {
+  content:'';
+  position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:0; height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--blue-soft));
+  transition:width .25s;
+}
+.tab-btn:hover { color:var(--white2); background:rgba(0,87,217,0.04); }
+.tab-btn:hover::after { width:60%; }
+.tab-btn.active {
+  background:var(--abyss);
+  color:var(--blue);
+  box-shadow:0 1px 8px rgba(0,87,217,0.12), 0 0 0 1px rgba(0,87,217,0.1);
+}
+.tab-btn.active .tab-num { color:var(--blue); }
+.tab-btn.active::after { width:80%; }
+
+/* completed day style */
+.tab-btn.done { color:var(--acid); }
+.tab-btn.done .tab-num { color:var(--acid); }
+.tab-btn.done::after { background:var(--acid); width:60%; }
+
+/* ── PANEL ── */
+.tab-panel {
+  display:none;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 16px 48px rgba(0,87,217,0.09),
+    0 40px 80px rgba(0,87,217,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.95);
+  position:relative; overflow:hidden;
+  animation:panelIn .35s ease both;
+}
+.tab-panel.active { display:grid; grid-template-columns:1.05fr 0.95fr; }
+@media(max-width:840px){ .tab-panel.active{grid-template-columns:1fr;} }
+
+@keyframes panelIn {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:none; }
+}
+
+/* Top accent */
+.tab-panel::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--blue-soft),rgba(0,87,217,0.1) 85%,transparent);
+}
+
+/* ── PANEL LEFT ── */
+.panel-left {
+  padding:44px 40px 40px;
+  border-right:1px solid var(--white4);
+}
+@media(max-width:840px){ .panel-left{border-right:none;border-bottom:1px solid var(--white4);padding:32px 24px;} }
+
+.panel-day-tag {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:18px;
+}
+.panel-day-tag::before { content:''; width:18px; height:1.5px; background:var(--blue); }
+
+.panel-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(20px,2.5vw,28px); font-weight:800;
+  line-height:1.15; letter-spacing:-.025em;
+  color:var(--white); margin-bottom:14px;
+}
+.panel-goal {
+  font-size:14px; color:var(--white2); line-height:1.75;
+  border-left:2px solid var(--blueborder);
+  padding-left:16px; margin-bottom:28px;
+}
+.panel-goal strong { color:var(--white); }
+
+/* Factory tag */
+.factory-tag {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--goldbg); border:1px solid var(--goldborder);
+  padding:7px 14px; margin-bottom:28px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--gold);
+}
+
+/* Progress */
+.progress-wrap { margin-top:auto; }
+.progress-top {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:8px;
+}
+.progress-top-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--white3);
+}
+.progress-pct {
+  font-family:'Exo 2',sans-serif;
+  font-size:15px; font-weight:800; color:var(--blue);
+}
+.progress-track {
+  height:4px; background:var(--white4); position:relative; overflow:hidden;
+  border-radius:0 !important;
+}
+.progress-fill {
+  position:absolute; top:0; left:0; height:100%;
+  background:linear-gradient(90deg,var(--blue),var(--blue-soft));
+  transition:width .7s cubic-bezier(.4,0,.2,1);
+  border-radius:0 !important;
+}
+.progress-days {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--white3); margin-top:8px;
+}
+
+/* ── PANEL RIGHT ── */
+.panel-right {
+  padding:44px 36px 40px;
+  background:rgba(247,248,250,0.4);
+}
+@media(max-width:840px){ .panel-right{padding:28px 24px;} }
+
+.activities-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--white3); margin-bottom:20px;
+  display:flex; align-items:center; gap:10px;
+}
+.activities-label::after { content:''; flex:1; height:1px; background:var(--white4); }
+
+.activity-list { list-style:none; display:flex; flex-direction:column; }
+.activity-item {
+  display:flex; gap:14px; align-items:flex-start;
+  padding:13px 0; border-bottom:1px solid var(--white4);
+  transition:background .16s;
+  cursor:default;
+}
+.activity-item:first-child { padding-top:0; }
+.activity-item:last-child { border-bottom:none; padding-bottom:0; }
+.activity-item:hover { padding-left:4px; }
+
+.activity-num {
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; color:var(--blue);
+  flex-shrink:0; margin-top:2px; min-width:22px;
+  font-weight:700; letter-spacing:.06em;
+}
+.activity-text {
+  font-size:13.5px; color:var(--white2); line-height:1.6;
+  transition:color .16s;
+}
+.activity-item:hover .activity-text { color:var(--white); }
+.activity-text strong { color:var(--white); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from{opacity:0;transform:translateY(22px);}
+  to{opacity:1;transform:none;}
+}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ══ SECTION ══ */
+.hoiatus-section {
+  width:100%; max-width:1280px;
+  position:relative;
+}
+
+/* ── OUTER SHELL ── */
+.hoiatus-shell {
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(32px) saturate(180%);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  box-shadow:
+    0 0 0 1px rgba(200,0,26,0.1),
+    0 8px 16px rgba(200,0,26,0.05),
+    0 32px 80px rgba(200,0,26,0.08),
+    0 64px 120px rgba(0,0,0,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.95);
+  position:relative; overflow:hidden;
+}
+
+/* Top red accent */
+.hoiatus-shell::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,
+    var(--red) 0%,
+    var(--red2) 30%,
+    rgba(200,0,26,0.5) 65%,
+    transparent 100%
+  );
+  z-index:2;
+}
+
+/* Ambient red glow top-left */
+.hoiatus-shell::after {
+  content:'';
+  position:absolute; top:-40%; left:-10%;
+  width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(ellipse, rgba(200,0,26,0.05) 0%, transparent 65%);
+  pointer-events:none;
+}
+
+/* Inner grid */
+.hoiatus-grid {
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  min-height:400px;
+  position:relative; z-index:1;
+}
+@media(max-width:860px){
+  .hoiatus-grid { grid-template-columns:1fr; }
+  .hoiatus-divider { display:none; }
+}
+
+/* Divider */
+.hoiatus-divider {
+  width:1px;
+  background:linear-gradient(180deg,
+    transparent 0%,
+    var(--redborder) 20%,
+    rgba(200,0,26,0.12) 80%,
+    transparent 100%
+  );
+  align-self:stretch;
+}
+
+/* ════════
+   LEFT
+════════ */
+.hoiatus-left {
+  padding:52px 56px 48px;
+}
+@media(max-width:600px){ .hoiatus-left{padding:36px 28px;} }
+
+/* Badge */
+.hoiatus-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--redbg); border:1px solid var(--redborder);
+  padding:6px 14px; margin-bottom:28px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--red);
+  animation:badgePulse 2.5s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%,100%{ box-shadow:0 0 0 0 rgba(200,0,26,0); }
+  50%    { box-shadow:0 0 0 5px rgba(200,0,26,0.07); }
+}
+.badge-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--red);
+  animation:dotBlink 1.4s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes dotBlink {
+  0%,100%{opacity:1; transform:scale(1);}
+  50%    {opacity:0.4; transform:scale(.7);}
+}
+
+/* Title */
+.hoiatus-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(26px,3vw,38px);
+  font-weight:900; line-height:1.1;
+  letter-spacing:-.03em; color:var(--white);
+  margin-bottom:18px;
+}
+.hoiatus-title span {
+  display:block; color:var(--red);
+  font-style:italic;
+}
+
+/* Body text */
+.hoiatus-body {
+  font-size:15px; color:var(--white2); line-height:1.75;
+  margin-bottom:36px; max-width:420px;
+}
+.hoiatus-body strong { color:var(--white); }
+
+/* Variant items */
+.variant-list { display:flex; flex-direction:column; gap:10px; margin-bottom:40px; }
+
+.variant-item {
+  display:flex; gap:14px; align-items:flex-start;
+  background:rgba(255,255,255,0.6);
+  border:1px solid var(--white4);
+  padding:16px 20px;
+  position:relative; overflow:hidden;
+  transition:border-color .2s, background .2s, transform .2s;
+  cursor:default;
+}
+.variant-item::before {
+  content:'';
+  position:absolute; top:0; left:0; bottom:0; width:2.5px;
+  background:var(--red); opacity:.3;
+  transition:opacity .2s;
+}
+.variant-item:hover {
+  border-color:var(--redborder);
+  background:rgba(255,255,255,0.9);
+  transform:translateX(4px);
+}
+.variant-item:hover::before { opacity:1; }
+
+.variant-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--red); flex-shrink:0; margin-top:6px;
+  box-shadow:0 0 6px rgba(200,0,26,0.5);
+}
+.variant-text { font-size:14px; color:var(--white2); line-height:1.6; }
+.variant-text strong { color:var(--white); }
+
+/* CTA link */
+.hoiatus-cta {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--blue); text-decoration:none;
+  border-bottom:1.5px solid var(--blueborder);
+  padding-bottom:2px;
+  transition:color .2s, border-color .2s, gap .2s;
+}
+.hoiatus-cta:hover {
+  color:var(--blue2); border-color:var(--blue);
+  gap:14px;
+}
+
+/* ════════
+   RIGHT
+════════ */
+.hoiatus-right {
+  padding:52px 56px 48px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  background:rgba(248,249,251,0.6);
+}
+@media(max-width:860px){ .hoiatus-right{padding:36px 28px;border-top:1px solid var(--white4);} }
+@media(max-width:600px){ .hoiatus-right{padding:28px 24px;} }
+
+/* Timer label */
+.timer-eyebrow {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.22em; text-transform:uppercase;
+  color:rgba(200,0,26,0.55); margin-bottom:24px;
+  display:flex; align-items:center; gap:10px;
+}
+.timer-eyebrow::after {
+  content:''; flex:1; height:1px;
+  background:linear-gradient(90deg, var(--redborder), transparent);
+}
+
+/* Timer digits */
+.timer-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:3px; margin-bottom:32px;
+}
+
+.timer-unit {
+  display:flex; flex-direction:column; align-items:center;
+  background:rgba(255,255,255,0.7);
+  border:1px solid var(--white4);
+  padding:22px 8px 16px;
+  position:relative; overflow:hidden;
+  transition:border-color .2s;
+}
+.timer-unit::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--red); opacity:.3;
+  transition:opacity .2s;
+}
+.timer-unit:hover { border-color:var(--redborder); }
+.timer-unit:hover::before { opacity:.8; }
+
+.timer-num {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(40px,4.5vw,64px);
+  font-weight:800; line-height:1;
+  color:var(--red); letter-spacing:-.03em;
+  display:block;
+  transition:transform .12s ease;
+}
+.timer-num.tick {
+  animation:tick .25s cubic-bezier(.4,0,.2,1);
+}
+@keyframes tick {
+  0%  { transform:translateY(-6px) scale(1.04); opacity:.7; }
+  60% { transform:translateY(2px); }
+  100%{ transform:translateY(0) scale(1); opacity:1; }
+}
+
+.timer-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--white3); margin-top:10px; display:block;
+}
+
+/* Separator dots */
+.timer-sep {
+  display:flex; align-items:center; justify-content:center;
+  padding-bottom:32px;
+}
+.timer-sep span {
+  font-family:'Exo 2',sans-serif;
+  font-size:36px; font-weight:300;
+  color:rgba(200,0,26,0.2); line-height:1;
+  display:flex; flex-direction:column; gap:6px;
+}
+.timer-sep span::before,
+.timer-sep span::after {
+  content:'';
+  width:4px; height:4px; border-radius:50%;
+  background:rgba(200,0,26,0.3);
+  display:block;
+}
+
+/* CTA button */
+.timer-cta-btn {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%;
+  background:var(--red); color:#fff;
+  font-family:'Exo 2',sans-serif;
+  font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  padding:18px 24px; text-decoration:none;
+  position:relative; overflow:hidden;
+  transition:all .25s;
+  box-shadow:0 4px 20px rgba(200,0,26,0.28), 0 1px 4px rgba(200,0,26,0.18);
+  margin-bottom:16px;
+}
+/* Shine sweep on hover */
+.timer-cta-btn::before {
+  content:'';
+  position:absolute; top:0; left:-100%; width:60%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition:left .4s ease;
+}
+.timer-cta-btn:hover {
+  background:var(--red2);
+  box-shadow:0 8px 32px rgba(200,0,26,0.42), 0 2px 8px rgba(200,0,26,0.22);
+  transform:translateY(-2px);
+}
+.timer-cta-btn:hover::before { left:140%; }
+.btn-arrow { font-size:16px; transition:transform .2s; }
+.timer-cta-btn:hover .btn-arrow { transform:translateX(4px); }
+
+/* Privacy note */
+.timer-privacy {
+  font-size:12px; color:var(--white3);
+  line-height:1.6; text-align:center;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.timer-privacy a { color:var(--blue); text-decoration:none; }
+.timer-privacy a:hover { color:var(--blue2); }
+
+/* ── BOTTOM STRIP ── */
+.hoiatus-bottom {
+  background:var(--redbg);
+  border-top:1px solid var(--redborder);
+  padding:16px 56px;
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+  flex-wrap:wrap;
+  position:relative; z-index:1;
+}
+@media(max-width:600px){ .hoiatus-bottom{padding:14px 24px;} }
+
+.bottom-stat {
+  display:flex; align-items:center; gap:10px;
+  font-size:13px; color:var(--white2);
+}
+.bottom-stat-num {
+  font-family:'Exo 2',sans-serif;
+  font-size:22px; font-weight:800; color:var(--red);
+  line-height:1;
+}
+.bottom-stat-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:8.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--white3); margin-top:2px;
+}
+.bottom-divider {
+  width:1px; height:32px;
+  background:var(--redborder);
+}
+/* ══ SECTION ══ */
+.reg-section {
+  max-width:1280px; margin:0 auto;
+  position:relative;
+}
+
+/* Ambient glow */
+.reg-section::before {
+  content:'';
+  position:absolute; top:5%; right:-5%;
+  width:600px; height:600px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(0,87,217,0.07) 0%, transparent 65%);
+}
+.reg-section::after {
+  content:'';
+  position:absolute; bottom:0; left:-5%;
+  width:500px; height:500px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(0,87,217,0.05) 0%, transparent 65%);
+}
+
+.reg-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:3px; align-items:start;
+  position:relative; z-index:1;
+}
+@media(max-width:940px){ .reg-grid{grid-template-columns:1fr;} }
+
+
+/* ════════════════
+   LEFT COLUMN
+════════════════ */
+.reg-left { display:flex; flex-direction:column; gap:3px; }
+
+/* ── Text card ── */
+.reg-text-card {
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  box-shadow:0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,87,217,0.08), inset 0 1px 0 rgba(255,255,255,0.95);
+  padding:48px 44px 44px;
+  position:relative; overflow:hidden;
+}
+.reg-text-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--blue), var(--blue-soft), rgba(0,87,217,0.1) 80%, transparent);
+}
+.reg-text-card::after {
+  content:'';
+  position:absolute; bottom:-60px; right:-60px;
+  width:220px; height:220px; border-radius:50%;
+  background:radial-gradient(ellipse, rgba(0,87,217,0.05) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+.reg-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:20px;
+}
+.reg-eyebrow::before{ content:''; width:24px; height:1.5px; background:var(--blue); }
+
+.reg-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(30px,3.5vw,46px); font-weight:900;
+  line-height:1.06; letter-spacing:-.03em; color:var(--white);
+  margin-bottom:6px;
+}
+.reg-title em {
+  font-style:italic; color:var(--blue); display:block;
+}
+
+.reg-sub {
+  font-size:16px; color:var(--white2); line-height:1.8;
+  margin-bottom:36px; max-width:380px;
+}
+
+/* Trust items */
+.trust-list { display:flex; flex-direction:column; gap:0; }
+
+.trust-item {
+  display:flex; gap:14px; align-items:flex-start;
+  padding:14px 0; border-bottom:1px solid var(--white4);
+  transition:padding-left .18s;
+  cursor:default;
+}
+.trust-item:first-child { padding-top:0; }
+.trust-item:last-child { border-bottom:none; padding-bottom:0; }
+.trust-item:hover { padding-left:6px; }
+
+.trust-icon {
+  width:38px; height:38px; flex-shrink:0;
+  background:var(--bluebg); border:1px solid var(--blueborder);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; transition:background .18s, transform .18s;
+}
+.trust-item:hover .trust-icon {
+  background:rgba(0,87,217,0.14);
+  transform:scale(1.05);
+}
+.trust-body { flex:1; }
+.trust-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:14px; font-weight:700; color:var(--white);
+  margin-bottom:3px; line-height:1.3;
+}
+.trust-text { font-size:13px; color:var(--white3); line-height:1.55; }
+.trust-text a { color:var(--blue); text-decoration:none; }
+
+/* ── Review card ── */
+.review-card {
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,87,217,0.07), inset 0 1px 0 rgba(255,255,255,0.95);
+  padding:28px 32px;
+  position:relative; overflow:hidden;
+}
+.review-card::before {
+  content:'';
+  position:absolute; top:0; left:0; bottom:0; width:3px;
+  background:linear-gradient(180deg, var(--gold), rgba(224,123,0,0.3), transparent);
+}
+
+.review-stars {
+  display:flex; align-items:center; gap:6px; margin-bottom:14px;
+}
+.review-stars .stars { display:flex; gap:2px; }
+.star { color:var(--gold); font-size:14px; }
+.review-score {
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.12em; color:var(--white3); margin-left:4px;
+}
+
+.review-quote {
+  font-family:'Exo 2',sans-serif;
+  font-size:15px; font-style:italic; color:var(--white);
+  line-height:1.7; margin-bottom:20px;
+  position:relative; padding-left:4px;
+}
+.review-quote::before {
+  content:'"';
+  position:absolute; top:-14px; left:-8px;
+  font-size:56px; font-weight:900; line-height:1;
+  color:rgba(0,87,217,0.07); pointer-events:none;
+  font-style:normal;
+}
+
+.review-author {
+  display:flex; align-items:center; gap:12px;
+  padding-top:16px; border-top:1px solid var(--white4);
+}
+.review-avatar {
+  width:40px; height:40px; border-radius:50%; flex-shrink:0;
+  background:var(--blue);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Exo 2',sans-serif; font-size:14px; font-weight:800; color:#fff;
+}
+.review-name {
+  font-family:'Exo 2',sans-serif;
+  font-size:14px; font-weight:700; color:var(--white); margin-bottom:2px;
+}
+.review-role { font-size:12px; color:var(--white3); }
+.review-company { color:var(--blue); font-weight:600; }
+.review-verified {
+  margin-left:auto;
+  display:inline-flex; align-items:center; gap:5px;
+  background:var(--acidbg); border:1px solid var(--acidborder);
+  padding:4px 10px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:8.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--acid);
+}
+
+/* ── Social card ── */
+.social-card {
+  background:rgba(255,255,255,0.7);
+  box-shadow:0 1px 4px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.95);
+  padding:18px 28px;
+  display:flex; align-items:center; gap:16px;
+}
+.social-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--white3); flex-shrink:0;
+}
+.social-btns { display:flex; gap:8px; }
+.social-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  border:1px solid var(--white4); background:var(--deep);
+  color:var(--white2); padding:8px 16px;
+  font-size:13px; text-decoration:none; transition:all .2s;
+}
+.social-btn:hover { border-color:var(--blueborder); color:var(--blue); background:var(--bluebg); }
+.social-icon-ig {
+  width:20px; height:20px; border-radius:4px;
+  background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; color:#fff;
+}
+.social-icon-li {
+  width:20px; height:20px;
+  background:#0077b5;
+  display:flex; align-items:center; justify-content:center;
+  font-family:serif; font-size:11px; font-weight:700; color:#fff;
+}
+
+
+/* ════════════════
+   RIGHT COLUMN — FORM
+════════════════ */
+.form-shell {
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(32px) saturate(180%);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  box-shadow:
+    0 0 0 1px rgba(0,87,217,0.08),
+    0 4px 8px rgba(0,0,0,0.04),
+    0 20px 60px rgba(0,87,217,0.1),
+    0 60px 100px rgba(0,87,217,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.98);
+  position:relative; overflow:hidden;
+}
+.form-shell::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--blue) 0%, var(--blue-soft) 50%, rgba(0,87,217,0.15) 85%, transparent);
+  z-index:2;
+}
+
+/* Form header */
+.form-header {
+  padding:32px 40px 26px;
+  border-bottom:1px solid var(--white4);
+}
+.form-header-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--white3); margin-bottom:8px;
+}
+.form-header-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:22px; font-weight:800; color:var(--white); line-height:1.2;
+}
+
+/* Form body */
+.form-body { padding:32px 40px 36px; }
+@media(max-width:600px){ .form-header{padding:24px 24px 20px;} .form-body{padding:24px 24px 28px;} }
+
+/* Field group */
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:3px; margin-bottom:3px; }
+.field-row.full { grid-template-columns:1fr; }
+@media(max-width:520px){ .field-row{grid-template-columns:1fr;} }
+
+.field-group { display:flex; flex-direction:column; }
+
+.field-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--white3);
+  background:var(--deep); border:1px solid var(--white4); border-bottom:none;
+  padding:9px 16px 0; line-height:1;
+}
+.field-required { color:var(--blue); margin-left:2px; }
+
+.field-input {
+  width:100%; padding:9px 16px 12px;
+  background:var(--deep); border:1px solid var(--white4); border-top:none;
+  color:var(--white); font-family:'Outfit',sans-serif; font-size:14px;
+  outline:none; transition:background .2s, border-color .2s, box-shadow .2s;
+  border-radius:0 !important; -webkit-appearance:none;
+  line-height:1.4;
+}
+.field-input::placeholder { color:var(--white3); font-size:13.5px; }
+.field-input:focus {
+  border-color:var(--blue);
+  background:var(--abyss);
+  box-shadow:0 0 0 3px rgba(0,87,217,0.1);
+}
+.field-input:focus + .field-label,
+.field-group:focus-within .field-label {
+  color:var(--blue);
+  border-color:var(--blue);
+}
+/* Focus label sibling trick */
+.field-group:focus-within .field-label { color:var(--blue); border-color:rgba(0,87,217,0.3); }
+.field-group:focus-within .field-input { border-color:var(--blue); }
+
+select.field-input { cursor:pointer; }
+select.field-input option { background:var(--abyss); color:var(--white); }
+textarea.field-input { resize:vertical; min-height:90px; }
+
+.field-gap { height:3px; }
+
+/* Checkboxes */
+.checks-block { margin:20px 0 24px; display:flex; flex-direction:column; gap:12px; }
+.check-row {
+  display:flex; gap:12px; align-items:flex-start;
+  font-size:13px; color:var(--white2); line-height:1.6;
+  cursor:pointer;
+}
+.check-row input[type=checkbox] {
+  width:16px; height:16px; flex-shrink:0; margin-top:3px;
+  accent-color:var(--blue); cursor:pointer;
+}
+.check-row a { color:var(--blue); text-decoration:none; }
+.check-row a:hover { color:var(--blue2); }
+
+/* Submit */
+.form-submit {
+  width:100%;
+  background:var(--blue); color:#fff;
+  font-family:'Exo 2',sans-serif;
+  font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  padding:19px 24px; border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  position:relative; overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,87,217,0.3), 0 1px 4px rgba(0,87,217,0.18);
+  transition:all .25s; border-radius:0 !important;
+  margin-bottom:16px;
+}
+.form-submit::before {
+  content:'';
+  position:absolute; top:0; left:-100%; width:60%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition:left .45s ease;
+}
+.form-submit:hover {
+  background:var(--blue2);
+  box-shadow:0 8px 32px rgba(0,87,217,0.42), 0 2px 8px rgba(0,87,217,0.22);
+  transform:translateY(-2px);
+}
+.form-submit:hover::before { left:140%; }
+.submit-arrow { font-size:16px; transition:transform .2s; }
+.form-submit:hover .submit-arrow { transform:translateX(4px); }
+
+/* GDPR note */
+.form-gdpr {
+  text-align:center; font-size:12px; color:var(--white3); line-height:1.65;
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+}
+.form-gdpr a { color:var(--blue); text-decoration:none; }
+
+/* ── SUCCESS STATE ── */
+.form-success {
+  display:none; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:72px 40px;
+  gap:16px; min-height:400px;
+}
+.form-success.show { display:flex; }
+.success-ring {
+  width:72px; height:72px; border-radius:50%;
+  background:var(--acidbg); border:2px solid var(--acidborder);
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; margin-bottom:8px;
+  animation:ringIn .5s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes ringIn {
+  from{transform:scale(.5);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+.success-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:26px; font-weight:800; color:var(--white); letter-spacing:-.02em;
+}
+.success-text {
+  font-size:15px; color:var(--white2); line-height:1.75; max-width:320px;
+}
+.success-note {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--acid); margin-top:8px;
+}
+
+/* ══ SECTION ══ */
+.hinnad-section {
+  max-width:1280px; margin:0 auto;
+  position:relative;
+}
+
+/* Grid background */
+.hinnad-section::before {
+  content:'';
+  position:absolute; inset:-60px; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,87,217,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,87,217,0.04) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+}
+
+/* Glows */
+.hinnad-section::after {
+  content:'';
+  position:absolute; top:20%; left:35%;
+  width:700px; height:700px; border-radius:50%; pointer-events:none;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse, rgba(0,87,217,0.07) 0%, transparent 60%);
+}
+
+/* ── HEADER ── */
+.hinnad-header {
+  margin-bottom:72px;
+  position:relative; z-index:1;
+}
+.hinnad-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:18px;
+}
+.hinnad-eyebrow::before { content:''; width:28px; height:1.5px; background:var(--blue); }
+
+.hinnad-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(36px,4.5vw,58px); font-weight:900;
+  line-height:1.05; letter-spacing:-.035em; color:var(--white);
+  margin-bottom:14px;
+}
+.hinnad-sub {
+  font-size:16px; color:var(--white2); line-height:1.75; max-width:560px;
+}
+
+/* ── PRICING GRID ── */
+.pricing-grid {
+  display:grid;
+  grid-template-columns:1fr 1.05fr 1fr;
+  gap:3px;
+  align-items:end;
+  position:relative; z-index:1;
+}
+@media(max-width:900px) { .pricing-grid{grid-template-columns:1fr;max-width:480px;} }
+
+/* ═══════════════
+   PRICE CARD BASE
+═══════════════ */
+.price-card {
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  display:flex; flex-direction:column;
+  position:relative; overflow:hidden;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.04),
+    0 12px 40px rgba(0,87,217,0.07),
+    inset 0 1px 0 rgba(255,255,255,0.95);
+  transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s;
+}
+.price-card:hover {
+  transform:translateY(-6px);
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.06),
+    0 24px 60px rgba(0,87,217,0.13),
+    inset 0 1px 0 rgba(255,255,255,0.98);
+}
+
+/* Top accent line */
+.price-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--blue), var(--blue-soft), rgba(0,87,217,0.15) 80%, transparent);
+  transition:opacity .3s;
+}
+
+/* ── POPULAR card ── */
+.price-card--popular {
+  background:rgba(255,255,255,0.96);
+  transform:translateY(-12px);
+  box-shadow:
+    0 0 0 1px rgba(0,87,217,0.12),
+    0 8px 16px rgba(0,0,0,0.06),
+    0 32px 80px rgba(0,87,217,0.16),
+    inset 0 1px 0 rgba(255,255,255,1);
+}
+.price-card--popular:hover {
+  transform:translateY(-18px);
+  box-shadow:
+    0 0 0 1px rgba(0,87,217,0.18),
+    0 12px 24px rgba(0,0,0,0.07),
+    0 40px 100px rgba(0,87,217,0.22),
+    inset 0 1px 0 rgba(255,255,255,1);
+}
+.price-card--popular::before {
+  height:3px;
+  background:linear-gradient(90deg, var(--blue), var(--blue-soft), var(--blue));
+}
+
+/* Popular badge */
+.popular-badge {
+  position:absolute; top:0; right:0;
+  background:var(--blue); color:#fff;
+  font-family:'Share Tech Mono',monospace;
+  font-size:8.5px; letter-spacing:.14em; text-transform:uppercase;
+  padding:6px 16px 6px 14px;
+  clip-path:polygon(8px 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* ── CARD HEAD ── */
+.card-head {
+  padding:32px 32px 24px;
+  border-bottom:1px solid var(--white4);
+}
+
+.card-tier {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
+}
+.card-tier::before { content:''; width:14px; height:1px; background:var(--blue); }
+
+.card-title {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(18px,2vw,22px); font-weight:800;
+  line-height:1.2; letter-spacing:-.02em; color:var(--white);
+  margin-bottom:10px;
+}
+.card-desc {
+  font-size:13px; color:var(--white3); line-height:1.65;
+}
+
+/* ── PRICE BLOCK ── */
+.card-price {
+  padding:24px 32px;
+  border-bottom:1px solid var(--white4);
+  display:flex; align-items:flex-end; gap:4px;
+}
+
+.price-amount {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(52px,5.5vw,72px); font-weight:300;
+  line-height:1; color:var(--white); letter-spacing:-.04em;
+}
+.price-currency {
+  font-family:'Exo 2',sans-serif;
+  font-size:20px; font-weight:700; color:var(--blue);
+  margin-bottom:10px;
+}
+.price-suffix {
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.1em; color:var(--white3);
+  margin-bottom:10px; margin-left:2px;
+}
+.price-custom {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(30px,3.5vw,42px); font-style:italic; font-weight:700;
+  color:var(--blue); line-height:1.1;
+}
+.price-eis-note {
+  margin-top:12px; padding-top:12px;
+  border-top:1px solid var(--white4);
+  font-size:12px; color:var(--white3); line-height:1.5;
+  display:flex; align-items:center; gap:6px;
+}
+.price-eis-strong { color:var(--acid); font-weight:700; }
+
+/* ── FEATURES LIST ── */
+.card-features {
+  padding:22px 32px;
+  flex:1;
+  list-style:none; display:flex; flex-direction:column; gap:0;
+}
+.feature-item {
+  display:flex; gap:12px; align-items:flex-start;
+  padding:11px 0; border-bottom:1px solid var(--white4);
+  font-size:13.5px; color:var(--white2); line-height:1.5;
+  transition:color .16s, padding-left .16s;
+  cursor:default;
+}
+.feature-item:first-child { padding-top:0; }
+.feature-item:last-child { border-bottom:none; padding-bottom:0; }
+.feature-item:hover { color:var(--white); padding-left:4px; }
+.feature-item.included .f-icon { color:var(--blue); font-size:12px; margin-top:3px; flex-shrink:0; }
+.feature-item.excluded { color:var(--white3); }
+.feature-item.excluded .f-icon { color:var(--white4); font-size:12px; margin-top:3px; flex-shrink:0; }
+.feature-item.highlight { color:var(--white); }
+.feature-item.highlight .f-icon { color:var(--acid); }
+.feature-item.highlight .f-text { font-weight:700; }
+
+/* ── CTA ── */
+.card-cta {
+  padding:24px 32px 32px;
+  display:flex; flex-direction:column; gap:10px;
+}
+.cta-btn {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%; padding:17px 24px;
+  font-family:'Exo 2',sans-serif;
+  font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  text-decoration:none; border:none; cursor:pointer;
+  position:relative; overflow:hidden;
+  transition:all .25s; border-radius:0 !important;
+}
+.cta-btn::before {
+  content:'';
+  position:absolute; top:0; left:-100%; width:60%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+  transition:left .45s ease;
+}
+.cta-btn:hover::before { left:140%; }
+.cta-arrow { font-size:15px; transition:transform .2s; }
+.cta-btn:hover .cta-arrow { transform:translateX(4px); }
+
+/* Primary */
+.cta-btn--primary {
+  background:var(--blue); color:#fff;
+  box-shadow:0 4px 20px rgba(0,87,217,0.28);
+}
+.cta-btn--primary:hover {
+  background:var(--blue2);
+  box-shadow:0 8px 32px rgba(0,87,217,0.42);
+  transform:translateY(-1px);
+}
+
+/* Outline */
+.cta-btn--outline {
+  background:transparent; color:var(--blue);
+  border:1.5px solid var(--blueborder);
+}
+.cta-btn--outline:hover {
+  background:var(--bluebg);
+  border-color:rgba(0,87,217,0.3);
+  transform:translateY(-1px);
+}
+
+/* Ghost */
+.cta-btn--ghost {
+  background:var(--deep); color:var(--white2);
+  border:1px solid var(--white4);
+}
+.cta-btn--ghost:hover {
+  background:var(--surface);
+  color:var(--white);
+  transform:translateY(-1px);
+}
+
+.cta-note {
+  text-align:center;
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--white3);
+}
+
+/* ── EIS BANNER ── */
+.eis-banner {
+  margin-top:3px;
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--blueborder);
+  padding:20px 36px;
+  display:flex; align-items:center; gap:20px;
+  position:relative; overflow:hidden;
+  transition:background .2s;
+}
+.eis-banner::before {
+  content:'';
+  position:absolute; top:0; left:0; bottom:0; width:3px;
+  background:linear-gradient(180deg, var(--blue), var(--blue-soft), rgba(0,87,217,0.2));
+}
+.eis-banner:hover { background:rgba(255,255,255,0.9); }
+
+.eis-pct-wrap {
+  flex-shrink:0; text-align:center;
+  padding-right:20px; border-right:1px solid var(--white4);
+}
+.eis-pct {
+  font-family:'Exo 2',sans-serif;
+  font-size:40px; font-weight:800; line-height:1; color:var(--blue); letter-spacing:-.03em;
+}
+.eis-pct sup { font-size:18px; vertical-align:super; }
+.eis-pct-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:8.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--white3);
+  margin-top:3px;
+}
+.eis-text {
+  flex:1; font-size:13.5px; color:var(--white2); line-height:1.65;
+}
+.eis-text strong { color:var(--white); }
+.eis-cta {
+  flex-shrink:0;
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--blue); text-decoration:none;
+  border-bottom:1.5px solid var(--blueborder); padding-bottom:1px;
+  transition:color .2s, border-color .2s, gap .2s;
+  display:flex; align-items:center; gap:8px;
+  white-space:nowrap;
+}
+.eis-cta:hover { color:var(--blue2); border-color:var(--blue); gap:12px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:none;}
+}
+.price-card { animation:fadeUp .55s ease both; }
+.price-card:nth-child(1){ animation-delay:.1s; }
+.price-card:nth-child(2){ animation-delay:.18s; }
+.price-card:nth-child(3){ animation-delay:.26s; }
+.eis-banner { animation:fadeUp .55s ease .34s both; }
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* spacer */
+.spacer {
+  height:200px;
+  background:linear-gradient(180deg, var(--bg) 0%, var(--deep) 100%);
+  display:flex; align-items:flex-end; justify-content:center;
+  padding-bottom:24px;
+}
+.spacer-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--white3);
+}
+
+
+/* ══════════════════════════════════
+   CTA STRIP
+══════════════════════════════════ */
+.cta-strip {
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(32px) saturate(180%);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  border-top:1px solid var(--white4);
+  border-bottom:1px solid var(--white4);
+  position:relative; overflow:hidden;
+}
+
+/* Top gradient line */
+.cta-strip::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,
+    var(--red) 0%,
+    rgba(200,0,26,0.6) 15%,
+    var(--blue) 45%,
+    var(--blue-soft) 65%,
+    var(--acid) 85%,
+    transparent 100%
+  );
+}
+
+/* Ambient glow */
+.cta-strip::after {
+  content:'';
+  position:absolute; top:-80%; right:10%;
+  width:500px; height:500px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(0,87,217,0.06) 0%, transparent 65%);
+}
+
+.cta-strip-inner {
+  max-width:1280px; margin:0 auto; padding:32px 64px;
+  display:flex; align-items:center; justify-content:space-between; gap:40px;
+  position:relative; z-index:1;
+}
+@media(max-width:768px){ .cta-strip-inner{flex-direction:column;padding:28px 24px;gap:24px;text-align:center;} }
+
+.cta-strip-text {
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(18px,2vw,24px); font-weight:400;
+  color:var(--white); line-height:1.3;
+}
+.cta-strip-text em {
+  font-style:italic; font-weight:700; color:var(--blue);
+}
+.cta-strip-right { display:flex; align-items:center; gap:16px; flex-shrink:0; }
+.cta-strip-note {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--white3); white-space:nowrap;
+}
+.cta-strip-btn {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--blue); color:#fff;
+  font-family:'Exo 2',sans-serif;
+  font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  padding:15px 32px; text-decoration:none;
+  position:relative; overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,87,217,0.28);
+  transition:all .25s; flex-shrink:0;
+  border-radius:0 !important;
+}
+.cta-strip-btn::before {
+  content:'';
+  position:absolute; top:0; left:-100%; width:60%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
+  transition:left .45s ease;
+}
+.cta-strip-btn:hover {
+  background:var(--blue2);
+  box-shadow:0 8px 32px rgba(0,87,217,0.42);
+  transform:translateY(-1px);
+}
+.cta-strip-btn:hover::before { left:140%; }
+.cta-arrow { font-size:15px; transition:transform .2s; }
+.cta-strip-btn:hover .cta-arrow { transform:translateX(4px); }
+
+
+/* ══════════════════════════════════
+   FOOTER MAIN
+══════════════════════════════════ */
+footer {
+  background:var(--abyss);
+  position:relative; overflow:hidden;
+}
+
+/* Subtle dot texture */
+footer::before {
+  content:'';
+  position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(circle, rgba(15,17,23,0.04) 1px, transparent 1px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 100%, black 30%, transparent 100%);
+}
+
+/* Blue ambient glow */
+footer::after {
+  content:'';
+  position:absolute; bottom:-20%; left:30%;
+  width:700px; height:700px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(0,87,217,0.05) 0%, transparent 60%);
+}
+
+/* ── MAIN GRID ── */
+.footer-main {
+  max-width:1280px; margin:0 auto; padding:72px 64px 56px;
+  display:grid; grid-template-columns:1.6fr 1fr 1fr 1.1fr;
+  gap:56px; position:relative; z-index:1;
+}
+@media(max-width:1024px){ .footer-main{grid-template-columns:1fr 1fr;gap:40px;padding:56px 40px;} }
+@media(max-width:600px) { .footer-main{grid-template-columns:1fr;padding:40px 24px 32px;gap:36px;} }
+
+/* ── Brand column ── */
+.footer-brand { display:flex; flex-direction:column; }
+
+.brand-logo-row {
+  display:flex; align-items:center; gap:13px; margin-bottom:18px;
+}
+.brand-logo-box {
+  width:40px; height:40px; background:var(--red);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Exo 2',sans-serif; font-size:14px; font-weight:900; color:#fff;
+  flex-shrink:0; transition:background .2s;
+}
+.brand-logo-box:hover { background:rgba(200,0,26,0.85); }
+.brand-name-wrap { display:flex; flex-direction:column; gap:2px; }
+.brand-name {
+  font-family:'Exo 2',sans-serif;
+  font-size:18px; font-weight:900; color:var(--white);
+  letter-spacing:-.01em; line-height:1;
+}
+.brand-domain {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--red);
+}
+
+.brand-desc {
+  font-size:13.5px; color:var(--white3); line-height:1.75; margin-bottom:24px;
+  max-width:280px;
+}
+
+/* Tags */
+.brand-tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:28px; }
+.brand-tag {
+  font-family:'Share Tech Mono',monospace;
+  font-size:8.5px; letter-spacing:.12em; text-transform:uppercase;
+  border:1px solid var(--white4); color:var(--white3); background:var(--white5);
+  padding:4px 10px; transition:all .18s;
+}
+.brand-tag:hover { border-color:var(--blueborder); color:var(--blue); background:var(--bluebg); }
+
+/* Social */
+.brand-social { display:flex; gap:8px; }
+.social-btn {
+  width:36px; height:36px;
+  border:1px solid var(--white4); background:var(--deep);
+  display:flex; align-items:center; justify-content:center;
+  text-decoration:none; transition:all .2s;
+  font-size:16px;
+}
+.social-btn:hover { border-color:var(--blueborder); background:var(--bluebg); transform:translateY(-2px); }
+.social-btn.ig { font-size:15px; }
+.social-btn.li {
+  font-family:'Exo 2',sans-serif; font-size:12px; font-weight:900;
+  color:#0077b5; background:#e8f3f9; border-color:rgba(0,119,181,0.2);
+}
+.social-btn.li:hover { background:#d1eaf7; border-color:rgba(0,119,181,0.4); }
+
+/* ── Nav columns ── */
+.footer-col-title {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blue);
+  display:flex; align-items:center; gap:10px;
+  padding-bottom:14px; margin-bottom:4px;
+  border-bottom:1px solid var(--white4);
+}
+.footer-col-title::before { content:''; width:14px; height:1.5px; background:var(--blue); flex-shrink:0; }
+
+.footer-links { list-style:none; display:flex; flex-direction:column; }
+.footer-links a {
+  font-size:13.5px; color:var(--white2);
+  text-decoration:none; padding:9px 0;
+  border-bottom:1px solid var(--white4);
+  display:flex; align-items:center; gap:0;
+  transition:color .18s, padding-left .18s, border-color .18s;
+  position:relative;
+}
+.footer-links li:last-child a { border-bottom:none; }
+.footer-links a::before {
+  content:'';
+  position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:0; height:1.5px; background:var(--blue);
+  transition:width .2s;
+}
+.footer-links a:hover { color:var(--blue); padding-left:12px; }
+.footer-links a:hover::before { width:8px; }
+
+/* ── Contact column ── */
+.footer-contact { display:flex; flex-direction:column; gap:0; }
+.contact-item {
+  display:flex; gap:12px; align-items:flex-start;
+  padding:12px 0; border-bottom:1px solid var(--white4);
+  transition:padding-left .18s;
+  cursor:default;
+}
+.contact-item:last-of-type { border-bottom:none; }
+.contact-item:hover { padding-left:4px; }
+.contact-icon {
+  width:30px; height:30px; flex-shrink:0;
+  background:var(--bluebg); border:1px solid var(--blueborder);
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; margin-top:1px;
+  transition:background .18s, border-color .18s;
+}
+.contact-item:hover .contact-icon { background:rgba(0,87,217,0.14); border-color:rgba(0,87,217,0.3); }
+.contact-info { flex:1; }
+.contact-label {
+  font-family:'Share Tech Mono',monospace;
+  font-size:8px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--white3); margin-bottom:3px;
+}
+.contact-val {
+  font-size:13.5px; color:var(--white2); line-height:1.4;
+}
+.contact-val a { color:var(--white2); text-decoration:none; transition:color .18s; }
+.contact-val a:hover { color:var(--blue); }
+
+
+/* ── BOTTOM BAR ── */
+.footer-bottom {
+  border-top:1px solid var(--white4);
+  position:relative; z-index:1;
+}
+
+/* Red accent left */
+.footer-bottom::before {
+  content:'';
+  position:absolute; top:-1px; left:64px;
+  width:64px; height:2px;
+  background:var(--red);
+}
+@media(max-width:600px){ .footer-bottom::before{left:24px;} }
+
+.footer-bottom-inner {
+  max-width:1280px; margin:0 auto; padding:18px 64px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  flex-wrap:wrap;
+}
+@media(max-width:768px){ .footer-bottom-inner{padding:16px 24px;flex-direction:column;text-align:center;gap:10px;} }
+
+.footer-copy {
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; letter-spacing:.1em; color:var(--white3);
+}
+.footer-copy span { color:var(--white2); }
+
+.footer-legal { display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+.footer-legal a {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--white3); text-decoration:none; transition:color .18s;
+}
+.footer-legal a:hover { color:var(--blue); }
+
+.footer-sep { color:var(--white4); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:none;}
+}
+.cta-strip { animation:fadeUp .5s ease .05s both; }
+.footer-main  { animation:fadeUp .55s ease .1s both; }
+.footer-bottom{ animation:fadeUp .5s ease .15s both; }
+
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-box">OP</div>
+    OPSTAR PROFIT™
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Koolitus</a></li>
+    <li><a href="#">9-päevane programm</a></li>
+    <li><a href="#">Miks LEAN?</a></li>
+    <li><a href="#">Kliendid</a></li>
+    <li><a href="#">Blogi</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Registreeru</a>
+</nav>
+
+<!-- ══ ANNOUNCEMENT BAR ══ -->
+<div class="announce-bar" id="announceBar">
+  <div class="announce-badge">Uus grupp</div>
+  <div class="announce-text">Järgmine grupp algab oktoober 2026 · Kohti on piiratud</div>
+  <a href="#" class="announce-link">Vaata kohti <span>→</span></a>
+  <button class="announce-close" onclick="document.getElementById('announceBar').style.display='none'">✕</button>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-inner">
+
+    <!-- LEFT -->
+    <div class="hero-left">
+
+      <div class="hero-eyebrow">LEAN · TPS · OPSTAR PROFIT™</div>
+
+      <h1 class="hero-h1">
+        Tootmisjuhtimine,
+        <span class="hero-h1-italic">mis tegelikult toimib</span>
+      </h1>
+
+      <p class="hero-sub">
+        9-päevane praktiline arenguprogramm tootmisjuhtidele, kes tahavad lõpetada tulekahjude kustutamise ja ehitada süsteemi, mis töötab ise.
+      </p>
+
+      <div class="hero-cta-row">
+        <a href="#" class="btn-hero-primary">
+          Registreeru programmi <span class="arrow">→</span>
+        </a>
+        <a href="#" class="btn-hero-secondary">
+          Vaata programmi
+        </a>
+      </div>
+
+      <div class="hero-note">
+        Järgmine grupp: <span>oktoober 2026</span> &nbsp;·&nbsp; Kohti on piiratud
+      </div>
+
+      <!-- Stat row -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="stat-num">147<sup>+</sup></div>
+          <div class="stat-label">Lõpetajat</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">60<sup>+</sup></div>
+          <div class="stat-label">Ettevõtet</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">25<sup>a</sup></div>
+          <div class="stat-label">Kogemus</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">50<sup>%</sup></div>
+          <div class="stat-label">EIS toetus</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT — FLOATING INFOGRAPHIC -->
+    <div class="hero-right">
+      <div class="schema-tooltip" id="stt"></div>
+
+      <div class="infographic-float">
+        <div class="infographic-label">OPSTAR PROFIT™ · Raamistik</div>
+
+        <!-- SVG Schema -->
+        <svg class="schema-svg" viewBox="0 0 420 310" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glow2">
+              <feGaussianBlur stdDeviation="1.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <radialGradient id="circleGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(0,87,217,0.12)"/>
+              <stop offset="100%" stop-color="rgba(0,87,217,0.04)"/>
+            </radialGradient>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="rgba(0,87,217,0.35)"/>
+            </marker>
+          </defs>
+
+          <!-- Outer orbit ring -->
+          <circle cx="210" cy="152" r="108" fill="none" stroke="rgba(0,87,217,0.07)" stroke-width="1" stroke-dasharray="5 7"/>
+          <circle cx="210" cy="152" r="86"  fill="none" stroke="rgba(0,87,217,0.05)" stroke-width="1"/>
+
+          <!-- Connector lines -->
+          <line x1="210" y1="66"  x2="210" y2="106" stroke="rgba(0,87,217,0.22)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+          <line x1="210" y1="198" x2="210" y2="238" stroke="rgba(0,87,217,0.22)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+          <line x1="124" y1="152" x2="80"  y2="152" stroke="rgba(0,87,217,0.22)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+          <line x1="296" y1="152" x2="340" y2="152" stroke="rgba(0,87,217,0.22)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+          <!-- Diagonal connectors -->
+          <line x1="142" y1="86"  x2="100" y2="60"  stroke="rgba(0,87,217,0.14)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="278" y1="86"  x2="320" y2="60"  stroke="rgba(0,87,217,0.14)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="142" y1="218" x2="100" y2="244" stroke="rgba(0,87,217,0.14)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="278" y1="218" x2="320" y2="244" stroke="rgba(0,87,217,0.14)" stroke-width="1" stroke-dasharray="3 5"/>
+
+          <!-- Centre circle -->
+          <circle cx="210" cy="152" r="62" fill="url(#circleGrad)" stroke="rgba(0,87,217,0.2)" stroke-width="1.5"/>
+          <circle cx="210" cy="152" r="48" fill="rgba(0,87,217,0.08)" stroke="rgba(0,87,217,0.35)" stroke-width="1.5" filter="url(#glow)"/>
+
+          <!-- Centre dividers -->
+          <line x1="186" y1="152" x2="234" y2="152" stroke="rgba(0,87,217,0.25)" stroke-width="0.8"/>
+          <line x1="210" y1="128" x2="210" y2="176" stroke="rgba(0,87,217,0.25)" stroke-width="0.8"/>
+
+          <!-- Centre stats -->
+          <text x="198" y="145" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="17" font-weight="800" fill="#0f1117">147</text>
+          <text x="198" y="155" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="5.5" letter-spacing="1" fill="rgba(0,87,217,0.7)">LÕPETAJAT</text>
+          <text x="222" y="145" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="17" font-weight="800" fill="#0f1117">25</text>
+          <text x="222" y="155" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="5.5" letter-spacing="1" fill="rgba(0,87,217,0.7)">AASTAT</text>
+          <text x="198" y="168" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="17" font-weight="800" fill="#0f1117">60</text>
+          <text x="198" y="178" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="5.5" letter-spacing="1" fill="rgba(0,87,217,0.7)">FIRMAT</text>
+          <text x="222" y="168" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="17" font-weight="800" fill="#0f1117">9</text>
+          <text x="222" y="178" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="5.5" letter-spacing="1" fill="rgba(0,87,217,0.7)">PÄEVA</text>
+
+          <!-- OPSTAR label -->
+          <text x="210" y="198" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="6.5" letter-spacing="1.8" fill="rgba(0,87,217,0.45)">OPSTAR PROFIT™</text>
+
+          <!-- Pulse ring animation -->
+          <circle cx="210" cy="152" r="48" fill="none" stroke="rgba(0,87,217,0.5)" stroke-width="1">
+            <animate attributeName="r" values="48;58;48" dur="3.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="3.5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- NODE: TOP — OPERATIIV -->
+          <g class="schema-node" data-tip="operatiiv" data-title="Operatiiv" data-text="Igapäevane juhtimine, KPI-d ja kiire probleemilahendus tootmispõrandal.">
+            <rect x="164" y="28" width="92" height="38" rx="1" fill="rgba(0,87,217,0.08)" stroke="rgba(0,87,217,0.35)" stroke-width="1.5" filter="url(#glow2)"/>
+            <text x="210" y="43" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="7.5" letter-spacing="1.5" fill="#0057d9">OPERATIIV</text>
+            <text x="210" y="56" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7.5" fill="rgba(15,17,23,0.55)">Igapäevane juhtimine</text>
+          </g>
+
+          <!-- NODE: BOTTOM — MÕÕTMINE -->
+          <g class="schema-node" data-tip="mootmine" data-title="Mõõtmine" data-text="OEE, praak, tarneaeg — andmepõhine otsustamine reaalajas.">
+            <rect x="164" y="238" width="92" height="38" rx="1" fill="rgba(0,87,217,0.08)" stroke="rgba(0,87,217,0.35)" stroke-width="1.5" filter="url(#glow2)"/>
+            <text x="210" y="253" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="7.5" letter-spacing="1.5" fill="#0057d9">MÕÕTMINE</text>
+            <text x="210" y="267" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7.5" fill="rgba(15,17,23,0.55)">KPI · OEE · Andmed</text>
+          </g>
+
+          <!-- NODE: LEFT — SÜSTEEM -->
+          <g class="schema-node" data-tip="systeem" data-title="Süsteem" data-text="Protsesside standardiseerimine, raiskamise elimineerimine ja VSM.">
+            <rect x="8" y="133" width="88" height="38" rx="1" fill="rgba(0,87,217,0.08)" stroke="rgba(0,87,217,0.35)" stroke-width="1.5" filter="url(#glow2)"/>
+            <text x="52" y="148" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="7.5" letter-spacing="1.5" fill="#0057d9">SÜSTEEM</text>
+            <text x="52" y="162" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7.5" fill="rgba(15,17,23,0.55)">Protsessid · Tööriistad</text>
+          </g>
+
+          <!-- NODE: RIGHT — ARENG -->
+          <g class="schema-node" data-tip="areng" data-title="Areng" data-text="Inimeste arendamine ja pideva parenduse kultuur organisatsioonis.">
+            <rect x="324" y="133" width="88" height="38" rx="1" fill="rgba(0,87,217,0.08)" stroke="rgba(0,87,217,0.35)" stroke-width="1.5" filter="url(#glow2)"/>
+            <text x="368" y="148" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="7.5" letter-spacing="1.5" fill="#0057d9">ARENG</text>
+            <text x="368" y="162" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7.5" fill="rgba(15,17,23,0.55)">Inimesed · Kultuur</text>
+          </g>
+
+          <!-- Corner nodes (smaller) -->
+          <g class="schema-node" data-tip="vaartus" data-title="Väärtus" data-text="Väärtusahela kaardistus — mis loob väärtust kliendi jaoks?">
+            <rect x="28" y="28" width="82" height="34" rx="1" fill="rgba(0,87,217,0.05)" stroke="rgba(0,87,217,0.2)" stroke-width="1"/>
+            <text x="69" y="42" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="7" letter-spacing="1" fill="rgba(0,87,217,0.65)">VÄÄRTUS</text>
+            <text x="69" y="54" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7" fill="rgba(15,17,23,0.38)">VSM · Muda · Klient</text>
+          </g>
+
+          <g class="schema-node" data-tip="standardid" data-title="Standardid" data-text="Standardiseeritud töö, 5S ja visuaalne juhtimine tootmiskohal.">
+            <rect x="310" y="28" width="82" height="34" rx="1" fill="rgba(0,87,217,0.05)" stroke="rgba(0,87,217,0.2)" stroke-width="1"/>
+            <text x="351" y="42" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="7" letter-spacing="1" fill="rgba(0,87,217,0.65)">STANDARDID</text>
+            <text x="351" y="54" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7" fill="rgba(15,17,23,0.38)">5S · Visuaal · SOP</text>
+          </g>
+
+          <g class="schema-node" data-tip="stabiilsus" data-title="Stabiilsus" data-text="4M stabiilsus: Masin, Materjal, Meetod, Mees — TPM alused.">
+            <rect x="28" y="242" width="82" height="34" rx="1" fill="rgba(0,87,217,0.05)" stroke="rgba(0,87,217,0.2)" stroke-width="1"/>
+            <text x="69" y="256" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="7" letter-spacing="1" fill="rgba(0,87,217,0.65)">STABIILSUS</text>
+            <text x="69" y="268" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7" fill="rgba(15,17,23,0.38)">4M · TPM · Varud</text>
+          </g>
+
+          <g class="schema-node" data-tip="parendus" data-title="Parendus" data-text="Kaizen kultuur — väikeste pidavate parenduste süsteem, mida juhib meeskond ise.">
+            <rect x="310" y="242" width="82" height="34" rx="1" fill="rgba(0,87,217,0.05)" stroke="rgba(0,87,217,0.2)" stroke-width="1"/>
+            <text x="351" y="256" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="7" letter-spacing="1" fill="rgba(0,87,217,0.65)">PARENDUS</text>
+            <text x="351" y="268" text-anchor="middle" font-family="Outfit,sans-serif" font-size="7" fill="rgba(15,17,23,0.38)">Kaizen · PDCA · A3</text>
+          </g>
+
+        </svg>
+
+        <!-- 3-col bottom -->
+        <div class="infographic-cols">
+          <div class="infographic-col">
+            <div class="col-num-badge">01</div>
+            <div class="col-eyebrow">Operatiiv</div>
+            <div class="col-title">Igapäevane juhtimine käe all</div>
+          </div>
+          <div class="infographic-col">
+            <div class="col-num-badge">02</div>
+            <div class="col-eyebrow">Süsteem</div>
+            <div class="col-title">Protsessid, mis töötavad ise</div>
+          </div>
+          <div class="infographic-col">
+            <div class="col-num-badge">03</div>
+            <div class="col-eyebrow">Areng</div>
+            <div class="col-title">Meeskond, kes areneb ise</div>
+          </div>
+        </div>
+
+      </div><!-- /infographic-float -->
+    </div><!-- /hero-right -->
+
+  </div><!-- /hero-inner -->
+</section>
+
+<!-- ══ ICON STRIP ══ -->
+<div class="icon-strip">
+  <div class="icon-strip-inner">
+    <div class="strip-item">
+      <div class="strip-icon">⚙️</div>
+      <div class="strip-label">100% praktiline</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon">📊</div>
+      <div class="strip-label">Mõõdetavad tulemused</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon">🏭</div>
+      <div class="strip-label">Päris tehased</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon">👥</div>
+      <div class="strip-label">Väike grupp</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon">🎓</div>
+      <div class="strip-label">Rahvusvaheline tunnistus</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon">💬</div>
+      <div class="strip-label">12-kuuline järeltugi</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ VALU SECTION ══ -->
+<section class="valu-section">
+  <div class="valu-glow-l"></div>
+  <div class="valu-glow-r"></div>
+
+  <div class="valu-inner">
+
+    <!-- LEFT: Compare table -->
+    <div class="compare-card reveal">
+      <div class="compare-head">
+        <div class="compare-eyebrow">Miks see koolitus?</div>
+        <div class="compare-title">Miks see koolitus,<br>mitte tavaline?</div>
+        <div class="compare-desc">Enamik koolitusi jätab su saali — meil lähed sa tagasi tootmisse konkreetse plaaniga. Siin on erinevused.</div>
+      </div>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Kriteerium</th>
+            <th class="col-us">OPSTAR PROFIT™</th>
+            <th>Tavaline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="row-num">1</span>Rakendatavus kohe</td>
+            <td><span class="tick-yes">✦</span></td>
+            <td><span class="tick-no">—</span></td>
+          </tr>
+          <tr>
+            <td><span class="row-num">2</span>Tehase külastused praktikas</td>
+            <td><span class="tick-yes">✦</span></td>
+            <td><span class="tick-no">—</span></td>
+          </tr>
+          <tr>
+            <td><span class="row-num">3</span>Isiklik rakenduskava</td>
+            <td><span class="tick-yes">✦</span></td>
+            <td><span class="tick-no">—</span></td>
+          </tr>
+          <tr>
+            <td><span class="row-num">4</span>Järeltugi 12 kuud</td>
+            <td><span class="tick-yes">✦</span></td>
+            <td><span class="tick-no">—</span></td>
+          </tr>
+          <tr>
+            <td><span class="row-num">5</span>EIS subsiidium võimalik</td>
+            <td><span class="tick-yes">✦</span></td>
+            <td><span class="tick-both">✦</span></td>
+          </tr>
+          <tr>
+            <td><span class="row-num">6</span>Tulemuste mõõtmine 90p</td>
+            <td><span class="tick-yes">✦</span></td>
+            <td><span class="tick-no">—</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="compare-note">
+        <span class="compare-note-icon">💡</span>
+        Kuni <strong>50% tagastatav</strong> EIS koolitustoetuse kaudu — alates 645 €
+      </div>
+    </div>
+
+    <!-- RIGHT: Pain cards -->
+    <div class="pain-col">
+
+      <div class="pain-eyebrow-wrap">
+        <div class="pain-eyebrow">Kas see kõlab tuttavalt?</div>
+        <div class="pain-eyebrow-line"></div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-accent"></div>
+        <div class="pain-body">
+          <div class="pain-icon-wrap">⚡</div>
+          <div class="pain-text">Tootmine sõltub täielikult sinust — kui sa pole kohal, ei liigu asjad</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-accent"></div>
+        <div class="pain-body">
+          <div class="pain-icon-wrap">🔁</div>
+          <div class="pain-text">Probleemid korduvad — samad vead, ikka ja jälle, kuude kaupa</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-accent"></div>
+        <div class="pain-body">
+          <div class="pain-icon-wrap">📉</div>
+          <div class="pain-text">Numbrid ei parane hoolimata pingutusest ja ületundidest</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-accent"></div>
+        <div class="pain-body">
+          <div class="pain-icon-wrap">👤</div>
+          <div class="pain-text">Meeskond ootab käske ega tee iseseisvalt otsuseid</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-accent"></div>
+        <div class="pain-body">
+          <div class="pain-icon-wrap">🔥</div>
+          <div class="pain-text">Tulekahjude kustutamine võtab kogu energia ja aja</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-accent"></div>
+        <div class="pain-body">
+          <div class="pain-icon-wrap">⏳</div>
+          <div class="pain-text">Arengu ja strateegia jaoks ei jää aega — ainult operatiiv</div>
+        </div>
+      </div>
+
+      <!-- Bottom CTA -->
+      <div class="pain-cta-row">
+        <a href="#registreeru" class="pain-cta">
+          Lahendus on olemas <span class="arr">→</span>
+        </a>
+        <div class="pain-cta-note">
+          <span>147+</span> juhti on juba lahendanud
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="teekond-section">
+  <div class="glow-tl"></div>
+  <div class="glow-br"></div>
+
+  <div class="teekond-inner">
+
+    <!-- Header -->
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Programm samm-sammult</div>
+      <h2 class="section-title">
+        9-päevane teekond
+        <em>tootmisjuhist süsteemiehitajaks</em>
+      </h2>
+      <p class="section-sub">Iga päev on struktureeritud konkreetse eesmärgiga. Klikka päevale ja vaata, mis sind ees ootab.</p>
+    </div>
+
+    <!-- Tabs nav -->
+    <div class="tabs-nav reveal">
+      <button class="tab-btn active" onclick="switchTab(1)" id="tab-1"><span class="tab-num">1</span>Mõtteviis</button>
+      <button class="tab-btn" onclick="switchTab(2)" id="tab-2"><span class="tab-num">2</span>Väärtus</button>
+      <button class="tab-btn" onclick="switchTab(3)" id="tab-3"><span class="tab-num">3</span>Kaardistus</button>
+      <button class="tab-btn" onclick="switchTab(4)" id="tab-4"><span class="tab-num">4</span>Visuaal</button>
+      <button class="tab-btn" onclick="switchTab(5)" id="tab-5"><span class="tab-num">5</span>Standardid</button>
+      <button class="tab-btn" onclick="switchTab(6)" id="tab-6"><span class="tab-num">6</span>Stabiilsus</button>
+      <button class="tab-btn" onclick="switchTab(7)" id="tab-7"><span class="tab-num">7</span>Probleemid</button>
+      <button class="tab-btn" onclick="switchTab(8)" id="tab-8"><span class="tab-num">8</span>Meeskond</button>
+      <button class="tab-btn" onclick="switchTab(9)" id="tab-9"><span class="tab-num">9</span>Süsteem</button>
+    </div>
+
+    <!-- PANELS -->
+
+    <!-- Päev 1 -->
+    <div class="tab-panel active" id="panel-1">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 1 · Mõtteviis</div>
+        <div class="panel-title">Tootmisjuhi roll ja vastutus tänapäeval</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Mõista oma rolli süsteemis ja esimesi samme muutuste algatamiseks.</div>
+        <div class="factory-tag">🏭 Tehase külastus — Eesti suurim metallitootja</div>
+        <div class="progress-wrap">
+          <div class="progress-top">
+            <span class="progress-top-label">Programmi edenemise</span>
+            <span class="progress-pct">11%</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:11%"></div></div>
+          <div class="progress-days">Päev 1 / 9</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>LEAN filosoofia alused</strong> — miks Toyota tootmissüsteem toimib ja teised mitte</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>Tootmisjuhi 3 peamist lõksu</strong> — mida enamik juhte teeb valesti</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>Tootmise hetkeseisu hindamine</strong> — diagnostika tööriist oma ettevõttele</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>Esimesed sammud</strong> — konkreetne plaan esimeseks kaheks nädalaks</span></li>
+          <li class="activity-item"><span class="activity-num">05</span><span class="activity-text"><strong>Grupiülesanne</strong> — kogemuste jagamine ja tagasiside sessioon</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Päev 2 -->
+    <div class="tab-panel" id="panel-2">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 2 · Väärtus</div>
+        <div class="panel-title">Mis on väärtus kliendi silmis?</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Õppida eristama väärtust loovat tööd raiskamisest. Muda tuvastamine oma protsessides.</div>
+        <div class="progress-wrap">
+          <div class="progress-top"><span class="progress-top-label">Programmi edenemise</span><span class="progress-pct">22%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:22%"></div></div>
+          <div class="progress-days">Päev 2 / 9</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>8 raiskamise liiki</strong> — tuvasta muda oma tootmises</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>Väärtuse definitsioon</strong> — kliendi vaatenurk vs tootja vaatenurk</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>Muda-jahti praktikas</strong> — tootmiskäigu analüüs reaalajas</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>Prioritiseerimine</strong> — millised raiskamised on kriitilised</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Päev 3 -->
+    <div class="tab-panel" id="panel-3">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 3 · Kaardistus</div>
+        <div class="panel-title">Väärtusahela kaardistus (VSM)</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Koostada oma tootmise hetkeseisu kaart ja tuleviku seisundi visioon.</div>
+        <div class="factory-tag">🗺 Praktiline VSM-harjutus — oma protsess kaardile</div>
+        <div class="progress-wrap">
+          <div class="progress-top"><span class="progress-top-label">Programmi edenemise</span><span class="progress-pct">33%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:33%"></div></div>
+          <div class="progress-days">Päev 3 / 9</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>VSM metoodika</strong> — sümbolid, sammud ja põhimõtted</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>Hetkeseisu kaart</strong> — oma tootmisprotsess paberile</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>Kitsaskohtade analüüs</strong> — kus on vool takistatud?</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>Tuleviku visioon</strong> — milline peaks see välja nägema?</span></li>
+          <li class="activity-item"><span class="activity-num">05</span><span class="activity-text"><strong>Rakendusplaan</strong> — sammud hetkeseisust tulevikku</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Päev 4 -->
+    <div class="tab-panel" id="panel-4">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 4 · Visuaaljuhtimine</div>
+        <div class="panel-title">Visuaalne juhtimine ja 5S</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Luua tootmiskeskkond, kus probleemid on kohe nähtavad.</div>
+        <div class="factory-tag">🏭 Tehase külastus — 5S rakendus päriselus</div>
+        <div class="progress-wrap">
+          <div class="progress-top"><span class="progress-top-label">Programmi edenemise</span><span class="progress-pct">44%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:44%"></div></div>
+          <div class="progress-days">Päev 4 / 9</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>5S põhimõtted</strong> — Sorteeri, Sea, Suhtle, Standardiseeri, Säilita</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>Visuaalsed standardid</strong> — tahvlid, värvid, märgistused</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>Andon süsteemid</strong> — probleem nähtavaks reaalajas</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>5S audit</strong> — kuidas mõõta ja hoida taset</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Päev 5 -->
+    <div class="tab-panel" id="panel-5">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 5 · Standardid</div>
+        <div class="panel-title">Standardiseeritud töö ja SOP-id</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Luua töökorraldus, kus parim tee on ainus tee.</div>
+        <div class="progress-wrap">
+          <div class="progress-top"><span class="progress-top-label">Programmi edenemise</span><span class="progress-pct">56%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:56%"></div></div>
+          <div class="progress-days">Päev 5 / 9</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>SOP koostamine</strong> — kuidas kirjutada töötavat juhist</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>Taktiaeg ja tsükliaeg</strong> — töö tasakaalustamine</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>Standardite juurutamine</strong> — kuidas panna meeskond järgima</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>Kaizen kui parendusprotsess</strong> — standardite pidev täiustamine</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Päev 6 -->
+    <div class="tab-panel" id="panel-6">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 6 · Stabiilsus</div>
+        <div class="panel-title">Tootmise stabiilsus — 4M meetod</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Tagada stabiilsus kõigis nelja dimensioonis: Masin, Materjal, Meetod, Mees.</div>
+        <div class="progress-wrap">
+          <div class="progress-top"><span class="progress-top-label">Programmi edenemise</span><span class="progress-pct">67%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:67%"></div></div>
+          <div class="progress-days">Päev 6 / 9</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>4M analüüs</strong> — ebastabiilsuse allikad sinu tootmises</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>TPM alused</strong> — seadmete ennetav hooldus</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>OEE mõõtmine</strong> — üldine seadmete tõhusus</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>Varude juhtimine</strong> — kanban ja minimax põhimõtted</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Päev 7 -->
+    <div class="tab-panel" id="panel-7">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 7 · Probleemilahendus</div>
+        <div class="panel-title">Struktureeritud probleemilahendus A3-ga</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Omandada PDCA ja A3 metoodika — lahenda probleemid põhjuseni, mitte sümptomini.</div>
+        <div class="progress-wrap">
+          <div class="progress-top"><span class="progress-top-label">Programmi edenemise</span><span class="progress-pct">78%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:78%"></div></div>
+          <div class="progress-days">Päev 7 / 9</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>PDCA tsükkel</strong> — Plan, Do, Check, Act praktikas</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>A3 raport</strong> — probleemilahendus ühel lehel</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>5 Miks meetod</strong> — jõua juursüüni, mitte sümptomini</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>Päris probleem</strong> — iga osaleja lahendab oma ettevõtte probleemi A3-ga</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Päev 8 -->
+    <div class="tab-panel" id="panel-8">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 8 · Meeskond</div>
+        <div class="panel-title">Meeskonna arendamine ja kaizen kultuur</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Luua kultuur, kus meeskond ise leiab ja lahendab probleeme.</div>
+        <div class="progress-wrap">
+          <div class="progress-top"><span class="progress-top-label">Programmi edenemise</span><span class="progress-pct">89%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:89%"></div></div>
+          <div class="progress-days">Päev 8 / 9</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>Juht vs coach</strong> — kuidas muuta oma juhtimisstiili</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>Kaizen sündmused</strong> — kiired parendusüritused tiimiga</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>Ideekorje süsteemid</strong> — kuidas kaasata kogu meeskonda</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>Muutuste juhtimine</strong> — miks inimesed ei muutu ja kuidas aidata</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Päev 9 -->
+    <div class="tab-panel" id="panel-9">
+      <div class="panel-left">
+        <div class="panel-day-tag">Päev 9 · Süsteem</div>
+        <div class="panel-title">Rakenduskava ja edasine tee</div>
+        <div class="panel-goal"><strong>Eesmärk:</strong> Koondada 9 päeva õpitu ühtseks süsteemiks. Personaalne 90-päevane rakenduskava.</div>
+        <div class="factory-tag">🏆 Lõputöö esitlus + tunnistuste kätteandmine</div>
+        <div class="progress-wrap">
+          <div class="progress-top"><span class="progress-top-label">Programmi edenemise</span><span class="progress-pct">100%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:100%;background:linear-gradient(90deg,var(--acid),#34d058)"></div></div>
+          <div class="progress-days">Päev 9 / 9 · Lõpetamine ✓</div>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="activities-label">Päeva tegevused</div>
+        <ul class="activity-list">
+          <li class="activity-item"><span class="activity-num">01</span><span class="activity-text"><strong>90-päevane rakenduskava</strong> — konkreetne plaan oma ettevõttele</span></li>
+          <li class="activity-item"><span class="activity-num">02</span><span class="activity-text"><strong>Lõputöö esitlus</strong> — iga osaleja esitleb oma projekti</span></li>
+          <li class="activity-item"><span class="activity-num">03</span><span class="activity-text"><strong>Tagasiside sessioon</strong> — grupi kogemused ja õppetunnid</span></li>
+          <li class="activity-item"><span class="activity-num">04</span><span class="activity-text"><strong>OPSTAR PROFIT™ tunnistus</strong> — kätteandmine ja grupi foto</span></li>
+          <li class="activity-item"><span class="activity-num">05</span><span class="activity-text"><strong>Alumni võrgustik</strong> — liitumine 147+ lõpetajate kogukonnaga</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /teekond-inner -->
+</section>
+
+<section class="hoiatus-section"></section>
+<div class="hoiatus-section">
+<div class="hoiatus-shell">
+
+  <!-- GRID -->
+  <div class="hoiatus-grid">
+
+    <!-- ── LEFT ── -->
+    <div class="hoiatus-left">
+
+      <div class="hoiatus-badge">
+        <span class="badge-dot"></span>
+        ⚠ Tähelepanu
+      </div>
+
+      <h2 class="hoiatus-title">
+        Kohti järgmises grupis
+        <span>on kriitiliselt vähe</span>
+      </h2>
+
+      <p class="hoiatus-body">
+        Iga grupp on piiratud <strong>12 osalejaga</strong> — nii tagame kõigile personaalse tähelepanu. Registreerimine sulgub kas täitumisel või alloleva taimeri lõppedes.
+      </p>
+
+      <!-- <div class="variant-list">
+        <div class="variant-item">
+          <div class="variant-dot"></div>
+          <div class="variant-text">
+            <strong>Varajane registreerumine:</strong> koht on garanteeritud, ettemaks 50% kinnitab koha
+          </div>
+        </div>
+        <div class="variant-item">
+          <div class="variant-dot"></div>
+          <div class="variant-text">
+            <strong>Ootenimekiri:</strong> kohad täitudes liigud automaatselt järgmisse gruppi
+          </div>
+        </div>
+        <div class="variant-item">
+          <div class="variant-dot"></div>
+          <div class="variant-text">
+            <strong>EIS subsiidium:</strong> taotlemine võtab kuni 6 nädalat — alusta kohe
+          </div>
+        </div>
+      </div> -->
+
+      <a href="#registreeru" class="hoiatus-cta">
+        Kindlusta oma koht nüüd →
+      </a>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="hoiatus-divider"></div>
+
+    <!-- ── RIGHT ── -->
+    <div class="hoiatus-right">
+
+      <div>
+        <div class="timer-eyebrow">Registreerimine sulgub</div>
+
+        <div class="timer-grid">
+          <div class="timer-unit">
+            <span class="timer-num" id="t-days">199</span>
+            <span class="timer-label">Päeva</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="t-hours">09</span>
+            <span class="timer-label">Tundi</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="t-mins">59</span>
+            <span class="timer-label">Minutit</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="t-secs">48</span>
+            <span class="timer-label">Sekundit</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <a href="#registreeru" class="timer-cta-btn">
+          Registreeru programmi <span class="btn-arrow">→</span>
+        </a>
+        <div class="timer-privacy">
+          🔒 Andmeid ei jagata kolmandatele osapooltele ·
+          <a href="/privaatsuspoliitika">Privaatsuspoliitika</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM STRIP -->
+  <div class="hoiatus-bottom">
+    <div class="bottom-stat">
+      <div>
+        <div class="bottom-stat-num">12</div>
+        <div class="bottom-stat-label">Kohta grupis</div>
+      </div>
+    </div>
+    <div class="bottom-divider"></div>
+    <div class="bottom-stat">
+      <div>
+        <div class="bottom-stat-num">147<span style="font-size:14px;font-weight:600">+</span></div>
+        <div class="bottom-stat-label">Lõpetajat</div>
+      </div>
+    </div>
+    <div class="bottom-divider"></div>
+    <div class="bottom-stat">
+      <div>
+        <div class="bottom-stat-num">50<span style="font-size:14px;font-weight:600">%</span></div>
+        <div class="bottom-stat-label">EIS tagastatav</div>
+      </div>
+    </div>
+    <div class="bottom-divider"></div>
+    <div style="font-size:13px;color:var(--white3);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:.1em;">
+      Oktoober 2026 · Tallinn, Lõõtsa 5
+    </div>
+  </div>
+
+</div>
+</div>
+</section>
+<section class="reg-section">
+<div class="reg-grid">
+
+  <!-- ════ LEFT ════ -->
+  <div class="reg-left">
+
+    <!-- Text card -->
+    <div class="reg-text-card">
+      <div class="reg-eyebrow">Alusta täna</div>
+      <h2 class="reg-title">
+        Registreeru
+        <em>arenguprogrammi</em>
+      </h2>
+      <p class="reg-sub">
+        9 päevaga saad süsteemi, mis töötab ka ilma sinuta. Tootmisjuht, kes lahkub tulekahjude kustutamise lõksu — ja naaseb süsteemiehitajana.
+      </p>
+
+      <div class="trust-list">
+        <div class="trust-item">
+          <div class="trust-icon">✅</div>
+          <div class="trust-body">
+            <div class="trust-title">Raha tagasi garantii</div>
+            <div class="trust-text">Kui esimese päeva lõpuks pole rahul, tagastame 100% ilma küsimusteta.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🔒</div>
+          <div class="trust-body">
+            <div class="trust-title">Turvaline makse</div>
+            <div class="trust-text">Ettemaks 50% kohta kinnitamisel. Ülejäänud 50% pärast koolitust.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">💶</div>
+          <div class="trust-body">
+            <div class="trust-title">EIS subsiidium võimalik</div>
+            <div class="trust-text">Kuni 50% tagastatav. Aitame toetuse taotlemisel — küsi registreerumisel.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📞</div>
+          <div class="trust-body">
+            <div class="trust-title">Küsimused enne registreerumist?</div>
+            <div class="trust-text"><a href="tel:+3725138403">+372 513 8403</a> · Andres Kase</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review card -->
+    <div class="review-card">
+      <div class="review-stars">
+        <div class="stars">
+          <span class="star">★</span><span class="star">★</span>
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <span class="review-score">5/5 · Highly Recommended</span>
+      </div>
+      <div class="review-quote">
+        Parim investeering, mille olen oma karjäärile teinud. Kolme kuuga tõusis tootlikkus 22% ja meeskond lahendab probleeme ise.
+      </div>
+      <div class="review-author">
+        <div class="review-avatar">PK</div>
+        <div>
+          <div class="review-name">Peeter Kallas</div>
+          <div class="review-role">Tootmisdirektor · <span class="review-company">Rakvere Lihakombinaat</span></div>
+        </div>
+        <div class="review-verified">✓ Verified</div>
+      </div>
+    </div>
+
+    <!-- Social card -->
+    <div class="social-card">
+      <div class="social-label">Jälgi meid</div>
+      <div class="social-btns">
+        <a href="#" class="social-btn">
+          <div class="social-icon-ig">📷</div>
+          Instagram
+        </a>
+        <a href="#" class="social-btn">
+          <div class="social-icon-li">in</div>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /reg-left -->
+
+
+  <!-- ════ RIGHT — FORM ════ -->
+  <div class="form-shell">
+
+    <div class="form-header">
+      <div class="form-header-label">Registreerimisavaldus</div>
+      <div class="form-header-title">Tagan oma koha programmi</div>
+    </div>
+
+    <!-- Form body -->
+    <div class="form-body" id="formBody">
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="f-nimi">Nimi<span class="field-required">*</span></label>
+          <input class="field-input" id="f-nimi" type="text" placeholder="Eesnimi Perenimi" required>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-amet">Ametikoht</label>
+          <input class="field-input" id="f-amet" type="text" placeholder="Tootmisjuht">
+        </div>
+      </div>
+
+      <div class="field-gap"></div>
+
+      <div class="field-row full">
+        <div class="field-group">
+          <label class="field-label" for="f-firma">Ettevõte</label>
+          <input class="field-input" id="f-firma" type="text" placeholder="AS Ettevõtte Nimi">
+        </div>
+      </div>
+
+      <div class="field-gap"></div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="f-email">E-post<span class="field-required">*</span></label>
+          <input class="field-input" id="f-email" type="email" placeholder="eesnimi@ettevote.ee" required>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-tel">Telefon</label>
+          <input class="field-input" id="f-tel" type="tel" placeholder="+372 5XXX XXXX">
+        </div>
+      </div>
+
+      <div class="field-gap"></div>
+
+      <div class="field-row full">
+        <div class="field-group">
+          <label class="field-label" for="f-grupp">Soovitud grupp<span class="field-required">*</span></label>
+          <select class="field-input" id="f-grupp" required>
+            <option value="" disabled selected>Vali koolitusgrupp</option>
+            <option value="oktoober-2026">Sügisgrupp — Oktoober 2026</option>
+            <option value="marss-2027">Kevadgrupp — Märts 2027</option>
+            <option value="grupp">Grupikoolituse päring (5+ inimest)</option>
+            <option value="ootenimekiri">Lisa mind ootenimekirja</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-gap"></div>
+
+      <div class="field-row full">
+        <div class="field-group">
+          <label class="field-label" for="f-sonum">Lisainfo / küsimused</label>
+          <textarea class="field-input" id="f-sonum" placeholder="Küsimused EIS subsiidiumi, grupikoolituse või muu kohta..."></textarea>
+        </div>
+      </div>
+
+      <div class="checks-block">
+        <label class="check-row">
+          <input type="checkbox" id="gdpr" required>
+          <span>Nõustun oma andmete töötlemisega vastavalt <a href="#">privaatsuspoliitikale</a>. Andmeid kasutatakse ainult koolitusega seotud suhtluseks.<span class="field-required">*</span></span>
+        </label>
+        <label class="check-row">
+          <input type="checkbox" id="newsletter">
+          <span>Soovin saada Andres Kase uudiskirja tootmisjuhtimise teemadel (Smaily kaudu, tühistatav igal ajal).</span>
+        </label>
+      </div>
+
+      <button class="form-submit" onclick="submitForm(event)">
+        Saada registreering <span class="submit-arrow">→</span>
+      </button>
+
+      <div class="form-gdpr">
+        <span>🔒 GDPR · Andmeid ei jagata kolmandatele osapooltele</span>
+        <span><a href="#">Privaatsuspoliitika</a> · Andres Kase OÜ, reg 12736663</span>
+      </div>
+
+    </div>
+
+    <!-- Success state -->
+    <div class="form-success" id="formSuccess">
+      <div class="success-ring">✅</div>
+      <div class="success-title">Registreerimine saadetud!</div>
+      <div class="success-text">
+        Andres Kase võtab teiega ühendust 1 tööpäeva jooksul e-postile, et kinnitada koht ja arutada järgmisi samme.
+      </div>
+      <div class="success-note">Vastus 1 tööpäeva jooksul</div>
+    </div>
+
+  </div><!-- /form-shell -->
+
+</div>
+</section>
+
+<script>
+function submitForm(e) {
+  e.preventDefault();
+  const name  = document.getElementById('f-nimi').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const grupp = document.getElementById('f-grupp').value;
+  const gdpr  = document.getElementById('gdpr').checked;
+
+  if (!name || !email || !grupp || !gdpr) {
+    const m = [];
+    if (!name)  m.push('Nimi');
+    if (!email) m.push('E-post');
+    if (!grupp) m.push('Grupp');
+    if (!gdpr)  m.push('Andmetöötluse nõusolek');
+    alert('Palun täida kohustuslikud väljad:\n• ' + m.join('\n• '));
+    return;
+  }
+
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+  document.getElementById('formSuccess').scrollIntoView({ behavior:'smooth', block:'center' });
+}
+</script>
+
+<section class="hinnad-section">
+
+  <!-- Header -->
+  <div class="hinnad-header reveal">
+    <div class="hinnad-eyebrow">Investeering oma tulemustesse</div>
+    <h2 class="hinnad-title">Hinnakiri 2026–2027</h2>
+    <p class="hinnad-sub">Vali sobivaim pakett ja alga oma teekand tootmise juhtimise meistriks. Kõik hinnad sisaldavad täielikku programmi ja materjale.</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="pricing-grid">
+
+    <!-- ── ERAISIK ── -->
+    <div class="price-card">
+      <div class="card-head">
+        <div class="card-tier">Eraisik</div>
+        <div class="card-title">Individuaalne osalemine</div>
+        <div class="card-desc">Eraisiku või omafinantseeringuna osalev tootmisjuht.</div>
+      </div>
+
+      <div class="card-price">
+        <div class="price-amount">890</div>
+        <div class="price-currency">€</div>
+        <div class="price-suffix">+ km</div>
+      </div>
+
+      <ul class="card-features">
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">9-päevane täisprogramm</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">OPSTAR PROFIT™ tunnistus</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">Kõik õppematerjalid</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">Kohvik ja lõunasöök</span></li>
+        <li class="feature-item excluded"><span class="f-icon">—</span><span class="f-text">Järeltugi (lisatasu)</span></li>
+        <li class="feature-item excluded"><span class="f-icon">—</span><span class="f-text">Ettevõtte rakenduskava</span></li>
+      </ul>
+
+      <div class="card-cta">
+        <a href="#registreeru" class="cta-btn cta-btn--outline">
+          Registreeru <span class="cta-arrow">→</span>
+        </a>
+        <div class="cta-note">EIS toetus ei rakendu</div>
+      </div>
+    </div>
+
+    <!-- ── ETTEVÕTE (POPULAR) ── -->
+    <div class="price-card price-card--popular">
+      <div class="popular-badge">Populaarseim</div>
+
+      <div class="card-head">
+        <div class="card-tier">Ettevõte</div>
+        <div class="card-title">Täispakett ettevõttele</div>
+        <div class="card-desc">Tööandja saadetud ettevõtte poolt. Sisaldab järeltuge ja rakenduskava.</div>
+      </div>
+
+      <div class="card-price" style="flex-direction:column;align-items:flex-start;gap:0;">
+        <div style="display:flex;align-items:flex-end;gap:4px;">
+          <div class="price-amount">1 290</div>
+          <div class="price-currency">€</div>
+          <div class="price-suffix">+ km</div>
+        </div>
+        <div class="price-eis-note">
+          <span>Pärast EIS toetust alates</span>
+          <span class="price-eis-strong">645 €</span>
+        </div>
+      </div>
+
+      <ul class="card-features">
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">9-päevane täisprogramm</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">OPSTAR PROFIT™ tunnistus</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">Kõik õppematerjalid</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">Kohvik ja lõunasöök</span></li>
+        <li class="feature-item highlight"><span class="f-icon">✦</span><span class="f-text">12 kuud järeltuge</span></li>
+        <li class="feature-item highlight"><span class="f-icon">✦</span><span class="f-text">Ettevõtte rakenduskava</span></li>
+      </ul>
+
+      <div class="card-cta">
+        <a href="#registreeru" class="cta-btn cta-btn--primary">
+          Registreeru <span class="cta-arrow">→</span>
+        </a>
+        <div class="cta-note">Kõige populaarsem valik</div>
+      </div>
+    </div>
+
+    <!-- ── GRUPP ── -->
+    <div class="price-card">
+      <div class="card-head">
+        <div class="card-tier">Grupp</div>
+        <div class="card-title">Grupikoolituse tellimus</div>
+        <div class="card-desc">5+ osalejat. Kohandatud programm teie ettevõtte spetsiifikale, teie tootmises.</div>
+      </div>
+
+      <div class="card-price">
+        <div class="price-custom">Küsi hinda</div>
+      </div>
+
+      <ul class="card-features">
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">Kohandatud programm</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">Koolitus teie ettevõttes</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">Tunnistused kõigile</span></li>
+        <li class="feature-item included"><span class="f-icon">✦</span><span class="f-text">Kõik õppematerjalid</span></li>
+        <li class="feature-item highlight"><span class="f-icon">✦</span><span class="f-text">Grupi rakenduskava</span></li>
+        <li class="feature-item highlight"><span class="f-icon">✦</span><span class="f-text">Paindlik ajakava</span></li>
+      </ul>
+
+      <div class="card-cta">
+        <a href="mailto:andres.kase@tootmisjuhtimine.ee" class="cta-btn cta-btn--ghost">
+          Võta ühendust <span class="cta-arrow">→</span>
+        </a>
+        <div class="cta-note">Individuaalne hinnapakkumine</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EIS Banner -->
+  <div class="eis-banner">
+    <div class="eis-pct-wrap">
+      <div class="eis-pct">50<sup>%</sup></div>
+      <div class="eis-pct-label">EIS toetus</div>
+    </div>
+    <div class="eis-text">
+      <strong>EIS toetus kuni 50%</strong> — Ettevõtte paketi hind 1 290 €, pärast EIS toetust tegelik kulu alates <strong>645 €</strong>. Aitame toetuse taotlemisel — küsi registreerumisel.
+    </div>
+    <a href="https://eis.ee" target="_blank" class="eis-cta">
+      Uuri EIS toetust →
+    </a>
+  </div>
+
+</section>
+
+<div class="spacer">
+  <!-- <div class="spacer-label">↓ &nbsp; footer preview &nbsp; ↓</div> -->
+<div class="spacer-label">↓</div>
+</div>
+
+
+<!-- ══ CTA STRIP ══ -->
+<div class="cta-strip">
+  <div class="cta-strip-inner">
+    <div class="cta-strip-text">
+      Vaba koht 12. grupis — <em>registreeru täna ja kindlusta 2026. aasta hind</em>
+    </div>
+    <div class="cta-strip-right">
+      <div class="cta-strip-note">Oktoober 2026</div>
+      <a href="#registreeru" class="cta-strip-btn">
+        Broneeri koht grupis <span class="cta-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ FOOTER ══ -->
+<footer>
+
+  <div class="footer-main">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      <div class="brand-logo-row">
+        <div class="brand-logo-box">OP</div>
+        <div class="brand-name-wrap">
+          <div class="brand-name">OPSTAR PROFIT™</div>
+          <div class="brand-domain">tootmisjuhtimine.ee</div>
+        </div>
+      </div>
+      <div class="brand-desc">
+        25 aasta kogemus Eesti tootmises. LEAN, TPS ja OPSTAR PROFIT™ raamistiku koolitused tootmisjuhtidele.
+      </div>
+      <div class="brand-tags">
+        <span class="brand-tag">LEAN</span>
+        <span class="brand-tag">TPS</span>
+        <span class="brand-tag">Kaizen</span>
+        <span class="brand-tag">VSM</span>
+        <span class="brand-tag">5S</span>
+        <span class="brand-tag">PDCA</span>
+      </div>
+      <div class="brand-social">
+        <a href="#" class="social-btn ig">📷</a>
+        <a href="#" class="social-btn li">in</a>
+      </div>
+    </div>
+
+    <!-- Lehed -->
+    <div>
+      <div class="footer-col-title">Lehed</div>
+      <ul class="footer-links">
+        <li><a href="#">Koolitus</a></li>
+        <li><a href="#">OPSTAR PROFIT™</a></li>
+        <li><a href="#">Andres Kase</a></li>
+        <li><a href="#">Hinnad</a></li>
+        <li><a href="#">Blogi</a></li>
+        <li><a href="#">Privaatsuspoliitika</a></li>
+      </ul>
+    </div>
+
+    <!-- Programm -->
+    <div>
+      <div class="footer-col-title">Programm</div>
+      <ul class="footer-links">
+        <li><a href="#">9-päevane teekond</a></li>
+        <li><a href="#">Ajakava 2026–2027</a></li>
+        <li><a href="#">Tunnistus</a></li>
+        <li><a href="#">Ettevõtetele</a></li>
+        <li><a href="#">Galerii</a></li>
+        <li><a href="#">Tagasiside</a></li>
+      </ul>
+    </div>
+
+    <!-- Kontakt -->
+    <div>
+      <div class="footer-col-title">Kontakt</div>
+      <div class="footer-contact">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-info">
+            <div class="contact-label">E-post</div>
+            <div class="contact-val">
+              <a href="mailto:andres.kase@tootmisjuhtimine.ee">
+                andres.kase@<br>tootmisjuhtimine.ee
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-info">
+            <div class="contact-label">Telefon</div>
+            <div class="contact-val">
+              <a href="tel:+3725138403">+372 513 8403</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info">
+            <div class="contact-label">Asukoht</div>
+            <div class="contact-val">Lõõtsa 5, Tallinn 11415</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /footer-main -->
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <div class="footer-copy">
+        © 2026 <span>Andres Kase OÜ</span> · Reg 12736663 · Käibemaksukohustuslane
+      </div>
+      <div class="footer-legal">
+        <a href="#">Privaatsuspoliitika</a>
+        <span class="footer-sep">·</span>
+        <a href="#">Kasutustingimused</a>
+        <span class="footer-sep">·</span>
+        <a href="#">Cookie seaded</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+<script>
+function switchTab(n) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + n).classList.add('active');
+  const panel = document.getElementById('panel-' + n);
+  panel.classList.add('active');
+  // Re-animate progress bar
+  const fill = panel.querySelector('.progress-fill');
+  if (fill) {
+    const w = fill.style.width;
+    fill.style.width = '0';
+    requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
+  }
+}
+
+// Reveal on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script>
+const TARGET = new Date('2026-09-30T23:59:59').getTime();
+
+function pad(n) { return String(n).padStart(2,'0'); }
+
+function setUnit(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.textContent !== val) {
+    el.textContent = val;
+    el.classList.remove('tick');
+    void el.offsetWidth;
+    el.classList.add('tick');
+  }
+}
+
+function updateTimer() {
+  const diff = Math.max(0, TARGET - Date.now());
+  setUnit('t-days',  String(Math.floor(diff / 86400000)).padStart(3,'0'));
+  setUnit('t-hours', pad(Math.floor((diff % 86400000) / 3600000)));
+  setUnit('t-mins',  pad(Math.floor((diff % 3600000) / 60000)));
+  setUnit('t-secs',  pad(Math.floor((diff % 60000) / 1000)));
+}
+
+updateTimer();
+setInterval(updateTimer, 1000);
+</script>
+<script>
+// ── Schema tooltips
+const tt = document.getElementById('stt');
+const tips = {
+  operatiiv:   { t:'Operatiiv',   d:'Igapäevane juhtimine, KPI-d ja kiire probleemilahendus tootmispõrandal.' },
+  mootmine:    { t:'Mõõtmine',    d:'OEE, praak, tarneaeg — andmepõhine otsustamine reaalajas.' },
+  systeem:     { t:'Süsteem',     d:'Protsesside standardiseerimine, raiskamise elimineerimine ja VSM.' },
+  areng:       { t:'Areng',       d:'Inimeste arendamine ja pideva parenduse kultuur organisatsioonis.' },
+  vaartus:     { t:'Väärtus',     d:'Väärtusahela kaardistus — mis loob väärtust kliendi jaoks?' },
+  standardid:  { t:'Standardid',  d:'Standardiseeritud töö, 5S ja visuaalne juhtimine tootmiskohal.' },
+  stabiilsus:  { t:'Stabiilsus',  d:'4M stabiilsus: Masin, Materjal, Meetod, Mees — TPM alused.' },
+  parendus:    { t:'Parendus',    d:'Kaizen kultuur — väikeste pidavate parenduste süsteem, mida juhib meeskond.' },
+};
+
+document.querySelectorAll('.schema-node').forEach(node => {
+  const key = node.dataset.tip;
+  node.addEventListener('mouseenter', () => {
+    const d = tips[key]; if (!d) return;
+    tt.innerHTML = `<strong>${d.t}</strong>${d.d}`;
+    tt.style.display = 'block';
+    const rects = node.querySelectorAll('rect');
+    rects.forEach(r => { r.style.fill='rgba(0,87,217,0.14)'; r.style.stroke='#0057d9'; });
+  });
+  node.addEventListener('mousemove', e => {
+    tt.style.left = (e.clientX + 14) + 'px';
+    tt.style.top  = (e.clientY - 10) + 'px';
+  });
+  node.addEventListener('mouseleave', () => {
+    tt.style.display = 'none';
+    const rects = node.querySelectorAll('rect');
+    rects.forEach(r => { r.style.fill = ''; r.style.stroke = ''; });
+  });
+});
+</script>
+</body>
+</html>
