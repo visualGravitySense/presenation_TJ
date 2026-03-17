@@ -1,0 +1,566 @@
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=SF+Pro+Display:wght@700&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',-apple-system,sans-serif;
+  background:linear-gradient(135deg,#e8e5de 0%,#ededea 40%,#e0ddd6 100%);
+  min-height:100vh;padding:36px 32px 48px;
+}
+
+/* ── LAYOUT ── */
+.lib-section{margin-bottom:40px}
+.lib-title{
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(0,0,0,0.35);font-weight:600;
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.lib-title::after{content:'';flex:1;height:.5px;background:rgba(0,0,0,0.1)}
+.lib-grid{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+
+/* ── LABEL WRAPPER ── */
+.ic-wrap{display:flex;flex-direction:column;align-items:center;gap:7px}
+.ic-lbl{font-size:9.5px;color:rgba(0,0,0,0.4);letter-spacing:.04em;text-align:center;max-width:72px;line-height:1.3}
+
+/* ══════════════════════════════════════
+   APPLE GLASS SYSTEM
+   Three real layers:
+   1. Coloured sphere fill (radial gradient)
+   2. Top specular blick (bright ellipse top-left)
+   3. Bottom rim glow (soft white band)
+   4. Edge ring (rgba white border)
+   All done with ::before / ::after + inner div
+══════════════════════════════════════ */
+
+.gi{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1), filter .2s;
+}
+.gi:hover{transform:scale(1.08) translateY(-3px);filter:brightness(1.05)}
+.gi:active{transform:scale(0.93);transition-duration:.1s}
+
+/* Shape variants */
+.gi-64r{width:64px;height:64px;border-radius:50%}
+.gi-64s{width:64px;height:64px;border-radius:18px}
+.gi-48r{width:48px;height:48px;border-radius:50%}
+.gi-48s{width:48px;height:48px;border-radius:14px}
+.gi-32r{width:32px;height:32px;border-radius:50%}
+.gi-pill{width:148px;height:56px;border-radius:28px}
+.gi-pill-sm{width:120px;height:44px;border-radius:22px}
+.gi-rect{width:96px;height:64px;border-radius:18px}
+
+/* ── COLOUR FILLS ── */
+.c-blue{background:radial-gradient(ellipse 75% 75% at 38% 30%,#5baeff 0%,#007aff 38%,#0055d4 70%,#0040a8 100%);box-shadow:0 8px 24px rgba(0,100,255,.38),0 2px 6px rgba(0,0,0,.16),inset 0 1.5px 0 rgba(255,255,255,.4)}
+.c-green{background:radial-gradient(ellipse 75% 75% at 38% 30%,#4cd964 0%,#34c759 38%,#248a3d 70%,#1a6630 100%);box-shadow:0 8px 24px rgba(52,199,89,.38),0 2px 6px rgba(0,0,0,.16),inset 0 1.5px 0 rgba(255,255,255,.38)}
+.c-amber{background:radial-gradient(ellipse 75% 75% at 38% 30%,#ffd60a 0%,#ff9f0a 38%,#c96a00 70%,#9c4e00 100%);box-shadow:0 8px 24px rgba(255,159,10,.40),0 2px 6px rgba(0,0,0,.16),inset 0 1.5px 0 rgba(255,255,255,.42)}
+.c-red{background:radial-gradient(ellipse 75% 75% at 38% 30%,#ff6b6b 0%,#ff3b30 38%,#c0180c 70%,#8c0c08 100%);box-shadow:0 8px 24px rgba(255,59,48,.38),0 2px 6px rgba(0,0,0,.16),inset 0 1.5px 0 rgba(255,255,255,.35)}
+.c-teal{background:radial-gradient(ellipse 75% 75% at 38% 30%,#5ee7df 0%,#30b0c7 38%,#0a84a8 70%,#006880 100%);box-shadow:0 8px 24px rgba(48,176,199,.38),0 2px 6px rgba(0,0,0,.16),inset 0 1.5px 0 rgba(255,255,255,.38)}
+.c-violet{background:radial-gradient(ellipse 75% 75% at 38% 30%,#c49fff 0%,#bf5af2 38%,#8944cc 70%,#5e22a0 100%);box-shadow:0 8px 24px rgba(191,90,242,.38),0 2px 6px rgba(0,0,0,.16),inset 0 1.5px 0 rgba(255,255,255,.38)}
+.c-pink{background:radial-gradient(ellipse 75% 75% at 38% 30%,#ff9de2 0%,#ff2d78 38%,#c0005e 70%,#8c0046 100%);box-shadow:0 8px 24px rgba(255,45,120,.38),0 2px 6px rgba(0,0,0,.16),inset 0 1.5px 0 rgba(255,255,255,.35)}
+.c-slate{background:radial-gradient(ellipse 75% 75% at 38% 30%,#c8d0df 0%,#8e9aaf 38%,#5a6478 70%,#3a4255 100%);box-shadow:0 8px 24px rgba(90,100,120,.32),0 2px 6px rgba(0,0,0,.18),inset 0 1.5px 0 rgba(255,255,255,.45)}
+.c-orange{background:radial-gradient(ellipse 75% 75% at 38% 30%,#ffb340 0%,#ff6b00 38%,#c44a00 70%,#8c3200 100%);box-shadow:0 8px 24px rgba(255,107,0,.38),0 2px 6px rgba(0,0,0,.16),inset 0 1.5px 0 rgba(255,255,255,.4)}
+
+/* Chrome / clear glass */
+.c-glass{
+  background:
+    radial-gradient(ellipse 80% 60% at 38% 28%, rgba(255,255,255,.82) 0%, rgba(240,244,252,.55) 45%, rgba(200,212,235,.25) 80%, transparent 100%),
+    linear-gradient(170deg,rgba(255,255,255,.5) 0%,rgba(220,228,248,.2) 60%,rgba(160,180,220,.15) 100%);
+  box-shadow:0 8px 24px rgba(100,120,160,.18),0 2px 6px rgba(0,0,0,.12),inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(150,170,210,.2);
+  border:1px solid rgba(255,255,255,.65);
+}
+
+/* ── SPECULAR LAYER (top blick) ── */
+.gi::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:
+    radial-gradient(ellipse 62% 48% at 38% 22%, rgba(255,255,255,.72) 0%, rgba(255,255,255,.0) 55%);
+  z-index:3;pointer-events:none;
+}
+/* Bottom rim */
+.gi::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(180deg,transparent 55%,rgba(255,255,255,.22) 100%);
+  z-index:3;pointer-events:none;
+}
+/* Edge ring */
+.gi-rim{
+  position:absolute;inset:0;border-radius:inherit;
+  border:1px solid rgba(255,255,255,.42);
+  z-index:4;pointer-events:none;
+}
+
+/* SVG icons inside */
+.gi svg{position:relative;z-index:2;flex-shrink:0}
+
+/* Pill content layout */
+.pill-content{
+  position:relative;z-index:2;
+  display:flex;align-items:center;gap:11px;padding:0 22px;
+}
+.pill-text{line-height:1.25}
+.pill-text .pt-main{font-size:13px;font-weight:700;color:rgba(255,255,255,.95);letter-spacing:-.01em}
+.pill-text .pt-sub{font-size:10px;font-weight:500;color:rgba(255,255,255,.62);letter-spacing:.04em;text-transform:uppercase}
+.c-glass .pill-text .pt-main{color:rgba(20,50,140,.82)}
+.c-glass .pill-text .pt-sub{color:rgba(20,50,140,.45)}
+
+/* Rect content */
+.rect-content{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.rect-num{font-size:22px;font-weight:700;line-height:1;letter-spacing:-.03em;color:rgba(255,255,255,.95)}
+.rect-lbl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+
+/* Logo frame */
+.logo-frame{
+  position:relative;z-index:2;
+  display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;
+  padding:10px;
+}
+.logo-frame img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(1) brightness(.4);transition:filter .2s}
+.gi:hover .logo-frame img{filter:grayscale(0) brightness(1)}
+</style>
+
+<!-- ═══════════════════════════════════════ -->
+<!--  SECTION 1 — КРУГЛЫЕ 64px             -->
+<!-- ═══════════════════════════════════════ -->
+<div class="lib-section">
+<div class="lib-title">Круглые 64px — карточки разделов и преимуществ</div>
+<div class="lib-grid">
+
+  <!-- LEAN -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-blue">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M6 22V11L14 6L22 11V22" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 22V17L14 14.5L18 17V22" stroke="rgba(255,255,255,.92)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="14" cy="10" r="1.5" fill="rgba(255,255,255,.9)"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">LEAN</span>
+  </div>
+
+  <!-- Kaizen -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-green">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M14 21V14M14 14C14 10.7 16.5 8 20 8" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M8 13C8 9.7 10.7 7 14 7" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M10 18L14 22L18 18" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="20" cy="8" r="2.5" fill="rgba(255,255,255,.88)"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Kaizen</span>
+  </div>
+
+  <!-- KPI -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-amber">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect x="5" y="16" width="4" height="7" rx="1.2" fill="rgba(255,255,255,.9)"/>
+        <rect x="12" y="11" width="4" height="12" rx="1.2" fill="rgba(255,255,255,.9)"/>
+        <rect x="19" y="7" width="4" height="16" rx="1.2" fill="rgba(255,255,255,.9)"/>
+        <path d="M7 14L14 9L21 5" stroke="rgba(255,255,255,.55)" stroke-width="1.2" stroke-dasharray="2 2"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">KPI</span>
+  </div>
+
+  <!-- 5S -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-teal">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect x="6" y="6" width="7" height="7" rx="2" fill="rgba(255,255,255,.92)"/>
+        <rect x="15" y="6" width="7" height="7" rx="2" fill="rgba(255,255,255,.55)"/>
+        <rect x="6" y="15" width="7" height="7" rx="2" fill="rgba(255,255,255,.55)"/>
+        <rect x="15" y="15" width="7" height="7" rx="2" fill="rgba(255,255,255,.92)"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">5S</span>
+  </div>
+
+  <!-- VSM -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-violet">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M5 14L9 14L11 9L14 19L17 11L19 14L23 14" stroke="rgba(255,255,255,.95)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">VSM</span>
+  </div>
+
+  <!-- TPM -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-slate">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="8" stroke="rgba(255,255,255,.88)" stroke-width="2" fill="none"/>
+        <circle cx="14" cy="14" r="2.5" fill="rgba(255,255,255,.92)"/>
+        <path d="M14 6V9M14 19V22M6 14H9M19 14H22" stroke="rgba(255,255,255,.82)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M8.93 8.93L11.05 11.05M16.95 16.95L19.07 19.07" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">TPM</span>
+  </div>
+
+  <!-- OEE -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-orange">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="9" stroke="rgba(255,255,255,.25)" stroke-width="2.5" fill="none"/>
+        <path d="M14 5A9 9 0 0 1 23 14A9 9 0 0 1 17.4 22.4" stroke="rgba(255,255,255,.95)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <text x="14" y="17" text-anchor="middle" font-family="monospace" font-size="7.5" font-weight="700" fill="rgba(255,255,255,.95)">OEE</text>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">OEE</span>
+  </div>
+
+  <!-- A3 / PDCA -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-red">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="9" stroke="rgba(255,255,255,.18)" stroke-width="1" fill="none"/>
+        <path d="M14 5V14L19.5 19.5" stroke="rgba(255,255,255,.88)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="14" y="26" text-anchor="middle" font-family="monospace" font-size="5.5" letter-spacing="1" fill="rgba(255,255,255,.65)">PDCA</text>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">PDCA / A3</span>
+  </div>
+
+  <!-- Areng -->
+  <div class="ic-wrap">
+    <div class="gi gi-64r c-pink">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="10" cy="10" r="3.5" stroke="rgba(255,255,255,.9)" stroke-width="1.8" fill="none"/>
+        <circle cx="19.5" cy="10" r="3" stroke="rgba(255,255,255,.7)" stroke-width="1.5" fill="none"/>
+        <path d="M5 22C5 18.7 7.2 16 10 16C12.8 16 15 18.7 15 22" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        <path d="M16 22C16 19.5 17.5 17.5 19.5 17.5C21.5 17.5 23 19.5 23 22" stroke="rgba(255,255,255,.65)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Areng / Tiim</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!--  SECTION 2 — КВАДРАТНЫЕ 64px          -->
+<!-- ═══════════════════════════════════════ -->
+<div class="lib-section">
+<div class="lib-title">Квадратные 64px — блоки программы и модули</div>
+<div class="lib-grid">
+
+  <!-- Seminar -->
+  <div class="ic-wrap">
+    <div class="gi gi-64s c-blue">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect x="5" y="6" width="18" height="13" rx="2.5" stroke="rgba(255,255,255,.9)" stroke-width="1.8" fill="none"/>
+        <path d="M9 22L14 19.5L19 22" stroke="rgba(255,255,255,.8)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 11H14" stroke="rgba(255,255,255,.9)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M9 14H19" stroke="rgba(255,255,255,.5)" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Seminar</span>
+  </div>
+
+  <!-- Ettevõte külastus -->
+  <div class="ic-wrap">
+    <div class="gi gi-64s c-amber">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M5 22V12L10 8L14 10L18 7L23 11V22" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="11" y="16" width="6" height="6" rx="1" fill="rgba(255,255,255,.9)"/>
+        <rect x="7" y="14" width="3.5" height="4" rx="1" fill="rgba(255,255,255,.62)"/>
+        <rect x="17.5" y="14" width="3.5" height="4" rx="1" fill="rgba(255,255,255,.62)"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Ettevõte</span>
+  </div>
+
+  <!-- Tunnistus -->
+  <div class="ic-wrap">
+    <div class="gi gi-64s c-violet">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect x="6" y="4" width="16" height="20" rx="2.5" stroke="rgba(255,255,255,.9)" stroke-width="1.8" fill="none"/>
+        <path d="M10 10H18" stroke="rgba(255,255,255,.88)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M10 13.5H16" stroke="rgba(255,255,255,.55)" stroke-width="1.3" stroke-linecap="round"/>
+        <circle cx="14" cy="18.5" r="2.8" stroke="rgba(255,255,255,.88)" stroke-width="1.4" fill="none"/>
+        <path d="M12.4 18.5L13.5 19.7L15.8 17" stroke="rgba(255,255,255,.95)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Tunnistus</span>
+  </div>
+
+  <!-- EIS Toetus -->
+  <div class="ic-wrap">
+    <div class="gi gi-64s c-green">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M14 5V13M10 9L14 5L18 9" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 16V22H22V16" stroke="rgba(255,255,255,.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 22V18H14V22" stroke="rgba(255,255,255,.55)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">EIS Toetus</span>
+  </div>
+
+  <!-- Parendusprojekt -->
+  <div class="ic-wrap">
+    <div class="gi gi-64s c-teal">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M7 21L11 14L15 17L19 10L22 13" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M7 21L22 21" stroke="rgba(255,255,255,.5)" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M7 7L7 21" stroke="rgba(255,255,255,.5)" stroke-width="1.3" stroke-linecap="round"/>
+        <circle cx="19" cy="10" r="2.5" fill="rgba(255,255,255,.88)"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Projekt</span>
+  </div>
+
+  <!-- Registreeru (square) -->
+  <div class="ic-wrap">
+    <div class="gi gi-64s c-red">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M6 14H18M14 9L19 14L14 19" stroke="rgba(255,255,255,.95)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 6V22" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Registreeru</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!--  SECTION 3 — ПИЛЮЛИ                   -->
+<!-- ═══════════════════════════════════════ -->
+<div class="lib-section">
+<div class="lib-title">Пилюли — CTA, статус, даты</div>
+<div class="lib-grid">
+
+  <div class="ic-wrap" style="align-items:flex-start">
+    <div class="gi gi-pill c-blue">
+      <div class="pill-content">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M5 12H17M13 7L18 12L13 17" stroke="rgba(255,255,255,.95)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="pill-text">
+          <div class="pt-main">Registreeru</div>
+          <div class="pt-sub">oktoober 2026</div>
+        </div>
+      </div>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl" style="max-width:148px">Основной CTA</span>
+  </div>
+
+  <div class="ic-wrap" style="align-items:flex-start">
+    <div class="gi gi-pill c-glass">
+      <div class="pill-content">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="8" stroke="rgba(20,60,160,.55)" stroke-width="1.8" fill="none"/>
+          <path d="M12 7V12L15.5 14.5" stroke="rgba(20,60,160,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="pill-text">
+          <div class="pt-main">9 päeva</div>
+          <div class="pt-sub">64 akad. tundi</div>
+        </div>
+      </div>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl" style="max-width:148px">Вторичный CTA</span>
+  </div>
+
+  <div class="ic-wrap" style="align-items:flex-start">
+    <div class="gi gi-pill-sm c-green">
+      <div class="pill-content" style="padding:0 18px;gap:8px">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="4" fill="rgba(255,255,255,.3)"/>
+          <circle cx="9" cy="9" r="2" fill="rgba(255,255,255,.95)"/>
+          <circle cx="9" cy="9" r="6.5" stroke="rgba(255,255,255,.45)" stroke-width="1" fill="none"/>
+        </svg>
+        <div class="pill-text">
+          <div class="pt-main" style="font-size:12px">Avatud</div>
+          <div class="pt-sub" style="font-size:9px">2026</div>
+        </div>
+      </div>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl" style="max-width:120px">Статус badge</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!--  SECTION 4 — RECT (статистика)        -->
+<!-- ═══════════════════════════════════════ -->
+<div class="lib-section">
+<div class="lib-title">Прямоугольники — статистика и числа</div>
+<div class="lib-grid">
+
+  <div class="ic-wrap">
+    <div class="gi gi-rect c-blue">
+      <div class="rect-content">
+        <div class="rect-num">147<span style="font-size:14px;opacity:.7">+</span></div>
+        <div class="rect-lbl">Lõpetajat</div>
+      </div>
+      <div class="gi-rim"></div>
+    </div>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-rect c-green">
+      <div class="rect-content">
+        <div class="rect-num">60<span style="font-size:14px;opacity:.7">+</span></div>
+        <div class="rect-lbl">Ettevõtet</div>
+      </div>
+      <div class="gi-rim"></div>
+    </div>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-rect c-amber">
+      <div class="rect-content">
+        <div class="rect-num">25<span style="font-size:14px;opacity:.7">a</span></div>
+        <div class="rect-lbl">Kogemus</div>
+      </div>
+      <div class="gi-rim"></div>
+    </div>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-rect c-glass">
+      <div class="rect-content">
+        <div class="rect-num" style="color:rgba(20,60,160,.85)">50<span style="font-size:14px;opacity:.7;color:rgba(20,60,160,.6)">%</span></div>
+        <div class="rect-lbl" style="color:rgba(20,60,160,.5)">EIS toetus</div>
+      </div>
+      <div class="gi-rim"></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!--  SECTION 5 — МАЛЫЕ 48px + 32px        -->
+<!-- ═══════════════════════════════════════ -->
+<div class="lib-section">
+<div class="lib-title">Малые 48px — inline, nav, теги</div>
+<div class="lib-grid">
+
+  <div class="ic-wrap">
+    <div class="gi gi-48r c-blue">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M4 11L9 16L18 6" stroke="rgba(255,255,255,.95)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Valmis</span>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-48r c-amber">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M11 3L13.2 8.2L18.9 8.7L14.8 12.3L16.1 18L11 15L5.9 18L7.2 12.3L3.1 8.7L8.8 8.2Z" stroke="rgba(255,255,255,.9)" stroke-width="1.5" stroke-linejoin="round" fill="rgba(255,255,255,.18)"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Premium</span>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-48r c-violet">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <circle cx="11" cy="8" r="3.5" stroke="rgba(255,255,255,.9)" stroke-width="1.8" fill="none"/>
+        <path d="M4 20C4 16.7 7.1 14 11 14C14.9 14 18 16.7 18 20" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Koolitaja</span>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-48r c-glass">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M4 5H18M4 11H18M4 17H12" stroke="rgba(20,60,160,.65)" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Menu</span>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-48s c-slate">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <circle cx="11" cy="11" r="7.5" stroke="rgba(255,255,255,.88)" stroke-width="1.8" fill="none"/>
+        <path d="M11 7.5V11L13.5 13" stroke="rgba(255,255,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Ajakava</span>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-48s c-green">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M11 4L11 11M7 8L11 4L15 8" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5 15V18H17V15" stroke="rgba(255,255,255,.82)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">EIS</span>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-48r c-red">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M4 18L8 11L11 14L14 8L18 18" stroke="rgba(255,255,255,.92)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Tulemused</span>
+  </div>
+
+  <div class="ic-wrap">
+    <div class="gi gi-48r c-teal">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <rect x="4" y="4" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.9)"/>
+        <rect x="12" y="4" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.55)"/>
+        <rect x="4" y="12" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.55)"/>
+        <rect x="12" y="12" width="6" height="6" rx="1.5" fill="rgba(255,255,255,.9)"/>
+      </svg>
+      <div class="gi-rim"></div>
+    </div>
+    <span class="ic-lbl">Programm</span>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER COUNT -->
+<div style="padding-top:20px;border-top:.5px solid rgba(0,0,0,0.08);font-size:10px;color:rgba(0,0,0,.35);letter-spacing:.06em;display:flex;gap:24px">
+  <span>9 круглых 64px</span>
+  <span>6 квадратных 64px</span>
+  <span>3 пилюли</span>
+  <span>4 rect-stat</span>
+  <span>8 малых 48px</span>
+  <span style="color:rgba(0,0,0,.55);font-weight:600">= 30 иконок</span>
+</div>
