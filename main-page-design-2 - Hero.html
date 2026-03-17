@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tootmisjuhtimine.ee — Premium Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --blue:#0071e3;
+  --blue-dark:#004eb8;
+  --blue-light:#5baeff;
+  --blue-soft:rgba(0,113,227,0.10);
+  --orange:#ff9f0a;
+  --orange-dark:#c96a00;
+  --bg:#f2f2f4;
+  --bg2:#e8e8ec;
+  --card:#ffffff;
+  --text:#1a1a1c;
+  --text2:#636366;
+  --text3:#aeaeb2;
+  --border:rgba(0,0,0,0.07);
+  --border2:rgba(0,0,0,0.12);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ═══════════════════════════════
+   NOISE TEXTURE OVERLAY
+═══════════════════════════════ */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;
+  opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+}
+
+/* ═══════════════════════════════
+   NAV
+═══════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 60px;height:56px;
+  background:rgba(242,242,244,0.82);
+  backdrop-filter:blur(32px) saturate(180%);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  border-bottom:0.5px solid rgba(0,0,0,0.06);
+}
+
+/* subtle gradient line under nav */
+nav::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:0.5px;
+  background:linear-gradient(90deg,transparent 0%,rgba(0,113,227,.18) 30%,rgba(0,113,227,.28) 50%,rgba(0,113,227,.18) 70%,transparent 100%);
+}
+
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  font-size:11.5px;font-weight:700;letter-spacing:.1em;
+  color:var(--text);text-transform:uppercase;text-decoration:none;
+}
+.nav-logo-badge{
+  width:28px;height:28px;
+  background:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9.5px;font-weight:800;color:#fff;letter-spacing:.06em;
+  box-shadow:0 2px 8px rgba(0,113,227,.35);
+}
+
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{
+  font-size:12px;font-weight:500;letter-spacing:.02em;
+  color:var(--text2);text-decoration:none;
+  transition:color .15s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;bottom:-2px;left:0;right:0;height:1px;
+  background:var(--blue);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .2s;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+.nav-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:600;letter-spacing:.04em;
+  color:#fff;background:var(--blue);
+  padding:9px 22px;text-decoration:none;
+  box-shadow:0 2px 12px rgba(0,113,227,.28);
+  transition:all .2s;
+}
+.nav-cta:hover{background:var(--blue-dark);box-shadow:0 4px 20px rgba(0,113,227,.38);transform:translateY(-1px)}
+
+/* ═══════════════════════════════
+   HERO SECTION
+═══════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:112px 60px 80px;
+  position:relative;overflow:hidden;
+}
+
+/* layered background */
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 55% 65% at 72% 48%, rgba(0,113,227,.065) 0%, transparent 65%),
+    radial-gradient(ellipse 35% 40% at 15% 85%, rgba(255,159,10,.04) 0%, transparent 55%),
+    linear-gradient(170deg, #f4f4f6 0%, #f0f0f3 50%, #ebebee 100%);
+}
+
+/* large ambient glow right */
+.hero-glow-r{
+  position:absolute;top:50%;right:2%;
+  transform:translateY(-50%);
+  width:680px;height:680px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(0,113,227,.09) 0%,rgba(0,113,227,.04) 40%,transparent 68%);
+  pointer-events:none;z-index:0;
+}
+
+/* subtle top-left warm glow */
+.hero-glow-l{
+  position:absolute;top:-8%;left:-6%;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,159,10,.05) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+
+.hero-inner{
+  position:relative;z-index:1;
+  max-width:1320px;margin:0 auto;width:100%;
+  display:grid;
+  grid-template-columns:1.1fr 0.52fr;
+  gap:72px;
+  align-items:center;
+}
+
+/* ═══════════════════════════════
+   LEFT COLUMN
+═══════════════════════════════ */
+.hero-left{display:flex;flex-direction:column;}
+
+/* Status pill */
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  width:fit-content;
+  margin-bottom:36px;
+  animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-pill-inner{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(255,159,10,.10);
+  border:1px solid rgba(255,159,10,.22);
+  color:var(--orange-dark);
+  font-size:11px;font-weight:600;letter-spacing:.06em;
+  padding:5px 13px 5px 9px;
+}
+.pill-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--orange);
+  box-shadow:0 0 0 3px rgba(255,159,10,.18);
+  animation:pulseDot 2s ease-in-out infinite;
+}
+@keyframes pulseDot{
+  0%,100%{box-shadow:0 0 0 3px rgba(255,159,10,.18)}
+  50%{box-shadow:0 0 0 5px rgba(255,159,10,.08)}
+}
+
+/* H1 */
+.hero-h1{
+  font-family:'Inter',-apple-system,sans-serif;
+  font-size:clamp(50px,5.4vw,80px);
+  font-weight:800;
+  line-height:1.0;
+  letter-spacing:-.032em;
+  color:var(--text);
+  margin-bottom:0;
+  animation:fadeUp .55s cubic-bezier(.22,1,.36,1) .08s both;
+}
+
+.hero-h1-script{
+  display:block;
+  font-family:'Instrument Serif',Georgia,serif;
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(54px,5.8vw,86px);
+  color:var(--blue);
+  line-height:1.0;
+  letter-spacing:-.008em;
+  position:relative;
+  padding-bottom:10px;
+  margin-top:4px;
+  animation:fadeUp .55s cubic-bezier(.22,1,.36,1) .12s both;
+}
+
+/* animated underline */
+.hero-h1-script::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;
+  width:68%;height:2px;
+  background:linear-gradient(90deg,var(--blue) 0%,var(--blue-light) 60%,transparent 100%);
+  transform-origin:left;
+  animation:lineGrow .7s cubic-bezier(.22,1,.36,1) .8s both;
+}
+@keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* sub */
+.hero-sub{
+  font-size:17px;font-weight:400;line-height:1.75;
+  color:var(--text2);max-width:490px;
+  margin:30px 0 40px;
+  animation:fadeUp .55s cubic-bezier(.22,1,.36,1) .2s both;
+}
+
+/* CTA row */
+.hero-cta-row{
+  display:flex;gap:12px;flex-wrap:wrap;
+  margin-bottom:18px;
+  animation:fadeUp .55s cubic-bezier(.22,1,.36,1) .28s both;
+}
+
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--blue);color:#fff;
+  font-size:13.5px;font-weight:700;letter-spacing:.03em;
+  text-transform:uppercase;
+  padding:16px 34px;text-decoration:none;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.15) inset,
+    0 4px 16px rgba(0,113,227,.32),
+    0 1px 4px rgba(0,0,0,.12);
+  transition:all .22s cubic-bezier(.22,1,.36,1);
+  position:relative;overflow:hidden;
+}
+.btn-primary::before{
+  content:'';
+  position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+  transition:left .4s ease;
+}
+.btn-primary:hover::before{left:100%}
+.btn-primary:hover{
+  background:var(--blue-dark);
+  box-shadow:0 1px 0 rgba(255,255,255,.15) inset,0 8px 28px rgba(0,113,227,.42),0 2px 8px rgba(0,0,0,.14);
+  transform:translateY(-2px);
+}
+.btn-primary:active{transform:translateY(0);transition-duration:.08s}
+
+.btn-arrow{
+  display:inline-flex;align-items:center;
+  transition:transform .2s;
+}
+.btn-primary:hover .btn-arrow{transform:translateX(3px)}
+
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(12px);
+  color:var(--blue);
+  font-size:13.5px;font-weight:600;letter-spacing:.02em;
+  padding:15px 28px;text-decoration:none;
+  border:1px solid rgba(0,113,227,.20);
+  box-shadow:0 1px 3px rgba(0,0,0,.06),0 1px 0 rgba(255,255,255,.9) inset;
+  transition:all .22s;
+}
+.btn-secondary:hover{
+  background:rgba(0,113,227,.06);
+  border-color:rgba(0,113,227,.36);
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.9) inset;
+}
+
+/* note */
+.hero-note{
+  font-size:12px;color:var(--text3);letter-spacing:.04em;
+  margin-bottom:40px;
+  animation:fadeUp .55s cubic-bezier(.22,1,.36,1) .34s both;
+}
+.hero-note span{color:var(--blue);font-weight:600}
+
+/* social proof row */
+.social-row{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:32px;
+  animation:fadeUp .55s cubic-bezier(.22,1,.36,1) .4s both;
+}
+.avatars{display:flex}
+
+/* glass ball avatar */
+.gball{
+  width:32px;height:32px;border-radius:50%;
+  border:2.5px solid var(--bg);
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#fff;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.gball+.gball{margin-left:-10px}
+.gball::before{
+  content:'';
+  position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(ellipse 62% 52% at 36% 26%,rgba(255,255,255,.72) 0%,rgba(255,255,255,0) 58%);
+  z-index:2;pointer-events:none;
+}
+.gball::after{
+  content:'';
+  position:absolute;inset:0;border-radius:50%;
+  background:linear-gradient(180deg,transparent 55%,rgba(255,255,255,.18) 100%);
+  z-index:2;pointer-events:none;
+}
+.gball span{position:relative;z-index:3}
+.gb-blue  {background:radial-gradient(ellipse at 38% 30%,#5baeff,#007aff 50%,#0040a8)}
+.gb-orange{background:radial-gradient(ellipse at 38% 30%,#ffd60a,#ff9f0a 50%,#9c4e00)}
+.gb-violet{background:radial-gradient(ellipse at 38% 30%,#c49fff,#bf5af2 50%,#5e22a0)}
+.gb-green {background:radial-gradient(ellipse at 38% 30%,#4cd964,#34c759 50%,#1a6630)}
+
+.social-text{font-size:12.5px;color:var(--text2);line-height:1.4}
+.social-text strong{color:var(--text);font-weight:600}
+
+/* ═══════════════════════════════
+   4 FEATURE CARDS
+═══════════════════════════════ */
+.features-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  animation:fadeUp .55s cubic-bezier(.22,1,.36,1) .46s both;
+}
+
+.feature-card{
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:0.5px solid rgba(255,255,255,.9);
+  border-bottom:0.5px solid rgba(0,0,0,.06);
+  border-right:0.5px solid rgba(0,0,0,.06);
+  border-radius:16px;
+  padding:16px 15px 14px;
+  display:flex;flex-direction:column;gap:10px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.9) inset,
+    0 2px 4px rgba(0,0,0,.04),
+    0 6px 20px rgba(0,0,0,.05);
+  transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
+  cursor:default;
+  position:relative;overflow:hidden;
+}
+/* top shimmer line on hover */
+.feature-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,113,227,.3),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.feature-card:hover{
+  transform:translateY(-4px) scale(1.01);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.9) inset,
+    0 4px 8px rgba(0,0,0,.06),
+    0 16px 40px rgba(0,113,227,.12);
+}
+.feature-card:hover::before{opacity:1}
+
+.feature-top{display:flex;align-items:flex-start;justify-content:space-between}
+
+/* glass icon */
+.fi{
+  width:40px;height:40px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;flex-shrink:0;
+}
+.fi::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(ellipse 65% 50% at 34% 24%,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 58%);
+  z-index:2;pointer-events:none;
+}
+.fi::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  border:1px solid rgba(255,255,255,.48);
+  z-index:3;pointer-events:none;
+}
+.fi svg{position:relative;z-index:1}
+
+.fi-blue  {background:radial-gradient(ellipse at 38% 30%,#5baeff 0%,#007aff 45%,#004eb8 100%);box-shadow:0 3px 10px rgba(0,122,255,.38)}
+.fi-green {background:radial-gradient(ellipse at 38% 30%,#4cd964 0%,#34c759 45%,#1a6630 100%);box-shadow:0 3px 10px rgba(52,199,89,.38)}
+.fi-violet{background:radial-gradient(ellipse at 38% 30%,#c49fff 0%,#bf5af2 45%,#5e22a0 100%);box-shadow:0 3px 10px rgba(191,90,242,.38)}
+.fi-amber {background:radial-gradient(ellipse at 38% 30%,#ffd60a 0%,#ff9f0a 45%,#9c4e00 100%);box-shadow:0 3px 10px rgba(255,159,10,.38)}
+
+.feature-arrow{
+  width:20px;height:20px;border-radius:50%;
+  background:rgba(0,0,0,.04);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--text3);
+  flex-shrink:0;margin-top:1px;
+  transition:all .2s;
+}
+.feature-card:hover .feature-arrow{
+  background:rgba(0,113,227,.08);
+  color:var(--blue);
+}
+
+.feature-title{
+  font-size:12.5px;font-weight:700;
+  color:var(--text);line-height:1.3;letter-spacing:-.015em;
+}
+.feature-sub{
+  font-size:11px;color:var(--text3);
+  line-height:1.4;font-weight:400;
+}
+
+/* ═══════════════════════════════
+   RIGHT — PREMIUM CARD
+═══════════════════════════════ */
+.hero-right{
+  animation:fadeUp .6s cubic-bezier(.22,1,.36,1) .18s both,
+             floatY 8s ease-in-out 1.8s infinite;
+  position:relative;
+}
+@keyframes floatY{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+.infocard{
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(40px) saturate(200%);
+  -webkit-backdrop-filter:blur(40px) saturate(200%);
+  border-radius:22px;
+  border:0.5px solid rgba(255,255,255,.95);
+  border-bottom:0.5px solid rgba(0,0,0,.07);
+  border-right:0.5px solid rgba(0,0,0,.07);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.95) inset,
+    0 4px 8px rgba(0,0,0,.04),
+    0 16px 48px rgba(0,0,0,.08),
+    0 40px 80px rgba(0,113,227,.07);
+  overflow:hidden;
+  position:relative;
+}
+
+/* top accent line */
+.infocard::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue) 0%,#5baeff 50%,rgba(0,113,227,.1) 100%);
+  z-index:1;
+}
+
+.ic-top{padding:20px 20px 16px}
+
+/* eyebrow */
+.ic-eyebrow{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(0,113,227,.45);text-align:center;
+  margin-bottom:14px;font-weight:600;
+}
+
+/* journey header */
+.journey-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:12px;
+}
+.journey-ttl{
+  font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--blue);
+}
+.trophy-badge{
+  display:flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#fff8ed,#fff3d6);
+  border:1px solid rgba(255,159,10,.25);
+  border-radius:10px;padding:5px 10px;
+  box-shadow:0 1px 4px rgba(255,159,10,.12);
+}
+.trophy-badge-ico{font-size:13px;line-height:1}
+.trophy-badge-title{font-size:10.5px;font-weight:700;color:#9c5000;line-height:1.2}
+.trophy-badge-sub{font-size:8.5px;font-weight:500;color:#b86000}
+
+/* dots */
+.dots-wrap{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px}
+.d-unit{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+.d-lbl{font-size:8px;color:var(--text3);font-weight:500;letter-spacing:.02em}
+.d{
+  width:20px;height:20px;border-radius:50%;
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+  cursor:default;flex-shrink:0;
+}
+.d:hover{transform:scale(1.2)}
+.d-blue{background:radial-gradient(ellipse at 38% 32%,#5baeff,#007aff 60%,#004eb8);box-shadow:0 2px 6px rgba(0,122,255,.45)}
+.d-dark{background:radial-gradient(ellipse at 38% 32%,#636366,#1d1d1f 60%,#000);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.d-empty{background:#e5e5ea;border:1.5px solid #d1d1d6}
+.d-gold{background:radial-gradient(ellipse at 38% 32%,#ffd60a,#ff9f0a 55%,#c96a00);box-shadow:0 2px 6px rgba(255,159,10,.45)}
+
+/* progress bars */
+.prog-section{padding:0 20px;margin:12px 0}
+.prog-row{margin-bottom:9px}
+.prog-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.prog-lbl{font-size:11.5px;font-weight:500;color:var(--text)}
+.prog-pct{font-size:12px;font-weight:700;color:var(--text)}
+.prog-track{
+  height:4px;background:#f0f0f5;border-radius:2px;overflow:hidden;
+  position:relative;
+}
+.prog-fill{
+  height:100%;border-radius:2px;position:relative;
+  animation:growBar .9s cubic-bezier(.4,0,.2,1) .4s both;
+}
+.prog-fill::after{
+  content:'';
+  position:absolute;right:0;top:0;bottom:0;width:4px;
+  border-radius:50%;
+  background:rgba(255,255,255,.6);
+}
+@keyframes growBar{from{width:0}to{width:var(--w)}}
+.pf-blue  {background:linear-gradient(90deg,#004eb8,#007aff,#5baeff);--w:88%}
+.pf-violet{background:linear-gradient(90deg,#5e22a0,#bf5af2,#d09bff);--w:72%}
+.pf-amber {background:linear-gradient(90deg,#9c5000,#ff9f0a,#ffd60a);--w:55%}
+
+/* stats row */
+.stats-strip{
+  display:flex;
+  border-top:0.5px solid rgba(0,0,0,.06);
+  padding:14px 20px 12px;
+}
+.s-item{flex:1;text-align:center;border-right:0.5px solid rgba(0,0,0,.06)}
+.s-item:last-child{border-right:none}
+.s-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:22px;font-weight:500;line-height:1;
+  color:var(--text);letter-spacing:-.02em;
+}
+.s-num sup{font-size:12px;color:var(--blue);font-weight:700;vertical-align:super}
+.s-lbl{font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-top:4px}
+
+/* next group banner */
+.next-banner{
+  margin:0 12px 12px;
+  background:linear-gradient(135deg,rgba(0,113,227,.06),rgba(0,113,227,.03));
+  border:0.5px solid rgba(0,113,227,.14);
+  border-radius:12px;
+  padding:11px 14px;
+  display:flex;align-items:center;gap:11px;
+}
+.nb-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,#5856d6,#bf5af2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;flex-shrink:0;
+  box-shadow:0 3px 8px rgba(88,86,214,.3);
+}
+.nb-title{font-size:12px;font-weight:700;color:var(--text)}
+.nb-sub{font-size:10.5px;color:var(--text3);margin-top:1px}
+.nb-sub span{color:var(--blue);font-weight:600}
+
+/* 3-col strip */
+.col-strip{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  border-top:0.5px solid rgba(0,0,0,.06);
+}
+.col-item{
+  padding:12px 12px 14px;
+  border-right:0.5px solid rgba(0,0,0,.06);
+  transition:background .2s;
+}
+.col-item:last-child{border-right:none}
+.col-item:hover{background:rgba(0,113,227,.03)}
+.c-n{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;font-weight:500;
+  color:rgba(0,113,227,.22);
+  display:block;margin-bottom:3px;
+}
+.c-e{
+  font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--blue);display:block;margin-bottom:4px;
+}
+.c-t{font-size:10.5px;font-weight:600;color:var(--text);line-height:1.3}
+
+/* ═══════════════════════════════
+   ANIMATIONS
+═══════════════════════════════ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media(max-width:1080px){
+  .hero-inner{grid-template-columns:1fr;gap:56px}
+  nav{padding:0 28px}
+  .hero{padding:96px 28px 64px}
+  .hero-right{max-width:400px;margin:0 auto}
+}
+@media(max-width:600px){
+  .hero{padding:88px 20px 48px}
+  .hero-h1{font-size:44px}
+  .hero-h1-script{font-size:46px}
+  .hero-sub{font-size:16px;margin:24px 0 32px}
+  .features-grid{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-badge">OP</div>
+    OPSTAR PROFIT™
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Koolitus</a></li>
+    <li><a href="#">9-päevane programm</a></li>
+    <li><a href="#">Miks LEAN?</a></li>
+    <li><a href="#">Kliendid</a></li>
+    <li><a href="#">Blogi</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Registreeru</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow-r"></div>
+  <div class="hero-glow-l"></div>
+
+  <div class="hero-inner">
+
+    <!-- ═══ LEFT 68% ═══ -->
+    <div class="hero-left">
+
+      <!-- status pill -->
+      <div class="hero-pill">
+        <div class="hero-pill-inner">
+          <span class="pill-dot"></span>
+          2026 programm on avatud
+        </div>
+      </div>
+
+      <!-- headline -->
+      <h1 class="hero-h1">
+        Tootmisjuhtimine,
+        <span class="hero-h1-script">mis tegelikult toimib</span>
+      </h1>
+
+      <!-- description -->
+      <p class="hero-sub">
+        9-päevane intensiivprogramm, mis muudab tootmisjuhi
+        süsteemimehitajaks. Praktilised tööriistad, reaalsed tulemused.
+      </p>
+
+      <!-- CTA -->
+      <div class="hero-cta-row">
+        <a href="#" class="btn-primary">
+          Registreeru programmi
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="#" class="btn-secondary">Vaata programmi</a>
+      </div>
+
+      <div class="hero-note">
+        Järgmine grupp: <span>oktoober 2026</span>&nbsp;·&nbsp;Kohti on piiratud
+      </div>
+
+      <!-- social proof -->
+      <div class="social-row">
+        <div class="avatars">
+          <div class="gball gb-blue"><span>KL</span></div>
+          <div class="gball gb-orange"><span>MR</span></div>
+          <div class="gball gb-violet"><span>AT</span></div>
+          <div class="gball gb-green"><span>JK</span></div>
+        </div>
+        <div class="social-text"><strong>147 tootmisjuhti</strong> on juba läbinud</div>
+      </div>
+
+      <!-- 4 feature cards -->
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-top">
+            <div class="fi fi-blue">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="3" y="11" width="3" height="6" rx="1" fill="rgba(255,255,255,.92)"/>
+                <rect x="8.5" y="7" width="3" height="10" rx="1" fill="rgba(255,255,255,.92)"/>
+                <rect x="14" y="4" width="3" height="13" rx="1" fill="rgba(255,255,255,.92)"/>
+              </svg>
+            </div>
+            <div class="feature-arrow">↗</div>
+          </div>
+          <div>
+            <div class="feature-title">Mõõdetavad tulemused</div>
+            <div class="feature-sub">KPI, OEE ja reaalsed näitajad</div>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-top">
+            <div class="fi fi-amber">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M3 16V9L7 6L10 7.5L13 5L17 8V16" stroke="rgba(255,255,255,.92)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <rect x="8" y="11" width="4" height="5" rx="1" fill="rgba(255,255,255,.88)"/>
+                <rect x="4.5" y="10.5" width="2.5" height="3" rx=".8" fill="rgba(255,255,255,.6)"/>
+              </svg>
+            </div>
+            <div class="feature-arrow">↗</div>
+          </div>
+          <div>
+            <div class="feature-title">Päris tehased</div>
+            <div class="feature-sub">2 ettevõttekülastust programmi sees</div>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-top">
+            <div class="fi fi-violet">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="7.5" cy="7" r="2.8" stroke="rgba(255,255,255,.9)" stroke-width="1.5" fill="none"/>
+                <circle cx="13.5" cy="7" r="2.2" stroke="rgba(255,255,255,.65)" stroke-width="1.3" fill="none"/>
+                <path d="M3 16c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke="rgba(255,255,255,.9)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                <path d="M13.5 12c1.8 0 3.5 1.2 3.5 3.5" stroke="rgba(255,255,255,.55)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+            <div class="feature-arrow">↗</div>
+          </div>
+          <div>
+            <div class="feature-title">Väike grupp</div>
+            <div class="feature-sub">Kuni 16 osalejat, isiklik lähenemine</div>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-top">
+            <div class="fi fi-green">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="4" y="3" width="12" height="14" rx="2" stroke="rgba(255,255,255,.88)" stroke-width="1.5" fill="none"/>
+                <path d="M7 7.5h6" stroke="rgba(255,255,255,.85)" stroke-width="1.3" stroke-linecap="round"/>
+                <path d="M7 10h4" stroke="rgba(255,255,255,.55)" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="10" cy="13.5" r="2" stroke="rgba(255,255,255,.85)" stroke-width="1.2" fill="none"/>
+                <path d="M9 13.5l.8 1L11.8 12" stroke="rgba(255,255,255,.95)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-arrow">↗</div>
+          </div>
+          <div>
+            <div class="feature-title">Rahvusvaheline tunnistus</div>
+            <div class="feature-sub">Sertifikaat ja ametlik diplom</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ RIGHT 32% — INFOGRAPHIC CARD ═══ -->
+    <div class="hero-right">
+      <div class="infocard">
+
+        <div class="ic-top">
+          <div class="ic-eyebrow">OPSTAR PROFIT™ · Raamistik</div>
+
+          <!-- journey header -->
+          <div class="journey-hdr">
+            <div class="journey-ttl">9-päevane teekond</div>
+            <div class="trophy-badge">
+              <span class="trophy-badge-ico">🏆</span>
+              <div>
+                <div class="trophy-badge-title">Top tulemus</div>
+                <div class="trophy-badge-sub">+38% efektiivsus</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- dots P1–P9 -->
+          <div class="dots-wrap">
+            <div class="d-unit"><div class="d d-blue"></div><span class="d-lbl">P1</span></div>
+            <div class="d-unit"><div class="d d-blue"></div><span class="d-lbl">P2</span></div>
+            <div class="d-unit"><div class="d d-blue"></div><span class="d-lbl">P3</span></div>
+            <div class="d-unit"><div class="d d-blue"></div><span class="d-lbl">P4</span></div>
+            <div class="d-unit"><div class="d d-dark"></div><span class="d-lbl">P5</span></div>
+            <div class="d-unit"><div class="d d-empty"></div><span class="d-lbl">P6</span></div>
+            <div class="d-unit"><div class="d d-empty"></div><span class="d-lbl">P7</span></div>
+            <div class="d-unit"><div class="d d-empty"></div><span class="d-lbl">P8</span></div>
+            <div class="d-unit"><div class="d d-gold"></div><span class="d-lbl">P9</span></div>
+          </div>
+        </div>
+
+        <!-- progress bars -->
+        <div class="prog-section">
+          <div class="prog-row">
+            <div class="prog-hdr">
+              <span class="prog-lbl">Juhtimine</span>
+              <span class="prog-pct">88%</span>
+            </div>
+            <div class="prog-track">
+              <div class="prog-fill pf-blue" style="width:88%"></div>
+            </div>
+          </div>
+          <div class="prog-row">
+            <div class="prog-hdr">
+              <span class="prog-lbl">Protsessid</span>
+              <span class="prog-pct">72%</span>
+            </div>
+            <div class="prog-track">
+              <div class="prog-fill pf-violet" style="width:72%"></div>
+            </div>
+          </div>
+          <div class="prog-row" style="margin-bottom:0">
+            <div class="prog-hdr">
+              <span class="prog-lbl">Süsteemid</span>
+              <span class="prog-pct">55%</span>
+            </div>
+            <div class="prog-track">
+              <div class="prog-fill pf-amber" style="width:55%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- stats strip -->
+        <div class="stats-strip">
+          <div class="s-item">
+            <div class="s-num">147<sup>+</sup></div>
+            <div class="s-lbl">lõpetajat</div>
+          </div>
+          <div class="s-item">
+            <div class="s-num">9</div>
+            <div class="s-lbl">päeva</div>
+          </div>
+          <div class="s-item">
+            <div class="s-num">25<sup>+</sup></div>
+            <div class="s-lbl">aastat</div>
+          </div>
+          <div class="s-item">
+            <div class="s-num">50<sup>×</sup></div>
+            <div class="s-lbl">tagastus</div>
+          </div>
+        </div>
+
+        <!-- next group banner -->
+        <div class="next-banner">
+          <div class="nb-icon">📈</div>
+          <div>
+            <div class="nb-title">Järgmine grupp</div>
+            <div class="nb-sub"><span>199 päeva</span> jäänud · oktoober 2026</div>
+          </div>
+        </div>
+
+        <!-- 3-col strip -->
+        <div class="col-strip">
+          <div class="col-item">
+            <span class="c-n">01</span>
+            <span class="c-e">Operatiiv</span>
+            <div class="c-t">Igapäevane juhtimine käe all</div>
+          </div>
+          <div class="col-item">
+            <span class="c-n">02</span>
+            <span class="c-e">Süsteem</span>
+            <div class="c-t">Protsessid, mis töötavad ise</div>
+          </div>
+          <div class="col-item">
+            <span class="c-n">03</span>
+            <span class="c-e">Areng</span>
+            <div class="c-t">Meeskond, kes areneb ise</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
