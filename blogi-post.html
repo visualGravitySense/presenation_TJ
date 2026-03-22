@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miks LEAN ei tööta Eestis — Andres Kase · tootmisjuhtimine.ee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#0071e3;--blue-dark:#004eb8;--blue-light:#5baeff;
+  --blue-soft:rgba(0,113,227,.10);--blue-border:rgba(0,113,227,.18);
+  --orange:#ff9f0a;--orange-dark:#c96a00;
+  --green:#34c759;--green-bg:rgba(52,199,89,.09);
+  --bg:#f2f2f4;--bg2:#e8e8ec;--card:#ffffff;
+  --text:#1a1a1c;--text2:#636366;--text3:#aeaeb2;
+  --border:rgba(0,0,0,.07);--border2:rgba(0,0,0,.12);
+  --r-sm:10px;--r-md:14px;--r-lg:18px;--r-xl:22px;
+  --shadow-card:0 2px 8px rgba(0,0,0,.06);
+  --shadow-hover:0 8px 32px rgba(0,0,0,.10),0 16px 48px rgba(0,113,227,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:56px;background:rgba(242,242,244,.85);backdrop-filter:blur(32px) saturate(180%);border-bottom:0.5px solid rgba(0,0,0,.06)}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0.5px;background:linear-gradient(90deg,transparent,rgba(0,113,227,.28) 50%,transparent)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;letter-spacing:.1em;color:var(--text);text-transform:uppercase;text-decoration:none}
+.nav-logo-badge{width:28px;height:28px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff;box-shadow:0 2px 8px rgba(0,113,227,.35)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{display:inline-flex;align-items:center;font-size:12px;font-weight:600;color:#fff;background:var(--blue);padding:9px 22px;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:var(--blue-dark);transform:translateY(-1px)}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{padding:76px 60px 0;position:relative;z-index:1;max-width:1280px;margin:0 auto;font-size:12px;color:var(--text3)}
+.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--blue)}
+.breadcrumb span{margin:0 6px;opacity:.4}
+
+/* ── ARTICLE HERO ── */
+.art-hero{padding:32px 0 0;position:relative;z-index:1}
+.art-hero-inner{max-width:1280px;margin:0 auto;padding:0 60px}
+.art-meta-top{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.art-tag{display:inline-flex;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:980px;background:#E6F1FB;color:#0C447C}
+.art-meta-dot{width:3px;height:3px;border-radius:50%;background:var(--text3)}
+.art-meta-text{font-size:12px;color:var(--text3);font-weight:500}
+.art-title{font-size:clamp(30px,4vw,52px);font-weight:800;line-height:1.06;letter-spacing:-.032em;color:var(--text);max-width:760px;margin-bottom:16px}
+.art-excerpt{font-size:18px;line-height:1.7;color:var(--text2);max-width:680px;margin-bottom:28px}
+.art-author-row{display:flex;align-items:center;gap:14px}
+.art-avatar{width:40px;height:40px;border-radius:50%;background:radial-gradient(ellipse at 38% 30%,#5baeff,#007aff 50%,#0040a8);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.art-author-name{font-size:14px;font-weight:700;color:var(--text)}
+.art-author-role{font-size:12px;color:var(--text3)}
+.art-author-link{font-size:12px;color:var(--blue);text-decoration:none;margin-left:auto}
+.art-author-link:hover{opacity:.7}
+
+/* Cover image */
+.art-cover{margin-top:36px;height:420px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0040a8 0%,#0071e3 50%,#5baeff 100%)}
+.art-cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(255,255,255,.08) 0%,transparent 65%)}
+.art-cover-label{position:absolute;bottom:24px;left:60px;font-size:12px;color:rgba(255,255,255,.5);font-weight:500}
+
+/* ── ARTICLE LAYOUT ── */
+.art-layout{max-width:1280px;margin:0 auto;padding:48px 60px 80px;display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start;position:relative;z-index:1}
+
+/* Article body */
+.art-body{min-width:0}
+.art-body h2{font-size:24px;font-weight:800;letter-spacing:-.022em;color:var(--text);margin:40px 0 16px;line-height:1.2}
+.art-body h2:first-child{margin-top:0}
+.art-body h3{font-size:18px;font-weight:700;letter-spacing:-.015em;color:var(--text);margin:28px 0 12px}
+.art-body p{font-size:17px;line-height:1.8;color:var(--text2);margin-bottom:20px}
+.art-body p:last-child{margin-bottom:0}
+.art-body strong{color:var(--text);font-weight:700}
+.art-body a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+
+/* Blockquote */
+.art-body blockquote{border-left:3px solid var(--blue);padding:18px 24px;margin:28px 0;background:var(--blue-soft);border-radius:0 var(--r-md) var(--r-md) 0}
+.art-body blockquote p{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:19px;color:var(--text);margin:0;line-height:1.6}
+
+/* Highlight box */
+.art-highlight{background:var(--card);border:0.5px solid var(--border2);border-radius:var(--r-lg);padding:24px 28px;margin:28px 0}
+.art-highlight-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.art-highlight ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.art-highlight ul li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.6;color:var(--text2)}
+.art-highlight ul li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* Inline image placeholder */
+.art-img{background:var(--bg2);border-radius:var(--r-lg);height:280px;display:flex;align-items:center;justify-content:center;margin:28px 0;color:var(--text3);font-size:13px;font-weight:500;border:0.5px solid var(--border)}
+
+/* CTA in article */
+.art-cta{background:linear-gradient(135deg,#0040a8,#0071e3);border-radius:var(--r-xl);padding:32px 36px;margin:40px 0;color:#fff;position:relative;overflow:hidden}
+.art-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 80% 50%,rgba(255,255,255,.08) 0%,transparent 60%)}
+.art-cta h3{font-size:20px;font-weight:800;margin-bottom:8px;position:relative;z-index:1}
+.art-cta p{font-size:14px;opacity:.8;margin-bottom:20px;position:relative;z-index:1;line-height:1.6}
+.art-cta-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue);font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:13px 28px;text-decoration:none;position:relative;z-index:1;transition:all .2s}
+.art-cta-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.2)}
+
+/* Author box */
+.author-box{background:var(--card);border-radius:var(--r-xl);padding:24px;border:0.5px solid var(--border);margin-top:40px}
+.ab-header{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.ab-avatar{width:52px;height:52px;border-radius:50%;background:radial-gradient(ellipse at 38% 30%,#5baeff,#007aff 50%,#0040a8);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
+.ab-name{font-size:15px;font-weight:700;color:var(--text)}
+.ab-role{font-size:12px;color:var(--text3);margin-top:1px}
+.ab-bio{font-size:13px;line-height:1.65;color:var(--text2);margin-bottom:14px}
+.ab-link{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none}
+.ab-link:hover{opacity:.7}
+
+/* Tags */
+.art-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px;padding-top:24px;border-top:0.5px solid var(--border)}
+.art-tags-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;display:block;width:100%}
+.art-tag-btn{display:inline-flex;font-size:12px;font-weight:600;padding:5px 14px;border-radius:980px;text-decoration:none;border:1px solid var(--border2);background:var(--card);color:var(--text2);transition:all .15s}
+.art-tag-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+
+/* Prev/next */
+.art-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px;padding-top:32px;border-top:0.5px solid var(--border)}
+.art-nav-btn{background:var(--card);border:0.5px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;text-decoration:none;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.art-nav-btn:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.art-nav-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.art-nav-title{font-size:14px;font-weight:700;color:var(--text);line-height:1.3;margin-top:2px}
+.art-nav-btn.next{text-align:right}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:20px;position:sticky;top:76px}
+
+/* TOC */
+.toc{background:var(--card);border-radius:var(--r-lg);padding:20px;border:0.5px solid var(--border)}
+.toc-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc-item a{display:block;font-size:13px;color:var(--text2);text-decoration:none;padding:5px 8px;border-radius:var(--r-sm);transition:all .15s;line-height:1.4;border-left:2px solid transparent}
+.toc-item a:hover{color:var(--blue);background:var(--blue-soft);border-left-color:var(--blue)}
+.toc-item.active a{color:var(--blue);background:var(--blue-soft);border-left-color:var(--blue);font-weight:600}
+.toc-item.sub a{padding-left:18px;font-size:12px}
+
+/* Related posts */
+.related{background:var(--card);border-radius:var(--r-lg);padding:20px;border:0.5px solid var(--border)}
+.related-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+.related-list{display:flex;flex-direction:column;gap:12px}
+.rel-item{display:flex;gap:10px;text-decoration:none;transition:opacity .15s}
+.rel-item:hover{opacity:.75}
+.rel-thumb{width:52px;height:52px;border-radius:var(--r-sm);flex-shrink:0;overflow:hidden}
+.rel-thumb-bg{width:100%;height:100%}
+.rel-body{}
+.rel-tag{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:3px}
+.rel-title{font-size:12px;font-weight:600;color:var(--text);line-height:1.35}
+.rel-meta{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* Share */
+.share-box{background:var(--card);border-radius:var(--r-lg);padding:20px;border:0.5px solid var(--border);text-align:center}
+.share-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.share-btns{display:flex;justify-content:center;gap:8px}
+.share-btn{width:36px;height:36px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);transition:all .15s;text-decoration:none}
+.share-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+
+/* Footer */
+footer{background:#1a1a1c;color:rgba(255,255,255,.5);padding:40px 60px;font-size:13px}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-logo{font-size:12px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+
+@media(max-width:1024px){.art-layout{grid-template-columns:1fr}.sidebar{display:none}.art-hero-inner,.breadcrumb{padding-left:40px;padding-right:40px}.art-layout{padding-left:40px;padding-right:40px}.art-cover-label{left:40px}}
+@media(max-width:768px){nav{padding:0 24px}.nav-links{display:none}.art-hero-inner,.breadcrumb{padding-left:24px;padding-right:24px}.art-layout{padding:32px 24px 60px}.art-cover{height:260px}.art-cover-label{left:24px}.art-nav{grid-template-columns:1fr}footer{padding:32px 24px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><div class="nav-logo-badge">OP</div>OPSTAR PROFIT™</a>
+  <ul class="nav-links">
+    <li><a href="/koolitus">Programm</a></li>
+    <li><a href="/opstar-profit">OPSTAR</a></li>
+    <li><a href="/andres-kase">Andres Kase</a></li>
+    <li><a href="/blogi">Blogi</a></li>
+  </ul>
+  <a href="/koolitus#registreeru" class="nav-cta">Registreeru →</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Avaleht</a><span>›</span>
+  <a href="/blogi">Blogi</a><span>›</span>
+  <span style="color:var(--text)">Miks LEAN ei tööta Eestis</span>
+</div>
+
+<!-- ARTICLE HERO -->
+<div class="art-hero">
+  <div class="art-hero-inner">
+    <div class="art-meta-top">
+      <span class="art-tag">LEAN</span>
+      <span class="art-meta-dot"></span>
+      <span class="art-meta-text">7 min lugemist</span>
+      <span class="art-meta-dot"></span>
+      <span class="art-meta-text">12. märts 2026</span>
+    </div>
+    <h1 class="art-title">Miks LEAN ei tööta Eestis — ja kuidas seda parandada</h1>
+    <p class="art-excerpt">Enamik Eesti ettevõtteid rakendab LEANi valesti — kopeerivad meetodeid ilma filosoofiat mõistmata. Siin on mida tegelikult vaja on.</p>
+    <div class="art-author-row">
+      <div class="art-avatar">AK</div>
+      <div>
+        <div class="art-author-name">Andres Kase</div>
+        <div class="art-author-role">LEAN · TPS koolitaja · OPSTAR PROFIT™</div>
+      </div>
+      <a href="/andres-kase" class="art-author-link">Vaata profiili →</a>
+    </div>
+  </div>
+</div>
+
+<!-- COVER IMAGE -->
+<div class="art-cover">
+  <div class="art-cover-label">Illustreeriv pilt · asendada päris fotoga</div>
+</div>
+
+<!-- ARTICLE LAYOUT -->
+<div class="art-layout">
+
+  <!-- BODY -->
+  <article class="art-body">
+
+    <h2 id="probleem">Probleem: LEAN kui tööriistakast</h2>
+    <p>Kui küsin Eesti tootmisjuhtidelt mis on LEAN, saab enamik vastuseks: "5S, VSM, Kaizen." See on täpselt see probleem — LEAN on taandatud tööriistakastiks, mitte mõtteviisiks.</p>
+    <p><strong>Toyota ei loonud LEANi tööriistakastina.</strong> Toyota lõi juhtimisfilosoofia kus inimesed, protsessid ja parendus moodustavad terviku. Tööriistad on vaid see filosoofia väljendus.</p>
+
+    <blockquote>
+      <p>"LEAN pole projekt millel on algus ja lõpp. See on eluviis mida organisatsioon omaks võtab — või mitte."</p>
+    </blockquote>
+
+    <h2 id="vead">3 kõige levinumat viga</h2>
+
+    <div class="art-highlight">
+      <div class="art-highlight-title">Levinud vead LEAN rakendamisel</div>
+      <ul>
+        <li>5S rakendatakse koristusprojektina, mitte standardi loomisena</li>
+        <li>VSM tehakse konsultantide poolt, mitte töötajatega koos</li>
+        <li>Kaizen on üks kord aastas toimuv "üritus", mitte igapäevane harjumus</li>
+        <li>Tulemusi mõõdetakse ainult lühiajaliselt — esimesed 3 kuud</li>
+      </ul>
+    </div>
+
+    <h3 id="viga1">Viga 1: Kopeerimine ilma kontekstita</h3>
+    <p>Toyota süsteem töötab Jaapanis sest see on ehitatud Jaapani kultuuri, väärtuste ja tööeetika peale. Eestis on teised eeldused — väiksemad ettevõtted, erinev juhtimistraditsioon, teine suhe autoriteedi ja iseseisvusega.</p>
+    <p>LEAN ei saa olla copy-paste. See peab olema kohandatud — säilitades põhiprintsiibid kuid arvestades kohaliku kontekstiga.</p>
+
+    <div class="art-img">Illustratsioon: LEAN rakendamise vale vs õige lähenemisviis</div>
+
+    <h3 id="viga2">Viga 2: Top-down juurutamine</h3>
+    <p>Enamik LEAN projekte ebaõnnestub sest need algavad juhatusest — mitte tootmispõrandalt. Juhatus otsustab "teeme LEAN-i", palgatakse konsultant, tehakse koolitus ja... 6 kuu pärast on kõik unustatud.</p>
+    <p><strong>Tõhus muutus algab inimestest kes teavad kus probleemid tegelikult on</strong> — tootmistöötajatest ja meistri tasandilt. Juhatus loob tingimused ja toetab, kuid probleemide lahendajad peavad olema need kes nendega igapäev kokku puutuvad.</p>
+
+    <h3 id="viga3">Viga 3: Tulemuste ootus on vale</h3>
+    <p>LEAN ei anna tulemusi 3 kuuga. Esimesed mõõdetavad tulemused tulevad tavaliselt 90 päeva pärast — kuid tõelised, süsteemsed muutused võtavad 2–3 aastat.</p>
+    <p>Ettevõtted kes lõpetavad 6 kuu pärast sest "ei näe tulemusi" on nagu inimene kes lõpetab treenimise kuus nädalat pärast algust sest pole veel ühtlast keha saanud.</p>
+
+    <h2 id="lahendus">Mis tegelikult töötab</h2>
+    <p>25 aasta ja 60+ ettevõtte kogemuse põhjal on see mida töötab Eestis:</p>
+
+    <div class="art-highlight">
+      <div class="art-highlight-title">Mis töötab Eesti kontekstis</div>
+      <ul>
+        <li>Alusta ühest probleemist, mitte kogu süsteemist korraga</li>
+        <li>Kaasa töötajad lahenduse loomisse — nad teavad vastuseid</li>
+        <li>Mõõda tulemusi enne ja pärast — numbrid hoiavad motivatsiooni</li>
+        <li>Juht peab olema eeskujuks, mitte ainult käskijaks</li>
+        <li>Ole kannatlik — süsteem ehitatakse aastaid, mitte kuid</li>
+      </ul>
+    </div>
+
+    <p>OPSTAR PROFIT™ raamistik on loodud just selle lõhe täitmiseks — universaalsete LEAN printsiipide ja Eesti tootmise reaalse konteksti vahel.</p>
+
+    <!-- CTA in article -->
+    <div class="art-cta">
+      <h3>Õpi LEAN-i rakendama päriselt — 9 päevaga</h3>
+      <p>OPSTAR PROFIT™ programm ühendab teooria päris tehasekülastustega. Järgmine grupp oktoober 2026 · 3 kohta vabad.</p>
+      <a href="/koolitus#registreeru" class="art-cta-btn">Registreeru koolitusele →</a>
+    </div>
+
+    <!-- Author -->
+    <div class="author-box">
+      <div class="ab-header">
+        <div class="ab-avatar">AK</div>
+        <div>
+          <div class="ab-name">Andres Kase</div>
+          <div class="ab-role">LEAN · TPS koolitaja · OPSTAR PROFIT™ asutaja</div>
+        </div>
+      </div>
+      <p class="ab-bio">25 aastat Eesti tootmises. 100+ tehast üle Euroopa. 147+ tootmisjuhti on läbinud OPSTAR PROFIT™ programmi. Koolitas 3 kuud Jaapanis Toyota tehases.</p>
+      <a href="/andres-kase" class="ab-link">Vaata täielikku profiili →</a>
+    </div>
+
+    <!-- Tags -->
+    <div class="art-tags">
+      <span class="art-tags-label">Sildid</span>
+      <a href="/blogi?filter=lean" class="art-tag-btn">LEAN</a>
+      <a href="/blogi?filter=juhtimine" class="art-tag-btn">Juhtimine</a>
+      <a href="/blogi?filter=kaizen" class="art-tag-btn">Kaizen</a>
+      <a href="/blogi?filter=tps" class="art-tag-btn">TPS</a>
+    </div>
+
+    <!-- Prev / Next -->
+    <nav class="art-nav" aria-label="Artiklite navigatsioon">
+      <a href="/blogi/toyota-tps" class="art-nav-btn">
+        <span class="art-nav-label">← Eelmine</span>
+        <span class="art-nav-title">Toyota TPS — mida õppisin 3 kuuga Jaapanis</span>
+      </a>
+      <a href="/blogi/oee-moistmine" class="art-nav-btn next">
+        <span class="art-nav-label">Järgmine →</span>
+        <span class="art-nav-title">OEE mõistmine — mida see number tegelikult näitab</span>
+      </a>
+    </nav>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- TOC -->
+    <div class="toc">
+      <div class="toc-title">Sisukord</div>
+      <ul class="toc-list">
+        <li class="toc-item active"><a href="#probleem">Probleem: LEAN kui tööriistakast</a></li>
+        <li class="toc-item"><a href="#vead">3 kõige levinumat viga</a></li>
+        <li class="toc-item sub"><a href="#viga1">Viga 1: Kopeerimine</a></li>
+        <li class="toc-item sub"><a href="#viga2">Viga 2: Top-down</a></li>
+        <li class="toc-item sub"><a href="#viga3">Viga 3: Vale ootus</a></li>
+        <li class="toc-item"><a href="#lahendus">Mis tegelikult töötab</a></li>
+      </ul>
+    </div>
+
+    <!-- Related posts -->
+    <div class="related">
+      <div class="related-title">Seotud artiklid</div>
+      <div class="related-list">
+        <a href="/blogi/kaizen-igapaev" class="rel-item">
+          <div class="rel-thumb"><div class="rel-thumb-bg" style="background:linear-gradient(135deg,#faeeda,#fac775)"></div></div>
+          <div class="rel-body">
+            <div class="rel-tag">Kaizen</div>
+            <div class="rel-title">Kaizen igapäevas — kuidas alustada</div>
+            <div class="rel-meta">4 min · 2. märts</div>
+          </div>
+        </a>
+        <a href="/blogi/toyota-tps" class="rel-item">
+          <div class="rel-thumb"><div class="rel-thumb-bg" style="background:linear-gradient(135deg,#eaf3de,#c0dd97)"></div></div>
+          <div class="rel-body">
+            <div class="rel-tag">TPS</div>
+            <div class="rel-title">Toyota TPS — 3 kuud Jaapanis</div>
+            <div class="rel-meta">9 min · 3. veebruar</div>
+          </div>
+        </a>
+        <a href="/blogi/5s-rakendamine" class="rel-item">
+          <div class="rel-thumb"><div class="rel-thumb-bg" style="background:linear-gradient(135deg,#e1f5ee,#9fe1cb)"></div></div>
+          <div class="rel-body">
+            <div class="rel-tag">LEAN</div>
+            <div class="rel-title">5S — miks ebaõnnestub sageli</div>
+            <div class="rel-meta">5 min · 10. veebruar</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Share -->
+    <div class="share-box">
+      <div class="share-title">Jaga artiklit</div>
+      <div class="share-btns">
+        <a href="#" class="share-btn" title="LinkedIn">in</a>
+        <a href="#" class="share-btn" title="Facebook">fb</a>
+        <a href="#" class="share-btn" title="Kopeeri link">🔗</a>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">OPSTAR PROFIT™ · tootmisjuhtimine.ee</div>
+    <div class="footer-links">
+      <a href="/">Avaleht</a><a href="/koolitus">Koolitus</a>
+      <a href="/opstar-profit">OPSTAR</a><a href="/blogi">Blogi</a>
+    </div>
+    <div>© 2026 Andres Kase · Tallinn</div>
+  </div>
+</footer>
+
+<script>
+// Highlight active TOC item on scroll
+const headings = document.querySelectorAll('.art-body h2, .art-body h3')
+const tocItems = document.querySelectorAll('.toc-item')
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocItems.forEach(i => i.classList.remove('active'))
+      const match = document.querySelector(`.toc-item a[href="#${e.target.id}"]`)
+      if (match) match.parentElement.classList.add('active')
+    }
+  })
+}, { rootMargin: '-20% 0px -70% 0px' })
+headings.forEach(h => { if(h.id) obs.observe(h) })
+
+// Reveal on scroll
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='none' } })
+}, { threshold: 0.05 })
+document.querySelectorAll('.art-body h2,.art-body h3,.art-body p,.art-highlight,.art-cta,.author-box').forEach((el,i) => {
+  el.style.opacity='0'; el.style.transform='translateY(16px)'
+  el.style.transition=`opacity .5s ${Math.min(i*0.03,0.3)}s ease,transform .5s ${Math.min(i*0.03,0.3)}s ease`
+  revObs.observe(el)
+})
+</script>
+</body>
+</html>

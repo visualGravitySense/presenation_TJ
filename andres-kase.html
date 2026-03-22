@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andres Kase — LEAN ja TPS koolitaja | tootmisjuhtimine.ee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#0071e3;--blue-dark:#004eb8;--blue-light:#5baeff;
+  --blue-soft:rgba(0,113,227,.10);--blue-border:rgba(0,113,227,.18);
+  --orange:#ff9f0a;--orange-dark:#c96a00;
+  --green:#34c759;--green-bg:rgba(52,199,89,.09);
+  --bg:#f2f2f4;--bg2:#e8e8ec;--card:#ffffff;
+  --text:#1a1a1c;--text2:#636366;--text3:#aeaeb2;
+  --border:rgba(0,0,0,.07);--border2:rgba(0,0,0,.12);
+  --r-sm:10px;--r-md:14px;--r-lg:18px;--r-xl:22px;
+  --shadow-card:0 2px 8px rgba(0,0,0,.06),0 1px 0 rgba(255,255,255,.9) inset;
+  --shadow-hover:0 8px 32px rgba(0,0,0,.10),0 16px 48px rgba(0,113,227,.08);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:56px;background:rgba(242,242,244,.85);backdrop-filter:blur(32px) saturate(180%);border-bottom:0.5px solid rgba(0,0,0,.06)}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0.5px;background:linear-gradient(90deg,transparent,rgba(0,113,227,.28) 50%,transparent)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;letter-spacing:.1em;color:var(--text);text-transform:uppercase;text-decoration:none}
+.nav-logo-badge{width:28px;height:28px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff;box-shadow:0 2px 8px rgba(0,113,227,.35)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--text2);text-decoration:none;transition:color .15s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+.nav-links a:hover{color:var(--text)}.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.04em;color:#fff;background:var(--blue);padding:9px 22px;text-decoration:none;box-shadow:0 2px 12px rgba(0,113,227,.28);transition:all .2s}
+.nav-cta:hover{background:var(--blue-dark);transform:translateY(-1px)}
+
+/* ── SHARED ── */
+.container{max-width:1280px;margin:0 auto;padding:0 60px;width:100%;position:relative;z-index:1}
+section{padding:88px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--blue);flex-shrink:0}
+h2{font-size:clamp(28px,3.2vw,44px);font-weight:800;line-height:1.08;letter-spacing:-.028em;color:var(--text);margin-bottom:16px}
+.section-sub{font-size:17px;line-height:1.75;color:var(--text2);max-width:560px}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;font-size:13.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:16px 34px;text-decoration:none;box-shadow:0 4px 16px rgba(0,113,227,.32);transition:all .2s}
+.btn-p:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);backdrop-filter:blur(12px);color:var(--blue);font-size:13.5px;font-weight:600;padding:15px 28px;text-decoration:none;border:1px solid rgba(0,113,227,.2);transition:all .2s}
+.btn-s:hover{background:rgba(0,113,227,.06);border-color:rgba(0,113,227,.36);transform:translateY(-1px)}
+
+/* ═══════════════════════════
+   ① HERO
+═══════════════════════════ */
+.hero{min-height:100vh;display:flex;align-items:center;padding:112px 60px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 50% 70% at 80% 45%,rgba(0,113,227,.06) 0%,transparent 65%),radial-gradient(ellipse 35% 45% at 5% 85%,rgba(255,159,10,.04) 0%,transparent 55%),linear-gradient(170deg,#f4f4f6 0%,#f0f0f3 50%,#ebebee 100%)}
+.hero-inner{position:relative;z-index:1;max-width:1320px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr auto;gap:80px;align-items:center}
+.hero-left{display:flex;flex-direction:column}
+
+/* Roles pills */
+.hero-roles{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.role-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.05em;padding:5px 12px;border-radius:980px}
+.role-blue{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-border)}
+.role-gold{background:rgba(255,159,10,.1);color:var(--orange-dark);border:1px solid rgba(255,159,10,.22)}
+
+.hero-h1{font-size:clamp(52px,5.8vw,88px);font-weight:800;line-height:.95;letter-spacing:-.04em;color:var(--text);margin-bottom:8px}
+.hero-role-text{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(22px,2.4vw,34px);color:var(--blue);margin-bottom:24px;line-height:1.2}
+.hero-lead{font-size:18px;line-height:1.75;color:var(--text2);max-width:520px;margin-bottom:36px}
+.hero-lead strong{color:var(--text);font-weight:600}
+
+.hero-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.linkedin-link{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;transition:opacity .15s}
+.linkedin-link:hover{opacity:.7}
+.linkedin-icon{width:18px;height:18px;background:#0a66c2;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:800;flex-shrink:0}
+
+/* Stats strip */
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;border-top:0.5px solid var(--border2)}
+.hero-stat{padding:18px 0;border-right:0.5px solid var(--border)}
+.hero-stat:last-child{border-right:none}
+.hs-val{font-size:24px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1}
+.hs-lbl{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-top:3px}
+
+/* Photo card */
+.hero-photo-wrap{position:relative;flex-shrink:0}
+.photo-card{
+  width:340px;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(40px) saturate(200%);
+  border-radius:24px;border:0.5px solid rgba(255,255,255,.95);
+  border-bottom:0.5px solid rgba(0,0,0,.07);border-right:0.5px solid rgba(0,0,0,.07);
+  box-shadow:0 4px 8px rgba(0,0,0,.04),0 16px 48px rgba(0,0,0,.08),0 40px 80px rgba(0,113,227,.06);
+  overflow:hidden;position:relative;
+  animation:floatY 8s ease-in-out 1s infinite;
+}
+.photo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue) 0%,#5baeff 50%,rgba(0,113,227,.1) 100%);z-index:1}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Portrait placeholder */
+.photo-placeholder{
+  height:320px;
+  background:linear-gradient(160deg,#dce8f8 0%,#c8ddf5 40%,#b5cff0 100%);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.photo-placeholder::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 40% 30%,rgba(255,255,255,.35) 0%,transparent 60%);
+}
+.photo-silhouette{
+  width:140px;height:180px;
+  background:linear-gradient(180deg,#8fb8e8 0%,#6b9fd4 40%,#4d84be 100%);
+  border-radius:70px 70px 0 0;
+  position:relative;z-index:1;
+  box-shadow:0 8px 32px rgba(0,90,180,.2);
+}
+.photo-silhouette::before{
+  content:'';position:absolute;
+  top:-40px;left:50%;transform:translateX(-50%);
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(160deg,#a8c8f0 0%,#6b9fd4 100%);
+  box-shadow:0 4px 16px rgba(0,90,180,.15);
+}
+.photo-label{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:.06em;color:rgba(0,90,180,.5);text-transform:uppercase;white-space:nowrap}
+
+.photo-bottom{padding:16px 20px}
+.photo-name{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:3px}
+.photo-role{font-size:12px;color:var(--text3)}
+.photo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.photo-tag{font-size:10px;font-weight:600;padding:3px 9px;border-radius:980px;background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-border)}
+
+/* Floating badges */
+.badge-float{position:absolute;background:var(--card);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow-card);border:0.5px solid var(--border);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.bf-1{top:24px;left:-80px}
+.bf-2{bottom:100px;left:-100px}
+.bf-icon{font-size:18px}
+.bf-val{font-size:15px;font-weight:800;color:var(--text);line-height:1}
+.bf-lbl{font-size:10px;color:var(--text3);font-weight:500}
+
+/* ═══════════════════════════
+   ② LUGU
+═══════════════════════════ */
+.lugu{background:var(--card)}
+.lugu-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:48px;align-items:start}
+.lugu-text p{font-size:16px;line-height:1.8;color:var(--text2);margin-bottom:20px}
+.lugu-text p:last-child{margin-bottom:0}
+.lugu-quote{border-left:3px solid var(--blue);padding:20px 24px;margin:32px 0;background:var(--blue-soft);border-radius:0 var(--r-md) var(--r-md) 0}
+.lugu-quote p{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:18px;line-height:1.6;color:var(--text);margin:0}
+.lugu-quote cite{display:block;font-size:12px;color:var(--text3);font-style:normal;margin-top:8px;font-family:'Inter',sans-serif}
+.mission-card{background:var(--bg);border-radius:var(--r-xl);padding:32px;border:0.5px solid var(--border)}
+.mission-card h3{font-size:18px;font-weight:800;letter-spacing:-.02em;margin-bottom:16px}
+.mission-card p{font-size:14px;line-height:1.75;color:var(--text2);margin-bottom:16px}
+.mission-card p:last-child{margin-bottom:0}
+.mission-stat{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:0.5px solid var(--border)}
+.mission-stat:last-child{border-bottom:none}
+.ms-val{font-size:22px;font-weight:800;color:var(--blue);letter-spacing:-.03em;min-width:56px}
+.ms-lbl{font-size:13px;color:var(--text2);line-height:1.4}
+
+/* ═══════════════════════════
+   ③ EKSPERTIIS
+═══════════════════════════ */
+.ekspertiis{background:var(--bg)}
+.method-tags{display:flex;flex-wrap:wrap;gap:10px;margin:40px 0 48px}
+.method-tag{
+  font-size:13px;font-weight:600;padding:8px 16px;
+  border-radius:980px;background:var(--card);
+  border:0.5px solid var(--border2);color:var(--text);
+  transition:all .18s;cursor:default;
+}
+.method-tag:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,113,227,.25)}
+.expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.exp-card{border-radius:var(--r-xl);padding:32px 28px;background:var(--card);border:0.5px solid var(--border);transition:transform .22s,box-shadow .22s;overflow:hidden;position:relative}
+.exp-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.exp-num{font-size:56px;font-weight:800;letter-spacing:-.05em;color:rgba(0,113,227,.07);line-height:1;margin-bottom:12px;font-family:'Instrument Serif',Georgia,serif}
+.exp-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:20px;position:relative}
+.exp-icon::before{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(ellipse 65% 50% at 34% 24%,rgba(255,255,255,.7) 0%,rgba(255,255,255,0) 58%)}
+.ei-blue{background:radial-gradient(ellipse at 38% 30%,#5baeff 0%,#007aff 45%,#004eb8 100%);box-shadow:0 3px 10px rgba(0,122,255,.35)}
+.ei-green{background:radial-gradient(ellipse at 38% 30%,#4cd964 0%,#34c759 45%,#1a6630 100%);box-shadow:0 3px 10px rgba(52,199,89,.35)}
+.ei-amber{background:radial-gradient(ellipse at 38% 30%,#ffd60a 0%,#ff9f0a 45%,#9c4e00 100%);box-shadow:0 3px 10px rgba(255,159,10,.35)}
+.exp-title{font-size:18px;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:8px}
+.exp-desc{font-size:14px;color:var(--text2);line-height:1.65}
+
+/* ═══════════════════════════
+   ④ TIMELINE
+═══════════════════════════ */
+.timeline-sec{background:var(--card)}
+.timeline{position:relative;margin-top:48px;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--blue) 0%,rgba(0,113,227,.15) 100%)}
+.tl-item{position:relative;padding:0 0 40px 40px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-40px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(0,113,227,.15);border:2px solid var(--card);z-index:1}
+.tl-item:last-child .tl-dot{background:var(--orange);box-shadow:0 0 0 4px rgba(255,159,10,.18)}
+.tl-year{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+.tl-item:last-child .tl-year{color:var(--orange-dark)}
+.tl-title{font-size:17px;font-weight:700;letter-spacing:-.015em;color:var(--text);margin-bottom:6px;line-height:1.3}
+.tl-desc{font-size:14px;color:var(--text2);line-height:1.6}
+.tl-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:980px;margin-top:8px}
+.tl-badge-blue{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-border)}
+.tl-badge-gold{background:rgba(255,159,10,.1);color:var(--orange-dark);border:1px solid rgba(255,159,10,.22)}
+
+/* ═══════════════════════════
+   ⑤ LÕPUTÖÖD
+═══════════════════════════ */
+.lopotood{background:var(--bg)}
+.thesis-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}
+.thesis-card{border-radius:var(--r-xl);padding:28px;background:var(--card);border:0.5px solid var(--border);transition:transform .22s,box-shadow .22s;position:relative}
+.thesis-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.thesis-year{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.thesis-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.015em;margin-bottom:8px;line-height:1.4}
+.thesis-meta{font-size:13px;color:var(--text3);margin-bottom:10px}
+.thesis-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:980px;background:rgba(255,159,10,.1);color:var(--orange-dark);border:1px solid rgba(255,159,10,.22)}
+.thesis-more{margin-top:24px;text-align:center}
+.thesis-more a{font-size:14px;color:var(--blue);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.thesis-more a:hover{opacity:.7}
+
+/* ═══════════════════════════
+   ⑥ TEHASED EUROOPAS
+═══════════════════════════ */
+.tehased{background:var(--card)}
+.countries-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px}
+.country-item{display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--bg);border-radius:var(--r-lg);border:0.5px solid var(--border);transition:all .18s}
+.country-item:hover{background:var(--blue-soft);border-color:var(--blue-border);transform:translateX(4px)}
+.country-flag{font-size:24px;flex-shrink:0}
+.country-name{font-size:14px;font-weight:600;color:var(--text)}
+.country-count{font-size:12px;color:var(--text3);margin-top:1px}
+.tehased-note{margin-top:32px;padding:20px 24px;background:var(--bg);border-radius:var(--r-lg);border:0.5px solid var(--border);display:flex;align-items:center;gap:16px}
+.tehased-stat{text-align:center;padding:0 20px;border-right:0.5px solid var(--border)}
+.tehased-stat:last-child{border-right:none}
+.ts-val{font-size:28px;font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1}
+.ts-lbl{font-size:11px;color:var(--text3);font-weight:500;margin-top:2px}
+
+/* ═══════════════════════════
+   ⑦ ARVAMUSED
+═══════════════════════════ */
+.arvamused{background:var(--bg)}
+.reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px}
+.review-card{border-radius:var(--r-xl);padding:32px 28px;background:var(--card);border:0.5px solid var(--border);position:relative;transition:transform .22s,box-shadow .22s}
+.review-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.review-card::before{content:'\201C';position:absolute;top:12px;right:20px;font-size:72px;font-family:'Instrument Serif',Georgia,serif;color:rgba(0,113,227,.07);line-height:1}
+.review-stars{display:flex;gap:2px;margin-bottom:16px;font-size:14px;color:var(--orange)}
+.review-quote{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:17px;line-height:1.65;color:var(--text);margin-bottom:20px}
+.review-author{display:flex;align-items:center;gap:12px}
+.review-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.review-name{font-size:14px;font-weight:700;color:var(--text)}
+.review-role{font-size:12px;color:var(--text3)}
+
+/* ═══════════════════════════
+   ⑧ MEEDIA
+═══════════════════════════ */
+.meedia{background:var(--card)}
+.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.media-card{border-radius:var(--r-xl);padding:24px;background:var(--bg);border:0.5px solid var(--border);transition:transform .22s,box-shadow .22s;text-decoration:none}
+.media-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.media-source{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.media-source-dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.media-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.01em;margin-bottom:6px;line-height:1.4}
+.media-type{font-size:12px;color:var(--text3)}
+.media-arrow{margin-top:16px;font-size:12px;color:var(--blue);font-weight:600}
+.media-note{margin-top:24px;font-size:13px;color:var(--text3);text-align:center;font-style:italic}
+
+/* ═══════════════════════════
+   ⑨ CTA
+═══════════════════════════ */
+.cta-final{background:linear-gradient(160deg,#0040a8 0%,#0071e3 60%,#5baeff 100%);color:#fff;text-align:center;padding:100px 60px;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(255,255,255,.08) 0%,transparent 65%)}
+.cta-final h2{color:#fff;font-size:clamp(28px,3.5vw,48px);margin-bottom:14px;position:relative;z-index:1}
+.cta-final p{font-size:18px;opacity:.8;margin-bottom:40px;position:relative;z-index:1;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue);font-size:14px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:17px 36px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.15);transition:all .2s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.btn-outline-w{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;font-size:14px;font-weight:600;padding:16px 30px;text-decoration:none;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);transition:all .2s}
+.btn-outline-w:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+
+/* ═══════════════════════════
+   ⑩ KONTAKT
+═══════════════════════════ */
+.kontakt{background:var(--bg)}
+.kontakt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.kontakt-card{border-radius:var(--r-xl);padding:28px;background:var(--card);border:0.5px solid var(--border);text-align:center;transition:transform .22s,box-shadow .22s}
+.kontakt-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.kontakt-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px}
+.ki-blue{background:var(--blue-soft);border:1px solid var(--blue-border)}
+.ki-green{background:var(--green-bg);border:1px solid rgba(52,199,89,.2)}
+.ki-linkedin{background:#e8f0fc;border:1px solid rgba(10,102,194,.2)}
+.kontakt-title{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.kontakt-val{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.kontakt-sub{font-size:13px;color:var(--text3)}
+.kontakt-card a{text-decoration:none;color:inherit}
+
+/* ── FOOTER ── */
+footer{background:#1a1a1c;color:rgba(255,255,255,.5);padding:40px 60px;font-size:13px}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-logo{font-size:12px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){.container{padding:0 40px}.hero{padding:112px 40px 80px}.hero-inner{gap:48px}.expertise-grid{grid-template-columns:1fr 1fr}.countries-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.container{padding:0 24px}.hero{padding:96px 24px 60px}.hero-inner{grid-template-columns:1fr}.hero-photo-wrap{display:none}.lugu-grid,.thesis-grid,.reviews-grid,.media-grid{grid-template-columns:1fr}.expertise-grid,.kontakt-grid{grid-template-columns:1fr 1fr}.countries-grid{grid-template-columns:1fr 1fr}.hero-stats{grid-template-columns:repeat(2,1fr)}.bf-1,.bf-2{display:none}nav{padding:0 24px}.nav-links{display:none}section{padding:64px 0}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-badge">OP</div>
+    OPSTAR PROFIT™
+  </a>
+  <ul class="nav-links">
+    <li><a href="#lugu">Lugu</a></li>
+    <li><a href="#ekspertiis">Ekspertiis</a></li>
+    <li><a href="#timeline">Teekond</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="/koolitus#registreeru" class="nav-cta">Registreeru →</a>
+</nav>
+
+<!-- ① HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+
+    <div class="hero-left">
+      <div class="hero-roles">
+        <span class="role-pill role-blue">LEAN · TPS koolitaja</span>
+        <span class="role-pill role-gold">OPSTAR PROFIT™ asutaja</span>
+      </div>
+
+      <h1 class="hero-h1">Andres Kase</h1>
+      <div class="hero-role-text">Tootmisjuhtimise ekspert<br>25 aastat põrandalt</div>
+
+      <p class="hero-lead">
+        <strong>25 aastat Eesti tootmises.</strong> 100+ tehast üle Euroopa.
+        147+ juhti kellele olen andnud tööriistad mis päriselt töötavad —
+        mitte teooriat raamatust, vaid meetodeid mis on testitud päris tootmises.
+      </p>
+
+      <div class="hero-cta-row">
+        <a href="/koolitus#registreeru" class="btn-p">Registreeru koolitusele →</a>
+        <a href="https://linkedin.com" class="linkedin-link" target="_blank">
+          <div class="linkedin-icon">in</div>
+          LinkedIn profiil ↗
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat" style="padding-right:24px">
+          <div class="hs-val">25a</div>
+          <div class="hs-lbl">Kogemust</div>
+        </div>
+        <div class="hero-stat" style="padding:0 24px">
+          <div class="hs-val">100+</div>
+          <div class="hs-lbl">Tehast</div>
+        </div>
+        <div class="hero-stat" style="padding:0 24px">
+          <div class="hs-val">147+</div>
+          <div class="hs-lbl">Lõpetajat</div>
+        </div>
+        <div class="hero-stat" style="padding-left:24px">
+          <div class="hs-val">60+</div>
+          <div class="hs-lbl">Firmat</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo card -->
+    <div class="hero-photo-wrap">
+      <!-- Floating badges -->
+      <div class="badge-float bf-1">
+        <div class="bf-icon">🏭</div>
+        <div><div class="bf-val">100+</div><div class="bf-lbl">tehast üle Euroopa</div></div>
+      </div>
+      <div class="badge-float bf-2">
+        <div class="bf-icon">⭐</div>
+        <div><div class="bf-val">4.9 / 5</div><div class="bf-lbl">koolituse hinnang</div></div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-placeholder">
+          <div class="photo-silhouette"></div>
+          <div class="photo-label">Professionaalne portreefoto</div>
+        </div>
+        <div class="photo-bottom">
+          <div class="photo-name">Andres Kase</div>
+          <div class="photo-role">LEAN · TPS koolitaja · OPSTAR PROFIT™</div>
+          <div class="photo-tags">
+            <span class="photo-tag">LEAN</span>
+            <span class="photo-tag">TPS</span>
+            <span class="photo-tag">Kaizen</span>
+            <span class="photo-tag">VSM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ② LUGU JA KOGEMUS -->
+<section class="lugu" id="lugu">
+  <div class="container">
+    <div class="eyebrow">Lugu</div>
+    <h2>Kuidas jõudsin sinna kus olen</h2>
+    <div class="lugu-grid">
+      <div class="lugu-text">
+        <p>2000. aastal alustasin tootmisettevõttes põrandatasandil. Nägin kuidas head juhid rabelevad — mitte sellepärast et nad oleksid halvad, vaid sellepärast et keegi polnud neile andnud süsteemi.</p>
+        <p>2005. aastal sain võimaluse õppida Toyota tootmissüsteemi otse Jaapanis. See muutis kõike. Mitte kontseptsioonid — vaid see kuidas neid rakendati päriselt, päris tehases, päris inimestega.</p>
+        <p>Järgmised 15 aastat kulutasin sellele et viia need meetodid Eesti tootmisettevõtetesse. 60+ firmat, 100+ tehast üle Euroopa — ja iga kord õppisin midagi uut.</p>
+
+        <div class="lugu-quote">
+          <p>"Tootmisjuht ei pea olema see, kes kustutab tulesid. Ta peab ehitama süsteemi kus tulekahju ei toimu."</p>
+          <cite>— Andres Kase</cite>
+        </div>
+
+        <p>OPSTAR PROFIT™ on 25 aasta kogemuse destillaat — 8 komponenti mis katavad kõik mida tootmisjuht vajab. Mitte raamatuteooria, vaid see mis päriselt töötab Eesti kontekstis.</p>
+      </div>
+
+      <div>
+        <div class="mission-card">
+          <h3>Miks koolitan?</h3>
+          <p>Eesti tootmine vajab juhte kellel on süsteem. Mitte rohkem tunde tööl, vaid targemad tööriistad.</p>
+          <p>Iga koolitusel osaleja viib tagasi oma ettevõttesse midagi konkreetset — mida saab rakendada esmaspäeval.</p>
+
+          <div style="margin-top:24px;border-top:0.5px solid var(--border);padding-top:20px">
+            <div class="mission-stat">
+              <div class="ms-val">147+</div>
+              <div class="ms-lbl">tootmisjuhti on läbinud programmi</div>
+            </div>
+            <div class="mission-stat">
+              <div class="ms-val">96%</div>
+              <div class="ms-lbl">soovitaks koolitust kolleegile</div>
+            </div>
+            <div class="mission-stat">
+              <div class="ms-val">4.9★</div>
+              <div class="ms-lbl">keskmine hinnang 41 tagasiside põhjal</div>
+            </div>
+            <div class="mission-stat">
+              <div class="ms-val">90p</div>
+              <div class="ms-lbl">esimesed mõõdetavad tulemused</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ EKSPERTIIS -->
+<section class="ekspertiis" id="ekspertiis">
+  <div class="container">
+    <div class="eyebrow">Meetodid</div>
+    <h2>Ekspertiis ja meetodid</h2>
+    <p class="section-sub">Metoodikad mida valdan — kõik testitud päris tootmises, mitte ainult loetud raamatutest.</p>
+
+    <div class="method-tags">
+      <span class="method-tag">LEAN</span>
+      <span class="method-tag">TPS</span>
+      <span class="method-tag">Kaizen</span>
+      <span class="method-tag">VSM</span>
+      <span class="method-tag">Jidoka</span>
+      <span class="method-tag">Heijunka</span>
+      <span class="method-tag">PDCA</span>
+      <span class="method-tag">TPM</span>
+      <span class="method-tag">OEE</span>
+      <span class="method-tag">Andon</span>
+      <span class="method-tag">Poka-yoke</span>
+      <span class="method-tag">Value Stream</span>
+      <span class="method-tag">5S</span>
+      <span class="method-tag">A3</span>
+    </div>
+
+    <div class="expertise-grid">
+      <div class="exp-card">
+        <div class="exp-num">01</div>
+        <div class="exp-icon ei-blue">🏭</div>
+        <div class="exp-title">Tootmine</div>
+        <div class="exp-desc">25 aastat tootmispõrandal — metallist puiduni, 10 töötajast 500ni. Tean mis töötab ja mis mitte Eesti kontekstis.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">02</div>
+        <div class="exp-icon ei-green">🎓</div>
+        <div class="exp-title">Koolitamine</div>
+        <div class="exp-desc">147+ lõpetajat 9-päevasel programmil. Juhendanud magistritöid TTÜ-s ja EEK Mainori's. Koolitusstiil: praktiline, konkreetne, kohe rakendatav.</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-num">03</div>
+        <div class="exp-icon ei-amber">🤝</div>
+        <div class="exp-title">Konsultatsioon</div>
+        <div class="exp-desc">60+ ettevõtet konsulteeritud. Enne/pärast mõõdikud, 90-päevane rakendusplaan, järeltugi. Tulemused mõõdetavad — mitte lubadused.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ TIMELINE -->
+<section class="timeline-sec" id="timeline" style="background:var(--bg)">
+  <div class="container">
+    <div class="eyebrow">Teekond</div>
+    <h2>Karjääri teekond</h2>
+    <p class="section-sub">25 aastat ühel teel — tootmisest koolitamiseni.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:48px;align-items:start">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2000</div>
+          <div class="tl-title">Esimene tootmisettevõte</div>
+          <div class="tl-desc">Alustasin tootmispõrandalt. Nägin juhtimise probleeme seestpoolt — ilma süsteemita töötavad isegi head juhid üle.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2005</div>
+          <div class="tl-title">Toyota TPS süvakoolitus Jaapanis</div>
+          <div class="tl-desc">Kolm kuud Jaapanis Toyota tehases. Õppisin TPS-i otse allikast — mitte raamatutest vaid päris tootmises.</div>
+          <span class="tl-badge tl-badge-blue">🇯🇵 Jaapan</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2010</div>
+          <div class="tl-title">Esimesed koolitusprogrammid Eestis</div>
+          <div class="tl-desc">Tõin Toyota meetodid Eestisse. Esimesed koolitused tootmisjuhtidele — praktiline lähenemine, mitte ainult teooria.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2015</div>
+          <div class="tl-title">60+ ettevõtet konsulteeritud</div>
+          <div class="tl-desc">Kümnendi jooksul konsulteeritud üle 60 Eesti tootmisettevõtte. 100+ tehast üle Euroopa külastatud.</div>
+          <span class="tl-badge tl-badge-blue">🌍 100+ tehast</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2020</div>
+          <div class="tl-title">OPSTAR PROFIT™ raamistiku loomine</div>
+          <div class="tl-desc">20 aasta kogemuse destilleerimine 8-komponentseks süsteemiks. Eesti tootmise jaoks kohandatud — mitte üldine LEAN.</div>
+          <span class="tl-badge tl-badge-gold">✦ OPSTAR PROFIT™</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--orange);box-shadow:0 0 0 4px rgba(255,159,10,.18)"></div>
+          <div class="tl-year" style="color:var(--orange-dark)">2025</div>
+          <div class="tl-title">147+ lõpetajat · tootmisjuhtimine.ee</div>
+          <div class="tl-desc">9-päevane arenguprogramm on muutunud Eesti tuntuimaks tootmisjuhtimise koolituseks. Järgmine grupp oktoober 2026.</div>
+          <span class="tl-badge tl-badge-gold">🏆 147+ lõpetajat</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ LÕPUTÖÖD -->
+<section class="lopotood" id="lopotood">
+  <div class="container">
+    <div class="eyebrow">Akadeemia</div>
+    <h2>Juhendatud lõputööd</h2>
+    <p class="section-sub">Akadeemiline tunnustus ja sügavus — praktiline ekspertiis ühendatuna teadusliku rangusega.</p>
+
+    <div class="thesis-grid">
+      <div class="thesis-card">
+        <div class="thesis-year">2024 · Tallinna Tehnikaülikool</div>
+        <div class="thesis-title">LEAN-põhimõtete rakendamine väiketootmises</div>
+        <div class="thesis-meta">Magistritöö · TTÜ Tootmistehnika osakond</div>
+        <span class="thesis-badge">★ Kooli parim töö 2024</span>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-year">2023 · EEK Mainor</div>
+        <div class="thesis-title">Väärtusahela kaardistus metallitootmises (VSM)</div>
+        <div class="thesis-meta">Bakalaureusetöö · Ettevõtluse osakond</div>
+        <span class="thesis-badge">★ EEK 2023 parim</span>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-year">2023 · Tallinna Tehnikaülikool</div>
+        <div class="thesis-title">OEE mõõtmise rakendamine toidutootmises</div>
+        <div class="thesis-meta">Magistritöö · Tootmisjuhtimine</div>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-year">2022 · EEK Mainor</div>
+        <div class="thesis-title">5S rakendamine väikeettevõttes — juhtumiuuring</div>
+        <div class="thesis-meta">Bakalaureusetöö · Ärijuhtimine</div>
+      </div>
+    </div>
+
+    <div class="thesis-more">
+      <a href="#">Vaata kõiki juhendatud töid →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ TEHASED EUROOPAS -->
+<section class="tehased" id="tehased">
+  <div class="container">
+    <div class="eyebrow">Kogemus</div>
+    <h2>Tehase külastused üle Euroopa</h2>
+    <p class="section-sub">100+ tehast 8 riigis — iga külastus tõi uue vaatenurga mida olen koolitusesse viinud.</p>
+
+    <div class="countries-grid">
+      <div class="country-item"><div class="country-flag">🇪🇪</div><div><div class="country-name">Eesti</div><div class="country-count">60+ tehast</div></div></div>
+      <div class="country-item"><div class="country-flag">🇫🇮</div><div><div class="country-name">Soome</div><div class="country-count">12+ tehast</div></div></div>
+      <div class="country-item"><div class="country-flag">🇸🇪</div><div><div class="country-name">Rootsi</div><div class="country-count">8+ tehast</div></div></div>
+      <div class="country-item"><div class="country-flag">🇩🇪</div><div><div class="country-name">Saksamaa</div><div class="country-count">10+ tehast</div></div></div>
+      <div class="country-item"><div class="country-flag">🇯🇵</div><div><div class="country-name">Jaapan</div><div class="country-count">Toyota · 3 kuud</div></div></div>
+      <div class="country-item"><div class="country-flag">🇦🇹</div><div><div class="country-name">Austria</div><div class="country-count">5+ tehast</div></div></div>
+      <div class="country-item"><div class="country-flag">🇧🇪</div><div><div class="country-name">Belgia</div><div class="country-count">4+ tehast</div></div></div>
+      <div class="country-item"><div class="country-flag">🇳🇱</div><div><div class="country-name">Holland</div><div class="country-count">3+ tehast</div></div></div>
+      <div class="country-item"><div class="country-flag">🇱🇻</div><div><div class="country-name">Läti · Leedu</div><div class="country-count">8+ tehast</div></div></div>
+    </div>
+
+    <div class="tehased-note" style="display:flex;gap:0;padding:0;margin-top:32px">
+      <div class="tehased-stat"><div class="ts-val">100+</div><div class="ts-lbl">Tehast kokku</div></div>
+      <div class="tehased-stat"><div class="ts-val">9</div><div class="ts-lbl">Riiki</div></div>
+      <div class="tehased-stat"><div class="ts-val">25a</div><div class="ts-lbl">Välitöö</div></div>
+      <div class="tehased-stat"><div class="ts-val">1</div><div class="ts-lbl">Jaapan</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ ARVAMUSED -->
+<section class="arvamused" id="arvamused">
+  <div class="container">
+    <div class="eyebrow">Tagasiside</div>
+    <h2>Mida osalejad ütlevad Andresest</h2>
+    <p class="section-sub">Spetsiifiliselt koolitajast — mitte programmist üldiselt.</p>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"Andres suutis selgitada keerulisi asju lihtsalt. 25 aastat kogemust tundub igas vastuses — ta on olnud päriselt seal kus meie oleme."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#5baeff,#007aff 50%,#0040a8)">MT</div>
+          <div><div class="review-name">Marju T.</div><div class="review-role">Tootmisdirektor · Harju maakond</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"25 aastat kogemust tundub igas vastuses. Andres ei loe slaide — ta räägib päris elust päris tehastest. See on vahe."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#4cd964,#34c759 50%,#1a6630)">TK</div>
+          <div><div class="review-name">Toomas K.</div><div class="review-role">Juhataja · Tartu</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"Eeldasin tavalist koolitust. Sain mentori. Andres vastas minu küsimustele ka 3 kuud pärast koolitust — see ei ole tavaline."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#ffd60a,#ff9f0a 50%,#9c4e00)">AL</div>
+          <div><div class="review-name">Anne L.</div><div class="review-role">Operatiivjuht · Viljandi</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"Tehasekülastused koos Andresega olid programmi tipp. Näed probleeme uue pilguga kui kogemus on kõrval ja selgitab mida vaadata."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#c49fff,#bf5af2 50%,#5e22a0)">RV</div>
+          <div><div class="review-name">Rein V.</div><div class="review-role">Tootmisjuht · Pärnu</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑧ MEEDIA -->
+<section class="meedia" id="meedia" style="background:var(--bg)">
+  <div class="container">
+    <div class="eyebrow">Meedia</div>
+    <h2>Intervjuud ja esinemised</h2>
+    <p class="section-sub">Konverentsid, podcastid ja artiklid — tootmisjuhtimisest Eesti kontekstis.</p>
+
+    <div class="media-grid">
+      <a href="#" class="media-card">
+        <div class="media-source"><div class="media-source-dot"></div>ERR Novaator</div>
+        <div class="media-title">"LEAN Eestis — miks ei tööta ja kuidas parandada"</div>
+        <div class="media-type">Intervjuu · 2024</div>
+        <div class="media-arrow">Loe artiklit →</div>
+      </a>
+      <a href="#" class="media-card">
+        <div class="media-source"><div class="media-source-dot"></div>TÜ konverents</div>
+        <div class="media-title">Ettekanne: "25 aasta destillaat — OPSTAR PROFIT™"</div>
+        <div class="media-type">Konverents · 2023</div>
+        <div class="media-arrow">Vaata esitlust →</div>
+      </a>
+      <a href="#" class="media-card">
+        <div class="media-source"><div class="media-source-dot"></div>Äripäev Podcast</div>
+        <div class="media-title">Tootmisjuhtimine ep.12 — "Süsteem vs tulekustutumine"</div>
+        <div class="media-type">Podcast · 35 min</div>
+        <div class="media-arrow">Kuula →</div>
+      </a>
+    </div>
+    <p class="media-note">Saab täiendada kui intervjuud ja esinemised lisanduvad</p>
+  </div>
+</section>
+
+<!-- ⑨ CTA -->
+<section class="cta-final" id="registreeru">
+  <h2>Õpi otse Andreselt 9 päeva jooksul</h2>
+  <p>Järgmine grupp oktoober 2026 · 3 kohta vabad · EIS toetus kuni 50%</p>
+  <div class="cta-btns">
+    <a href="/koolitus#registreeru" class="btn-white">Registreeru koolitusele →</a>
+    <a href="/koolitus" class="btn-outline-w">Vaata programmi →</a>
+  </div>
+</section>
+
+<!-- ⑩ KONTAKT -->
+<section class="kontakt" id="kontakt">
+  <div class="container">
+    <div class="eyebrow">Otsekontakt</div>
+    <h2>Võta ühendust</h2>
+    <p class="section-sub">Küsimused koolituse kohta, grupikoolitus või konsultatsioon — kirjuta otse.</p>
+
+    <div class="kontakt-grid">
+      <div class="kontakt-card">
+        <div class="kontakt-icon ki-blue">📧</div>
+        <div class="kontakt-title">E-post</div>
+        <div class="kontakt-val"><a href="mailto:andres.kase@tootmisjuhtimine.ee">andres.kase@<br>tootmisjuhtimine.ee</a></div>
+        <div class="kontakt-sub">Vastame 24h jooksul</div>
+      </div>
+      <div class="kontakt-card">
+        <div class="kontakt-icon ki-green">📞</div>
+        <div class="kontakt-title">Telefon</div>
+        <div class="kontakt-val"><a href="tel:+3725138403">+372 513 8403</a></div>
+        <div class="kontakt-sub">E–R kell 9–17</div>
+      </div>
+      <div class="kontakt-card">
+        <div class="kontakt-icon ki-linkedin">in</div>
+        <div class="kontakt-title">LinkedIn</div>
+        <div class="kontakt-val"><a href="https://linkedin.com" target="_blank">Andres Kase</a></div>
+        <div class="kontakt-sub">Vaata profiili ↗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">OPSTAR PROFIT™ · tootmisjuhtimine.ee</div>
+    <div class="footer-links">
+      <a href="/">Avaleht</a>
+      <a href="/koolitus">Koolitus</a>
+      <a href="/opstar-profit">OPSTAR PROFIT™</a>
+      <a href="/andres-kase">Andres Kase</a>
+    </div>
+    <div>© 2026 Andres Kase · Tallinn, Lõõtsa 5</div>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='none' }
+  })
+}, { threshold: 0.06 })
+document.querySelectorAll('section > .container').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(24px)'
+  el.style.transition='opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)'
+  obs.observe(el)
+})
+</script>
+</body>
+</html>

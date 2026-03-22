@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPSTAR PROFIT™ — tootmisjuhtimise raamistik | Andres Kase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#0071e3;--blue-dark:#004eb8;--blue-light:#5baeff;
+  --blue-soft:rgba(0,113,227,.10);--blue-border:rgba(0,113,227,.18);
+  --orange:#ff9f0a;--orange-dark:#c96a00;
+  --green:#34c759;--green-bg:rgba(52,199,89,.09);
+  --red:#ff3b30;--red-bg:rgba(255,59,48,.08);
+  --gold:#ff9f0a;--gold-bg:rgba(255,159,10,.09);--gold-dark:#9c5000;
+  --bg:#f2f2f4;--bg2:#e8e8ec;--card:#ffffff;
+  --text:#1a1a1c;--text2:#636366;--text3:#aeaeb2;
+  --border:rgba(0,0,0,.07);--border2:rgba(0,0,0,.12);
+  --r-sm:10px;--r-md:14px;--r-lg:18px;--r-xl:22px;
+  --shadow-card:0 2px 8px rgba(0,0,0,.06),0 1px 0 rgba(255,255,255,.9) inset;
+  --shadow-hover:0 8px 32px rgba(0,0,0,.10),0 16px 48px rgba(0,113,227,.08);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:56px;background:rgba(242,242,244,.85);backdrop-filter:blur(32px) saturate(180%);border-bottom:0.5px solid rgba(0,0,0,.06)}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0.5px;background:linear-gradient(90deg,transparent 0%,rgba(0,113,227,.18) 30%,rgba(0,113,227,.28) 50%,rgba(0,113,227,.18) 70%,transparent 100%)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;letter-spacing:.1em;color:var(--text);text-transform:uppercase;text-decoration:none}
+.nav-logo-badge{width:28px;height:28px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff;box-shadow:0 2px 8px rgba(0,113,227,.35)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--text2);text-decoration:none;transition:color .15s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+.nav-links a:hover{color:var(--text)}.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.04em;color:#fff;background:var(--blue);padding:9px 22px;text-decoration:none;box-shadow:0 2px 12px rgba(0,113,227,.28);transition:all .2s}
+.nav-cta:hover{background:var(--blue-dark);transform:translateY(-1px)}
+
+/* ── SHARED ── */
+.container{max-width:1280px;margin:0 auto;padding:0 60px;width:100%;position:relative;z-index:1}
+section{padding:88px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--blue);flex-shrink:0}
+h2{font-size:clamp(28px,3.2vw,44px);font-weight:800;line-height:1.08;letter-spacing:-.028em;color:var(--text);margin-bottom:16px}
+.section-sub{font-size:17px;line-height:1.75;color:var(--text2);max-width:560px}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;font-size:13.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:16px 34px;text-decoration:none;box-shadow:0 4px 16px rgba(0,113,227,.32);transition:all .2s;position:relative;overflow:hidden}
+.btn-p:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,113,227,.42)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);backdrop-filter:blur(12px);color:var(--blue);font-size:13.5px;font-weight:600;padding:15px 28px;text-decoration:none;border:1px solid rgba(0,113,227,.2);transition:all .2s}
+.btn-s:hover{background:rgba(0,113,227,.06);border-color:rgba(0,113,227,.36);transform:translateY(-1px)}
+
+/* ═══════════════════════════
+   ① HERO
+═══════════════════════════ */
+.hero{min-height:100vh;display:flex;align-items:center;padding:112px 60px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 55% 65% at 75% 48%,rgba(0,113,227,.07) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 10% 80%,rgba(255,159,10,.04) 0%,transparent 55%),linear-gradient(170deg,#f4f4f6 0%,#f0f0f3 50%,#ebebee 100%)}
+.hero-inner{position:relative;z-index:1;max-width:1320px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-pill{display:inline-flex;align-items:center;margin-bottom:28px}
+.hero-pill-inner{display:flex;align-items:center;gap:7px;background:var(--gold-bg);border:1px solid rgba(255,159,10,.25);color:var(--gold-dark);font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 13px 5px 9px}
+.pill-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulseDot 2s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 3px rgba(255,159,10,.18)}50%{box-shadow:0 0 0 5px rgba(255,159,10,.08)}}
+.hero-h1{font-size:clamp(48px,5.2vw,80px);font-weight:800;line-height:.95;letter-spacing:-.04em;color:var(--blue);margin-bottom:4px;font-family:'Instrument Serif',Georgia,serif;font-style:italic}
+.hero-h2{font-size:clamp(28px,2.8vw,42px);font-weight:800;line-height:1.1;letter-spacing:-.028em;color:var(--text);margin-bottom:0}
+.hero-sub{font-size:17px;line-height:1.75;color:var(--text2);max-width:490px;margin:24px 0 36px}
+.hero-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+.hero-meta{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.meta-item{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--text3);font-weight:500}
+.meta-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);opacity:.4}
+
+/* Schema SVG card */
+.schema-card{background:rgba(255,255,255,.88);backdrop-filter:blur(40px) saturate(200%);border-radius:22px;border:0.5px solid rgba(255,255,255,.95);border-bottom:0.5px solid rgba(0,0,0,.07);border-right:0.5px solid rgba(0,0,0,.07);box-shadow:0 4px 8px rgba(0,0,0,.04),0 16px 48px rgba(0,0,0,.08),0 40px 80px rgba(0,113,227,.07);overflow:hidden;position:relative;animation:floatY 8s ease-in-out 1s infinite}
+.schema-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue) 0%,#5baeff 50%,rgba(0,113,227,.1) 100%)}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.sc-header{padding:18px 22px 10px;display:flex;align-items:center;justify-content:space-between}
+.sc-eyebrow{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,113,227,.45);font-weight:600}
+.sc-badge{display:inline-flex;align-items:center;gap:5px;background:var(--gold-bg);border:1px solid rgba(255,159,10,.2);color:var(--gold-dark);font-size:10px;font-weight:600;padding:3px 8px;border-radius:980px}
+.sc-svg-wrap{padding:4px 16px 8px}
+
+/* Nodes inside SVG — hover handled inline */
+.schema-node{cursor:pointer;transition:opacity .15s}
+.schema-node:hover{opacity:.8}
+
+.sc-footer{display:grid;grid-template-columns:repeat(4,1fr);border-top:0.5px solid var(--border)}
+.sc-stat{padding:12px 8px;text-align:center;border-right:0.5px solid var(--border)}
+.sc-stat:last-child{border-right:none}
+.sc-stat-val{font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1}
+.sc-stat-lbl{font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-top:2px}
+
+/* ═══════════════════════════
+   ② MIS ON
+═══════════════════════════ */
+.mis-on{background:var(--card)}
+.mis-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.mis-col-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;padding-bottom:12px;border-bottom:0.5px solid var(--border)}
+.mis-col-title-no{color:var(--red)}
+.mis-col-title-yes{color:var(--green)}
+.mis-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.mis-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;line-height:1.6;color:var(--text2)}
+.mis-icon-no{width:20px;height:20px;border-radius:50%;background:var(--red-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--red);margin-top:2px}
+.mis-icon-yes{width:20px;height:20px;border-radius:50%;background:var(--green-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);margin-top:2px}
+
+/* ═══════════════════════════
+   ③ KOLM SAMMAST
+═══════════════════════════ */
+.sammast{background:var(--bg)}
+.sammast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.sammas-card{border-radius:var(--r-xl);padding:32px 28px;background:var(--card);border:0.5px solid var(--border);position:relative;overflow:hidden;transition:transform .22s,box-shadow .22s}
+.sammas-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.sammas-num{font-size:64px;font-weight:800;letter-spacing:-.05em;color:rgba(0,113,227,.07);line-height:1;margin-bottom:16px;font-family:'Instrument Serif',Georgia,serif}
+.sammas-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;position:relative}
+.sammas-icon::before{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(ellipse 65% 50% at 34% 24%,rgba(255,255,255,.7) 0%,rgba(255,255,255,0) 58%)}
+.si-blue{background:radial-gradient(ellipse at 38% 30%,#5baeff 0%,#007aff 45%,#004eb8 100%);box-shadow:0 3px 10px rgba(0,122,255,.35)}
+.si-green{background:radial-gradient(ellipse at 38% 30%,#4cd964 0%,#34c759 45%,#1a6630 100%);box-shadow:0 3px 10px rgba(52,199,89,.35)}
+.si-violet{background:radial-gradient(ellipse at 38% 30%,#c49fff 0%,#bf5af2 45%,#5e22a0 100%);box-shadow:0 3px 10px rgba(191,90,242,.35)}
+.sammas-title{font-size:18px;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:8px}
+.sammas-sub{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.sammas-tags{display:flex;flex-wrap:wrap;gap:6px}
+.sammas-tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:980px;background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-border)}
+
+/* ═══════════════════════════
+   ④ 8 KOMPONENTI
+═══════════════════════════ */
+.komponendid{background:var(--card)}
+.comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;border-radius:var(--r-xl);overflow:hidden;border:0.5px solid var(--border2)}
+.comp-item{padding:24px 20px;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border);cursor:pointer;transition:background .15s;position:relative}
+.comp-item:nth-child(4n){border-right:none}
+.comp-item:nth-child(n+5){border-bottom:none}
+.comp-item:hover{background:rgba(0,113,227,.03)}
+.comp-item.active{background:var(--blue-soft);border-color:var(--blue-border)}
+.comp-num{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.comp-title{font-size:15px;font-weight:800;letter-spacing:-.015em;color:var(--text);margin-bottom:4px;line-height:1.2}
+.comp-item.active .comp-title{color:var(--blue)}
+.comp-tags-s{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.comp-tag{font-size:10px;color:var(--text3);font-weight:500}
+.comp-expand{font-size:18px;color:var(--text3);position:absolute;top:16px;right:16px;transition:transform .2s;font-weight:300}
+.comp-item.active .comp-expand{transform:rotate(45deg);color:var(--blue)}
+
+/* Accordion detail panel */
+.comp-detail{display:none;padding:28px 32px;background:rgba(0,113,227,.03);border-top:0.5px solid var(--blue-border);border-radius:0 0 var(--r-xl) var(--r-xl)}
+.comp-detail.open{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.cd-section-title{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.cd-text{font-size:14px;color:var(--text2);line-height:1.65}
+.cd-result{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#1a6630;background:var(--green-bg);padding:6px 12px;border-radius:980px;border:1px solid rgba(52,199,89,.2);margin-top:8px}
+
+/* ═══════════════════════════
+   ⑤ LEAN VS OPSTAR
+═══════════════════════════ */
+.vordlus{background:var(--bg)}
+.comparison-table{margin-top:48px;border-radius:var(--r-xl);overflow:hidden;border:0.5px solid var(--border2);background:var(--card)}
+.ct-header{display:grid;grid-template-columns:2fr 1fr 1fr;padding:14px 24px;background:var(--bg2);border-bottom:0.5px solid var(--border2)}
+.ct-col{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3)}
+.ct-col-featured{color:var(--blue)}
+.ct-row{display:grid;grid-template-columns:2fr 1fr 1fr;padding:16px 24px;border-bottom:0.5px solid var(--border);align-items:center;transition:background .15s}
+.ct-row:last-child{border-bottom:none}
+.ct-row:hover{background:rgba(0,113,227,.02)}
+.ct-criterion{font-size:14px;font-weight:600;color:var(--text)}
+.ct-no{font-size:18px;color:var(--text3)}
+.ct-yes{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700}
+.ct-cta{padding:20px 24px;background:rgba(0,113,227,.04);border-top:0.5px solid var(--blue-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.ct-cta-text{font-size:14px;font-weight:600;color:var(--text)}
+.ct-cta-sub{font-size:13px;color:var(--text3);margin-top:2px}
+
+/* ═══════════════════════════
+   ⑥ TULEMUSED
+═══════════════════════════ */
+.tulemused{background:var(--card)}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.result-card{border-radius:var(--r-xl);padding:32px 28px;background:var(--bg);border:0.5px solid var(--border);text-align:center;transition:transform .22s,box-shadow .22s}
+.result-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.result-val{font-size:52px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px;font-family:'Instrument Serif',Georgia,serif;font-style:italic}
+.result-val-blue{color:var(--blue)}
+.result-val-green{color:var(--green)}
+.result-val-amber{color:var(--orange)}
+.result-label{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.01em}
+.result-sub{font-size:13px;color:var(--text3);line-height:1.5}
+.results-source{margin-top:24px;text-align:center;font-size:13px;color:var(--text3)}
+
+/* ═══════════════════════════
+   ⑦ CASE STUDY
+═══════════════════════════ */
+.casestudy{background:var(--bg)}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+.case-card{border-radius:var(--r-xl);overflow:hidden;background:var(--card);border:0.5px solid var(--border);transition:transform .22s,box-shadow .22s}
+.case-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.case-top{padding:28px;border-bottom:0.5px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.case-company{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:4px}
+.case-meta{font-size:12px;color:var(--text3)}
+.case-year-badge{display:inline-flex;font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-soft);padding:4px 10px;border-radius:980px;border:1px solid var(--blue-border);flex-shrink:0}
+.case-body{padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.case-side-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.case-before .case-side-title{color:var(--red)}
+.case-after .case-side-title{color:var(--green)}
+.case-metric{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:13px}
+.case-metric:last-child{border-bottom:none}
+.case-metric-lbl{color:var(--text2)}
+.case-metric-val-before{color:var(--red);font-weight:700}
+.case-metric-val-after{color:var(--green);font-weight:700}
+.case-result{padding:16px 28px;background:rgba(52,199,89,.05);border-top:0.5px solid rgba(52,199,89,.15);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.case-result-main{font-size:14px;font-weight:700;color:#1a6630}
+.case-result-time{font-size:12px;color:var(--text3)}
+
+/* ═══════════════════════════
+   ⑧ ARVAMUSED
+═══════════════════════════ */
+.arvamused{background:var(--card)}
+.reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px;max-width:900px}
+.review-card{border-radius:var(--r-xl);padding:32px 28px;background:var(--bg);border:0.5px solid var(--border);position:relative}
+.review-card::before{content:'\201C';position:absolute;top:16px;right:24px;font-size:64px;font-family:'Instrument Serif',Georgia,serif;color:rgba(0,113,227,.08);line-height:1}
+.review-stars{display:flex;gap:2px;margin-bottom:16px}
+.star{color:var(--orange);font-size:14px}
+.review-quote{font-size:16px;font-weight:500;line-height:1.65;color:var(--text);margin-bottom:20px;font-style:italic;font-family:'Instrument Serif',Georgia,serif}
+.review-author{display:flex;align-items:center;gap:12px}
+.review-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.review-name{font-size:14px;font-weight:700;color:var(--text)}
+.review-role{font-size:12px;color:var(--text3)}
+.reviews-meta{margin-top:24px;display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text3)}
+.reviews-meta strong{color:var(--text)}
+
+/* ═══════════════════════════
+   ⑨ KKK
+═══════════════════════════ */
+.kkk{background:var(--bg)}
+.faq-list{margin-top:40px;max-width:760px}
+.faq-item{border-bottom:0.5px solid var(--border);overflow:hidden}
+.faq-item:first-child{border-top:0.5px solid var(--border)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:20px 0;cursor:pointer;font-size:15px;font-weight:600;color:var(--text);gap:16px;transition:color .15s;user-select:none}
+.faq-q:hover{color:var(--blue)}
+.faq-toggle{width:24px;height:24px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;color:var(--text3);font-weight:300;transition:all .2s;line-height:1}
+.faq-item.open .faq-toggle{background:var(--blue-soft);color:var(--blue);transform:rotate(45deg)}
+.faq-a{display:none;padding:0 0 20px;font-size:14px;line-height:1.75;color:var(--text2)}
+.faq-item.open .faq-a{display:block}
+
+/* ═══════════════════════════
+   ⑩ CTA FINAL
+═══════════════════════════ */
+.cta-final{background:linear-gradient(160deg,#0040a8 0%,#0071e3 60%,#5baeff 100%);color:#fff;text-align:center;padding:100px 60px;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(255,255,255,.08) 0%,transparent 65%)}
+.cta-final h2{color:#fff;font-size:clamp(28px,3.5vw,48px);margin-bottom:14px;position:relative;z-index:1}
+.cta-final p{font-size:18px;opacity:.8;margin-bottom:40px;position:relative;z-index:1;max-width:560px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue);font-size:14px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:17px 36px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.15);transition:all .2s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.btn-outline-w{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;font-size:14px;font-weight:600;padding:16px 30px;text-decoration:none;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);transition:all .2s}
+.btn-outline-w:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+
+/* ── FOOTER ── */
+footer{background:#1a1a1c;color:rgba(255,255,255,.5);padding:40px 60px;font-size:13px}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-logo{font-size:12px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){.container{padding:0 40px}.hero{padding:112px 40px 80px}.hero-inner{gap:48px}.sammast-grid,.comp-grid{grid-template-columns:repeat(2,1fr)}.comp-item:nth-child(2n){border-right:none}.comp-item:nth-child(n+3){border-bottom:none}}
+@media(max-width:768px){.container{padding:0 24px}.hero{padding:96px 24px 60px}.hero-inner,.mis-grid,.case-grid,.results-grid,.reviews-grid{grid-template-columns:1fr}.sammast-grid{grid-template-columns:1fr}.comp-grid{grid-template-columns:1fr 1fr}nav{padding:0 24px}.nav-links{display:none}section{padding:64px 0}.ct-row,.ct-header{grid-template-columns:1.5fr 1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-badge">OP</div>
+    OPSTAR PROFIT™
+  </a>
+  <ul class="nav-links">
+    <li><a href="#mis-on">Raamistik</a></li>
+    <li><a href="#komponendid">8 komponenti</a></li>
+    <li><a href="#tulemused">Tulemused</a></li>
+    <li><a href="#kkk">KKK</a></li>
+  </ul>
+  <a href="/koolitus#registreeru" class="nav-cta">Registreeru →</a>
+</nav>
+
+<!-- ① HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+
+    <div class="hero-left">
+      <div class="hero-pill">
+        <div class="hero-pill-inner">
+          <div class="pill-dot"></div>
+          25 aasta destillaat · 60+ ettevõtet
+        </div>
+      </div>
+      <h1 class="hero-h1">OPSTAR PROFIT™</h1>
+      <h2 class="hero-h2">Tootmisjuhtimise<br>raamistik, mis töötab</h2>
+      <p class="hero-sub">25 aasta välitestitud kogemus Eesti tootmisettevõtetes — destilleeritud 8-komponentseks süsteemiks mida saad rakendada esmaspäeval.</p>
+      <div class="hero-cta-row">
+        <a href="/koolitus#registreeru" class="btn-p">Registreeru programmi →</a>
+        <a href="#mis-on" class="btn-s">Tutvu raamistikuga</a>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-item">147+ lõpetajat</div>
+        <div class="meta-dot"></div>
+        <div class="meta-item">60+ ettevõtet</div>
+        <div class="meta-dot"></div>
+        <div class="meta-item">25 aastat praktikas</div>
+        <div class="meta-dot"></div>
+        <div class="meta-item">★ 4.9 hinnang</div>
+      </div>
+    </div>
+
+    <!-- Schema infographic card -->
+    <div class="hero-right">
+      <div class="schema-card">
+        <div class="sc-header">
+          <div class="sc-eyebrow">OPSTAR PROFIT™ · 8-komponentne raamistik</div>
+          <div class="sc-badge">✦ 25a testitud</div>
+        </div>
+        <div class="sc-svg-wrap">
+          <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+            <defs>
+              <filter id="glow"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <radialGradient id="cg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,113,227,.12)"/><stop offset="100%" stop-color="rgba(0,113,227,.03)"/></radialGradient>
+              <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="rgba(0,113,227,.35)"/></marker>
+            </defs>
+            <!-- Orbit rings -->
+            <circle cx="210" cy="150" r="106" fill="none" stroke="rgba(0,113,227,.07)" stroke-width="1" stroke-dasharray="5 7"/>
+            <circle cx="210" cy="150" r="84" fill="none" stroke="rgba(0,113,227,.05)" stroke-width="1"/>
+            <!-- Connectors -->
+            <line x1="210" y1="66" x2="210" y2="104" stroke="rgba(0,113,227,.22)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+            <line x1="210" y1="196" x2="210" y2="234" stroke="rgba(0,113,227,.22)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+            <line x1="126" y1="150" x2="82" y2="150" stroke="rgba(0,113,227,.22)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+            <line x1="294" y1="150" x2="338" y2="150" stroke="rgba(0,113,227,.22)" stroke-width="1" stroke-dasharray="3 4" marker-end="url(#arr)"/>
+            <line x1="144" y1="86" x2="104" y2="60" stroke="rgba(0,113,227,.12)" stroke-width="1" stroke-dasharray="3 5"/>
+            <line x1="276" y1="86" x2="316" y2="60" stroke="rgba(0,113,227,.12)" stroke-width="1" stroke-dasharray="3 5"/>
+            <line x1="144" y1="214" x2="104" y2="240" stroke="rgba(0,113,227,.12)" stroke-width="1" stroke-dasharray="3 5"/>
+            <line x1="276" y1="214" x2="316" y2="240" stroke="rgba(0,113,227,.12)" stroke-width="1" stroke-dasharray="3 5"/>
+            <!-- Centre -->
+            <circle cx="210" cy="150" r="60" fill="url(#cg)" stroke="rgba(0,113,227,.2)" stroke-width="1.5"/>
+            <circle cx="210" cy="150" r="46" fill="rgba(0,113,227,.08)" stroke="rgba(0,113,227,.32)" stroke-width="1.5" filter="url(#glow)"/>
+            <line x1="188" y1="150" x2="232" y2="150" stroke="rgba(0,113,227,.22)" stroke-width=".8"/>
+            <line x1="210" y1="128" x2="210" y2="172" stroke="rgba(0,113,227,.22)" stroke-width=".8"/>
+            <text x="200" y="143" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="800" fill="#1d1d1f">147</text>
+            <text x="200" y="153" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" letter-spacing="1" fill="rgba(0,113,227,.65)">LÕPETAJAT</text>
+            <text x="220" y="143" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="800" fill="#1d1d1f">25</text>
+            <text x="220" y="153" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" letter-spacing="1" fill="rgba(0,113,227,.65)">AASTAT</text>
+            <text x="200" y="166" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="800" fill="#1d1d1f">60</text>
+            <text x="200" y="176" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" letter-spacing="1" fill="rgba(0,113,227,.65)">FIRMAT</text>
+            <text x="220" y="166" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="800" fill="#1d1d1f">9</text>
+            <text x="220" y="176" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" letter-spacing="1" fill="rgba(0,113,227,.65)">PÄEVA</text>
+            <text x="210" y="194" text-anchor="middle" font-family="Inter,sans-serif" font-size="5.5" letter-spacing="1.5" fill="rgba(0,113,227,.4)">OPSTAR PROFIT™</text>
+            <!-- Pulse -->
+            <circle cx="210" cy="150" r="46" fill="none" stroke="rgba(0,113,227,.35)" stroke-width="1"><animate attributeName="r" values="46;56;46" dur="3.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.35;0;0.35" dur="3.5s" repeatCount="indefinite"/></circle>
+            <!-- Main 4 nodes -->
+            <g class="schema-node" onclick="showTooltip('Operatiiv','Igapäevane juhtimine, KPI-d ja kiire probleemilahendus tootmispõrandal.')">
+              <rect x="166" y="28" width="88" height="36" rx="2" fill="rgba(0,113,227,.08)" stroke="rgba(0,113,227,.32)" stroke-width="1.5" filter="url(#glow)"/>
+              <text x="210" y="41" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" letter-spacing="1.2" fill="#0071e3">OPERATIIV</text>
+              <text x="210" y="53" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="rgba(29,29,31,.55)">Igapäevane juhtimine</text>
+            </g>
+            <g class="schema-node" onclick="showTooltip('Mõõtmine','OEE, praak, tarneaeg — andmepõhine otsustamine reaalajas.')">
+              <rect x="166" y="236" width="88" height="36" rx="2" fill="rgba(0,113,227,.08)" stroke="rgba(0,113,227,.32)" stroke-width="1.5" filter="url(#glow)"/>
+              <text x="210" y="249" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" letter-spacing="1.2" fill="#0071e3">MÕÕTMINE</text>
+              <text x="210" y="261" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="rgba(29,29,31,.55)">KPI · OEE · Andmed</text>
+            </g>
+            <g class="schema-node" onclick="showTooltip('Süsteem','Protsesside standardiseerimine, raiskamise elimineerimine ja VSM.')">
+              <rect x="10" y="132" width="86" height="36" rx="2" fill="rgba(0,113,227,.08)" stroke="rgba(0,113,227,.32)" stroke-width="1.5" filter="url(#glow)"/>
+              <text x="53" y="145" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" letter-spacing="1.2" fill="#0071e3">SÜSTEEM</text>
+              <text x="53" y="157" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="rgba(29,29,31,.55)">Protsessid · Tööriistad</text>
+            </g>
+            <g class="schema-node" onclick="showTooltip('Areng','Inimeste arendamine ja pideva parenduse kultuur organisatsioonis.')">
+              <rect x="324" y="132" width="86" height="36" rx="2" fill="rgba(0,113,227,.08)" stroke="rgba(0,113,227,.32)" stroke-width="1.5" filter="url(#glow)"/>
+              <text x="367" y="145" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" letter-spacing="1.2" fill="#0071e3">ARENG</text>
+              <text x="367" y="157" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="rgba(29,29,31,.55)">Inimesed · Kultuur</text>
+            </g>
+            <!-- Corner nodes -->
+            <g class="schema-node" onclick="showTooltip('Väärtus','Väärtusahela kaardistus — mis loob väärtust kliendi jaoks?')">
+              <rect x="28" y="28" width="80" height="30" rx="1" fill="rgba(0,113,227,.04)" stroke="rgba(0,113,227,.18)" stroke-width="1"/>
+              <text x="68" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.5" letter-spacing=".8" fill="rgba(0,113,227,.6)">VÄÄRTUS</text>
+              <text x="68" y="51" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(29,29,31,.38)">VSM · Muda · Klient</text>
+            </g>
+            <g class="schema-node" onclick="showTooltip('Standardid','Standardiseeritud töö, 5S ja visuaalne juhtimine tootmiskohal.')">
+              <rect x="312" y="28" width="80" height="30" rx="1" fill="rgba(0,113,227,.04)" stroke="rgba(0,113,227,.18)" stroke-width="1"/>
+              <text x="352" y="40" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.5" letter-spacing=".8" fill="rgba(0,113,227,.6)">STANDARDID</text>
+              <text x="352" y="51" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(29,29,31,.38)">5S · Visuaal · SOP</text>
+            </g>
+            <g class="schema-node" onclick="showTooltip('Stabiilsus','4M stabiilsus: Masin, Materjal, Meetod, Mees — TPM alused.')">
+              <rect x="28" y="242" width="80" height="30" rx="1" fill="rgba(0,113,227,.04)" stroke="rgba(0,113,227,.18)" stroke-width="1"/>
+              <text x="68" y="254" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.5" letter-spacing=".8" fill="rgba(0,113,227,.6)">STABIILSUS</text>
+              <text x="68" y="265" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(29,29,31,.38)">4M · TPM · Varud</text>
+            </g>
+            <g class="schema-node" onclick="showTooltip('Parendus','Kaizen kultuur — väikeste pidavate parenduste süsteem.')">
+              <rect x="312" y="242" width="80" height="30" rx="1" fill="rgba(0,113,227,.04)" stroke="rgba(0,113,227,.18)" stroke-width="1"/>
+              <text x="352" y="254" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.5" letter-spacing=".8" fill="rgba(0,113,227,.6)">PARENDUS</text>
+              <text x="352" y="265" text-anchor="middle" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(29,29,31,.38)">Kaizen · PDCA · A3</text>
+            </g>
+          </svg>
+        </div>
+        <div class="sc-footer">
+          <div class="sc-stat"><div class="sc-stat-val">8</div><div class="sc-stat-lbl">Komponenti</div></div>
+          <div class="sc-stat"><div class="sc-stat-val">147+</div><div class="sc-stat-lbl">Lõpetajat</div></div>
+          <div class="sc-stat"><div class="sc-stat-val">25a</div><div class="sc-stat-lbl">Praktikas</div></div>
+          <div class="sc-stat"><div class="sc-stat-val">4.9★</div><div class="sc-stat-lbl">Hinnang</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Tooltip -->
+<div id="tooltip" style="display:none;position:fixed;background:#1a1a1c;color:rgba(255,255,255,.88);padding:12px 16px;font-size:13px;line-height:1.5;max-width:220px;pointer-events:none;z-index:9999;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18)">
+  <strong id="tt-title" style="display:block;color:#5baeff;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px"></strong>
+  <span id="tt-text"></span>
+</div>
+
+<!-- ② MIS ON -->
+<section class="mis-on" id="mis-on">
+  <div class="container">
+    <div class="eyebrow">Raamistik</div>
+    <h2>Mis on OPSTAR PROFIT™?</h2>
+    <p class="section-sub">Lihtne seletus — ilma žargoonita. Mis see on ja mis see ei ole.</p>
+    <div class="mis-grid">
+      <div>
+        <div class="mis-col-title mis-col-title-no">✕ Mis see EI ole</div>
+        <ul class="mis-list">
+          <li><div class="mis-icon-no">✕</div>Mitte tavaline LEAN raamatust kopeeritud</li>
+          <li><div class="mis-icon-no">✕</div>Mitte teooria mis jääb klassiruumi</li>
+          <li><div class="mis-icon-no">✕</div>Mitte ühesuurune lahendus kõigile</li>
+          <li><div class="mis-icon-no">✕</div>Mitte veel üks sertifikaadiprogramm</li>
+          <li><div class="mis-icon-no">✕</div>Mitte konsultatsioon kus teised teevad sinu eest</li>
+        </ul>
+      </div>
+      <div>
+        <div class="mis-col-title mis-col-title-yes">✓ Mis see ON</div>
+        <ul class="mis-list">
+          <li><div class="mis-icon-yes">✓</div>Eesti tootmise jaoks kohandatud meetodid</li>
+          <li><div class="mis-icon-yes">✓</div>25 aasta välitestitud praktika 60+ ettevõttes</li>
+          <li><div class="mis-icon-yes">✓</div>Rakendatav esmaspäeval — kohe peale koolitust</li>
+          <li><div class="mis-icon-yes">✓</div>8-komponentne süsteem mis katab kõik juhtimistasemed</li>
+          <li><div class="mis-icon-yes">✓</div>Sinu meeskonnaga koos ehitatud lahendus</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ KOLM SAMMAST -->
+<section class="sammast" id="sammast">
+  <div class="container">
+    <div class="eyebrow">Alused</div>
+    <h2>Kolm sammast</h2>
+    <p class="section-sub">OPSTAR PROFIT™ toetub kolmele võrdselt olulisele alusele — ilma üheta kukub kogu süsteem.</p>
+    <div class="sammast-grid">
+      <div class="sammas-card">
+        <div class="sammas-num">01</div>
+        <div class="sammas-icon si-blue">⚙️</div>
+        <div class="sammas-title">Operatiiv</div>
+        <div class="sammas-sub">Igapäevane juhtimine käe all. KPI-d mis annavad signaali, Gemba käigud mis näitavad tõde, visuaaljuhtimine mis teeb probleemid nähtavaks.</div>
+        <div class="sammas-tags">
+          <span class="sammas-tag">KPI</span>
+          <span class="sammas-tag">Andon</span>
+          <span class="sammas-tag">Gemba</span>
+          <span class="sammas-tag">Visuaaljuhtimine</span>
+        </div>
+      </div>
+      <div class="sammas-card">
+        <div class="sammas-num">02</div>
+        <div class="sammas-icon si-green">🗂</div>
+        <div class="sammas-title">Süsteem</div>
+        <div class="sammas-sub">Protsessid ja tööriistad mis töötavad iseseisvalt. VSM näitab raiskamise, 5S loob korra, SOP standardiseerib töö, Kanban juhib voogu.</div>
+        <div class="sammas-tags">
+          <span class="sammas-tag">VSM</span>
+          <span class="sammas-tag">5S</span>
+          <span class="sammas-tag">SOP</span>
+          <span class="sammas-tag">Kanban</span>
+        </div>
+      </div>
+      <div class="sammas-card">
+        <div class="sammas-num">03</div>
+        <div class="sammas-icon si-violet">👥</div>
+        <div class="sammas-title">Areng</div>
+        <div class="sammas-sub">Inimesed ja kultuur — ainus osa mida ei saa kopeerida. Kaizen teeb parenduse igapäevaseks, coaching annab tööriistad, tiimi kaasamine loob omanditunde.</div>
+        <div class="sammas-tags">
+          <span class="sammas-tag">Kaizen</span>
+          <span class="sammas-tag">Coaching</span>
+          <span class="sammas-tag">Tiimi kaasamine</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 8 KOMPONENTI -->
+<section class="komponendid" id="komponendid">
+  <div class="container">
+    <div class="eyebrow">Detailvaade</div>
+    <h2>8 komponenti — mis on sees</h2>
+    <p class="section-sub">Klõpsa igal komponendil et näha mida see tähendab, kuidas toimib ja millised on tulemused.</p>
+    <div id="comp-grid" class="comp-grid">
+      <div class="comp-item active" data-id="operatiiv" onclick="openComp(this,'operatiiv')">
+        <div class="comp-num">01</div>
+        <div class="comp-title">Operatiiv</div>
+        <div class="comp-tags-s"><span class="comp-tag">KPI · Gemba · Andon</span></div>
+        <div class="comp-expand">+</div>
+      </div>
+      <div class="comp-item" data-id="mootmine" onclick="openComp(this,'mootmine')">
+        <div class="comp-num">02</div>
+        <div class="comp-title">Mõõtmine</div>
+        <div class="comp-tags-s"><span class="comp-tag">OEE · Andmed · KPI</span></div>
+        <div class="comp-expand">+</div>
+      </div>
+      <div class="comp-item" data-id="systeem" onclick="openComp(this,'systeem')">
+        <div class="comp-num">03</div>
+        <div class="comp-title">Süsteem</div>
+        <div class="comp-tags-s"><span class="comp-tag">VSM · SOP · Protsessid</span></div>
+        <div class="comp-expand">+</div>
+      </div>
+      <div class="comp-item" data-id="areng" onclick="openComp(this,'areng')">
+        <div class="comp-num">04</div>
+        <div class="comp-title">Areng</div>
+        <div class="comp-tags-s"><span class="comp-tag">Kaizen · Inimesed</span></div>
+        <div class="comp-expand">+</div>
+      </div>
+      <div class="comp-item" data-id="vaartus" onclick="openComp(this,'vaartus')">
+        <div class="comp-num">05</div>
+        <div class="comp-title">Väärtus</div>
+        <div class="comp-tags-s"><span class="comp-tag">VSM · Muda · Klient</span></div>
+        <div class="comp-expand">+</div>
+      </div>
+      <div class="comp-item" data-id="standardid" onclick="openComp(this,'standardid')">
+        <div class="comp-num">06</div>
+        <div class="comp-title">Standardid</div>
+        <div class="comp-tags-s"><span class="comp-tag">5S · SOP · Visuaal</span></div>
+        <div class="comp-expand">+</div>
+      </div>
+      <div class="comp-item" data-id="stabiilsus" onclick="openComp(this,'stabiilsus')">
+        <div class="comp-num">07</div>
+        <div class="comp-title">Stabiilsus</div>
+        <div class="comp-tags-s"><span class="comp-tag">4M · TPM · Varud</span></div>
+        <div class="comp-expand">+</div>
+      </div>
+      <div class="comp-item" data-id="parendus" onclick="openComp(this,'parendus')">
+        <div class="comp-num">08</div>
+        <div class="comp-title">Parendus</div>
+        <div class="comp-tags-s"><span class="comp-tag">Kaizen · A3 · PDCA</span></div>
+        <div class="comp-expand">+</div>
+      </div>
+    </div>
+    <div id="comp-detail" class="comp-detail open">
+      <div><div class="cd-section-title">Mis see on</div><div class="cd-text" id="cd-what">Igapäevane tootmisjuhtimine struktuuriga. Gemba käigud tootmispõrandal, KPI jälgimine reaalajas, kiire probleemireageerimine Andoni abil.</div></div>
+      <div><div class="cd-section-title">Kuidas toimib</div><div class="cd-text" id="cd-how">Igal hommikul 15-minutine koosolek meeskonnaga. KPI tahvel näitab eelmise päeva tulemusi. Probleemid märgitakse kohe ja lahendatakse päeva jooksul.</div></div>
+      <div><div class="cd-section-title">Tulemus</div><div class="cd-text" id="cd-result">Probleemid tulevad päevavalgele enne kui need suurteks kasvavad.<div class="cd-result">↑ 15–25% tootlikkus 90 päevaga</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ LEAN VS OPSTAR -->
+<section class="vordlus" id="vordlus">
+  <div class="container">
+    <div class="eyebrow">Võrdlus</div>
+    <h2>LEAN vs OPSTAR PROFIT™</h2>
+    <p class="section-sub">Miks OPSTAR on edasiareng — mitte lihtsalt teine nimi samale asjale.</p>
+    <div class="comparison-table">
+      <div class="ct-header">
+        <div class="ct-col">Kriteerium</div>
+        <div class="ct-col">Tavaline LEAN</div>
+        <div class="ct-col ct-col-featured">OPSTAR PROFIT™</div>
+      </div>
+      <div class="ct-row"><div class="ct-criterion">Kohandatus Eesti tootmisele</div><div class="ct-no">—</div><div><span class="ct-yes">✦</span></div></div>
+      <div class="ct-row"><div class="ct-criterion">Rakendatav kohe esmaspäeval</div><div class="ct-no">—</div><div><span class="ct-yes">✦</span></div></div>
+      <div class="ct-row"><div class="ct-criterion">8-komponentne tervikvaade</div><div class="ct-no">—</div><div><span class="ct-yes">✦</span></div></div>
+      <div class="ct-row"><div class="ct-criterion">Järeltugi 12 kuud</div><div class="ct-no">—</div><div><span class="ct-yes">✦</span></div></div>
+      <div class="ct-row"><div class="ct-criterion">Välitestitud 60+ ettevõttes</div><div class="ct-no">Üldiselt</div><div><span class="ct-yes">✦</span></div></div>
+      <div class="ct-row"><div class="ct-criterion">Mõõdetavad tulemused 90 päevaga</div><div class="ct-no">—</div><div><span class="ct-yes">✦</span></div></div>
+      <div class="ct-cta">
+        <div>
+          <div class="ct-cta-text">Valmis OPSTAR PROFIT™ rakendama?</div>
+          <div class="ct-cta-sub">Järgmine grupp oktoobris 2026 · 3 kohta vabad</div>
+        </div>
+        <a href="/koolitus#registreeru" class="btn-p">Vaata programmi →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ TULEMUSED -->
+<section class="tulemused" id="tulemused">
+  <div class="container">
+    <div class="eyebrow">Numbrid</div>
+    <h2>Mõõdetavad tulemused</h2>
+    <p class="section-sub">Konkreetsed numbrid — mitte lubadused. Keskmised näitajad 147+ lõpetaja tagasiside põhjal.</p>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-val result-val-blue">25–40%</div>
+        <div class="result-label">Praagi vähenemine</div>
+        <div class="result-sub">Keskmiselt esimese 6 kuu jooksul pärast programmi</div>
+      </div>
+      <div class="result-card">
+        <div class="result-val result-val-green">15–30%</div>
+        <div class="result-label">Tootlikkuse tõus</div>
+        <div class="result-sub">Mõõdetud OEE ja väljundnäitajate põhjal</div>
+      </div>
+      <div class="result-card">
+        <div class="result-val result-val-amber">90 päeva</div>
+        <div class="result-label">Esimesed tulemused</div>
+        <div class="result-sub">Enamik osalejaid näevad mõõdetavaid muutusi 90 päeva jooksul</div>
+      </div>
+    </div>
+    <div class="results-source">Allikas: 147+ lõpetaja tagasiside · keskmised näitajad · individuaalsed tulemused võivad erineda</div>
+  </div>
+</section>
+
+<!-- ⑦ CASE STUDY -->
+<section class="casestudy" id="casestudy">
+  <div class="container">
+    <div class="eyebrow">Juhtumiuuringud</div>
+    <h2>Päris tulemused päris ettevõtetest</h2>
+    <p class="section-sub">Enne ja pärast — numbrid räägivad ise.</p>
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-top">
+          <div>
+            <div class="case-company">Ettevõte A</div>
+            <div class="case-meta">Metallitootmine · 45 töötajat · Tallinn</div>
+          </div>
+          <div class="case-year-badge">2023</div>
+        </div>
+        <div class="case-body">
+          <div class="case-before">
+            <div class="case-side-title">Enne</div>
+            <div class="case-metric"><span class="case-metric-lbl">OEE</span><span class="case-metric-val-before">54%</span></div>
+            <div class="case-metric"><span class="case-metric-lbl">Praak</span><span class="case-metric-val-before">18%</span></div>
+            <div class="case-metric"><span class="case-metric-lbl">Tarneaeg</span><span class="case-metric-val-before">12 päeva</span></div>
+          </div>
+          <div class="case-after">
+            <div class="case-side-title">Pärast</div>
+            <div class="case-metric"><span class="case-metric-lbl">OEE</span><span class="case-metric-val-after">71%</span></div>
+            <div class="case-metric"><span class="case-metric-lbl">Praak</span><span class="case-metric-val-after">9%</span></div>
+            <div class="case-metric"><span class="case-metric-lbl">Tarneaeg</span><span class="case-metric-val-after">7 päeva</span></div>
+          </div>
+        </div>
+        <div class="case-result">
+          <div class="case-result-main">+320 000 € / aastas · OEE +17pp · Praak −50%</div>
+          <div class="case-result-time">90 päevaga</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-top">
+          <div>
+            <div class="case-company">Ettevõte B</div>
+            <div class="case-meta">Puidutootmine · 28 töötajat · Tartu</div>
+          </div>
+          <div class="case-year-badge">2024</div>
+        </div>
+        <div class="case-body">
+          <div class="case-before">
+            <div class="case-side-title">Enne</div>
+            <div class="case-metric"><span class="case-metric-lbl">OEE</span><span class="case-metric-val-before">61%</span></div>
+            <div class="case-metric"><span class="case-metric-lbl">Praak</span><span class="case-metric-val-before">12%</span></div>
+            <div class="case-metric"><span class="case-metric-lbl">Ületunnid</span><span class="case-metric-val-before">+40h/k</span></div>
+          </div>
+          <div class="case-after">
+            <div class="case-side-title">Pärast</div>
+            <div class="case-metric"><span class="case-metric-lbl">OEE</span><span class="case-metric-val-after">78%</span></div>
+            <div class="case-metric"><span class="case-metric-lbl">Praak</span><span class="case-metric-val-after">7%</span></div>
+            <div class="case-metric"><span class="case-metric-lbl">Ületunnid</span><span class="case-metric-val-after">+8h/k</span></div>
+          </div>
+        </div>
+        <div class="case-result">
+          <div class="case-result-main">OEE +17pp · Praak −42% · Ületunnid −80%</div>
+          <div class="case-result-time">6 kuuga</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑧ ARVAMUSED -->
+<section class="arvamused" id="arvamused">
+  <div class="container">
+    <div class="eyebrow">Tagasiside</div>
+    <h2>Mida osalejad ütlevad raamistikust</h2>
+    <p class="section-sub">Spetsiifiliselt OPSTAR meetodist — mitte koolitusest üldiselt.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"OPSTAR andis meile keele probleemidest rääkimiseks. Nüüd räägime kõik ühte keelt — OEE, Gemba, Kaizen. Meeskond mõistab mida oodatakse."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#5baeff,#007aff 50%,#0040a8)">KV</div>
+          <div><div class="review-name">K. Vaarmann</div><div class="review-role">Tootmisdirektor · Harju maakond</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"8 noodit — kogu süsteem ühel lehel. Lihtsalt. Teised raamistikud on keerulised ja abstraktsed. OPSTAR on konkreetne ja rakendatav."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#4cd964,#34c759 50%,#1a6630)">MM</div>
+          <div><div class="review-name">M. Männik</div><div class="review-role">Operatiivjuht · Tartu</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-meta">
+      <span>41 tagasisidet</span>
+      <span>·</span>
+      <span>Keskmine <strong>4.9 / 5</strong></span>
+      <span>·</span>
+      <span><strong>96%</strong> soovitaks kolleegile</span>
+    </div>
+  </div>
+</section>
+
+<!-- ⑨ KKK -->
+<section class="kkk" id="kkk">
+  <div class="container">
+    <div class="eyebrow">KKK</div>
+    <h2>Korduma kippuvad küsimused</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kas OPSTAR PROFIT™ sobib ka väikeettevõttele?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Jah. Raamistik on skaleeruv — 10 töötajaga ettevõte rakendab samad põhimõtted lihtsustatud kujul kui 200 töötajaga tehas. Koolitusel kohandame lähenemise sinu ettevõtte suurusele.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Mis vahe on LEAN-il ja OPSTAR PROFIT™-il?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">LEAN on Toyotast pärit üldine filosoofia. OPSTAR PROFIT™ on konkreetne 8-komponentne süsteem mis on kohandatud Eesti tootmisettevõtete jaoks — väiksem bürokraatia, kiirem rakendamine, lokaalne kontekst.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kui kiiresti näen tulemusi?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Esimesed mõõdetavad muutused on enamasti näha 30–90 päeva jooksul pärast koolituse lõppu. Suured struktuurimuutused võtavad 6–12 kuud. Kõik sõltub rakendamise kiirusest ja meeskonna kaasatusest.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kas saab ka grupikoolitus meie ettevõttes kohapeal?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Jah, pakume kohapealset koolitust 5+ osalejaga grupile. Programm kohandatakse teie tootmise konkreetsete probleemide ümber. Võta ühendust hinnapakkumise saamiseks.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kas pean olema eelnevalt LEANiga tuttav?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Ei pea. Programm on üles ehitatud nii et saab kaasa tulla ilma eelneva LEAN kogemuseta. Eelteadmised kiirendavad õppimist aga ei ole nõutud.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kas on EIS toetus saadaval?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Jah. EIS koolitustoetus katab kuni 50% koolitusmaksest. Aitame taotluse esitamisel — protsess vajab ~6 nädalat ette planeerimist.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑩ CTA FINAL -->
+<section class="cta-final" id="registreeru">
+  <h2>Õpi OPSTAR PROFIT™ rakendama 9 päevaga</h2>
+  <p>Järgmine grupp oktoobris 2026 · 3 kohta vabad · EIS toetus kuni 50%</p>
+  <div class="cta-btns">
+    <a href="/koolitus#registreeru" class="btn-white">Registreeru koolitusele →</a>
+    <a href="/koolitus" class="btn-outline-w">Vaata programmi →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">OPSTAR PROFIT™ · tootmisjuhtimine.ee</div>
+    <div class="footer-links">
+      <a href="/">Avaleht</a>
+      <a href="/koolitus">Koolitus</a>
+      <a href="/opstar-profit">OPSTAR PROFIT™</a>
+    </div>
+    <div>© 2026 Andres Kase · Tallinn, Lõõtsa 5</div>
+  </div>
+</footer>
+
+<script>
+/* ── Tooltip on SVG nodes ── */
+const tt = document.getElementById('tooltip')
+function showTooltip(title, text) {
+  document.getElementById('tt-title').textContent = title
+  document.getElementById('tt-text').textContent = text
+  tt.style.display = 'block'
+}
+document.addEventListener('mousemove', e => {
+  if (tt.style.display === 'block') {
+    tt.style.left = (e.clientX + 16) + 'px'
+    tt.style.top  = (e.clientY - 12) + 'px'
+  }
+})
+document.addEventListener('click', e => {
+  if (!e.target.closest('.schema-node')) tt.style.display = 'none'
+})
+
+/* ── Component accordion ── */
+const COMP_DATA = {
+  operatiiv: {
+    what:   'Igapäevane tootmisjuhtimine struktuuriga. Gemba käigud tootmispõrandal, KPI jälgimine reaalajas, kiire probleemireageerimine Andoni abil.',
+    how:    'Igal hommikul 15-minutine koosolek meeskonnaga. KPI tahvel näitab eelmise päeva tulemusi. Probleemid märgitakse kohe ja lahendatakse päeva jooksul.',
+    result: 'Probleemid tulevad päevavalgele enne kui need suurteks kasvavad. ↑ 15–25% tootlikkus 90 päevaga'
+  },
+  mootmine: {
+    what:   'OEE, praagi %, tarneaeg — kolm põhimõõdikut mis annavad tervikliku pildi tootmise tervisest.',
+    how:    'Mõõdikud pannakse tahvlile. Koosolek analüüsib trende. Kõrvalekalded käivitavad PDCA tsükli.',
+    result: 'Otsused põhinevad andmetel, mitte arvamustel. ↓ 25–40% praak 6 kuuga'
+  },
+  systeem: {
+    what:   'Protsessid mis töötavad iseseisvalt. VSM kaardistab raiskamise, SOP standardiseerib töö, Kanban juhib materjalivoogu.',
+    how:    'Kaardistame kogu väärtusahela. Tuvastame raiskamised. Parandame järjest — alustame suurimast mõjust.',
+    result: 'Süsteem töötab ka ilma sinuta kohal olemata. ↓ Tarneaeg 30–50%'
+  },
+  areng: {
+    what:   'Kaizen kultuur kus iga töötaja panustab parendustesse. Coaching annab juhtidele tööriistad, tiimi kaasamine loob omanditunde.',
+    how:    'Iganädalased Kaizen sessioonid. Ideed kogutakse, hinnatakse ja rakendatakse kiiresti. Tulemused tähistatakse.',
+    result: 'Meeskond lahendab probleeme iseseisvalt. ↑ Töötajate rahulolu'
+  },
+  vaartus: {
+    what:   'VSM — väärtusahela kaardistus mis näitab mis loob väärtust kliendi jaoks ja mis on raiskamine.',
+    how:    'Joonistame praeguse olukorra kaardi. Analüüsime iga sammu. Loome tuleviku kaardi ilma raiskamisteta.',
+    result: 'Selge pilt kus raha lekib. ↓ Läbiaeg 40–60%'
+  },
+  standardid: {
+    what:   '5S organiseerib töökoha, SOP standardiseerib parima töömeetodi, visuaalne juhtimine teeb kõrvalekalded koheselt nähtavaks.',
+    how:    '5S audit → puhastamine → organiseerimine → standardiseerimine → hoidmine. SOP kirjutatakse töötajatega koos.',
+    result: 'Töökoht kus kõik on omal kohal. ↓ Otsimine 80%'
+  },
+  stabiilsus: {
+    what:   '4M meetod tagab et Masin, Materjal, Meetod ja Mees on alati tootmiseks valmis. TPM kaasab operaatorid hooldusesse.',
+    how:    'Igapäevane operaatorite kontroll. Ennetav hooldusgraafik. Varade jälgimine OEE kaudu.',
+    result: 'Ootamatud seisakud vähenevad drastiliselt. ↑ OEE 15–25pp'
+  },
+  parendus: {
+    what:   'Kaizen on väikeste pidavate parenduste filosoofia. A3 on struktureeritud probleemilahenduse tööriist. PDCA on parenduse tsükkel.',
+    how:    'Probleemid dokumenteeritakse A3 vormil. Meeskond analüüsib juurpõhjust. Lahendused testitakse ja standardiseeritakse.',
+    result: 'Samad probleemid ei kordu. ↓ Korduvad defektid 60–80%'
+  }
+}
+
+function openComp(el, id) {
+  document.querySelectorAll('.comp-item').forEach(i => i.classList.remove('active'))
+  el.classList.add('active')
+  const d = COMP_DATA[id]
+  document.getElementById('cd-what').textContent   = d.what
+  document.getElementById('cd-how').textContent    = d.how
+  document.getElementById('cd-result').innerHTML   = d.result.replace(/(↑|↓)[^<]+/, m => `<div class="cd-result">${m}</div>`)
+  document.getElementById('comp-detail').classList.add('open')
+}
+
+/* ── FAQ accordion ── */
+function toggleFaq(el) {
+  const item = el.parentElement
+  const wasOpen = item.classList.contains('open')
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'))
+  if (!wasOpen) item.classList.add('open')
+}
+
+/* ── Scroll reveal ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='none' }
+  })
+}, { threshold: 0.06 })
+document.querySelectorAll('section > .container').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(24px)'
+  el.style.transition='opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)'
+  obs.observe(el)
+})
+</script>
+</body>
+</html>

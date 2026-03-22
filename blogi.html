@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blogi — tootmisjuhtimine.ee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#0071e3;--blue-dark:#004eb8;--blue-light:#5baeff;
+  --blue-soft:rgba(0,113,227,.10);--blue-border:rgba(0,113,227,.18);
+  --orange:#ff9f0a;--orange-dark:#c96a00;
+  --green:#34c759;--green-bg:rgba(52,199,89,.09);
+  --bg:#f2f2f4;--bg2:#e8e8ec;--card:#ffffff;
+  --text:#1a1a1c;--text2:#636366;--text3:#aeaeb2;
+  --border:rgba(0,0,0,.07);--border2:rgba(0,0,0,.12);
+  --r-sm:10px;--r-md:14px;--r-lg:18px;--r-xl:22px;
+  --shadow-card:0 2px 8px rgba(0,0,0,.06),0 1px 0 rgba(255,255,255,.9) inset;
+  --shadow-hover:0 8px 32px rgba(0,0,0,.10),0 16px 48px rgba(0,113,227,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:56px;background:rgba(242,242,244,.85);backdrop-filter:blur(32px) saturate(180%);border-bottom:0.5px solid rgba(0,0,0,.06)}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0.5px;background:linear-gradient(90deg,transparent,rgba(0,113,227,.28) 50%,transparent)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;letter-spacing:.1em;color:var(--text);text-transform:uppercase;text-decoration:none}
+.nav-logo-badge{width:28px;height:28px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff;box-shadow:0 2px 8px rgba(0,113,227,.35)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--text2);text-decoration:none;transition:color .15s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+.nav-links a.active{color:var(--blue)}
+.nav-links a.active::after{transform:scaleX(1)}
+.nav-links a:hover{color:var(--text)}.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#fff;background:var(--blue);padding:9px 22px;text-decoration:none;box-shadow:0 2px 12px rgba(0,113,227,.28);transition:all .2s}
+.nav-cta:hover{background:var(--blue-dark);transform:translateY(-1px)}
+
+/* ── SHARED ── */
+.container{max-width:1280px;margin:0 auto;padding:0 60px;width:100%;position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--blue);flex-shrink:0}
+
+/* ── HERO ── */
+.hero{padding:112px 0 64px;background:linear-gradient(170deg,#f4f4f6 0%,#f0f0f3 60%,#ebebee 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,113,227,.06) 0%,transparent 65%);pointer-events:none}
+.hero-inner{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.hero-left{}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;background:var(--blue-soft);border:1px solid var(--blue-border);color:var(--blue);font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 13px 5px 9px;margin-bottom:20px}
+.hero-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+h1{font-size:clamp(40px,5vw,68px);font-weight:800;line-height:.98;letter-spacing:-.036em;color:var(--text);margin-bottom:8px}
+h1 span{font-family:'Instrument Serif',Georgia,serif;font-style:italic;color:var(--blue)}
+.hero-sub{font-size:17px;line-height:1.7;color:var(--text2);max-width:500px;margin-top:14px}
+.hero-stats{display:flex;gap:32px;margin-top:28px}
+.hs{display:flex;flex-direction:column}
+.hs-val{font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1}
+.hs-lbl{font-size:11px;color:var(--text3);font-weight:500;letter-spacing:.04em;margin-top:2px}
+
+/* ── FILTER ── */
+.filter-bar{padding:28px 0;border-bottom:0.5px solid var(--border2);background:var(--card);position:sticky;top:56px;z-index:100;backdrop-filter:blur(16px)}
+.filter-inner{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:7px 16px;border-radius:980px;border:1px solid var(--border2);background:transparent;cursor:pointer;transition:all .18s;color:var(--text2)}
+.filter-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.filter-count{font-size:10px;font-weight:700;padding:1px 6px;border-radius:980px}
+.filter-btn.active .filter-count{background:rgba(255,255,255,.25);color:#fff}
+.filter-btn:not(.active) .filter-count{background:var(--bg2);color:var(--text3)}
+.filter-sep{height:20px;width:0.5px;background:var(--border2);margin:0 4px}
+
+/* ── POSTS GRID ── */
+.posts{padding:56px 0 80px}
+.posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+
+/* Featured post — full width */
+.post-featured{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--card);border-radius:var(--r-xl);overflow:hidden;border:0.5px solid var(--border);transition:transform .22s,box-shadow .22s;text-decoration:none}
+.post-featured:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.pf-image{background:linear-gradient(135deg,#dce8f8,#b8d4f5);min-height:280px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.pf-image-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,40,100,.25) 0%,transparent 60%)}
+.pf-badge{position:absolute;top:20px;left:20px;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:5px 12px;border-radius:980px;background:var(--blue);color:#fff;letter-spacing:.04em}
+.pf-body{padding:36px 36px 36px;display:flex;flex-direction:column;justify-content:center}
+.pf-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.pf-title{font-size:24px;font-weight:800;letter-spacing:-.022em;color:var(--text);line-height:1.2;margin-bottom:12px}
+.pf-excerpt{font-size:14px;line-height:1.7;color:var(--text2);margin-bottom:20px}
+.pf-meta{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text3)}
+.pf-meta-dot{width:3px;height:3px;border-radius:50%;background:var(--text3)}
+.pf-read{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--blue);margin-top:20px;text-decoration:none}
+.pf-read:hover{opacity:.7}
+
+/* Regular post card */
+.post-card{background:var(--card);border-radius:var(--r-xl);overflow:hidden;border:0.5px solid var(--border);transition:transform .22s,box-shadow .22s;text-decoration:none;display:flex;flex-direction:column}
+.post-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.pc-image{height:180px;position:relative;overflow:hidden}
+.pc-image-bg{position:absolute;inset:0;background:linear-gradient(135deg,#dce8f8,#b8d4f5)}
+.pc-image-bg.lean{background:linear-gradient(135deg,#e1f5ee,#9fe1cb)}
+.pc-image-bg.kaizen{background:linear-gradient(135deg,#faeeda,#fac775)}
+.pc-image-bg.juhtimine{background:linear-gradient(135deg,#eeedfe,#cecbf6)}
+.pc-image-bg.vsm{background:linear-gradient(135deg,#e6f1fb,#b5d4f4)}
+.pc-tag-wrap{position:absolute;top:14px;left:14px}
+.pc-tag{display:inline-flex;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:980px}
+.tag-lean{background:#E1F5EE;color:#085041}
+.tag-kaizen{background:#FAEEDA;color:#633806}
+.tag-juhtimine{background:#EEEDFE;color:#3C3489}
+.tag-vsm{background:#E6F1FB;color:#0C447C}
+.tag-tps{background:#EAF3DE;color:#27500A}
+.pc-body{padding:20px;flex:1;display:flex;flex-direction:column}
+.pc-title{font-size:16px;font-weight:700;letter-spacing:-.015em;color:var(--text);line-height:1.35;margin-bottom:8px;flex:1}
+.pc-excerpt{font-size:13px;line-height:1.6;color:var(--text2);margin-bottom:14px}
+.pc-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text3);margin-top:auto}
+.pc-meta-dot{width:3px;height:3px;border-radius:50%;background:var(--text3)}
+.pc-read{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--blue);margin-top:12px;text-decoration:none}
+
+/* Pagination */
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px}
+.pg-btn{width:36px;height:36px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;border:0.5px solid var(--border2);background:var(--card);color:var(--text2);transition:all .15s}
+.pg-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+.pg-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pg-btn.arrow{font-size:16px;font-weight:400}
+
+/* Newsletter */
+.newsletter{background:var(--card);padding:64px 0;border-top:0.5px solid var(--border)}
+.nl-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.nl-left h2{font-size:clamp(22px,2.8vw,32px);font-weight:800;letter-spacing:-.025em;margin-bottom:8px}
+.nl-left p{font-size:15px;color:var(--text2)}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap}
+.nl-input{flex:1;min-width:240px;height:46px;padding:0 16px;background:var(--bg);border:0.5px solid var(--border2);border-radius:var(--r-sm);font-size:14px;font-family:inherit;color:var(--text);outline:none;transition:border-color .15s}
+.nl-input:focus{border-color:var(--blue)}
+.nl-input::placeholder{color:var(--text3)}
+.nl-btn{height:46px;padding:0 24px;background:var(--blue);color:#fff;font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;border-radius:var(--r-sm)}
+.nl-btn:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.nl-note{font-size:11px;color:var(--text3);margin-top:8px}
+
+/* Footer */
+footer{background:#1a1a1c;color:rgba(255,255,255,.5);padding:40px 60px;font-size:13px}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-logo{font-size:12px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+
+@media(max-width:1024px){.container{padding:0 40px}.posts-grid{grid-template-columns:1fr 1fr}.post-featured{grid-template-columns:1fr}}
+@media(max-width:768px){.container{padding:0 24px}.posts-grid{grid-template-columns:1fr}.post-featured{grid-column:auto}.hero{padding:88px 0 40px}nav{padding:0 24px}.nav-links{display:none}footer{padding:32px 24px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><div class="nav-logo-badge">OP</div>OPSTAR PROFIT™</a>
+  <ul class="nav-links">
+    <li><a href="/koolitus">Programm</a></li>
+    <li><a href="/opstar-profit">OPSTAR</a></li>
+    <li><a href="/andres-kase">Andres Kase</a></li>
+    <li><a href="/blogi" class="active">Blogi</a></li>
+  </ul>
+  <a href="/koolitus#registreeru" class="nav-cta">Registreeru →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-pill">
+          <div class="hero-pill-dot"></div>
+          Praktilised artiklid tootmisjuhtidele
+        </div>
+        <h1>Blogi —<br><span>tootmise teadmised</span></h1>
+        <p class="hero-sub">Praktilised artiklid LEAN, TPS ja OPSTAR PROFIT™ meetoditest. Kõik põhineb päris tehastest saadud kogemusel.</p>
+        <div class="hero-stats">
+          <div class="hs"><div class="hs-val">24</div><div class="hs-lbl">Artiklit</div></div>
+          <div class="hs"><div class="hs-val">5</div><div class="hs-lbl">Kategooriat</div></div>
+          <div class="hs"><div class="hs-val">4 min</div><div class="hs-lbl">Keskm. lugemisaeg</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <div class="container">
+    <div class="filter-inner">
+      <button class="filter-btn active" onclick="setFilter(this,'kõik')">
+        Kõik <span class="filter-count">24</span>
+      </button>
+      <div class="filter-sep"></div>
+      <button class="filter-btn" onclick="setFilter(this,'lean')">
+        LEAN <span class="filter-count">8</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter(this,'kaizen')">
+        Kaizen <span class="filter-count">5</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter(this,'juhtimine')">
+        Juhtimine <span class="filter-count">6</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter(this,'vsm')">
+        VSM <span class="filter-count">3</span>
+      </button>
+      <button class="filter-btn" onclick="setFilter(this,'tps')">
+        TPS <span class="filter-count">2</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- POSTS -->
+<section class="posts">
+  <div class="container">
+    <div class="posts-grid">
+
+      <!-- Featured post -->
+      <a href="/blogi/lean-rakendamine-eestis" class="post-featured">
+        <div class="pf-image">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0040a8 0%,#0071e3 50%,#5baeff 100%)"></div>
+          <div class="pf-image-overlay"></div>
+          <div class="pf-badge">✦ Toimetaja valik</div>
+        </div>
+        <div class="pf-body">
+          <div class="pf-tag">LEAN · 7 min lugemist</div>
+          <div class="pf-title">Miks LEAN ei tööta Eestis — ja kuidas seda parandada</div>
+          <div class="pf-excerpt">Enamik Eesti ettevõtteid rakendab LEANi valesti — kopeerivad meetodeid ilma filosoofiat mõistmata. Siin on mida tegelikult vaja on.</div>
+          <div class="pf-meta">
+            <span>Andres Kase</span>
+            <span class="pf-meta-dot"></span>
+            <span>12. märts 2026</span>
+            <span class="pf-meta-dot"></span>
+            <span>7 min</span>
+          </div>
+          <span class="pf-read">Loe artiklit →</span>
+        </div>
+      </a>
+
+      <!-- Post cards -->
+      <a href="/blogi/oee-moistmine" class="post-card">
+        <div class="pc-image">
+          <div class="pc-image-bg lean"></div>
+          <div class="pc-tag-wrap"><span class="pc-tag tag-lean">LEAN</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-title">OEE mõistmine — mida see number tegelikult näitab</div>
+          <div class="pc-excerpt">OEE on rohkem kui lihtsalt protsent. Selgitame kolme komponenti mis loevad.</div>
+          <div class="pc-meta">
+            <span>8. märts 2026</span>
+            <span class="pc-meta-dot"></span>
+            <span>5 min</span>
+          </div>
+          <span class="pc-read">Loe edasi →</span>
+        </div>
+      </a>
+
+      <a href="/blogi/kaizen-igapaev" class="post-card">
+        <div class="pc-image">
+          <div class="pc-image-bg kaizen"></div>
+          <div class="pc-tag-wrap"><span class="pc-tag tag-kaizen">Kaizen</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-title">Kaizen igapäevas — kuidas alustada väikeste muutustega</div>
+          <div class="pc-excerpt">Kaizen ei ole projekt. See on mõtteviis. Praktilised sammud millest alustada esmaspäeval.</div>
+          <div class="pc-meta">
+            <span>2. märts 2026</span>
+            <span class="pc-meta-dot"></span>
+            <span>4 min</span>
+          </div>
+          <span class="pc-read">Loe edasi →</span>
+        </div>
+      </a>
+
+      <a href="/blogi/tootmisjuht-roll" class="post-card">
+        <div class="pc-image">
+          <div class="pc-image-bg juhtimine"></div>
+          <div class="pc-tag-wrap"><span class="pc-tag tag-juhtimine">Juhtimine</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-title">Tootmisjuhi tegelik roll — mitte tulekahju kustutaja</div>
+          <div class="pc-excerpt">Parim tootmisjuht on see kelle meeskond töötab ka siis kui ta pole kohal.</div>
+          <div class="pc-meta">
+            <span>24. veebruar 2026</span>
+            <span class="pc-meta-dot"></span>
+            <span>6 min</span>
+          </div>
+          <span class="pc-read">Loe edasi →</span>
+        </div>
+      </a>
+
+      <a href="/blogi/vsm-algajale" class="post-card">
+        <div class="pc-image">
+          <div class="pc-image-bg vsm"></div>
+          <div class="pc-tag-wrap"><span class="pc-tag tag-vsm">VSM</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-title">VSM algajale — väärtusahela kaardistus samm-sammult</div>
+          <div class="pc-excerpt">Kuidas kaardistada oma tootmisprotsess 4 tunniga ilma konsultandita.</div>
+          <div class="pc-meta">
+            <span>18. veebruar 2026</span>
+            <span class="pc-meta-dot"></span>
+            <span>8 min</span>
+          </div>
+          <span class="pc-read">Loe edasi →</span>
+        </div>
+      </a>
+
+      <a href="/blogi/5s-rakendamine" class="post-card">
+        <div class="pc-image">
+          <div class="pc-image-bg lean"></div>
+          <div class="pc-tag-wrap"><span class="pc-tag tag-lean">LEAN</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-title">5S rakendamine — miks see sageli ebaõnnestub ja kuidas mitte</div>
+          <div class="pc-excerpt">5S on lihtne kontseptsioon kuid raske ellu viia. Siin on 3 kõige levinumat viga.</div>
+          <div class="pc-meta">
+            <span>10. veebruar 2026</span>
+            <span class="pc-meta-dot"></span>
+            <span>5 min</span>
+          </div>
+          <span class="pc-read">Loe edasi →</span>
+        </div>
+      </a>
+
+      <a href="/blogi/toyota-tps" class="post-card">
+        <div class="pc-image">
+          <div class="pc-image-bg" style="background:linear-gradient(135deg,#eaf3de,#c0dd97)"></div>
+          <div class="pc-tag-wrap"><span class="pc-tag tag-tps">TPS</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-title">Toyota TPS — mida õppisin 3 kuuga Jaapanis</div>
+          <div class="pc-excerpt">Isiklik kogemus Toyota tehases. Mis üllatab, mis õpetas ja mida tõin Eestisse tagasi.</div>
+          <div class="pc-meta">
+            <span>3. veebruar 2026</span>
+            <span class="pc-meta-dot"></span>
+            <span>9 min</span>
+          </div>
+          <span class="pc-read">Loe edasi →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="pg-btn arrow">←</button>
+      <button class="pg-btn active">1</button>
+      <button class="pg-btn">2</button>
+      <button class="pg-btn">3</button>
+      <button class="pg-btn" style="letter-spacing:.05em;font-size:11px">···</button>
+      <button class="pg-btn">8</button>
+      <button class="pg-btn arrow">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="container">
+    <div class="nl-inner">
+      <div class="nl-left">
+        <h2>Telli uued postitused</h2>
+        <p>Uus artikkel kord nädalas — otse postkasti. Rämpsposti ei saada.</p>
+      </div>
+      <div>
+        <div class="nl-form">
+          <input type="email" class="nl-input" placeholder="sinu@email.ee">
+          <button class="nl-btn">Telli →</button>
+        </div>
+        <p class="nl-note">147+ tootmisjuhti on juba tellinud · loobu igal ajal</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">OPSTAR PROFIT™ · tootmisjuhtimine.ee</div>
+    <div class="footer-links">
+      <a href="/">Avaleht</a><a href="/koolitus">Koolitus</a>
+      <a href="/opstar-profit">OPSTAR</a><a href="/blogi">Blogi</a>
+    </div>
+    <div>© 2026 Andres Kase · Tallinn</div>
+  </div>
+</footer>
+
+<script>
+function setFilter(btn, cat) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'))
+  btn.classList.add('active')
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='none' } })
+}, { threshold: 0.06 })
+document.querySelectorAll('.post-card,.post-featured').forEach((el,i) => {
+  el.style.opacity='0'; el.style.transform='translateY(20px)'
+  el.style.transition=`opacity .6s ${i*0.06}s cubic-bezier(.4,0,.2,1),transform .6s ${i*0.06}s cubic-bezier(.4,0,.2,1)`
+  obs.observe(el)
+})
+</script>
+</body>
+</html>
