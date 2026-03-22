@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9-päevane LEAN koolitus tootmisjuhtidele 2026 | tootmisjuhtimine.ee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#0071e3;--blue-dark:#004eb8;--blue-light:#5baeff;
+  --blue-soft:rgba(0,113,227,.10);
+  --orange:#ff9f0a;--orange-dark:#c96a00;
+  --green:#34c759;--green-bg:rgba(52,199,89,.09);
+  --red:#ff3b30;--red-bg:rgba(255,59,48,.08);
+  --bg:#f2f2f4;--bg2:#e8e8ec;--card:#ffffff;
+  --text:#1a1a1c;--text2:#636366;--text3:#aeaeb2;
+  --border:rgba(0,0,0,.07);--border2:rgba(0,0,0,.12);
+  --r-sm:10px;--r-md:14px;--r-lg:18px;--r-xl:22px;
+  --shadow-card:0 2px 8px rgba(0,0,0,.06),0 1px 0 rgba(255,255,255,.9) inset;
+  --shadow-hover:0 8px 32px rgba(0,0,0,.10),0 16px 48px rgba(0,113,227,.08);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);color:var(--text);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 60px;height:56px;
+  background:rgba(242,242,244,.85);
+  backdrop-filter:blur(32px) saturate(180%);
+  border-bottom:0.5px solid rgba(0,0,0,.06);
+}
+nav::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:0.5px;
+  background:linear-gradient(90deg,transparent 0%,rgba(0,113,227,.18) 30%,rgba(0,113,227,.28) 50%,rgba(0,113,227,.18) 70%,transparent 100%);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;letter-spacing:.1em;color:var(--text);text-transform:uppercase;text-decoration:none}
+.nav-logo-badge{width:28px;height:28px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff;letter-spacing:.06em;box-shadow:0 2px 8px rgba(0,113,227,.35)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--text2);text-decoration:none;transition:color .15s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+.nav-links a:hover{color:var(--text)}.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.04em;color:#fff;background:var(--blue);padding:9px 22px;text-decoration:none;box-shadow:0 2px 12px rgba(0,113,227,.28);transition:all .2s}
+.nav-cta:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.breadcrumb{padding:76px 60px 0;font-size:12px;color:var(--text3);position:relative;z-index:1}
+.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--blue)}
+.breadcrumb span{margin:0 6px;opacity:.5}
+
+/* ── SHARED ── */
+.container{max-width:1280px;margin:0 auto;padding:0 60px;width:100%;position:relative;z-index:1}
+section{padding:88px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--blue)}
+h2{font-size:clamp(28px,3.2vw,44px);font-weight:800;line-height:1.08;letter-spacing:-.028em;color:var(--text);margin-bottom:16px}
+.section-sub{font-size:17px;line-height:1.75;color:var(--text2);max-width:540px}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;font-size:13.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:16px 34px;text-decoration:none;box-shadow:0 4px 16px rgba(0,113,227,.32);transition:all .2s;position:relative;overflow:hidden}
+.btn-p:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,113,227,.42)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);backdrop-filter:blur(12px);color:var(--blue);font-size:13.5px;font-weight:600;padding:15px 28px;text-decoration:none;border:1px solid rgba(0,113,227,.2);transition:all .2s}
+.btn-s:hover{background:rgba(0,113,227,.06);border-color:rgba(0,113,227,.36);transform:translateY(-1px)}
+
+/* ═══════════════════════════════════
+   ① HERO
+═══════════════════════════════════ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:112px 60px 80px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 55% 65% at 72% 48%,rgba(0,113,227,.065) 0%,transparent 65%),
+    radial-gradient(ellipse 35% 40% at 15% 85%,rgba(255,159,10,.04) 0%,transparent 55%),
+    linear-gradient(170deg,#f4f4f6 0%,#f0f0f3 50%,#ebebee 100%);
+}
+.hero-inner{
+  position:relative;z-index:1;max-width:1320px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1.1fr 0.9fr;gap:72px;align-items:center;
+}
+.hero-pill{display:inline-flex;align-items:center;margin-bottom:32px}
+.hero-pill-inner{display:flex;align-items:center;gap:7px;background:rgba(255,159,10,.10);border:1px solid rgba(255,159,10,.22);color:var(--orange-dark);font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 13px 5px 9px}
+.pill-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulseDot 2s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 3px rgba(255,159,10,.18)}50%{box-shadow:0 0 0 5px rgba(255,159,10,.08)}}
+.hero-h1{font-size:clamp(44px,4.8vw,72px);font-weight:800;line-height:1.0;letter-spacing:-.032em;color:var(--text);margin-bottom:0}
+.hero-h1-script{display:block;font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(48px,5.2vw,78px);color:var(--blue);line-height:1.0;letter-spacing:-.008em;position:relative;padding-bottom:10px;margin-top:4px}
+.hero-h1-script::after{content:'';position:absolute;bottom:0;left:0;width:68%;height:2px;background:linear-gradient(90deg,var(--blue) 0%,var(--blue-light) 60%,transparent 100%);transform-origin:left;animation:lineGrow .7s cubic-bezier(.22,1,.36,1) .8s both}
+@keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hero-sub{font-size:17px;line-height:1.75;color:var(--text2);max-width:490px;margin:28px 0 38px}
+.hero-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.hero-note{font-size:12px;color:var(--text3);letter-spacing:.04em;margin-bottom:36px}
+.hero-note span{color:var(--blue);font-weight:600}
+.social-row{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.avatars{display:flex}
+.gball{width:32px;height:32px;border-radius:50%;border:2.5px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;overflow:hidden;flex-shrink:0;position:relative}
+.gball+.gball{margin-left:-10px}
+.gb-blue{background:radial-gradient(ellipse at 38% 30%,#5baeff,#007aff 50%,#0040a8)}
+.gb-orange{background:radial-gradient(ellipse at 38% 30%,#ffd60a,#ff9f0a 50%,#9c4e00)}
+.gb-violet{background:radial-gradient(ellipse at 38% 30%,#c49fff,#bf5af2 50%,#5e22a0)}
+.gb-green{background:radial-gradient(ellipse at 38% 30%,#4cd964,#34c759 50%,#1a6630)}
+.social-text{font-size:12.5px;color:var(--text2);line-height:1.4}
+.social-text strong{color:var(--text);font-weight:600}
+
+/* Stats strip */
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:0.5px solid var(--border2)}
+.stat-item{padding:16px 0;text-align:center;border-right:0.5px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-val{font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1}
+.stat-lbl{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-top:3px}
+
+/* Quick facts card */
+.qf-card{
+  background:rgba(255,255,255,.88);backdrop-filter:blur(40px) saturate(200%);
+  border-radius:22px;border:0.5px solid rgba(255,255,255,.95);
+  border-bottom:0.5px solid rgba(0,0,0,.07);border-right:0.5px solid rgba(0,0,0,.07);
+  box-shadow:0 4px 8px rgba(0,0,0,.04),0 16px 48px rgba(0,0,0,.08),0 40px 80px rgba(0,113,227,.07);
+  overflow:hidden;position:relative;
+}
+.qf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue) 0%,#5baeff 50%,rgba(0,113,227,.1) 100%);z-index:1}
+.qf-top{padding:22px 22px 16px}
+.qf-eyebrow{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,113,227,.45);font-weight:600;margin-bottom:14px}
+.qf-title{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:16px}
+.qf-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border)}
+.qf-row:last-of-type{border-bottom:none}
+.qf-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.qf-label{font-size:12px;font-weight:500;color:var(--text2)}
+.qf-val{margin-left:auto;font-size:12px;font-weight:700;color:var(--text)}
+.qf-bottom{padding:14px 22px;background:rgba(0,113,227,.03);border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.qf-eis{font-size:11px;font-weight:600;color:var(--green)}
+.qf-price{font-size:13px;font-weight:800;color:var(--blue)}
+
+/* ═══════════════════════════════════
+   ② KELLELE
+═══════════════════════════════════ */
+.kellele{background:var(--card)}
+.kellele-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.k-card{border-radius:var(--r-xl);padding:32px;border:1px solid var(--border)}
+.k-card-yes{background:rgba(52,199,89,.05);border-color:rgba(52,199,89,.18)}
+.k-card-no{background:rgba(255,59,48,.03);border-color:rgba(255,59,48,.12)}
+.k-card-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.k-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.04em;padding:5px 12px;border-radius:980px}
+.k-badge-yes{background:var(--green-bg);color:#1a6630;border:1px solid rgba(52,199,89,.25)}
+.k-badge-no{background:var(--red-bg);color:#9c1a14;border:1px solid rgba(255,59,48,.2)}
+.k-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.k-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text2);line-height:1.5}
+.k-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px}
+.k-dot-yes{background:var(--green-bg);color:var(--green)}
+.k-dot-no{background:var(--red-bg);color:var(--red)}
+
+/* ═══════════════════════════════════
+   ③ 9 PÄEVA PROGRAMM
+═══════════════════════════════════ */
+.programm{background:var(--bg)}
+.days-list{margin-top:40px;display:flex;flex-direction:column;gap:0}
+.day-row{
+  display:grid;grid-template-columns:60px 1fr auto;
+  align-items:center;gap:20px;
+  padding:18px 24px;
+  border-radius:0;
+  border-bottom:0.5px solid var(--border);
+  transition:background .15s;cursor:pointer;
+  position:relative;
+}
+.day-row:first-child{border-radius:var(--r-lg) var(--r-lg) 0 0;border-top:0.5px solid var(--border)}
+.day-row:last-child{border-radius:0 0 var(--r-lg) var(--r-lg)}
+.day-row:hover{background:rgba(0,113,227,.035)}
+.day-num{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--text3);text-transform:uppercase}
+.day-num span{display:block;font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--blue);line-height:1}
+.day-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.015em}
+.day-sub{font-size:13px;color:var(--text2);margin-top:2px}
+.day-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:980px;white-space:nowrap}
+.tag-tehas{background:rgba(0,113,227,.08);color:var(--blue);border:1px solid rgba(0,113,227,.15)}
+.tag-praktika{background:rgba(52,199,89,.08);color:#1a6630;border:1px solid rgba(52,199,89,.18)}
+.tag-teooria{background:var(--bg2);color:var(--text3);border:1px solid var(--border)}
+.tag-lopetamine{background:rgba(255,159,10,.1);color:var(--orange-dark);border:1px solid rgba(255,159,10,.22)}
+
+/* ═══════════════════════════════════
+   ④ MIDA SAAD
+═══════════════════════════════════ */
+.saad{background:var(--card)}
+.saad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.saad-card{
+  border-radius:var(--r-xl);padding:28px 24px;
+  background:var(--bg);border:0.5px solid var(--border);
+  transition:transform .22s,box-shadow .22s;
+}
+.saad-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.saad-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:20px;position:relative}
+.saad-icon::before{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(ellipse 65% 50% at 34% 24%,rgba(255,255,255,.7) 0%,rgba(255,255,255,0) 58%)}
+.si-blue{background:radial-gradient(ellipse at 38% 30%,#5baeff 0%,#007aff 45%,#004eb8 100%);box-shadow:0 3px 10px rgba(0,122,255,.35)}
+.si-green{background:radial-gradient(ellipse at 38% 30%,#4cd964 0%,#34c759 45%,#1a6630 100%);box-shadow:0 3px 10px rgba(52,199,89,.35)}
+.si-amber{background:radial-gradient(ellipse at 38% 30%,#ffd60a 0%,#ff9f0a 45%,#9c4e00 100%);box-shadow:0 3px 10px rgba(255,159,10,.35)}
+.si-violet{background:radial-gradient(ellipse at 38% 30%,#c49fff 0%,#bf5af2 45%,#5e22a0 100%);box-shadow:0 3px 10px rgba(191,90,242,.35)}
+.si-teal{background:radial-gradient(ellipse at 38% 30%,#5ddec8 0%,#30b0c7 45%,#1a5c6e 100%);box-shadow:0 3px 10px rgba(48,176,199,.35)}
+.si-red{background:radial-gradient(ellipse at 38% 30%,#ff6b6b 0%,#ff3b30 45%,#9c0f00 100%);box-shadow:0 3px 10px rgba(255,59,48,.35)}
+.saad-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.015em;margin-bottom:6px}
+.saad-desc{font-size:13px;color:var(--text2);line-height:1.55}
+
+/* ═══════════════════════════════════
+   ⑤ AJAKAVA
+═══════════════════════════════════ */
+.ajakava{background:var(--bg)}
+.groups-table{
+  margin-top:40px;border-radius:var(--r-xl);overflow:hidden;
+  border:0.5px solid var(--border2);
+  background:var(--card);
+}
+.gt-header{
+  display:grid;grid-template-columns:140px 1fr 120px 120px;
+  padding:12px 24px;
+  background:var(--bg2);
+  border-bottom:0.5px solid var(--border2);
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);
+}
+.gt-row{
+  display:grid;grid-template-columns:140px 1fr 120px 120px;
+  padding:20px 24px;border-bottom:0.5px solid var(--border);
+  align-items:center;transition:background .15s;
+}
+.gt-row:last-child{border-bottom:none}
+.gt-row:hover{background:rgba(0,113,227,.03)}
+.gt-group{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.gt-dates{font-size:13px;color:var(--text2)}
+.gt-spots{font-size:13px;font-weight:600;color:var(--text)}
+.status-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:980px}
+.status-open{background:var(--green-bg);color:#1a6630;border:1px solid rgba(52,199,89,.22)}
+.status-filling{background:rgba(255,159,10,.1);color:var(--orange-dark);border:1px solid rgba(255,159,10,.22)}
+.status-full{background:var(--red-bg);color:#9c1a14;border:1px solid rgba(255,59,48,.18)}
+.gt-notice{padding:14px 24px;background:rgba(255,159,10,.05);border-top:0.5px solid rgba(255,159,10,.15);font-size:12px;color:var(--text3)}
+.gt-notice span{color:var(--orange-dark);font-weight:600}
+
+/* ═══════════════════════════════════
+   ⑥ HINNAD
+═══════════════════════════════════ */
+.hinnad{background:var(--card)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;align-items:start}
+.price-card{border-radius:var(--r-xl);padding:32px 28px;border:0.5px solid var(--border);background:var(--bg);position:relative;overflow:hidden;transition:transform .22s,box-shadow .22s}
+.price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.price-card.featured{background:var(--card);border:2px solid var(--blue);box-shadow:0 0 0 4px rgba(0,113,227,.06),var(--shadow-hover)}
+.featured-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 16px;border-radius:0 0 8px 8px}
+.price-type{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.price-val{font-size:40px;font-weight:800;letter-spacing:-.04em;color:var(--text);line-height:1;margin-bottom:4px}
+.price-val sup{font-size:20px;vertical-align:top;margin-top:8px}
+.price-vat{font-size:12px;color:var(--text3);margin-bottom:8px}
+.price-eis{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#1a6630;background:var(--green-bg);padding:4px 10px;border-radius:980px;margin-bottom:20px}
+.price-divider{height:0.5px;background:var(--border);margin:20px 0}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.price-features li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);line-height:1.45}
+.pf-check{width:16px;height:16px;border-radius:50%;background:var(--green-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:9px;color:var(--green)}
+
+/* ═══════════════════════════════════
+   ⑦ TUNNISTUS
+═══════════════════════════════════ */
+.tunnistus{background:var(--bg)}
+.tunn-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:40px}
+.tunn-conditions{display:flex;flex-direction:column;gap:16px}
+.cond-item{display:flex;align-items:flex-start;gap:16px;padding:20px;background:var(--card);border-radius:var(--r-lg);border:0.5px solid var(--border)}
+.cond-num{font-size:28px;font-weight:800;letter-spacing:-.04em;color:rgba(0,113,227,.12);flex-shrink:0;line-height:1;min-width:32px}
+.cond-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.cond-sub{font-size:13px;color:var(--text2)}
+.cert-preview{
+  background:linear-gradient(135deg,#0040a8 0%,#0071e3 50%,#5baeff 100%);
+  border-radius:var(--r-xl);padding:40px;
+  box-shadow:0 8px 32px rgba(0,113,227,.35),0 24px 64px rgba(0,113,227,.2);
+  color:#fff;text-align:center;position:relative;overflow:hidden;
+}
+.cert-preview::before{content:'';position:absolute;top:-40%;left:-40%;width:180%;height:180%;background:radial-gradient(ellipse 60% 50% at 60% 40%,rgba(255,255,255,.12) 0%,transparent 60%)}
+.cert-logo{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:32px}
+.cert-title{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:32px;margin-bottom:8px;position:relative;z-index:1}
+.cert-sub{font-size:13px;opacity:.7;margin-bottom:32px}
+.cert-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.cert-tag{font-size:10px;font-weight:600;letter-spacing:.06em;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:980px;border:1px solid rgba(255,255,255,.2)}
+
+/* ═══════════════════════════════════
+   ⑧ ARVAMUSED
+═══════════════════════════════════ */
+.arvamused{background:var(--card)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.review-card{border-radius:var(--r-xl);padding:28px 24px;background:var(--bg);border:0.5px solid var(--border);position:relative}
+.review-stars{display:flex;gap:2px;margin-bottom:14px}
+.star{color:var(--orange);font-size:13px}
+.review-text{font-size:14px;line-height:1.65;color:var(--text);margin-bottom:16px;font-style:italic}
+.review-author{display:flex;align-items:center;gap:10px}
+.review-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.review-name{font-size:13px;font-weight:700;color:var(--text)}
+.review-role{font-size:11px;color:var(--text3)}
+.reviews-meta{margin-top:24px;display:flex;align-items:center;justify-content:center;gap:16px;color:var(--text3);font-size:13px}
+.reviews-meta strong{color:var(--text)}
+
+/* ═══════════════════════════════════
+   ⑨ KKK
+═══════════════════════════════════ */
+.kkk{background:var(--bg)}
+.faq-list{margin-top:40px;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:0.5px solid var(--border);overflow:hidden}
+.faq-item:first-child{border-top:0.5px solid var(--border)}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0;cursor:pointer;font-size:15px;font-weight:600;color:var(--text);
+  gap:16px;transition:color .15s;
+}
+.faq-q:hover{color:var(--blue)}
+.faq-toggle{width:24px;height:24px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;color:var(--text3);transition:all .2s;font-weight:300}
+.faq-item.open .faq-toggle{background:var(--blue-soft);color:var(--blue);transform:rotate(45deg)}
+.faq-a{display:none;padding:0 0 20px;font-size:14px;line-height:1.7;color:var(--text2);max-width:680px}
+.faq-item.open .faq-a{display:block}
+
+/* ═══════════════════════════════════
+   ⑩ CTA FINAL
+═══════════════════════════════════ */
+.cta-final{
+  background:linear-gradient(160deg,#0040a8 0%,#0071e3 60%,#5baeff 100%);
+  color:#fff;text-align:center;padding:100px 60px;position:relative;overflow:hidden;
+}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(255,255,255,.08) 0%,transparent 65%)}
+.cta-final h2{color:#fff;font-size:clamp(32px,4vw,54px);margin-bottom:16px;position:relative;z-index:1}
+.cta-final p{font-size:18px;opacity:.8;margin-bottom:40px;position:relative;z-index:1}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue);font-size:14px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:17px 36px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.15);transition:all .2s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.btn-outline-w{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;font-size:14px;font-weight:600;padding:16px 30px;text-decoration:none;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);transition:all .2s}
+.btn-outline-w:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+.cta-note{margin-top:20px;font-size:13px;opacity:.6;position:relative;z-index:1}
+
+/* ── FOOTER ── */
+footer{background:#1a1a1c;color:rgba(255,255,255,.5);padding:48px 60px 32px;font-size:13px}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-logo{font-size:12px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){.container{padding:0 40px}.hero{padding:112px 40px 80px}.hero-inner{gap:48px}.pricing-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .container{padding:0 24px}.hero{padding:96px 24px 60px}.hero-inner,.kellele-grid,.tunn-grid,.reviews-grid,.pricing-grid{grid-template-columns:1fr}
+  .saad-grid{grid-template-columns:1fr 1fr}.gt-header,.gt-row{grid-template-columns:100px 1fr 80px}
+  nav{padding:0 24px}.nav-links{display:none}
+  section{padding:64px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-badge">OP</div>
+    OPSTAR PROFIT™
+  </a>
+  <ul class="nav-links">
+    <li><a href="#programm">Programm</a></li>
+    <li><a href="#hinnad">Hinnad</a></li>
+    <li><a href="#arvamused">Arvamused</a></li>
+    <li><a href="#kkk">KKK</a></li>
+  </ul>
+  <a href="#registreeru" class="nav-cta">Registreeru →</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb" style="position:relative;z-index:1;padding:76px 60px 0">
+  <a href="/">Avaleht</a><span>›</span><span style="color:var(--text)">Koolitus</span>
+</div>
+
+<!-- ① HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-pill">
+        <div class="hero-pill-inner">
+          <div class="pill-dot"></div>
+          2026 programm on avatud · 3 kohta vabad
+        </div>
+      </div>
+      <h1 class="hero-h1">
+        9-päevane arenguprogramm
+        <span class="hero-h1-script">tootmisjuhtidele</span>
+      </h1>
+      <p class="hero-sub">Praktilised tööriistad mida saad rakendada esmaspäeval. LEAN · TPS · OPSTAR PROFIT™ — kõik ühes intensiivses programmis.</p>
+      <div class="hero-cta-row">
+        <a href="#registreeru" class="btn-p">Registreeru programmi <span>→</span></a>
+        <a href="#programm" class="btn-s">Vaata ajakava</a>
+      </div>
+      <p class="hero-note">Järgmine grupp: <span>oktoober 2026</span> · EIS toetus kuni 50%</p>
+      <div class="social-row">
+        <div class="avatars">
+          <div class="gball gb-blue"><span>KL</span></div>
+          <div class="gball gb-orange"><span>MR</span></div>
+          <div class="gball gb-violet"><span>AT</span></div>
+          <div class="gball gb-green"><span>JK</span></div>
+        </div>
+        <div class="social-text"><strong>147 tootmisjuhti</strong> on juba läbinud</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="qf-card">
+        <div class="qf-top">
+          <div class="qf-eyebrow">OPSTAR PROFIT™ · Programmi ülevaade</div>
+          <div class="qf-title">Kiired faktid</div>
+          <div class="qf-row">
+            <div class="qf-icon" style="background:var(--blue-soft)">📅</div>
+            <div class="qf-label">Kestus</div>
+            <div class="qf-val">9 päeva · 4 kuud</div>
+          </div>
+          <div class="qf-row">
+            <div class="qf-icon" style="background:var(--green-bg)">👥</div>
+            <div class="qf-label">Grupi suurus</div>
+            <div class="qf-val">Max 12 osalejat</div>
+          </div>
+          <div class="qf-row">
+            <div class="qf-icon" style="background:rgba(255,159,10,.1)">📍</div>
+            <div class="qf-label">Asukoht</div>
+            <div class="qf-val">Tallinn + tehased</div>
+          </div>
+          <div class="qf-row">
+            <div class="qf-icon" style="background:rgba(191,90,242,.08)">🏆</div>
+            <div class="qf-label">Tunnistus</div>
+            <div class="qf-val">OPSTAR PROFIT™</div>
+          </div>
+          <div class="qf-row">
+            <div class="qf-icon" style="background:rgba(255,59,48,.08)">💬</div>
+            <div class="qf-label">Järeltugi</div>
+            <div class="qf-val">12 kuud</div>
+          </div>
+        </div>
+        <div class="qf-bottom">
+          <div class="qf-eis">✓ EIS toetus kuni 50%</div>
+          <div class="qf-price">alates 890 €</div>
+        </div>
+        <div class="stats-strip">
+          <div class="stat-item"><div class="stat-val">147+</div><div class="stat-lbl">Lõpetajat</div></div>
+          <div class="stat-item"><div class="stat-val">60+</div><div class="stat-lbl">Ettevõtet</div></div>
+          <div class="stat-item"><div class="stat-val">4.9</div><div class="stat-lbl">Hinnang</div></div>
+          <div class="stat-item"><div class="stat-val">25%</div><div class="stat-lbl">Praak↓</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ② KELLELE -->
+<section class="kellele" id="kellele">
+  <div class="container">
+    <div class="eyebrow">Kellele</div>
+    <h2>Kellele see koolitus on mõeldud?</h2>
+    <p class="section-sub">Programm on loodud konkreetsele inimesele — mitte kõigile korraga.</p>
+    <div class="kellele-grid">
+      <div class="k-card k-card-yes">
+        <div class="k-card-header">
+          <div class="k-badge k-badge-yes">✓ Sobib</div>
+        </div>
+        <ul class="k-list">
+          <li><div class="k-dot k-dot-yes">✓</div>Tootmisjuht, meister või vahetusejuht</li>
+          <li><div class="k-dot k-dot-yes">✓</div>Operatiivjuht või tootmisdirektor</li>
+          <li><div class="k-dot k-dot-yes">✓</div>Ettevõtte omanik kes tegeleb tootmisega</li>
+          <li><div class="k-dot k-dot-yes">✓</div>Soovid ehitada toimiva juhtimissüsteemi</li>
+          <li><div class="k-dot k-dot-yes">✓</div>Oled valmis rakendama muutusi kohe</li>
+        </ul>
+      </div>
+      <div class="k-card k-card-no">
+        <div class="k-card-header">
+          <div class="k-badge k-badge-no">✕ Ei sobi</div>
+        </div>
+        <ul class="k-list">
+          <li><div class="k-dot k-dot-no">✕</div>Otsid lühikest ühe-päevast kursust</li>
+          <li><div class="k-dot k-dot-no">✕</div>Pole seotud tootmisega</li>
+          <li><div class="k-dot k-dot-no">✕</div>Ei ole valmis muutusteks</li>
+          <li><div class="k-dot k-dot-no">✕</div>Soovid ainult teooriat ilma praktikuta</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ 9 PÄEVA -->
+<section class="programm" id="programm">
+  <div class="container">
+    <div class="eyebrow">Sisu</div>
+    <h2>9-päevane programm — täisdetail</h2>
+    <p class="section-sub">Iga päev on seotud konkreetse töötingimuste probleemiga — mitte lihtsalt teooriaga.</p>
+    <div class="days-list" style="background:var(--card);border-radius:var(--r-xl);overflow:hidden;border:0.5px solid var(--border2);margin-top:40px">
+      <div class="day-row"><div class="day-num"><span>01</span>Päev</div><div><div class="day-title">Mõtteviis — Tootmisjuhi roll ja vastutus</div><div class="day-sub">Mis on tootmisjuhi tegelik ülesanne? Vastutus vs kontroll.</div></div><div class="day-tag tag-tehas">🏭 Tehas</div></div>
+      <div class="day-row"><div class="day-num"><span>02</span>Päev</div><div><div class="day-title">Väärtus — Mis on väärtus kliendi silmis</div><div class="day-sub">Väärtusloome loogika ja raiskamise tuvastamine.</div></div><div class="day-tag tag-teooria">Teooria</div></div>
+      <div class="day-row"><div class="day-num"><span>03</span>Päev</div><div><div class="day-title">Kaardistus — VSM väärtusahela kaardistus</div><div class="day-sub">Voo kaardistamine reaalajas oma tootmises.</div></div><div class="day-tag tag-praktika">🗺 Praktika</div></div>
+      <div class="day-row"><div class="day-num"><span>04</span>Päev</div><div><div class="day-title">Visuaal — 5S ja visuaalne juhtimine</div><div class="day-sub">Tootmiskoha organiseerimine ja visuaalsed standardid.</div></div><div class="day-tag tag-tehas">🏭 Tehas</div></div>
+      <div class="day-row"><div class="day-num"><span>05</span>Päev</div><div><div class="day-title">Standardid — SOP ja standardiseeritud töö</div><div class="day-sub">Tööjuhendid mis tegelikult toimivad.</div></div><div class="day-tag tag-praktika">📋 Praktika</div></div>
+      <div class="day-row"><div class="day-num"><span>06</span>Päev</div><div><div class="day-title">Stabiilsus — 4M meetod ja TPM</div><div class="day-sub">Masin, Materjal, Meetod, Mees — stabiilsuse alused.</div></div><div class="day-tag tag-teooria">Teooria</div></div>
+      <div class="day-row"><div class="day-num"><span>07</span>Päev</div><div><div class="day-title">Probleemid — A3 ja PDCA probleemilahendus</div><div class="day-sub">Struktureeritud probleemilahendus päris juhtumitel.</div></div><div class="day-tag tag-praktika">🔍 Praktika</div></div>
+      <div class="day-row"><div class="day-num"><span>08</span>Päev</div><div><div class="day-title">Meeskond — Kaizen kultuur ja inimeste areng</div><div class="day-sub">Kuidas ehitada meeskond mis lahendab probleeme ise.</div></div><div class="day-tag tag-teooria">Teooria</div></div>
+      <div class="day-row" style="border-bottom:none"><div class="day-num"><span>09</span>Päev</div><div><div class="day-title">Süsteem — Rakenduskava + lõputöö + tunnistus</div><div class="day-sub">Isiklik 90-päevane plaan. Esitlus. Diplom.</div></div><div class="day-tag tag-lopetamine">🏆 Lõpetamine</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ MIDA SAAD -->
+<section class="saad" id="saad">
+  <div class="container">
+    <div class="eyebrow">Kaasa</div>
+    <h2>Mida saad kaasa</h2>
+    <p class="section-sub">Konkreetsed materjalid ja tööriistad — mitte lubadused.</p>
+    <div class="saad-grid">
+      <div class="saad-card"><div class="saad-icon si-blue">📋</div><div class="saad-title">Isiklik 90-päevane rakenduskava</div><div class="saad-desc">Sinu tootmise jaoks kohandatud tegevusplaan mida saad kohe kasutada.</div></div>
+      <div class="saad-card"><div class="saad-icon si-green">📚</div><div class="saad-title">Kõik tööriistad ja mallid (PDF)</div><div class="saad-desc">VSM, A3, 5S, PDCA — kõik mallid digitaalselt, kohe kasutamiseks.</div></div>
+      <div class="saad-card"><div class="saad-icon si-amber">🏆</div><div class="saad-title">OPSTAR PROFIT™ tunnistus</div><div class="saad-desc">Ametlik diplom LEAN · TPS · OPSTAR metoodikate läbimise kohta.</div></div>
+      <div class="saad-card"><div class="saad-icon si-violet">💬</div><div class="saad-title">12 kuud järeltuge Andreselt</div><div class="saad-desc">Küsimused, tagasiside, coachingu sessioone — ei jää üksi probleemiga.</div></div>
+      <div class="saad-card"><div class="saad-icon si-teal">👥</div><div class="saad-title">Alumni võrgustik 147+ lõpetajat</div><div class="saad-desc">Ligipääs kogukonnas kus jagavad kogemusi Eesti tootmisjuhid.</div></div>
+      <div class="saad-card"><div class="saad-icon si-red">☕</div><div class="saad-title">Kohvik + lõuna kõik 9 päeval</div><div class="saad-desc">Kõik toitlustus on kaetud — keskendu õppimisele, mitte logistikale.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ AJAKAVA -->
+<section class="ajakava" id="ajakava">
+  <div class="container">
+    <div class="eyebrow">Ajakava</div>
+    <h2>Grupid ja kuupäevad</h2>
+    <p class="section-sub">Täpsed kuupäevad, staatused ja kohtade arv reaalajas.</p>
+    <div class="groups-table">
+      <div class="gt-header"><div>Grupp</div><div>Kuupäevad</div><div>Kohti jäänud</div><div>Staatus</div></div>
+      <div class="gt-row">
+        <div class="gt-group">Sügis 2026</div>
+        <div class="gt-dates">Okt – Nov 2026<br><span style="font-size:11px;color:var(--text3)">Täpsed kuupäevad kinnistatakse</span></div>
+        <div class="gt-spots" style="color:var(--red)">3 kohta</div>
+        <div><span class="status-pill status-open">● Avatud</span></div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-group">Kevad 2027</div>
+        <div class="gt-dates">Märts – Apr 2027</div>
+        <div class="gt-spots">8 kohta</div>
+        <div><span class="status-pill status-filling">◐ Täitumas</span></div>
+      </div>
+      <div class="gt-notice">
+        <span>Tähelepanu:</span> EIS toetuse taotlemine vajab 6 nädalat ette · kuupäevad kinnistatakse 8 nädalat enne algust
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ HINNAD -->
+<section class="hinnad" id="hinnad">
+  <div class="container">
+    <div class="eyebrow">Hinnad</div>
+    <h2>Hinnakiri 2026–2027</h2>
+    <p class="section-sub">Eraisikule, ettevõttele ja grupile — EIS toetusega kuni 50% tagasi.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-type">Eraisik / omanik</div>
+        <div class="price-val"><sup>€</sup>890</div>
+        <div class="price-vat">+ km</div>
+        <ul class="price-features">
+          <li><div class="pf-check">✓</div>9-päevane programm täies mahus</li>
+          <li><div class="pf-check">✓</div>Kõik materjalid ja mallid</li>
+          <li><div class="pf-check">✓</div>OPSTAR PROFIT™ tunnistus</li>
+          <li><div class="pf-check">✓</div>Toitlustus kõik päevad</li>
+        </ul>
+        <a href="#registreeru" class="btn-p" style="width:100%;justify-content:center">Registreeru →</a>
+      </div>
+      <div class="price-card featured">
+        <div class="featured-badge">⭐ Populaarseim</div>
+        <div class="price-type" style="margin-top:20px">Ettevõte</div>
+        <div class="price-val"><sup>€</sup>1290</div>
+        <div class="price-vat">+ km · EIS → alates 645 €</div>
+        <div class="price-eis">✓ EIS toetus kuni 50%</div>
+        <ul class="price-features">
+          <li><div class="pf-check">✓</div>Kõik eelmises paketis sisalduv</li>
+          <li><div class="pf-check">✓</div>12 kuud järeltuge Andreselt</li>
+          <li><div class="pf-check">✓</div>Individuaalsed coachingu sessioonid</li>
+          <li><div class="pf-check">✓</div>Arve ettevõttele, EIS menetlus kaetud</li>
+        </ul>
+        <a href="#registreeru" class="btn-p" style="width:100%;justify-content:center">Registreeru →</a>
+      </div>
+      <div class="price-card">
+        <div class="price-type">Grupp 5+</div>
+        <div class="price-val" style="font-size:32px">Küsi hinda</div>
+        <div class="price-vat">Kohapeal koolitus</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><div class="pf-check">✓</div>Programm teie ettevõttes kohapeal</li>
+          <li><div class="pf-check">✓</div>Kohandatud teie tootmise jaoks</li>
+          <li><div class="pf-check">✓</div>Grupihind 5+ osalejale</li>
+          <li><div class="pf-check">✓</div>Paindlik ajakava</li>
+        </ul>
+        <a href="mailto:andres@tootmisjuhtimine.ee" class="btn-s" style="width:100%;justify-content:center">Võta ühendust →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ TUNNISTUS -->
+<section class="tunnistus" id="tunnistus">
+  <div class="container">
+    <div class="eyebrow">Tunnistus</div>
+    <h2>Tunnistus ja tingimused</h2>
+    <div class="tunn-grid">
+      <div class="tunn-conditions">
+        <p style="font-size:15px;color:var(--text2);margin-bottom:24px">Tunnistuse saamiseks pead täitma kolm tingimust:</p>
+        <div class="cond-item"><div class="cond-num">01</div><div><div class="cond-title">80% loengutes osalemine</div><div class="cond-sub">Vähemalt 7 päeva 9-st pead kohal olema.</div></div></div>
+        <div class="cond-item"><div class="cond-num">02</div><div><div class="cond-title">Praktiline lõputöö</div><div class="cond-sub">Rakendad vähemalt ühte tööriista oma tootmises ja dokumenteerid tulemuse.</div></div></div>
+        <div class="cond-item"><div class="cond-num">03</div><div><div class="cond-title">Lõppesitlus grupile</div><div class="cond-sub">Esitled oma 90-päevast plaani ja lõputöö tulemusi.</div></div></div>
+      </div>
+      <div class="cert-preview">
+        <div class="cert-logo">OPSTAR PROFIT™ · tootmisjuhtimine.ee</div>
+        <div class="cert-title">Arenguprogrammi tunnistus</div>
+        <div class="cert-sub">9-päevane intensiivprogramm · 2026</div>
+        <div class="cert-tags">
+          <span class="cert-tag">LEAN</span>
+          <span class="cert-tag">TPS</span>
+          <span class="cert-tag">OPSTAR PROFIT™</span>
+          <span class="cert-tag">VSM</span>
+          <span class="cert-tag">Kaizen</span>
+          <span class="cert-tag">5S</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑧ ARVAMUSED -->
+<section class="arvamused" id="arvamused">
+  <div class="container">
+    <div class="eyebrow">Tagasiside</div>
+    <h2>Mida osalejad ütlevad</h2>
+    <p class="section-sub">41 tagasisidet · keskmine hinnang 4.9 / 5</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"3 kuuga tõusis tootlikkus 22%. Meeskond lahendab nüüd probleeme iseseisvalt — ma ei pea enam kõike ise tegema."</p>
+        <div class="review-author"><div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#5baeff,#007aff 50%,#0040a8)">PK</div><div><div class="review-name">P. Kallas</div><div class="review-role">Tootmisjuht · Rakvere LC</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Praagi vähenemine 31% esimese 4 kuuga. Andrese lähenemine on praktiline — ei ole tühja teooriat."</p>
+        <div class="review-author"><div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#4cd964,#34c759 50%,#1a6630)">MT</div><div><div class="review-name">M. Tamm</div><div class="review-role">Operatiivjuht · Tartu</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Tehaskülastused olid eriti väärtuslikud — näed päris elu probleeme ja lahendusi, mitte ainult PowerPointi."</p>
+        <div class="review-author"><div class="review-avatar" style="background:radial-gradient(ellipse at 38% 30%,#ffd60a,#ff9f0a 50%,#9c4e00)">AL</div><div><div class="review-name">A. Leppänen</div><div class="review-role">Tootmisdirektor · Viljandi</div></div></div>
+      </div>
+    </div>
+    <div class="reviews-meta">
+      <span>41 tagasisidet kokku</span>
+      <span>·</span>
+      <span>Keskmine <strong>4.9 / 5</strong></span>
+      <span>·</span>
+      <span><strong>96%</strong> soovitaks sõbrale</span>
+    </div>
+  </div>
+</section>
+
+<!-- ⑨ KKK -->
+<section class="kkk" id="kkk">
+  <div class="container">
+    <div class="eyebrow">KKK</div>
+    <h2>Korduma kippuvad küsimused</h2>
+    <p class="section-sub">Kõrvalda viimased kahtlused enne registreerumist.</p>
+    <div class="faq-list" style="max-width:720px;margin-top:40px">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kas pean olema eelnevalt LEAN-iga tuttav?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Ei pea. Programm algab põhialustest ja ehitab järk-järgult üles. Suurem osa osalejaid tuleb ilma eelneva LEAN kogemuseta — just see ongi programmi tugevus.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Mis toimub kui ei saa ühele päevale tulla?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Tunnistuse saamiseks on vajalik 80% osalemine (vähemalt 7 päeva). Ühe puudutud päeva materjal on kättesaadav ja saad Andresega selle hiljem läbi vaadata.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kuidas toimub EIS toetuse taotlemine?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">EIS (Ettevõtluse ja Innovatsiooni Sihtasutus) koolitustoetus katab kuni 50% koolitusmaksest. Aitame taotluse esitamisel — protsess vajab ~6 nädalat ette. Võta ühendust et alustada.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kas saan koolituse kulu ettevõtte arvelt maha arvestada?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Jah. Koolitusmaksed on ettevõtte jaoks mahaarvatavateks kuludeks. Väljastame arve ettevõttele.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Mis keeles toimub koolitus?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Koolitus toimub eesti keeles. Materjalid on saadaval eesti keeles.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Kas on raha tagasi garantii?</span><div class="faq-toggle">+</div></div>
+        <div class="faq-a">Kui oled läbinud kogu programmi ja ei ole rahul tulemustega — räägime. Meie eesmärk on sinu tulemus, mitte lihtsalt koolituspäevade läbimine.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑩ CTA FINAL -->
+<section class="cta-final" id="registreeru">
+  <h2>Vali oma grupp — registreeru kuni 2026. aasta hind</h2>
+  <p>3 kohta vabad oktoobri grupis · EIS toetus kuni 50%</p>
+  <div class="cta-btns">
+    <a href="mailto:andres@tootmisjuhtimine.ee" class="btn-white">Registreeru programmi →</a>
+    <a href="mailto:andres@tootmisjuhtimine.ee" class="btn-outline-w">Küsi lisainfot</a>
+  </div>
+  <p class="cta-note">Vastame 24 tunni jooksul · andres@tootmisjuhtimine.ee · +372 513 8403</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">OPSTAR PROFIT™ · tootmisjuhtimine.ee</div>
+    <div class="footer-links">
+      <a href="/">Avaleht</a>
+      <a href="/koolitus">Koolitus</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+    <div>© 2026 Andres Kase · Tallinn, Lõõtsa 5</div>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement
+  const wasOpen = item.classList.contains('open')
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'))
+  if (!wasOpen) item.classList.add('open')
+}
+
+// Reveal on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='none' } })
+}, { threshold: 0.06 })
+document.querySelectorAll('section > .container').forEach(el => {
+  el.style.opacity = '0'
+  el.style.transform = 'translateY(24px)'
+  el.style.transition = 'opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1)'
+  obs.observe(el)
+})
+</script>
+</body>
+</html>
