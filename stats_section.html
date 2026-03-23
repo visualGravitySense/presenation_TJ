@@ -1,0 +1,169 @@
+
+<style>
+.stats {
+  background: #fff;
+  padding: 56px 40px;
+  font-family: -apple-system, 'DM Sans', 'Inter', sans-serif;
+  border-top: 0.5px solid rgba(0,0,0,.08);
+  border-bottom: 0.5px solid rgba(0,0,0,.08);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.stat {
+  padding: 0 40px;
+  border-right: 0.5px solid rgba(0,0,0,.1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stat:first-child { padding-left: 0; }
+.stat:last-child { border-right: none; padding-right: 0; }
+
+/* icon */
+.stat-icon {
+  margin-bottom: 16px;
+  width: 24px; height: 24px;
+  opacity: .7;
+}
+.stat-icon svg {
+  width: 22px; height: 22px;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* number */
+.stat-num {
+  font-size: clamp(40px, 4.5vw, 56px);
+  font-weight: 800;
+  color: #1a1a1f;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+}
+.stat-num .prefix {
+  font-size: .55em;
+  font-weight: 700;
+  color: #0071e3;
+  margin-top: .1em;
+  letter-spacing: 0;
+}
+.stat-num .suffix {
+  font-size: .42em;
+  font-weight: 700;
+  color: #0071e3;
+  margin-top: .12em;
+  letter-spacing: 0;
+}
+
+/* label */
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #aeaeb2;
+  margin-top: 4px;
+}
+
+/* sub */
+.stat-sub {
+  font-size: 12.5px;
+  color: #8e8e93;
+  line-height: 1.5;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* learn more */
+.stat-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0071e3;
+  text-decoration: none;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  opacity: .85;
+  transition: opacity .15s;
+}
+.stat-link:hover { opacity: 1; }
+
+/* mobile */
+@media (max-width: 640px) {
+  .stats { padding: 40px 24px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 32px 0; }
+  .stat { padding: 0 20px; border-right: none; border-bottom: 0.5px solid rgba(0,0,0,.08); padding-bottom: 32px; }
+  .stat:nth-child(odd) { border-right: 0.5px solid rgba(0,0,0,.1); padding-left: 0; }
+  .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; padding-bottom: 0; }
+}
+</style>
+
+<div class="stats">
+  <div class="stats-grid">
+
+    <div class="stat">
+      <div class="stat-icon" style="color:#0071e3">
+        <svg viewBox="0 0 24 24" stroke="#0071e3">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="stat-num">147<span class="suffix">+</span></div>
+      <div class="stat-label">Lõpetajat</div>
+      <div class="stat-sub">Tootmisjuhti on programmi läbinud</div>
+      <a href="#" class="stat-link">Loe lähemalt →</a>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon" style="color:#ff8c00">
+        <svg viewBox="0 0 24 24" stroke="#ff8c00">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="stat-num">9</div>
+      <div class="stat-label">Päeva</div>
+      <div class="stat-sub">Intensiivne praktika ja teadmised</div>
+      <a href="#" class="stat-link">Loe lähemalt →</a>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon" style="color:#7c3aed">
+        <svg viewBox="0 0 24 24" stroke="#7c3aed">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      </div>
+      <div class="stat-num">25<span class="suffix">+</span></div>
+      <div class="stat-label">Aastat</div>
+      <div class="stat-sub">Tootmisjuhtimise kogemus</div>
+      <a href="#" class="stat-link">Loe lähemalt →</a>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon" style="color:#059669">
+        <svg viewBox="0 0 24 24" stroke="#059669">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+          <polyline points="16 7 22 7 22 13"/>
+        </svg>
+      </div>
+      <div class="stat-num"><span class="prefix">+</span>38<span class="suffix">%</span></div>
+      <div class="stat-label">Efektiivsus</div>
+      <div class="stat-sub">Tõuseb keskmine tootlikkus</div>
+      <a href="#" class="stat-link">Loe lähemalt →</a>
+    </div>
+
+  </div>
+</div>
