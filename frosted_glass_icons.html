@@ -1,0 +1,188 @@
+
+<style>
+.wrap { padding: 1.5rem; background: linear-gradient(135deg, #e8eef8 0%, #eee8f8 50%, #e8f4f8 100%); border-radius: 16px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.fcard {
+  background: rgba(255,255,255,.55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-radius: 18px;
+  padding: 20px 18px;
+  display: flex; flex-direction: column; gap: 12px;
+  position: relative; cursor: default;
+  border: 1px solid rgba(255,255,255,.8);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.8) inset,
+    0 -1px 0 rgba(120,130,180,.08) inset,
+    0 4px 20px rgba(80,100,160,.08),
+    0 1px 4px rgba(0,0,0,.04);
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+  overflow: hidden;
+}
+.fcard::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,0) 100%);
+  border-radius: 18px 18px 60% 60%;
+  pointer-events: none;
+}
+.fcard::after {
+  content: '';
+  position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(180,200,255,.4), transparent);
+  pointer-events: none;
+}
+.fcard:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.8) inset,
+    0 12px 32px rgba(80,100,160,.14),
+    0 2px 8px rgba(0,0,0,.06);
+}
+
+.fcard-arrow {
+  position: absolute; top: 14px; right: 14px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.7);
+  box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s; z-index: 1;
+}
+.fcard:hover .fcard-arrow {
+  background: rgba(0,113,227,.15);
+  border-color: rgba(0,113,227,.3);
+}
+.fcard-arrow svg { width: 9px; height: 9px; stroke: rgba(0,0,0,.4); transition: stroke .2s; }
+.fcard:hover .fcard-arrow svg { stroke: #0071e3; }
+
+/* FROSTED GLASS ICON */
+.fcard-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; flex-shrink: 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.85);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.9) inset,
+    0 -1px 0 rgba(0,0,0,.06) inset,
+    0 3px 10px rgba(0,0,0,.06);
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1);
+  z-index: 1;
+}
+.fcard:hover .fcard-icon { transform: scale(1.08) rotate(-3deg); }
+
+/* top shine on icon */
+.fcard-icon::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
+  border-radius: 14px 14px 50% 50%;
+  pointer-events: none; z-index: 2;
+}
+
+.fcard-icon svg { width: 22px; height: 22px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; position: relative; z-index: 1; }
+
+/* icon color variants — frosted tinted backgrounds */
+.icon-blue {
+  background: rgba(0,113,227,.12);
+}
+.icon-blue svg { stroke: #0071e3; }
+
+.icon-amber {
+  background: rgba(255,140,0,.12);
+}
+.icon-amber svg { stroke: #e07800; }
+
+.icon-violet {
+  background: rgba(139,92,246,.12);
+}
+.icon-violet svg { stroke: #7c3aed; }
+
+.icon-green {
+  background: rgba(16,185,129,.12);
+}
+.icon-green svg { stroke: #059669; }
+
+.fcard-title {
+  font-family: -apple-system, 'DM Sans', sans-serif;
+  font-size: 13.5px; font-weight: 700;
+  color: #1d1d1f; letter-spacing: -.02em; line-height: 1.2;
+  position: relative; z-index: 1;
+}
+.fcard-sub {
+  font-family: -apple-system, 'DM Sans', sans-serif;
+  font-size: 12px; color: #6e6e73; line-height: 1.45;
+  position: relative; z-index: 1;
+}
+</style>
+
+<div class="wrap">
+<div class="grid">
+
+  <div class="fcard">
+    <div class="fcard-arrow"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg></div>
+    <div class="fcard-icon icon-blue">
+      <svg viewBox="0 0 24 24">
+        <rect x="18" y="3" width="4" height="18" rx="1"/>
+        <rect x="10" y="8" width="4" height="13" rx="1"/>
+        <rect x="2" y="13" width="4" height="8" rx="1"/>
+      </svg>
+    </div>
+    <div>
+      <div class="fcard-title">Mõõdetavad tulemused</div>
+      <div class="fcard-sub">KPI, OEE ja reaalsed näitajad</div>
+    </div>
+  </div>
+
+  <div class="fcard">
+    <div class="fcard-arrow"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg></div>
+    <div class="fcard-icon icon-amber">
+      <svg viewBox="0 0 24 24">
+        <path d="M2 20V8l6-4v4l6-4v4l6-4v16"/>
+        <path d="M2 20h20"/>
+        <rect x="9" y="14" width="3" height="6" rx="1"/>
+        <rect x="14" y="14" width="3" height="6" rx="1"/>
+        <rect x="4" y="14" width="3" height="3" rx="1"/>
+      </svg>
+    </div>
+    <div>
+      <div class="fcard-title">Päris tehased</div>
+      <div class="fcard-sub">2 ettevõttekülastust programmi sees</div>
+    </div>
+  </div>
+
+  <div class="fcard">
+    <div class="fcard-arrow"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg></div>
+    <div class="fcard-icon icon-violet">
+      <svg viewBox="0 0 24 24">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    </div>
+    <div>
+      <div class="fcard-title">Väike grupp</div>
+      <div class="fcard-sub">Kuni 16 osalejat, isiklik lähenemine</div>
+    </div>
+  </div>
+
+  <div class="fcard">
+    <div class="fcard-arrow"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg></div>
+    <div class="fcard-icon icon-green">
+      <svg viewBox="0 0 24 24">
+        <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/>
+        <path d="m9 12 2 2 4-4"/>
+      </svg>
+    </div>
+    <div>
+      <div class="fcard-title">Rahvusvaheline tunnistus</div>
+      <div class="fcard-sub">Sertifikaat ja ametlik diplom</div>
+    </div>
+  </div>
+
+</div>
+</div>

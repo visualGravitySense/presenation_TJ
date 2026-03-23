@@ -1,0 +1,143 @@
+
+<style>
+.marquee-section {
+  background: #fff;
+  padding: 48px 0;
+  overflow: hidden;
+  border-top: 0.5px solid rgba(0,0,0,.06);
+  border-bottom: 0.5px solid rgba(0,0,0,.06);
+}
+
+.marquee-title {
+  text-align: center;
+  font-family: -apple-system, 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #c7c7cc;
+  margin-bottom: 28px;
+}
+
+.marquee-wrap {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  gap: 0;
+}
+
+/* fade edges */
+.marquee-wrap::before,
+.marquee-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-wrap::before {
+  left: 0;
+  background: linear-gradient(90deg, #fff 0%, transparent 100%);
+}
+.marquee-wrap::after {
+  right: 0;
+  background: linear-gradient(270deg, #fff 0%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 22s linear infinite;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.marquee-track:nth-child(2) {
+  animation-delay: -11s;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.logo-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 52px;
+  height: 44px;
+  border-right: 0.5px solid rgba(0,0,0,.07);
+  flex-shrink: 0;
+}
+
+.logo-item span {
+  font-family: -apple-system, 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #c7c7cc;
+  transition: color .2s;
+}
+.logo-item:hover span { color: #8e8e93; }
+
+/* SVG logos — monochrome gray */
+.logo-item svg {
+  height: 18px;
+  width: auto;
+  fill: #c7c7cc;
+  transition: fill .2s;
+}
+.logo-item:hover svg { fill: #8e8e93; }
+</style>
+
+<div class="marquee-section">
+  <div class="marquee-title">Osalenud ettevõtted</div>
+  <div class="marquee-wrap">
+
+    <div class="marquee-track">
+      <div class="logo-item"><span>ABB</span></div>
+      <div class="logo-item"><span>Printcenter</span></div>
+      <div class="logo-item"><span>Cleveron</span></div>
+      <div class="logo-item"><span>Sievert</span></div>
+      <div class="logo-item"><span>ABB</span></div>
+      <div class="logo-item"><span>Printcenter</span></div>
+      <div class="logo-item"><span>Cleveron</span></div>
+      <div class="logo-item"><span>Sievert</span></div>
+      <div class="logo-item"><span>ABB</span></div>
+      <div class="logo-item"><span>Printcenter</span></div>
+      <div class="logo-item"><span>Cleveron</span></div>
+      <div class="logo-item"><span>Sievert</span></div>
+      <div class="logo-item"><span>ABB</span></div>
+      <div class="logo-item"><span>Printcenter</span></div>
+      <div class="logo-item"><span>Cleveron</span></div>
+      <div class="logo-item"><span>Sievert</span></div>
+    </div>
+
+    <div class="marquee-track">
+      <div class="logo-item"><span>ABB</span></div>
+      <div class="logo-item"><span>Printcenter</span></div>
+      <div class="logo-item"><span>Cleveron</span></div>
+      <div class="logo-item"><span>Sievert</span></div>
+      <div class="logo-item"><span>ABB</span></div>
+      <div class="logo-item"><span>Printcenter</span></div>
+      <div class="logo-item"><span>Cleveron</span></div>
+      <div class="logo-item"><span>Sievert</span></div>
+      <div class="logo-item"><span>ABB</span></div>
+      <div class="logo-item"><span>Printcenter</span></div>
+      <div class="logo-item"><span>Cleveron</span></div>
+      <div class="logo-item"><span>Sievert</span></div>
+      <div class="logo-item"><span>ABB</span></div>
+      <div class="logo-item"><span>Printcenter</span></div>
+      <div class="logo-item"><span>Cleveron</span></div>
+      <div class="logo-item"><span>Sievert</span></div>
+    </div>
+
+  </div>
+</div>
