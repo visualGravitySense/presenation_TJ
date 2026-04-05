@@ -1,0 +1,236 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sec{background:#F7F8FA;padding:72px 48px;max-width:1080px;margin:0 auto;font-family:var(--font-sans,system-ui)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#0055E5;margin-bottom:12px}
+.h2{font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#0F1117;margin-bottom:20px;line-height:1.1}
+
+.filter-row{display:flex;align-items:center;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.filter-label{font-size:13px;color:#6B7280;margin-right:4px}
+.fpill{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid #E2E6EE;background:#fff;color:#4A4F5C;transition:all 150ms}
+.fpill.active{background:#0055E5;color:#fff;border-color:#0055E5}
+.fpill:hover:not(.active){border-color:#0055E5;color:#0055E5}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+
+.cohort-card{background:#fff;border:1.5px solid #E2E6EE;border-radius:20px;padding:24px;position:relative;transition:all 200ms}
+.cohort-card.recommended{border-color:#0055E5;border-width:2px}
+.cohort-card.dim{opacity:0.45}
+
+.badge-row{display:flex;align-items:center;gap:8px;margin-bottom:16px;min-height:24px}
+.badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:4px 10px;border-radius:100px;white-space:nowrap}
+.badge.urgent{background:#FAEEDA;color:#633806}
+.badge.open{background:#E1F5EE;color:#085041}
+.badge.pre{background:#F1EFE8;color:#444441}
+.badge.rec{background:#0055E5;color:#fff}
+
+.cohort-name{font-size:22px;font-weight:800;color:#0F1117;margin-bottom:4px;letter-spacing:-0.01em}
+.cohort-dates{font-size:14px;color:#6B7280;margin-bottom:12px;line-height:1.5}
+
+.spots-row{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.spots-bar{flex:1;height:6px;background:#E5E7EB;border-radius:3px;overflow:hidden}
+.spots-fill{height:100%;border-radius:3px;transition:width 600ms}
+.spots-fill.urgent{background:#F59E0B}
+.spots-fill.open{background:#22C55E}
+.spots-fill.pre{background:#9CA3AF}
+.spots-text{font-size:13px;font-weight:600;color:#4A4F5C;white-space:nowrap}
+.spots-text.urgent{color:#B45309}
+
+.social-in-cohort{display:flex;align-items:center;gap:6px;margin-bottom:16px;font-size:12px;color:#6B7280;line-height:1.4}
+.mini-avs{display:flex}
+.mav{width:22px;height:22px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;margin-left:-5px;flex-shrink:0}
+.mav:first-child{margin-left:0}
+.mav.a{background:#0055E5}
+.mav.b{background:#3B82F6}
+.mav.c{background:#60A5FA}
+
+.countdown{display:flex;align-items:center;gap:6px;margin-bottom:16px;font-size:12px;color:#B45309;font-weight:500}
+.countdown svg{width:14px;height:14px;flex-shrink:0}
+
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:12px;font-size:14px;font-weight:700;border:none;cursor:pointer;width:100%;margin-bottom:12px;transition:all 150ms;letter-spacing:-0.01em}
+.cta-btn.primary{background:#0055E5;color:#fff}
+.cta-btn.primary:hover{background:#003DB3;transform:translateY(-1px)}
+.cta-btn.secondary{background:#F3F4F6;color:#374151;font-weight:500}
+.cta-btn.secondary:hover{background:#E5E7EB}
+.cta-btn.outline{background:transparent;color:#0055E5;border:1.5px solid #0055E5}
+
+.calendar-row{display:flex;align-items:center;gap:8px;padding-top:12px;border-top:1px solid #F3F4F6}
+.cal-label{font-size:12px;color:#9CA3AF;margin-right:2px}
+.cal-link{font-size:12px;color:#0055E5;font-weight:500;text-decoration:none;cursor:pointer}
+.cal-sep{color:#D1D5DB;font-size:11px}
+
+.jtbd-box{background:#fff;border:1px solid #E2E6EE;border-radius:16px;padding:22px 28px;margin-bottom:24px}
+.jtbd-title{font-size:16px;font-weight:700;color:#0F1117;margin-bottom:6px}
+.jtbd-sub{font-size:14px;color:#6B7280;margin-bottom:16px;line-height:1.5}
+.jtbd-btns{display:flex;gap:10px;flex-wrap:wrap}
+.jtbd-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;border:1px solid #E2E6EE;background:#F9FAFB;color:#374151;cursor:pointer;transition:all 150ms}
+.jtbd-btn:hover{border-color:#0055E5;color:#0055E5;background:#EEF4FF}
+.jtbd-btn svg{width:16px;height:16px;color:#0055E5}
+.jtbd-response{display:none;margin-top:14px;background:#EEF4FF;border-radius:10px;padding:14px 16px;font-size:14px;color:#374151;line-height:1.6;border-left:3px solid #0055E5}
+.jtbd-response.show{display:block}
+
+.max-note{text-align:center;font-size:13px;color:#9CA3AF;padding:4px 0 0}
+.max-note strong{color:#374151}
+</style>
+
+<div class="sec">
+  <div class="eyebrow">Kohordid</div>
+  <div class="h2">Grupid ja koolituspäevad</div>
+
+  <div class="filter-row">
+    <span class="filter-label">Millal saad olla 9 päevaks eemal?</span>
+    <div class="fpill active" onclick="filterCohort(this,'all')">Kõik</div>
+    <div class="fpill" onclick="filterCohort(this,'soon')">Lähima 3 kuu jooksul</div>
+    <div class="fpill" onclick="filterCohort(this,'mid')">3–6 kuu pärast</div>
+    <div class="fpill" onclick="filterCohort(this,'flex')">Paindlik</div>
+  </div>
+
+  <div class="cards">
+
+    <div class="cohort-card recommended" id="card-kevad26" data-timing="soon">
+      <div class="badge-row">
+        <span class="badge rec">Soovitatav</span>
+        <span class="badge urgent">4 kohta veel</span>
+      </div>
+      <div class="cohort-name">Kevad 2026</div>
+      <div class="cohort-dates">17. märts — 28. märts 2026<br><span style="font-size:12px;color:#9CA3AF">Alguseni: 47 päeva</span></div>
+
+      <div class="spots-row">
+        <div class="spots-bar"><div class="spots-fill urgent" style="width:75%"></div></div>
+        <div class="spots-text urgent">4 / 16 kohta vaba</div>
+      </div>
+
+      <div class="social-in-cohort">
+        <div class="mini-avs">
+          <div class="mav a">MK</div>
+          <div class="mav b">KL</div>
+          <div class="mav c">TR</div>
+        </div>
+        <span>3 tootmisjuhti ABB-st ja Cleveronist on juba registreerunud</span>
+      </div>
+
+      <div class="countdown">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5.5"/><path d="M7 4v3l2 1.5" stroke-linecap="round"/></svg>
+        Registreerimine sulgub 10. märtsil
+      </div>
+
+      <button class="cta-btn primary">Registreeru — hoia koht →</button>
+
+      <div class="calendar-row">
+        <span class="cal-label">Pole veel valmis?</span>
+        <a class="cal-link">Google Calendar</a>
+        <span class="cal-sep">·</span>
+        <a class="cal-link">Outlook</a>
+        <span class="cal-sep">·</span>
+        <a class="cal-link">.ics</a>
+      </div>
+    </div>
+
+    <div class="cohort-card" id="card-sugis26" data-timing="mid">
+      <div class="badge-row">
+        <span class="badge open">Registreerimine avatud</span>
+      </div>
+      <div class="cohort-name">Sügis 2026</div>
+      <div class="cohort-dates">14. september — 25. september 2026<br><span style="font-size:12px;color:#9CA3AF">Alguseni: 230 päeva</span></div>
+
+      <div class="spots-row">
+        <div class="spots-bar"><div class="spots-fill open" style="width:25%"></div></div>
+        <div class="spots-text">12 / 16 kohta vaba</div>
+      </div>
+
+      <div class="social-in-cohort">
+        <div class="mini-avs">
+          <div class="mav a">AR</div>
+          <div class="mav b">SP</div>
+        </div>
+        <span>2 osalejat on juba registreerunud</span>
+      </div>
+
+      <button class="cta-btn primary" style="margin-top:8px">Registreeru →</button>
+
+      <div class="calendar-row">
+        <span class="cal-label">Lisa kalendrisse:</span>
+        <a class="cal-link">Google Calendar</a>
+        <span class="cal-sep">·</span>
+        <a class="cal-link">.ics</a>
+      </div>
+    </div>
+
+    <div class="cohort-card" id="card-kevad27" data-timing="flex">
+      <div class="badge-row">
+        <span class="badge pre">Eelregistreerimine</span>
+      </div>
+      <div class="cohort-name">Kevad 2027</div>
+      <div class="cohort-dates">Kuupäevad täpsustamisel<br><span style="font-size:12px;color:#9CA3AF">Ligikaudu märts 2027</span></div>
+
+      <div class="spots-row">
+        <div class="spots-bar"><div class="spots-fill pre" style="width:0%"></div></div>
+        <div class="spots-text" style="color:#9CA3AF">16 kohta · eelregistreerimine</div>
+      </div>
+
+      <div style="background:#F9FAFB;border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:#6B7280;line-height:1.5">
+        Eelregistreerimine annab sulle:<br>
+        <strong style="color:#374151">• Varase eelistuse koha saamisel</strong><br>
+        <strong style="color:#374151">• Teavituse kui kuupäevad kinnituvad</strong>
+      </div>
+
+      <button class="cta-btn outline">Teata huvist — hoia koht ette →</button>
+
+      <div class="calendar-row" style="border-top:none;padding-top:0">
+        <span style="font-size:12px;color:#9CA3AF">Saadame e-kirja kui kuupäevad kinnituvad</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="max-note">Grupis on alati <strong>max 16 osalejat</strong> — rohkem ei võta. See on programmi osa, mitte piirang.</div>
+
+  <div style="height:24px"></div>
+
+  <div class="jtbd-box">
+    <div class="jtbd-title">Vaja juhatuse heakskiitu?</div>
+    <div class="jtbd-sub">Enamus tootmisjuhte vajab enne registreerumist sisemist kooskõlastust. Siin on tööriistad, mis aitavad:</div>
+    <div class="jtbd-btns">
+      <button class="jtbd-btn" onclick="showJtbd(this,'roi')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5 8l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        ROI kalkulaator juhatusele
+      </button>
+      <button class="jtbd-btn" onclick="showJtbd(this,'template')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 2h8a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M6 6h4M6 9h2" stroke-linecap="round"/></svg>
+        Mall juhatuse ettekandeks
+      </button>
+      <button class="jtbd-btn" onclick="showJtbd(this,'absense')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v4l2.5 1.5" stroke-linecap="round"/></svg>
+        Kuidas teised 9 päeva lahendasid?
+      </button>
+    </div>
+    <div class="jtbd-response" id="jtbd-resp"></div>
+  </div>
+</div>
+
+<script>
+const jtbdTexts = {
+  roi: 'ROI kalkulaator arvutab programmi tasuvuse sinu ettevõtte suuruse järgi. Keskmiselt tasub programm end tagasi 3.8 kuuga OEE kasvu põhjal. Saadame kalkulaatori ja täidetud näidise sinu e-postile.',
+  template: '147 lõpetajat on kasutanud seda malli edukalt. Mall sisaldab: programmi kirjeldus, ROI arvutus, tagasiside eelmistelt osalejatelt, ja soovituslik otsuse formaat. Laadi alla PDF.',
+  absense: 'Taavi R. (Cleveron): "Leppisin juhatusega kokku 2 kuud ette." · Siiri K. (ABB): "Jagasin 9 päeva kahele nädalale." · Marko L. (Bolt): "Meie operatsiooniülem kattis mind — talle tuli see kasuks."'
+};
+
+function showJtbd(btn, key) {
+  document.querySelectorAll('.jtbd-btn').forEach(b => b.style.borderColor='');
+  btn.style.borderColor = '#0055E5';
+  const r = document.getElementById('jtbd-resp');
+  r.textContent = jtbdTexts[key];
+  r.classList.add('show');
+}
+
+function filterCohort(btn, type) {
+  document.querySelectorAll('.fpill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.cohort-card').forEach(c => {
+    if (type === 'all') { c.classList.remove('dim'); return; }
+    const t = c.dataset.timing;
+    const match = (type==='soon'&&t==='soon')||(type==='mid'&&t==='mid')||(type==='flex'&&t==='flex');
+    c.classList.toggle('dim', !match);
+  });
+}
+</script>

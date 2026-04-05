@@ -1,0 +1,203 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sec{background:#fff;padding:72px 48px;max-width:860px;margin:0 auto;font-family:var(--font-sans,system-ui)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#0055E5;margin-bottom:12px}
+.h2{font-size:36px;font-weight:800;letter-spacing:-0.02em;color:#0F1117;margin-bottom:8px;line-height:1.15}
+
+.social-proof-intro{font-size:14px;color:#6B7280;margin-bottom:28px;line-height:1.6}
+.social-proof-intro strong{color:#0055E5;font-weight:600}
+
+.cards{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.card{border:1.5px solid #E2E6EE;border-radius:16px;padding:20px 22px;cursor:pointer;transition:all 200ms;background:#fff;position:relative;overflow:hidden}
+.card:hover{border-color:#0055E5;background:#FAFCFF}
+.card.checked{border-color:#0055E5;background:#EEF4FF}
+.card.checked .card-behavior{color:#0055E5}
+
+.card-top{display:flex;align-items:flex-start;gap:14px}
+.cb-box{width:22px;height:22px;border-radius:6px;border:1.5px solid #D1D5DB;background:#fff;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all 150ms}
+.card.checked .cb-box{background:#0055E5;border-color:#0055E5}
+.cb-box svg{width:12px;height:12px;opacity:0;transition:opacity 150ms}
+.card.checked .cb-box svg{opacity:1}
+
+.card-content{flex:1}
+.card-quote{font-size:15px;color:#0F1117;line-height:1.55;margin-bottom:8px;font-style:italic}
+.card-behavior{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:#9CA3AF;transition:color 200ms}
+
+.card-stat{position:absolute;right:20px;top:20px;font-size:11px;color:#9CA3AF;font-weight:500;text-align:right;line-height:1.4}
+.card-stat strong{display:block;font-size:14px;font-weight:700;color:#6B7280}
+
+.card-reveal{display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(0,85,229,0.12)}
+.card.checked .card-reveal{display:block}
+.reveal-text{font-size:13px;color:#374151;line-height:1.6}
+.reveal-link{font-size:13px;color:#0055E5;font-weight:500;text-decoration:none;margin-top:6px;display:inline-block}
+
+.confirm-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:100px;font-size:14px;font-weight:600;background:#EEF4FF;border:1.5px solid #0055E5;color:#0055E5;cursor:pointer;margin-bottom:24px;transition:all 150ms}
+.confirm-btn:hover{background:#0055E5;color:#fff}
+.confirm-btn svg{width:16px;height:16px}
+
+.transform-bar{background:linear-gradient(90deg,#EEF4FF 0%,#F0FDF4 100%);border-radius:12px;padding:16px 22px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.transform-side{flex:1}
+.transform-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9CA3AF;margin-bottom:4px}
+.transform-text{font-size:14px;font-weight:600;color:#4A4F5C;line-height:1.4}
+.transform-arrow{font-size:20px;color:#D1D5DB;flex-shrink:0}
+.transform-side.after .transform-label{color:#15803D}
+.transform-side.after .transform-text{color:#0F1117}
+
+.goal-section{background:#F9FAFB;border:1px solid #E2E6EE;border-radius:16px;padding:20px 22px;margin-bottom:24px}
+.goal-label{font-size:13px;font-weight:600;color:#374151;margin-bottom:10px}
+.goal-input{width:100%;border:1px solid #E2E6EE;border-radius:10px;padding:12px 14px;font-size:14px;color:#0F1117;background:#fff;font-family:inherit;resize:none;outline:none;height:72px;line-height:1.5;transition:border-color 150ms}
+.goal-input::placeholder{color:#9CA3AF}
+.goal-input:focus{border-color:#0055E5}
+.goal-confirm{display:none;background:#EEF4FF;border-radius:10px;padding:12px 14px;margin-top:10px;font-size:13px;color:#0055E5;line-height:1.5;font-weight:500}
+.goal-confirm.show{display:block}
+
+.director-path{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#FFFBEB;border:1px solid #FCD34D;border-radius:12px}
+.director-left{font-size:13px;color:#92400E;line-height:1.4}
+.director-left strong{color:#78350F;font-weight:700;display:block;margin-bottom:2px}
+.director-link{font-size:13px;font-weight:600;color:#0055E5;white-space:nowrap;text-decoration:none}
+</style>
+
+<div class="sec">
+  <div class="eyebrow">Sihtgrupp</div>
+  <div class="h2">Kellele programm on loodud</div>
+
+  <p class="social-proof-intro">
+    <strong>147 lõpetajat</strong> tunnistasid end ühes neist kolmest kirjeldusest ära.
+    Märgi need, mis kõlavad sinu argipäevaga:
+  </p>
+
+  <div class="cards">
+
+    <div class="card" onclick="toggleCard(this, 0)">
+      <div class="card-top">
+        <div class="cb-box">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-quote">"Veedan suurema osa päevast probleemide lahendamisega, mitte nende ennetamisega."</div>
+          <div class="card-behavior">Käitumine: Reaktiivne juhtimine</div>
+        </div>
+        <div class="card-stat"><strong>89%</strong>lõpetajatest<br>alustasid siit</div>
+      </div>
+      <div class="card-reveal">
+        <div class="reveal-text">Mart K. (ABB): "Pärast programmi kulutan 80% ajast ennetamisele. See muutus tuli päev 3 järel."</div>
+        <a class="reveal-link" href="#">Vaata Mardi täislugu →</a>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this, 1)">
+      <div class="card-top">
+        <div class="cb-box">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-quote">"Kui ma olen ära, hakkavad asjad lagunema."</div>
+          <div class="card-behavior">Käitumine: Isikust sõltuv süsteem</div>
+        </div>
+        <div class="card-stat"><strong>76%</strong>lõpetajatest<br>tunnistasid seda</div>
+      </div>
+      <div class="card-reveal">
+        <div class="reveal-text">Katrin L. (Cleveron): "9 päeva pärast programmi läksin 2 nädalaks puhkusele. Esimest korda ei helisanud telefon."</div>
+        <a class="reveal-link" href="#">Vaata Katrini lugu →</a>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this, 2)">
+      <div class="card-top">
+        <div class="cb-box">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-quote">"Tean, mida tahaksin muuta — aga ei tea, kust alustada."</div>
+          <div class="card-behavior">Käitumine: Muutuseta jätkamine</div>
+        </div>
+        <div class="card-stat"><strong>64%</strong>lõpetajatest<br>tunnistasid seda</div>
+      </div>
+      <div class="card-reveal">
+        <div class="reveal-text">Programm annab sulle täpse 9-päevase tegevuskava — mitte üldise teooria, vaid konkreetsed sammud sinu tootmise jaoks.</div>
+        <a class="reveal-link" href="#">Vaata 9-päevast kava →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <button class="confirm-btn" id="confirm-btn" onclick="confirmAll()">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="confirm-text">Jah, see kõlab tuttavalt — jätkan</span>
+  </button>
+
+  <div class="transform-bar">
+    <div class="transform-side before">
+      <div class="transform-label">Praegu</div>
+      <div class="transform-text">Juhid tootmist reaktiivselt.</div>
+    </div>
+    <div class="transform-arrow">→</div>
+    <div class="transform-side after">
+      <div class="transform-label">Pärast programmi</div>
+      <div class="transform-text">Sinu tootmine juhib ennast.</div>
+    </div>
+  </div>
+
+  <div class="goal-section">
+    <div class="goal-label">Või kirjelda oma olukorda täpsemalt — Andres loeb seda enne programmi algust:</div>
+    <textarea class="goal-input" id="goal-input" placeholder="Mida tahaksid oma tootmises muuta?" oninput="handleGoal(this)"></textarea>
+    <div class="goal-confirm" id="goal-confirm">
+      ✓ Salvestatud. Andres teab sinu eesmärki enne kui programm algab.
+    </div>
+  </div>
+
+  <div class="director-path">
+    <div class="director-left">
+      <strong>Kaalud saata oma meeskonnaliikme?</strong>
+      ROI arvutus ja juhatuse ettekande mall on saadaval.
+    </div>
+    <a class="director-link" href="#">Vaata juhtidele →</a>
+  </div>
+
+</div>
+
+<script>
+let checked = [false, false, false];
+let goalTyped = false;
+
+function toggleCard(el, i) {
+  checked[i] = !checked[i];
+  el.classList.toggle('checked', checked[i]);
+  updateBtn();
+}
+
+function updateBtn() {
+  const n = checked.filter(Boolean).length;
+  const btn = document.getElementById('confirm-btn');
+  const txt = document.getElementById('confirm-text');
+  if (n === 0) {
+    txt.textContent = 'Jah, see kõlab tuttavalt — jätkan';
+  } else if (n === 1) {
+    txt.textContent = 'Üks kirjeldus kõlab tuttavalt — jätkan';
+  } else if (n === 2) {
+    txt.textContent = 'Kaks kirjeldust kõlavad tuttavalt — jätkan';
+  } else {
+    txt.textContent = '✓ Kõik kolm kõlavad tuttavalt — see programm on sulle';
+    btn.style.background = '#0055E5';
+    btn.style.color = '#fff';
+  }
+}
+
+function confirmAll() {
+  document.querySelectorAll('.card').forEach(c => c.classList.add('checked'));
+  checked = [true, true, true];
+  updateBtn();
+}
+
+function handleGoal(el) {
+  const conf = document.getElementById('goal-confirm');
+  if (el.value.length > 20 && !goalTyped) {
+    goalTyped = true;
+    setTimeout(() => conf.classList.add('show'), 800);
+  } else if (el.value.length <= 20) {
+    goalTyped = false;
+    conf.classList.remove('show');
+  }
+}
+</script>

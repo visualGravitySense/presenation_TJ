@@ -1,0 +1,329 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sec{background:#F7F8FA;padding:72px 48px;max-width:1080px;margin:0 auto;font-family:var(--font-sans,system-ui)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#0055E5;margin-bottom:12px}
+.h2{font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#0F1117;line-height:1.1;margin-bottom:24px}
+.h2 em{font-style:italic;font-family:Georgia,serif;font-weight:400;color:#0055E5}
+
+.stat-bar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:#fff;border:1px solid #E2E6EE;border-radius:14px;padding:14px 20px;margin-bottom:20px}
+.stars-row{display:flex;gap:2px}
+.star{width:16px;height:16px;color:#F59E0B}
+.stat-num{font-size:15px;font-weight:700;color:#0F1117}
+.stat-sep{width:1px;height:20px;background:#E2E6EE}
+.stat-item{font-size:14px;color:#4A4F5C}
+.stat-item strong{color:#0055E5}
+.stat-cta{margin-left:auto;font-size:13px;font-weight:600;color:#0055E5;cursor:pointer;white-space:nowrap;text-decoration:none}
+
+.aggregate-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.agg-card{background:#fff;border:1px solid #E2E6EE;border-radius:12px;padding:14px 16px;cursor:pointer;transition:all 150ms}
+.agg-card:hover{border-color:#0055E5;background:#FAFCFF}
+.agg-card.active{border-color:#0055E5;background:#EEF4FF}
+.agg-habit{font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px}
+.agg-card.active .agg-habit{color:#0055E5}
+.agg-stat{font-size:20px;font-weight:900;color:#0055E5;letter-spacing:-0.02em;line-height:1;margin-bottom:2px}
+.agg-sub{font-size:11px;color:#9CA3AF}
+
+.filter-area{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.filter-group{display:flex;align-items:center;gap:6px}
+.filter-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#9CA3AF}
+.fpill{padding:6px 14px;border-radius:100px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid #E2E6EE;background:#fff;color:#4A4F5C;transition:all 150ms}
+.fpill.active{background:#0055E5;color:#fff;border-color:#0055E5}
+.fpill:hover:not(.active){border-color:#0055E5;color:#0055E5}
+.filter-sep{width:1px;height:20px;background:#E2E6EE}
+
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;align-items:start}
+.tcard{background:#fff;border:1.5px solid #E2E6EE;border-radius:18px;padding:22px;display:flex;flex-direction:column;transition:all 200ms}
+.tcard.identified{border-color:#0055E5;border-width:2px}
+
+.tc-top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.tc-av{width:40px;height:40px;border-radius:50%;background:#EEF4FF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0055E5;flex-shrink:0}
+.tc-meta{flex:1}
+.tc-name{font-size:14px;font-weight:700;color:#0F1117}
+.tc-role{font-size:12px;color:#6B7280}
+.tc-company{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;background:#F3F4F6;color:#374151;border-radius:5px;padding:2px 7px;margin-top:3px}
+
+.quote-block{margin-bottom:10px}
+.qlabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
+.qlabel.before{color:#9CA3AF}
+.qlabel.after{color:#0055E5}
+.qtext{font-size:13px;line-height:1.55;padding-left:10px}
+.qtext.before{color:#6B7280;font-style:italic;border-left:2px solid #E2E6EE}
+.qtext.after{color:#0F1117;font-weight:500;border-left:2px solid #0055E5}
+
+.tc-result{margin-top:auto;padding-top:14px;border-top:1px solid #F3F4F6}
+.result-num{font-size:22px;font-weight:900;letter-spacing:-0.02em;color:#0055E5;display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.result-num svg{width:14px;height:14px}
+.time-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px}
+.time-item{font-size:11px;color:#9CA3AF;line-height:1.4}
+.time-item strong{color:#6B7280;font-weight:600}
+.stars-sm{display:flex;gap:2px}
+.star-sm{width:11px;height:11px;color:#F59E0B}
+
+.habit-tag{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600;background:#EEF4FF;color:#0055E5}
+
+.identify-sec{background:#fff;border:1px solid #E2E6EE;border-radius:18px;padding:26px 30px}
+.id-title{font-size:18px;font-weight:700;color:#0F1117;margin-bottom:4px}
+.id-sub{font-size:14px;color:#6B7280;margin-bottom:18px}
+.id-pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.idpill{padding:9px 20px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid #E2E6EE;background:#F9FAFB;color:#4A4F5C;transition:all 150ms}
+.idpill.sel{background:#EEF4FF;border-color:#0055E5;color:#0055E5;font-weight:600}
+.id-response{display:none;background:#EEF4FF;border-radius:12px;padding:16px 20px;margin-bottom:16px;border-left:3px solid #0055E5}
+.id-response.show{display:block}
+.id-resp-text{font-size:14px;color:#374151;line-height:1.6;margin-bottom:12px}
+.id-cta{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:10px;background:#0055E5;color:#fff;font-size:14px;font-weight:700;border:none;cursor:pointer;width:100%}
+
+.timeframe-sec{margin-top:14px;padding-top:14px;border-top:1px solid #E2E6EE;display:none}
+.timeframe-sec.show{display:block}
+.tf-q{font-size:14px;color:#374151;font-weight:600;margin-bottom:10px;text-align:center}
+.tf-pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tfpill{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid #E2E6EE;background:#F9FAFB;color:#4A4F5C;transition:all 150ms}
+.tfpill.sel{background:#0055E5;color:#fff;border-color:#0055E5}
+.tf-response{display:none;text-align:center;font-size:13px;color:#374151;line-height:1.6}
+.tf-response.show{display:block}
+.tf-response strong{color:#0055E5}
+</style>
+
+<div class="sec">
+  <div class="eyebrow">Tagasiside</div>
+  <div class="h2">Mis räägivad <em>lõpetajad?</em></div>
+
+  <div class="stat-bar">
+    <div class="stars-row">
+      <svg class="star" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+      <svg class="star" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+      <svg class="star" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+      <svg class="star" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+      <svg class="star" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+    </div>
+    <span class="stat-num">4.9/5</span>
+    <div class="stat-sep"></div>
+    <span class="stat-item">147 lõpetajat</span>
+    <div class="stat-sep"></div>
+    <span class="stat-item">Keskmine kasv: <strong>+31% OEE</strong></span>
+    <div class="stat-sep"></div>
+    <span class="stat-item">Esimene muutus: <strong>~14 päeva</strong></span>
+    <a class="stat-cta" href="#">See piisab — registreeru →</a>
+  </div>
+
+  <div class="aggregate-row">
+    <div class="agg-card active" onclick="setAgg(this,'reactive')">
+      <div class="agg-habit">Reaktiivne → Ennetav</div>
+      <div class="agg-stat">+29%</div>
+      <div class="agg-sub">OEE kasv · 67 lõpetajat</div>
+    </div>
+    <div class="agg-card" onclick="setAgg(this,'dependent')">
+      <div class="agg-habit">Isikust sõltuv → Süsteem</div>
+      <div class="agg-stat">+24%</div>
+      <div class="agg-sub">OEE kasv · 54 lõpetajat</div>
+    </div>
+    <div class="agg-card" onclick="setAgg(this,'unmeasured')">
+      <div class="agg-habit">Mõõtmata → Mõõdetud</div>
+      <div class="agg-stat">-38%</div>
+      <div class="agg-sub">raiskamine · 41 lõpetajat</div>
+    </div>
+  </div>
+
+  <div class="filter-area">
+    <div class="filter-group">
+      <span class="filter-label">Roll:</span>
+      <div class="fpill active">Kõik</div>
+      <div class="fpill">Tootmisjuht</div>
+      <div class="fpill">Operatsiooniülem</div>
+      <div class="fpill">Protsessiinsener</div>
+    </div>
+    <div class="filter-sep"></div>
+    <div class="filter-group">
+      <span class="filter-label">Suurus:</span>
+      <div class="fpill active">Kõik</div>
+      <div class="fpill">50–200</div>
+      <div class="fpill">200+</div>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="tcard">
+      <div class="tc-top">
+        <div class="tc-av">TR</div>
+        <div class="tc-meta">
+          <div class="tc-name">Taavi R.</div>
+          <div class="tc-role">Operatsiooniülem</div>
+          <div class="tc-company">ABB Estonia</div>
+        </div>
+      </div>
+      <div class="quote-block">
+        <div class="qlabel before">Enne programmi:</div>
+        <div class="qtext before">"Veetsin 70% ajast probleemide lahendamisel, mitte nende ennetamisel."</div>
+      </div>
+      <div class="quote-block">
+        <div class="qlabel after">Pärast programmi:</div>
+        <div class="qtext after">"OEE tõusis 22% esimese 6 kuuga. Nüüd tegelen ennetamisega."</div>
+      </div>
+      <div class="tc-result">
+        <div class="result-num" style="color:#0055E5">
+          +22% OEE
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10L7 4l4 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="time-row">
+          <div class="time-item"><strong>14 päeva</strong><br>esimene muutus</div>
+          <div class="time-item"><strong>~6 nädalat</strong><br>harjumus juurdunud</div>
+          <div class="stars-sm">
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+          </div>
+        </div>
+        <div class="habit-tag">Reaktiivne → Ennetav</div>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="tc-top">
+        <div class="tc-av">SK</div>
+        <div class="tc-meta">
+          <div class="tc-name">Siiri K.</div>
+          <div class="tc-role">Tootmisjuht</div>
+          <div class="tc-company">Cleveron</div>
+        </div>
+      </div>
+      <div class="quote-block">
+        <div class="qlabel before">Enne programmi:</div>
+        <div class="qtext before">"Teadsin, et midagi peab muutuma, aga ei teadnud kust alustada."</div>
+      </div>
+      <div class="quote-block">
+        <div class="qlabel after">Pärast programmi:</div>
+        <div class="qtext after">"Tehaskülastused näitasid konkreetselt, kuidas teised on samad probleemid lahendanud."</div>
+      </div>
+      <div class="tc-result">
+        <div class="result-num" style="color:#0055E5">
+          +18% läbilaskevõime
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10L7 4l4 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="time-row">
+          <div class="time-item"><strong>10 päeva</strong><br>esimene muutus</div>
+          <div class="time-item"><strong>~7 nädalat</strong><br>harjumus juurdunud</div>
+          <div class="stars-sm">
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+          </div>
+        </div>
+        <div class="habit-tag">Isikust sõltuv → Süsteem</div>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <div class="tc-top">
+        <div class="tc-av">AM</div>
+        <div class="tc-meta">
+          <div class="tc-name">Andres M.</div>
+          <div class="tc-role">Protsessiinsener</div>
+          <div class="tc-company">Printcenter</div>
+        </div>
+      </div>
+      <div class="quote-block">
+        <div class="qlabel before">Enne programmi:</div>
+        <div class="qtext before">"Olin kiinud LEAN-teooriast — ikkagi ei tundnud tulemusliku tootmise."</div>
+      </div>
+      <div class="quote-block">
+        <div class="qlabel after">Pärast programmi:</div>
+        <div class="qtext after">"Väike grupp ja personaalne lähenemine tegid vahe. Sain A3-meetodiga oma suurima kitsaskoha lahendatud."</div>
+      </div>
+      <div class="tc-result">
+        <div class="result-num" style="color:#15803D">
+          +15% efektiivsus
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10L7 4l4 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="time-row">
+          <div class="time-item"><strong>14 päeva</strong><br>esimene muutus</div>
+          <div class="time-item"><strong>~5 nädalat</strong><br>harjumus juurdunud</div>
+          <div class="stars-sm">
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+            <svg class="star-sm" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.1l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+          </div>
+        </div>
+        <div class="habit-tag">Mõõtmata → Mõõdetud</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="identify-sec">
+    <div class="id-title">Kelle lugu kõlab sinu omaga kõige sarnasemalt?</div>
+    <div class="id-sub">Vali inimene — näitame sinu järgmist sammu:</div>
+    <div class="id-pills">
+      <div class="idpill" onclick="identify(this,'taavi')">Taavi R. (Operatsiooniülem)</div>
+      <div class="idpill" onclick="identify(this,'siiri')">Siiri K. (Tootmisjuht)</div>
+      <div class="idpill" onclick="identify(this,'andres')">Andres M. (Protsessiinsener)</div>
+    </div>
+    <div class="id-response" id="id-resp">
+      <div class="id-resp-text" id="id-text"></div>
+      <button class="id-cta" id="id-cta"></button>
+    </div>
+    <div class="timeframe-sec" id="tf-sec">
+      <div class="tf-q">Millal sina oma esimese muutuse teed?</div>
+      <div class="tf-pills">
+        <div class="tfpill" onclick="setTimeframe(this,'soon')">Selle aasta sees</div>
+        <div class="tfpill" onclick="setTimeframe(this,'next')">Järgmisel aastal</div>
+        <div class="tfpill" onclick="setTimeframe(this,'unknown')">Ei tea veel</div>
+      </div>
+      <div class="tf-response" id="tf-resp"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const idData = {
+  taavi: {
+    text: 'Nagu Taavi, saad sinagi hakata ennetama — mitte kustutama. 67 lõpetajat tegid sama muutuse. Esimene tulemus: ~14 päeva.',
+    cta: 'Registreeru Taavi eeskujul →',
+    card: 0
+  },
+  siiri: {
+    text: 'Nagu Siiri, näed sinagi tehaskülastusel konkreetselt kuidas teised on sinu probleemid lahendanud. 54 lõpetajat said süsteemi toimima.',
+    cta: 'Registreeru Siiri eeskujul →',
+    card: 1
+  },
+  andres: {
+    text: 'Nagu Andres, saad sinagi A3-meetodiga oma suurima kitsaskoha lahendada. Väike grupp tähendab personaalset tähelepanu.',
+    cta: 'Registreeru Andrese eeskujul →',
+    card: 2
+  }
+};
+const tfData = {
+  soon: 'Selle aasta sees — <strong>Kevad 2026</strong> on ideaalne. 4 kohta veel. Registreeru täna.',
+  next: 'Järgmisel aastal — <strong>Sügis 2026</strong> on avatud. 12 kohta vaba. Hoia koht ette.',
+  unknown: 'Pole kindel? <strong>Küsi 15-min konsultatsiooni</strong> — Andres aitab sul otsustada.'
+};
+
+function identify(btn, key) {
+  document.querySelectorAll('.idpill').forEach(p => p.classList.remove('sel'));
+  document.querySelectorAll('.tcard').forEach(c => c.classList.remove('identified'));
+  btn.classList.add('sel');
+  const d = idData[key];
+  document.getElementById('id-text').textContent = d.text;
+  document.getElementById('id-cta').textContent = d.cta;
+  document.getElementById('id-resp').classList.add('show');
+  document.querySelectorAll('.tcard')[d.card].classList.add('identified');
+  document.getElementById('tf-sec').classList.add('show');
+}
+
+function setTimeframe(btn, key) {
+  document.querySelectorAll('.tfpill').forEach(p => p.classList.remove('sel'));
+  btn.classList.add('sel');
+  const r = document.getElementById('tf-resp');
+  r.innerHTML = tfData[key];
+  r.classList.add('show');
+}
+
+function setAgg(btn, key) {
+  document.querySelectorAll('.agg-card').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>

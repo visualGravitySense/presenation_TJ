@@ -1,0 +1,283 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sec{background:#F7F8FA;padding:72px 48px;max-width:1080px;margin:0 auto;font-family:var(--font-sans,system-ui)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#0055E5}
+.toggle-row{display:flex;gap:4px;background:#E5E7EB;border-radius:100px;padding:3px}
+.toggle-btn{padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;border:none;cursor:pointer;background:transparent;color:#6B7280;transition:all 150ms}
+.toggle-btn.active{background:#fff;color:#0F1117;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.h2{font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#0F1117;margin-bottom:4px;line-height:1.1}
+.h2 em{font-style:italic;color:#0055E5;font-weight:400;font-family:Georgia,serif}
+.h2-sub{font-size:15px;color:#6B7280;margin-bottom:24px}
+
+.topic-filter{margin-bottom:20px}
+.topic-label{font-size:12px;color:#9CA3AF;margin-bottom:8px;font-weight:500}
+.topic-pills{display:flex;gap:8px;flex-wrap:wrap}
+.tpill{padding:7px 16px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid #E2E6EE;background:#fff;color:#4A4F5C;transition:all 150ms}
+.tpill.active{background:#0055E5;color:#fff;border-color:#0055E5}
+.tpill:hover:not(.active){border-color:#0055E5;color:#0055E5}
+
+.habit-inventory{margin-bottom:20px}
+.inv-label{font-size:13px;font-weight:600;color:#374151;margin-bottom:4px}
+.inv-sub{font-size:12px;color:#9CA3AF;margin-bottom:12px}
+.habit-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.hpill{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid #E2E6EE;background:#fff;color:#4A4F5C;transition:all 150ms;white-space:nowrap}
+.hpill:hover{border-color:#0055E5;color:#0055E5}
+.hpill.sel{background:#EEF4FF;border-color:#0055E5;color:#0055E5}
+.hpill .pill-check{width:14px;height:14px;border-radius:50%;border:1.5px solid #D1D5DB;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 150ms}
+.hpill.sel .pill-check{background:#0055E5;border-color:#0055E5}
+.hpill .pill-check svg{width:8px;height:8px;opacity:0;transition:opacity 100ms}
+.hpill.sel .pill-check svg{opacity:1}
+.hpill .pill-pop{font-size:10px;color:#9CA3AF;margin-left:2px;font-weight:400}
+.hpill.sel .pill-pop{color:#93C5FD}
+
+.selection-feedback{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.5;margin-bottom:20px;min-height:44px;transition:all 200ms;background:#EEF4FF;border:1px solid rgba(0,85,229,0.15);color:#374151;display:none}
+.selection-feedback.show{display:block}
+.selection-feedback strong{color:#0055E5}
+
+.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.left-col{display:flex;flex-direction:column;gap:14px}
+
+.pills-section{}
+.pills-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.pills-meta-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9CA3AF}
+.pills-progress-text{font-size:12px;color:#6B7280;font-weight:500}
+.pills-row{display:flex;gap:7px;flex-wrap:nowrap}
+.dp{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;border:1.5px solid #E2E6EE;background:#F9FAFB;color:#9CA3AF;transition:all 150ms;position:relative}
+.dp:hover{border-color:#0055E5;color:#0055E5}
+.dp.viewed{background:#fff;border-color:#E2E6EE}
+.dp.viewed .inner-check{display:flex}
+.dp.active{background:#0055E5;border:none;color:#fff;transform:scale(1.08)}
+.inner-check{display:none;position:absolute;width:24px;height:24px;border-radius:50%;background:linear-gradient(180deg,#4B9FFF,#0055E5);align-items:center;justify-content:center}
+.inner-check svg{width:11px;height:11px}
+.dot-row{display:flex;gap:7px;padding:4px 3px 0}
+.dw{width:40px;display:flex;justify-content:center}
+.dw span{width:5px;height:5px;border-radius:50%;background:#22C55E;display:block}
+.dw span.g{background:#E5E7EB}
+.prog-bar{height:2px;background:#E5E7EB;border-radius:1px;margin:10px 0 6px}
+.prog-fill{height:100%;background:#0055E5;border-radius:1px;transition:width 400ms}
+.prog-label{font-size:12px;color:#6B7280;display:flex;justify-content:space-between}
+.prog-continue{color:#0055E5;font-weight:500;cursor:pointer}
+
+.day-card{background:#fff;border:1px solid #E2E6EE;border-radius:16px;padding:22px 24px}
+.day-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.day-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#0055E5}
+.day-counter{font-size:12px;color:#9CA3AF}
+.habit-box{background:#EEF4FF;border-radius:10px;padding:12px 14px;margin-bottom:14px;border-left:3px solid #0055E5}
+.habit-box-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#6B7280;font-style:italic;margin-bottom:5px}
+.habit-box-text{font-size:14px;font-weight:600;color:#0F1117;line-height:1.5}
+.habit-box-text em{color:#0055E5;font-style:normal}
+.day-title{font-size:22px;font-weight:800;color:#0F1117;margin-bottom:4px;letter-spacing:-0.01em}
+.day-tag{display:inline-block;font-size:11px;font-weight:600;color:#6B7280;background:#F3F4F6;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+.day-desc{font-size:13px;color:#6B7280;margin-bottom:14px;line-height:1.5}
+.day-prog{height:2px;background:#E5E7EB;border-radius:1px;margin-bottom:10px}
+.day-prog-fill{height:100%;width:67%;background:#0055E5;border-radius:1px}
+.day-link{font-size:13px;color:#6B7280}
+.day-link a{color:#0055E5;text-decoration:underline;text-underline-offset:2px}
+
+.comp-card{background:#fff;border:1px solid #E2E6EE;border-radius:16px;padding:20px 22px}
+.comp-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.check-circle{width:22px;height:22px;border-radius:50%;background:#22C55E;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.check-circle svg{width:11px;height:11px}
+.comp-text{font-size:14px;font-weight:500;color:#0F1117;line-height:1.4}
+.comp-summary{background:#EEF4FF;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:#374151;line-height:1.6}
+.comp-summary strong{color:#0055E5}
+.comp-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#0055E5;color:#fff;font-size:14px;font-weight:600;height:48px;border-radius:10px;border:none;cursor:pointer;width:100%}
+
+.accordion{background:#fff;border:1px solid #E2E6EE;border-radius:14px;overflow:hidden}
+.acc-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;background:#F9FAFB}
+.acc-q{font-size:14px;font-weight:500;color:#1C1C1E;flex:1;line-height:1.4}
+.acc-chev{width:18px;height:18px;color:#9CA3AF;transform:rotate(180deg)}
+.acc-body{padding:0 20px 16px;border-top:1px solid #E5E7EB}
+.acc-quote{padding:10px 0;border-bottom:1px solid #F3F4F6}
+.acc-quote:last-child{border-bottom:none;padding-bottom:0}
+.acc-qtext{font-size:13px;font-style:italic;color:#1C1C1E;margin-bottom:3px;line-height:1.5}
+.acc-attr{font-size:11px;color:#9CA3AF}
+</style>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="eyebrow">Programm</div>
+    <div class="toggle-row">
+      <button class="toggle-btn active" onclick="setView(this,'detail')">Ülevaade</button>
+      <button class="toggle-btn" onclick="setView(this,'quick')">Kiirvaade</button>
+    </div>
+  </div>
+
+  <div class="h2">9 päeva. <em>9 harjumust.</em> Üks süsteem.</div>
+  <p class="h2-sub">Iga päev = üks konkreetne harjumus, mida saad järgmisel hommikul rakendada.</p>
+
+  <div class="topic-filter">
+    <div class="topic-label">Näita päevi teema järgi:</div>
+    <div class="topic-pills">
+      <div class="tpill" onclick="setTopic(this,'süsteemid')">Süsteemid</div>
+      <div class="tpill" onclick="setTopic(this,'mõõtmine')">Mõõtmine</div>
+      <div class="tpill" onclick="setTopic(this,'meeskond')">Meeskond</div>
+      <div class="tpill" onclick="setTopic(this,'protsessid')">Protsessid</div>
+      <div class="tpill active" onclick="setTopic(this,'kõik')">Kõik</div>
+    </div>
+  </div>
+
+  <div class="habit-inventory">
+    <div class="inv-label">Millist neist harjumustest sul praegu ei ole?</div>
+    <div class="inv-sub">Märgi kõik, mida tahaksid omandada →</div>
+    <div class="habit-pills">
+      <div class="hpill" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Mõõtma süsteeme<span class="pill-pop">×43</span>
+      </div>
+      <div class="hpill" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Korraldama tööd<span class="pill-pop">×38</span>
+      </div>
+      <div class="hpill" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Nägema raiskamist<span class="pill-pop">×52</span>
+      </div>
+      <div class="hpill sel" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Ennetama<span class="pill-pop">×67</span>
+      </div>
+      <div class="hpill" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Dokumenteerima<span class="pill-pop">×29</span>
+      </div>
+      <div class="hpill" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Visualiseerima<span class="pill-pop">×31</span>
+      </div>
+      <div class="hpill" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Hooldama ennetavalt<span class="pill-pop">×24</span>
+      </div>
+      <div class="hpill" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Analüüsima voolu<span class="pill-pop">×35</span>
+      </div>
+      <div class="hpill" onclick="toggleHabit(this)">
+        <div class="pill-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        Juurutama<span class="pill-pop">×19</span>
+      </div>
+    </div>
+    <div class="selection-feedback show" id="sel-feedback">
+      <strong>Ennetama</strong> — populaarseim valik (67 lõpetajat valis selle). Päev 3 on täpselt selle jaoks.
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="left-col">
+      <div class="pills-section">
+        <div class="pills-meta">
+          <span class="pills-meta-label">Mis päev sind huvitab?</span>
+          <span class="pills-progress-text">6/9 vaadatud</span>
+        </div>
+        <div class="pills-row">
+          <div class="dp viewed"><div class="inner-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="dp viewed"><div class="inner-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="dp viewed"><div class="inner-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="dp viewed"><div class="inner-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="dp viewed"><div class="inner-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <div class="dp active">6</div>
+          <div class="dp">7</div>
+          <div class="dp">8</div>
+          <div class="dp">9</div>
+        </div>
+        <div class="dot-row">
+          <div class="dw"><span></span></div>
+          <div class="dw"><span></span></div>
+          <div class="dw"><span></span></div>
+          <div class="dw"><span></span></div>
+          <div class="dw"><span></span></div>
+          <div class="dw"><span></span></div>
+          <div class="dw"><span class="g"></span></div>
+          <div class="dw"><span class="g"></span></div>
+          <div class="dw"><span class="g"></span></div>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" style="width:67%"></div></div>
+        <div class="prog-label">
+          <span>6/9 päeva vaadatud</span>
+          <span class="prog-continue">Jätka →</span>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-row">
+          <div class="check-circle"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="comp-text">Sa oled läbi vaadanud kogu programmi. Valmis järgmiseks sammuks?</div>
+        </div>
+        <div class="comp-summary">
+          Sinu valitud harjumused: <strong>Ennetama</strong><br>
+          Päev 3 on täpselt selle jaoks. Järgmine kohort: oktoober 2026.
+        </div>
+        <button class="comp-btn">Registreeru — alusta nende harjumustega →</button>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-head">
+          <span class="acc-q">Kuidas teised on 9 päevaks tootmisest eemal olemise lahendanud?</span>
+          <svg class="acc-chev" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7l4 4 4-4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="acc-body">
+          <div class="acc-quote">
+            <div class="acc-qtext">"Leppisin juhatusega kokku 2 kuud ette, näitasin programmi ROI arvutust."</div>
+            <div class="acc-attr">— Taavi R., Cleveron · Tootmisjuht</div>
+          </div>
+          <div class="acc-quote">
+            <div class="acc-qtext">"Jagasin 9 päeva kahele — 5 päeva esimesel nädalal, 4 teisel."</div>
+            <div class="acc-attr">— Siiri K., ABB Estonia · Operatsiooniülem</div>
+          </div>
+          <div class="acc-quote">
+            <div class="acc-qtext">"Meie operatsiooniülem kattis mind. Talle tuli see kasuks — õppis servuti."</div>
+            <div class="acc-attr">— Marko L., Bolt · Tootmisjuht</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="day-card">
+        <div class="day-card-head">
+          <span class="day-eyebrow">Päev 6</span>
+          <span class="day-counter">6 / 9</span>
+        </div>
+        <div class="habit-box">
+          <div class="habit-box-lbl">Harjumus, mida omandad:</div>
+          <div class="habit-box-text"><em>"</em>Optimeerin plaani enne, kui optimeerin inimesi.<em>"</em></div>
+        </div>
+        <div class="day-tag">Süsteemid</div>
+        <div class="day-title">Heijunka ja tootmise tasandamine</div>
+        <div class="day-desc">Tootmise tasandamine ja voogamine. Kanban-süsteemi loomine ja Just-in-Time põhimõtted praktikas.</div>
+        <div class="day-prog"><div class="day-prog-fill"></div></div>
+        <div class="day-link">Päev 6 kõlab huvitavalt? <a href="#">Registreeru ja ela see päev ise läbi.</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function setView(btn, v) {
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function setTopic(btn, t) {
+  document.querySelectorAll('.tpill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function toggleHabit(el) {
+  el.classList.toggle('sel');
+  const sel = document.querySelectorAll('.hpill.sel');
+  const fb = document.getElementById('sel-feedback');
+  if (sel.length === 0) {
+    fb.classList.remove('show');
+  } else {
+    fb.classList.add('show');
+    const names = Array.from(sel).map(s => {
+      const t = s.childNodes[1].textContent.trim();
+      return '<strong>' + t + '</strong>';
+    });
+    const pop = sel[sel.length-1].querySelector('.pill-pop').textContent.replace('×','');
+    fb.innerHTML = names.join(', ') + ' — ' + sel.length + ' harjumust valitud. Programm aitab sul kõik omandada.';
+  }
+}
+</script>

@@ -1,0 +1,168 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sec{background:#fff;padding:72px 48px;max-width:1080px;margin:0 auto;font-family:var(--font-sans,system-ui)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#0055E5;margin-bottom:12px}
+.h2{font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#0F1117;margin-bottom:4px;line-height:1.1}
+.h2 em{font-style:italic;color:#0055E5;font-family:Georgia,serif;font-weight:400}
+.h2-sub{font-size:16px;color:#6B7280;margin-bottom:32px;line-height:1.6;max-width:560px}
+
+.moat-card{background:#EEF4FF;border:1.5px solid rgba(0,85,229,0.2);border-radius:20px;padding:28px 32px;margin-bottom:16px;position:relative;overflow:hidden}
+.moat-card::before{content:"";position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle at 100% 0%,rgba(0,85,229,0.06) 0%,transparent 70%);pointer-events:none}
+.moat-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.moat-icon{width:52px;height:52px;border-radius:14px;background:#0055E5;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.moat-icon svg{width:26px;height:26px}
+.moat-content{flex:1}
+.moat-title{font-size:22px;font-weight:800;color:#0F1117;margin-bottom:6px;letter-spacing:-0.01em}
+.moat-desc{font-size:15px;color:#4A4F5C;line-height:1.6;margin-bottom:4px}
+.moat-diff{font-size:13px;color:#0055E5;font-style:italic;font-weight:500}
+
+.moat-factories{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.factory-badge{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;background:#fff;border:1px solid rgba(0,85,229,0.2);color:#374151}
+.factory-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0}
+
+.moat-expand{margin-bottom:16px}
+.expand-toggle{font-size:13px;color:#0055E5;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px}
+.expand-content{display:none;margin-top:12px;background:#fff;border-radius:12px;padding:16px;font-size:14px;color:#374151;line-height:1.6;border:1px solid rgba(0,85,229,0.1)}
+.expand-content.open{display:block}
+
+.moat-inline-cta{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid rgba(0,85,229,0.12)}
+.moat-cta-text{font-size:13px;color:#6B7280}
+.moat-cta-btn{font-size:13px;font-weight:600;color:#0055E5;cursor:pointer;text-decoration:none;white-space:nowrap}
+
+.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.feat-card{background:#F9FAFB;border:1px solid #E2E6EE;border-radius:16px;padding:24px;transition:all 200ms;cursor:default;position:relative}
+.feat-card:hover{border-color:#B5D4F4;background:#F5F9FF}
+.feat-card.highlighted{background:#EEF4FF;border-color:#B5D4F4}
+.feat-card.highlighted .feat-relevant{display:flex}
+
+.feat-icon{width:44px;height:44px;border-radius:12px;background:#EEF4FF;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.feat-icon svg{width:22px;height:22px;color:#0055E5}
+.feat-title{font-size:16px;font-weight:700;color:#0F1117;margin-bottom:6px}
+.feat-desc{font-size:14px;color:#6B7280;line-height:1.55;margin-bottom:8px}
+.feat-insight{font-size:13px;color:#0055E5;font-style:italic;line-height:1.5}
+.feat-relevant{display:none;align-items:center;gap:5px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,85,229,0.12);font-size:12px;color:#0055E5;font-weight:500}
+.feat-relevant-dot{width:6px;height:6px;border-radius:50%;background:#0055E5;flex-shrink:0}
+
+.bottom-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.mini-card{background:#F9FAFB;border:1px solid #E2E6EE;border-radius:14px;padding:20px}
+.mini-icon{width:36px;height:36px;border-radius:10px;background:#EEF4FF;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.mini-icon svg{width:18px;height:18px;color:#0055E5}
+.mini-title{font-size:15px;font-weight:700;color:#0F1117;margin-bottom:4px}
+.mini-desc{font-size:13px;color:#6B7280;line-height:1.5;margin-bottom:6px}
+.mini-proof{font-size:12px;color:#0055E5;font-weight:500;font-style:italic}
+
+.shortcut-cta{text-align:center;padding:16px;font-size:14px;color:#6B7280}
+.shortcut-cta a{color:#0055E5;font-weight:600;text-decoration:none}
+.shortcut-cta a:hover{text-decoration:underline}
+</style>
+
+<div class="sec">
+  <div class="eyebrow">Metoodika</div>
+  <div class="h2">Kogemus <em>kui teooria</em></div>
+  <p class="h2-sub">Programm ei ole loengusari. Iga teema lõpeb praktilise rakendusega, mille viid oma ettevõttesse kaasa.</p>
+
+  <div class="moat-card">
+    <div class="moat-top">
+      <div class="moat-icon">
+        <svg viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="6" width="20" height="16" rx="2"/><path d="M8 6V4a2 2 0 014 0v2M13 6V4a2 2 0 014 0v2" stroke-linecap="round"/><path d="M8 13h10M8 17h6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="moat-content">
+        <div class="moat-title">2 päristehase külastust</div>
+        <div class="moat-desc">Külastame reaalseid Eesti tootmisettevõtteid, kus LEAN-põhimõtted on edukalt rakendatud. Näed oma silmaga, mida teooria praktikas tähendab.</div>
+        <div class="moat-diff">Enamik koolitusi näitab videoid. Meie viime sind kohale.</div>
+      </div>
+    </div>
+
+    <div class="moat-factories">
+      <div class="factory-badge"><span class="factory-dot"></span>ABB Estonia</div>
+      <div class="factory-badge"><span class="factory-dot"></span>Cleveron</div>
+      <div class="factory-badge"><span class="factory-dot"></span>+ 1 uus tehas kohordi järgi</div>
+    </div>
+
+    <div class="moat-expand">
+      <div class="expand-toggle" onclick="toggleExpand(this)">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#0055E5" stroke-width="1.5"><circle cx="7" cy="7" r="5.5"/><path d="M7 5v4M7 4.5h.01" stroke-linecap="round"/></svg>
+        Mida see tähendab sinu jaoks?
+      </div>
+      <div class="expand-content">
+        Tehase külastus muudab abstraktse teooria konkreetseks hetkel, mil näed päriselt toimivat süsteemi. 78% lõpetajatest nimetab tehase külastust programmi kõige mõjusamaks osaks — mitte klassiruumi päevi. Sa lähed koju teadmisega: "ma nägin seda toimimas — saan seda teha ka ise."
+      </div>
+    </div>
+
+    <div class="moat-inline-cta">
+      <span class="moat-cta-text">Kas see on piisav põhjus?</span>
+      <a class="moat-cta-btn" href="#">Hoia koht kinni →</a>
+    </div>
+  </div>
+
+  <div class="features-grid">
+    <div class="feat-card highlighted" id="feat-oee">
+      <div class="feat-icon">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l4-4 3 3 4-5 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="9"/></svg>
+      </div>
+      <div class="feat-title">OEE mõõtmine ja tõstmine</div>
+      <div class="feat-desc">Ehitad programmi jooksul üles oma ettevõtte OEE mõõtmise süsteemi, mille viid koju kaasa.</div>
+      <div class="feat-insight">Sa lahkud numbriga, mida saad homme oma tootmises kasutada.</div>
+      <div class="feat-relevant">
+        <span class="feat-relevant-dot"></span>
+        Seotud sinu valitud harjumusega: Mõõtma süsteeme
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="8" r="3"/><path d="M5 19c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke-linecap="round"/><circle cx="18" cy="8" r="2.5" stroke-width="1.5"/><path d="M20.5 17c0-2.2-1.1-4-2.5-4.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="feat-title">Personaalne hindamine</div>
+      <div class="feat-desc">Iga osaleja saab individuaalse tagasiside ja soovitused oma tootmise parendamiseks.</div>
+      <div class="feat-insight">Saad teada täpselt, mis sinu olukorras toimib — mitte üldisi soovitusi.</div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="mini-card">
+      <div class="mini-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="9" r="7"/><path d="M9 5.5v5l3 1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="mini-title">Rahvusvaheline sertifikaat</div>
+      <div class="mini-desc">Tunnustatud 14 riigis — mitte ainult Eestis.</div>
+      <div class="mini-proof">Mart K. kasutas sertifikaati 3 kuu pärast edutamisel.</div>
+    </div>
+
+    <div class="mini-card">
+      <div class="mini-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="12" height="11" rx="1.5"/><path d="M6 1v3M12 1v3M3 8h12" stroke-linecap="round"/></svg>
+      </div>
+      <div class="mini-title">Toimivad tööriistad</div>
+      <div class="mini-desc">Kõik mallid, tööriistad ja juhendid, mida programmi jooksul kasutame, jäävad sulle alles.</div>
+      <div class="mini-proof">"Kasutan neid tööriistu iga nädal." — Siiri K., ABB</div>
+    </div>
+
+    <div class="mini-card">
+      <div class="mini-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 2l2 4 4.5.7-3.2 3.1.75 4.4L9 12l-4.05 2.2.75-4.4L2.5 6.7 7 6z" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="mini-title">Mentorlusprogramm</div>
+      <div class="mini-desc">6 kuud pärast programmi lõppu — võimalus konsulteerida koolitajatega tekkinud küsimuste osas.</div>
+      <div class="mini-proof">Andres vastab isiklikult 48 tunni jooksul.</div>
+    </div>
+  </div>
+
+  <div class="shortcut-cta">
+    Kas see piisab? <a href="#">→ Hoia koht kinni</a>
+    &nbsp;·&nbsp;
+    <a href="#">Vaata, kuidas see võrdleb teiste koolitustega →</a>
+  </div>
+</div>
+
+<script>
+function toggleExpand(el) {
+  const content = el.nextElementSibling;
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open', !isOpen);
+  el.innerHTML = isOpen
+    ? '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#0055E5" stroke-width="1.5"><circle cx="7" cy="7" r="5.5"/><path d="M7 5v4M7 4.5h.01" stroke-linecap="round"/></svg> Mida see tähendab sinu jaoks?'
+    : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#0055E5" stroke-width="1.5"><circle cx="7" cy="7" r="5.5"/><path d="M7 5v2" stroke-linecap="round"/></svg> Peida';
+}
+</script>

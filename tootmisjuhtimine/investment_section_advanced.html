@@ -1,0 +1,206 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sec{background:#fff;padding:72px 48px;max-width:860px;margin:0 auto;font-family:var(--font-sans,system-ui)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#0055E5;margin-bottom:12px}
+.h2{font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#0F1117;margin-bottom:6px;line-height:1.1}
+.h2 em{font-style:italic;color:#0055E5;font-family:Georgia,serif;font-weight:400}
+
+.contemplate{background:#F9FAFB;border:1px solid #E2E6EE;border-radius:14px;padding:18px 22px;margin-bottom:28px}
+.contemplate-label{font-size:12px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+.contemplate-q{font-size:15px;color:#374151;font-style:italic;line-height:1.6}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin-bottom:28px}
+
+.benefit-list{background:#F9FAFB;border:1px solid #E2E6EE;border-radius:16px;padding:24px}
+.benefit-title{font-size:15px;font-weight:700;color:#0F1117;margin-bottom:16px}
+.benefit-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.benefit-item:last-child{margin-bottom:0}
+.b-check{width:22px;height:22px;border-radius:50%;background:#EEF4FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.b-check svg{width:11px;height:11px;color:#0055E5}
+.b-text{font-size:14px;color:#374151;line-height:1.5}
+.b-sub{font-size:12px;color:#0055E5;font-style:italic;margin-top:3px}
+.show-more{font-size:13px;color:#0055E5;cursor:pointer;margin-top:12px;display:inline-block}
+
+.pricing-panel{display:flex;flex-direction:column;gap:14px}
+
+.price-card{background:#EEF4FF;border:1.5px solid rgba(0,85,229,0.2);border-radius:16px;padding:22px}
+.price-main{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+.price-num{font-size:40px;font-weight:900;color:#0055E5;letter-spacing:-0.03em;line-height:1}
+.price-period{font-size:14px;color:#6B7280;font-weight:400}
+.price-daily{font-size:15px;font-weight:700;color:#0F1117;margin-bottom:4px}
+.price-reframe{font-size:13px;color:#6B7280;font-style:italic;margin-bottom:16px;line-height:1.5}
+.price-reframe strong{color:#374151;font-style:normal}
+
+.roi-calc{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px}
+.roi-calc-label{font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}
+.size-btns{display:flex;gap:6px;margin-bottom:12px}
+.sz-btn{flex:1;padding:8px 6px;border-radius:8px;font-size:12px;font-weight:600;border:1.5px solid #E2E6EE;background:#F9FAFB;color:#6B7280;cursor:pointer;text-align:center;transition:all 150ms}
+.sz-btn.active{background:#EEF4FF;border-color:#0055E5;color:#0055E5}
+.roi-result{background:#F0FDF4;border-radius:8px;padding:12px 14px;font-size:13px;color:#374151;line-height:1.6;display:none;border-left:3px solid #22C55E}
+.roi-result.show{display:block}
+.roi-result strong{color:#15803D;font-size:15px}
+
+.send-roi{font-size:12px;color:#0055E5;cursor:pointer;margin-top:8px;display:inline-block;font-weight:500}
+
+.risk-row{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:#F0FDF4;border-radius:10px;border:1px solid #A7F3D0;margin-bottom:14px}
+.risk-icon{width:20px;height:20px;border-radius:50%;background:#22C55E;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.risk-icon svg{width:11px;height:11px}
+.risk-text{font-size:13px;color:#065F46;line-height:1.5}
+
+.cta-main{display:flex;align-items:center;justify-content:center;gap:8px;height:54px;border-radius:12px;font-size:15px;font-weight:700;border:none;cursor:pointer;width:100%;background:#0055E5;color:#fff;letter-spacing:-0.01em;transition:all 150ms;margin-bottom:8px}
+.cta-main:hover{background:#003DB3;transform:translateY(-1px)}
+.cta-secondary{display:flex;align-items:center;justify-content:center;gap:6px;height:44px;border-radius:10px;font-size:14px;font-weight:500;border:1px solid #E2E6EE;cursor:pointer;width:100%;background:#F9FAFB;color:#374151;transition:all 150ms}
+.cta-secondary:hover{border-color:#0055E5;color:#0055E5}
+
+.peer-proof{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid #E2E6EE;margin-top:14px}
+.peer-avs{display:flex}
+.pav{width:24px;height:24px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;margin-left:-6px;flex-shrink:0}
+.pav:first-child{margin-left:0}
+.pav.a{background:#0055E5}.pav.b{background:#3B82F6}.pav.c{background:#60A5FA}.pav.d{background:#93C5FD;color:#1D4ED8}
+.peer-text{font-size:12px;color:#6B7280;line-height:1.4}
+.peer-text strong{color:#374151}
+
+.contact-line{text-align:center;font-size:13px;color:#9CA3AF;margin-top:12px}
+.contact-line a{color:#0055E5;text-decoration:none;font-weight:500}
+</style>
+
+<div class="sec">
+  <div class="eyebrow">Investeering</div>
+  <div class="h2">Mida saad <em>tagasi?</em></div>
+
+  <div class="contemplate">
+    <div class="contemplate-label">Mõtle hetkeks:</div>
+    <div class="contemplate-q">"Mis olukord on sinu tootmises 12 kuu pärast, kui sa jätkad praegusel viisil?"</div>
+  </div>
+
+  <div class="two-col">
+
+    <div class="benefit-list">
+      <div class="benefit-title">Harjumuste omandamise hind sisaldab:</div>
+
+      <div class="benefit-item">
+        <div class="b-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="b-text"><strong>9-päevane intensiivprogramm</strong> (72 akadeemilist tundi)</div>
+          <div class="b-sub">9 harjumust, mis muudavad sinu igapäevast tootmist</div>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="b-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="b-text"><strong>2 tehaskülastust</strong> reaalsetes ettevõtetes</div>
+          <div class="b-sub">See on harjumuse kujunemise kiireim tee — näed oma silmaga</div>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="b-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="b-text"><strong>OEE mõõtmistööriistad</strong> + isiklik hindamine</div>
+          <div class="b-sub">Mõõtmine muutub harjumuseks, mitte ühekordse ülesandeks</div>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="b-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="b-text"><strong>Rahvusvaheline sertifikaat</strong> — 14 riigis tunnustatud</div>
+          <div class="b-sub">Tõend, et harjumuste muutus on toimunud ja mõõdetav</div>
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <div class="b-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="b-text"><strong>6-kuuline mentorlus</strong> pärast programmi</div>
+          <div class="b-sub">Andres vastab isiklikult — harjumused juurduvad toega</div>
+        </div>
+      </div>
+
+      <span class="show-more" onclick="this.style.display='none';document.getElementById('extra-benefits').style.display='block'">+ Näita rohkem (2) →</span>
+      <div id="extra-benefits" style="display:none">
+        <div class="benefit-item" style="margin-top:12px">
+          <div class="b-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <div class="b-text"><strong>30-päevane järeltugi</strong> — mõõdame koos tulemusi</div>
+            <div class="b-sub">Tulemused on mõõdetud, mitte ainult tuntud</div>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="b-check"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <div class="b-text"><strong>Mall juhatusele</strong> — ROI ettekanne + kooskõlastus</div>
+            <div class="b-sub">89% osalejatest sai juhatuse heakskiidu selle malliga</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-panel">
+      <div class="price-card">
+        <div class="price-main">
+          <div class="price-num" id="price-display">1 490</div>
+          <div class="price-period">€ + km</div>
+        </div>
+        <div class="price-daily" id="daily-display">= 166 € päevas</div>
+        <div class="price-reframe">Vähem kui <strong>üks koosolekupäev</strong> sinu ettevõttes.<br>Tagastatav kui programm ei vasta lubatule.</div>
+
+        <div class="roi-calc">
+          <div class="roi-calc-label">Arvuta tasuvus kiiresti:</div>
+          <div class="size-btns">
+            <div class="sz-btn" onclick="calcRoi(this,'small')">Väike<br><span style="font-size:10px;font-weight:400">kuni 50</span></div>
+            <div class="sz-btn active" onclick="calcRoi(this,'mid')">Keskmine<br><span style="font-size:10px;font-weight:400">50–200</span></div>
+            <div class="sz-btn" onclick="calcRoi(this,'large')">Suur<br><span style="font-size:10px;font-weight:400">200+</span></div>
+          </div>
+          <div class="roi-result show" id="roi-result">
+            Keskmise suurusega tootmise puhul: <strong>+38% OEE kasv</strong> toob tagasi ~4× investeeringu aastas. Tasuvusaeg: <strong>3–4 kuud</strong>.
+          </div>
+          <span class="send-roi" onclick="sendRoi()">→ Saada see arvutus oma juhile e-postiga</span>
+        </div>
+
+        <div class="risk-row">
+          <div class="risk-icon"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="risk-text"><strong>Garantii:</strong> Kui programm ei vasta lubatule, tagastame täies mahus. Ilma küsimusteta.</div>
+        </div>
+
+        <button class="cta-main">Hoia koht kinni — registreeru →</button>
+        <button class="cta-secondary">Küsi 15-min konsultatsiooni</button>
+
+        <div class="peer-proof">
+          <div class="peer-avs">
+            <div class="pav a">MK</div>
+            <div class="pav b">KL</div>
+            <div class="pav c">TR</div>
+            <div class="pav d">AR</div>
+          </div>
+          <div class="peer-text"><strong>147 lõpetajat</strong> hindas seda parimaks investeeringuks oma karjääris. Keskmine kasv: +31% OEE.</div>
+        </div>
+      </div>
+
+      <div class="contact-line">
+        Küsimusi hinna kohta? <a href="tel:+3725123456">Helista: +372 5123 4567</a> · <a href="mailto:info@opstar.ee">info@opstar.ee</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const roiData = {
+  small: {result: 'Väikese tootmise puhul: <strong>+31% OEE kasv</strong> toob tagasi ~2.5× investeeringu. Tasuvusaeg: <strong>5–6 kuud</strong>.', daily: '166 € päevas'},
+  mid: {result: 'Keskmise tootmise puhul: <strong>+38% OEE kasv</strong> toob tagasi ~4× investeeringu. Tasuvusaeg: <strong>3–4 kuud</strong>.', daily: '166 € päevas'},
+  large: {result: 'Suure tootmise puhul: <strong>+38% OEE kasv</strong> võib tähendada 10×+ investeeringu tasuvust. Täpne arvutus on individuaalne — helistage.', daily: '166 € päevas'}
+};
+function calcRoi(btn, size) {
+  document.querySelectorAll('.sz-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const d = roiData[size];
+  document.getElementById('roi-result').innerHTML = d.result;
+  document.getElementById('roi-result').classList.add('show');
+}
+function sendRoi() {
+  alert('ROI kalkulaator saadetakse teie e-postile. Sisestage oma e-post registreerimisel.');
+}
+</script>

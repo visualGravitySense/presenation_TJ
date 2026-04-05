@@ -1,0 +1,235 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sec{background:#F7F8FA;padding:72px 48px;max-width:1080px;margin:0 auto;font-family:var(--font-sans,system-ui)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#0055E5;margin-bottom:12px}
+.h2{font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#0F1117;line-height:1.1;margin-bottom:6px}
+.h2 em{font-style:italic;font-family:Georgia,serif;font-weight:400;color:#0055E5}
+.h2-sub{font-size:16px;color:#6B7280;font-style:italic;max-width:560px;line-height:1.6;margin-bottom:8px}
+.h2-proof{font-size:14px;color:#9CA3AF;margin-bottom:28px}
+.h2-proof strong{color:#0055E5}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+
+.left{}
+.habit-box{background:#EEF4FF;border-left:3px solid #0055E5;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:20px}
+.habit-label{font-size:11px;color:#6B7280;font-style:italic;margin-bottom:5px}
+.habit-text{font-size:14px;color:#0F1117;line-height:1.55}
+.habit-text strong{color:#0055E5}
+
+.cert-meaning{background:#fff;border:1px solid #E2E6EE;border-radius:16px;padding:22px;margin-bottom:20px}
+.cert-meaning-label{font-size:14px;font-weight:700;color:#0F1117;margin-bottom:14px}
+.meaning-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.mpill{padding:8px 16px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid #E2E6EE;background:#F9FAFB;color:#4A4F5C;transition:all 150ms}
+.mpill.active{background:#EEF4FF;border-color:#0055E5;color:#0055E5}
+.meaning-response{border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.6;color:#374151;background:#EEF4FF;border-left:3px solid #0055E5;display:none}
+.meaning-response.show{display:block}
+.meaning-example{font-size:12px;color:#0055E5;font-style:italic;margin-top:8px;display:block}
+
+.how-used{margin-bottom:20px}
+.how-used-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:12px}
+.use-case{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;padding:12px 14px;border-radius:10px;background:#fff;border:1px solid #E2E6EE;cursor:pointer;transition:all 150ms}
+.use-case:hover{border-color:#0055E5;background:#FAFCFF}
+.uc-icon{width:32px;height:32px;border-radius:8px;background:#EEF4FF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-icon svg{width:16px;height:16px;color:#0055E5}
+.uc-text{font-size:13px;color:#374151;line-height:1.4}
+.uc-name{font-size:11px;color:#9CA3AF;margin-top:3px}
+
+.requirements{margin-bottom:20px}
+.req-title{font-size:14px;font-weight:700;color:#374151;margin-bottom:12px}
+.req-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:14px;color:#374151;line-height:1.5}
+.req-dot{width:7px;height:7px;border-radius:50%;background:#0055E5;flex-shrink:0;margin-top:6px}
+
+.right{}
+.cert-visual{background:linear-gradient(135deg,#0044CC 0%,#0055E5 50%,#1A6FE8 100%);border-radius:20px;padding:32px;margin-bottom:16px;position:relative;overflow:hidden;color:#fff}
+.cert-visual::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.06);pointer-events:none}
+.cert-visual::after{content:"";position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none}
+.cert-badge{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:16px;position:relative;z-index:1}
+.cert-badge svg{width:24px;height:24px}
+.cert-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.6);margin-bottom:6px;position:relative;z-index:1}
+.cert-title-big{font-size:20px;font-weight:800;line-height:1.2;margin-bottom:4px;position:relative;z-index:1}
+.cert-subtitle{font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:20px;position:relative;z-index:1}
+.cert-line{height:1px;background:rgba(255,255,255,0.15);margin-bottom:16px}
+.cert-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative;z-index:1}
+.cert-meta-item{}
+.cert-meta-label{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px}
+.cert-meta-value{font-size:13px;font-weight:600;color:#fff}
+
+.countries{background:#fff;border:1px solid #E2E6EE;border-radius:14px;padding:18px 20px;margin-bottom:16px}
+.countries-title{font-size:13px;font-weight:700;color:#374151;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.countries-title span{font-weight:400;color:#9CA3AF;font-size:12px}
+.country-flags{display:flex;gap:6px;flex-wrap:wrap}
+.cflag{font-size:18px;line-height:1;cursor:default;opacity:0.8}
+.cflag:hover{opacity:1}
+
+.alumni-network{background:#fff;border:1px solid #E2E6EE;border-radius:14px;padding:18px 20px;margin-bottom:16px}
+.alumni-title{font-size:13px;font-weight:700;color:#374151;margin-bottom:10px}
+.alumni-row{display:flex;align-items:center;gap:10px}
+.alumni-avs{display:flex}
+.alav{width:28px;height:28px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;margin-left:-7px;flex-shrink:0}
+.alav:first-child{margin-left:0}
+.alav.a{background:#0055E5}.alav.b{background:#3B82F6}.alav.c{background:#60A5FA}.alav.d{background:#93C5FD;color:#1D4ED8}.alav.e{background:#0055E5}
+.alumni-text{font-size:13px;color:#6B7280;line-height:1.4}
+.alumni-text strong{color:#374151}
+
+.cert-cta{text-align:center;padding-top:8px}
+.cert-cta a{font-size:14px;color:#0055E5;font-weight:600;text-decoration:none}
+.cert-cta a:hover{text-decoration:underline}
+</style>
+
+<div class="sec">
+  <div class="eyebrow">Tunnistus</div>
+  <div class="h2">Sa lahkud <em>tõendatult</em> —<br>mitte ainult koolitatult</div>
+  <p class="h2-sub">Sertifikaat tõendab mitte ainult, et sa läbisid koolituse — vaid et sa oled võimeline juhtima tootmist süsteemselt.</p>
+  <p class="h2-proof"><strong>147 lõpetajat</strong> on seda sertifikaati kasutanud töövestlustel, edutamistel ja klientide veenmisel.</p>
+
+  <div class="two-col">
+    <div class="left">
+
+      <div class="habit-box">
+        <div class="habit-label">Sinu valitud peamine harjumus:</div>
+        <div class="habit-text"><strong>Ennetama</strong> — Sertifikaat kinnitab, et sa oled seda harjumust koolitusel praktiseerinud ja mõõdetavat tulemust näidanud.</div>
+      </div>
+
+      <div class="cert-meaning">
+        <div class="cert-meaning-label">Mida sertifikaat sulle annab?</div>
+        <div class="meaning-pills">
+          <div class="mpill" onclick="showMeaning(this,'career')">Karjäärivõimalused</div>
+          <div class="mpill active" onclick="showMeaning(this,'client')">Usaldusväärsus klientidele</div>
+          <div class="mpill" onclick="showMeaning(this,'confidence')">Enesekindlus juhtimises</div>
+        </div>
+        <div class="meaning-response show" id="meaning-resp">
+          Kliendid ja partnerid näevad, et sinu tootmise juhtimine vastab rahvusvahelistele standarditele. See on erinevus "ütlen, et me teeme hästi" ja "mul on tõend, et me teeme hästi" vahel.
+          <span class="meaning-example">Andres R. (Sievert): "Kasutasin sertifikaati esimeses kliendikohtumisel pärast programmi. Leping sõlmiti."</span>
+        </div>
+      </div>
+
+      <div class="how-used">
+        <div class="how-used-title">Kuidas 147 lõpetajat seda kasutasid:</div>
+        <div class="use-case">
+          <div class="uc-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2a6 6 0 100 12A6 6 0 008 2z"/><path d="M8 6v4M8 5.5h.01" stroke-linecap="round"/></svg></div>
+          <div>
+            <div class="uc-text">"Esitasin sertifikaadi töövestlusel ja sain palgatõusu."</div>
+            <div class="uc-name">— Mart K., Tootmisjuht · ABB Estonia · 3 kuud pärast programmi</div>
+          </div>
+        </div>
+        <div class="use-case">
+          <div class="uc-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="3"/><path d="M3 14c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke-linecap="round"/></svg></div>
+          <div>
+            <div class="uc-text">"Saime kliendile tõendada, et meie protsessid vastavad LEAN standarditele."</div>
+            <div class="uc-name">— Katrin L., Operatsiooniülem · Cleveron · 1 kuu pärast programmi</div>
+          </div>
+        </div>
+        <div class="use-case">
+          <div class="uc-icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 5l-5 5-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <div class="uc-text">"LinkedIn profiili uuendamine tõi 3 kuu jooksul 2 uut tööpakkumist."</div>
+            <div class="uc-name">— Taavi R., Tootmisjuht · Cleveron · 2 kuud pärast programmi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="requirements">
+        <div class="req-title">Sertifikaadi saamise tingimused:</div>
+        <div class="req-item"><span class="req-dot"></span>Osalemine kõigil 9 koolituspäeval ja 2 tehaskülastusel (max 1 puudumispäev)</div>
+        <div class="req-item"><span class="req-dot"></span>Oma ettevõtte tootmisprotsessi analüüs ja parendusplaan A3-formaadis</div>
+        <div class="req-item"><span class="req-dot"></span>90-päevane tegevusplaan oma tootmise parandamiseks (esitletakse viimasel päeval)</div>
+      </div>
+
+    </div>
+
+    <div class="right">
+      <div class="cert-visual">
+        <div class="cert-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M6.5 17.5L5 22l7-2 7 2-1.5-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="cert-name">OpStar Profit™ · Rahvusvaheline tunnistus</div>
+        <div class="cert-title-big">LEAN Production Management<br>Certificate</div>
+        <div class="cert-subtitle">Intensive 9-Day Professional Programme</div>
+        <div class="cert-line"></div>
+        <div class="cert-meta">
+          <div class="cert-meta-item">
+            <div class="cert-meta-label">Tunnustatud</div>
+            <div class="cert-meta-value">14 riigis</div>
+          </div>
+          <div class="cert-meta-item">
+            <div class="cert-meta-label">Kehtivus</div>
+            <div class="cert-meta-value">Eluaegne</div>
+          </div>
+          <div class="cert-meta-item">
+            <div class="cert-meta-label">Sertifitseeritud</div>
+            <div class="cert-meta-value">147+ lõpetajat</div>
+          </div>
+          <div class="cert-meta-item">
+            <div class="cert-meta-label">Tase</div>
+            <div class="cert-meta-value">Practitioner</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="countries">
+        <div class="countries-title">Tunnustatud riigid <span>(14 riiki Euroopas)</span></div>
+        <div class="country-flags">
+          <span class="cflag" title="Eesti">🇪🇪</span>
+          <span class="cflag" title="Soome">🇫🇮</span>
+          <span class="cflag" title="Läti">🇱🇻</span>
+          <span class="cflag" title="Leedu">🇱🇹</span>
+          <span class="cflag" title="Saksamaa">🇩🇪</span>
+          <span class="cflag" title="Rootsi">🇸🇪</span>
+          <span class="cflag" title="Norra">🇳🇴</span>
+          <span class="cflag" title="Taani">🇩🇰</span>
+          <span class="cflag" title="Holland">🇳🇱</span>
+          <span class="cflag" title="Belgia">🇧🇪</span>
+          <span class="cflag" title="Austria">🇦🇹</span>
+          <span class="cflag" title="Šveits">🇨🇭</span>
+          <span class="cflag" title="Poola">🇵🇱</span>
+          <span class="cflag" title="Tšehhi">🇨🇿</span>
+        </div>
+      </div>
+
+      <div class="alumni-network">
+        <div class="alumni-title">OpStar Alumni võrgustik</div>
+        <div class="alumni-row">
+          <div class="alumni-avs">
+            <div class="alav a">MK</div>
+            <div class="alav b">KL</div>
+            <div class="alav c">TR</div>
+            <div class="alav d">AR</div>
+            <div class="alav e">+</div>
+          </div>
+          <div class="alumni-text">Sertifikaat avab ligipääsu <strong>147+ lõpetajate võrgustikule</strong> — tootmisjuhid ABB-st, Cleveronist, Sieverti ja 40+ ettevõttest.</div>
+        </div>
+      </div>
+
+      <div class="cert-cta">
+        <a href="#">Kas sertifikaat on sinu peamine põhjus? → Registreeru otse</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const meanings = {
+  career: {
+    text: 'Rahvusvaheline sertifikaat avab uksi töövestlustel ja läbirääkimistel. See on erinevus "koolitasin end" ja "mul on tõend oma kompetentsi kohta" vahel.',
+    example: 'Mart K. (ABB): "Esitasin sertifikaadi töövestlusel ja sain palgatõusu 3 kuud pärast programmi."'
+  },
+  client: {
+    text: 'Kliendid ja partnerid näevad, et sinu tootmise juhtimine vastab rahvusvahelistele standarditele. See on erinevus "ütlen, et me teeme hästi" ja "mul on tõend" vahel.',
+    example: 'Andres R. (Sievert): "Kasutasin sertifikaati esimeses kliendikohtumisel. Leping sõlmiti."'
+  },
+  confidence: {
+    text: 'Sa lahkud teadmisega, et sinu meetodid töötavad — mitte ainult tundega. Sertifikaat on välismine kinnitus sellele, mida sa juba tead.',
+    example: 'Katrin L. (Cleveron): "Esimest korda tundsin, et saan oma otsuseid kindlalt kaitsta."'
+  }
+};
+
+function showMeaning(btn, key) {
+  document.querySelectorAll('.mpill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const m = meanings[key];
+  const resp = document.getElementById('meaning-resp');
+  resp.innerHTML = m.text + '<span class="meaning-example">' + m.example + '</span>';
+  resp.classList.add('show');
+}
+</script>
