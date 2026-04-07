@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prototüüpide Galerii — Andres</title>
   <meta name="description" content="Interaktiivsed disainiplokid ja prototüübid — esitlusgalerii." />
+  <!--
+    GitHub Pages: paths are case-sensitive. Repo folder in this monorepo is presenation_TJ (no “e” in presentation).
+    If the GitHub repo is named differently, keep using relative href/src here — no hard-coded site base URL needed.
+    Filenames with spaces become %20 via relativeHref(); prefer underscores in filenames when renaming.
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -118,45 +123,48 @@
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script>
     /**
-     * ═══════════════════════════════════════════════════════════════════
-     *  GALLERY CONFIG — lisage või eemaldage ridu; valikulised väljad:
-     *    file  (kohustuslik): tee index.html suhtes, nt "prototype-1/hero.html"
-     *    title (valikuline): kaardi pealkiri; kui puudub, tehakse failinimest
-     *    badge (valikuline): "Draft" | "Interactive" | "Block" (vaikimisi Block)
-     * ═══════════════════════════════════════════════════════════════════
+     * GALLERY CONFIG — `file` must match disk exactly (GitHub Pages is case-sensitive).
+     * Audited from repo: all *.html in ./ and ./tootmisjuhtimine/ plus ./prototype-* (same casing as on disk).
+     * Optional: title, badge: "Draft" | "Interactive" | "Block"
      */
     const GALLERY_ITEMS = [
-      { file: 'tootmisjuhtimine/koolitus_hero_advanced.html', badge: 'Interactive' },
+      // —— repository root (exact filenames) ——
+      { file: 'index-swiss-prototype.html', title: 'Šveitsi täisprototüüp (varukoopia)', badge: 'Interactive' },
+      { file: 'index_apple.html', badge: 'Interactive' },
+      { file: 'index_blueprint.html', badge: 'Interactive' },
+      // —— tootmisjuhtimine/ ——
       { file: 'tootmisjuhtimine/audience_section_advanced.html', badge: 'Block' },
-      { file: 'tootmisjuhtimine/features_section_advanced.html', badge: 'Block' },
-      { file: 'tootmisjuhtimine/nine_days_section_advanced.html', badge: 'Block' },
-      { file: 'tootmisjuhtimine/cohorts_section_advanced.html', badge: 'Block' },
-      { file: 'tootmisjuhtimine/investment_section_advanced.html', badge: 'Block' },
       { file: 'tootmisjuhtimine/certificate_section_advanced.html', badge: 'Block' },
+      { file: 'tootmisjuhtimine/cohorts_section_advanced.html', badge: 'Block' },
+      { file: 'tootmisjuhtimine/features_section_advanced.html', badge: 'Block' },
+      { file: 'tootmisjuhtimine/investment_section_advanced.html', badge: 'Block' },
+      { file: 'tootmisjuhtimine/koolitus_hero_advanced.html', badge: 'Interactive' },
+      { file: 'tootmisjuhtimine/nine_days_section_advanced.html', badge: 'Block' },
       { file: 'tootmisjuhtimine/testimonials_advanced.html', badge: 'Block' },
-      { file: 'prototype-1/hero_component.html', badge: 'Block' },
-      { file: 'prototype-1/programm_component.html', badge: 'Block' },
-      { file: 'prototype-1/koolitaja_component.html', badge: 'Block' },
-      { file: 'prototype-1/mida_annab_component.html', badge: 'Block' },
-      { file: 'prototype-1/miks_valida_component.html', badge: 'Block' },
-      { file: 'prototype-1/lean_areng_component.html', badge: 'Block' },
-      { file: 'prototype-1/paevane_arengutee_component.html', badge: 'Block' },
-      { file: 'prototype-1/teekond_component.html', badge: 'Block' },
-      { file: 'prototype-1/hinnad_component.html', badge: 'Block' },
-      { file: 'prototype-1/registreeru_component.html', badge: 'Block' },
-      { file: 'prototype-1/hoiatus_taimer_component.html', badge: 'Interactive' },
-      { file: 'prototype-1/galerii_component.html', badge: 'Block' },
-      { file: 'prototype-1/gallery_koolitus_component.html', badge: 'Block' },
-      { file: 'prototype-1/kliendid_component.html', badge: 'Block' },
+      // —— prototype-1 … prototype-5 ——
       { file: 'prototype-1/arvamused_component.html', badge: 'Block' },
-      { file: 'prototype-1/tunnistus_component.html', badge: 'Block' },
-      { file: 'prototype-1/toetus_koolitaja_component.html', badge: 'Block' },
       { file: 'prototype-1/asukoht_component.html', badge: 'Block' },
       { file: 'prototype-1/footer_component.html', badge: 'Block' },
-      { file: 'prototype-1/tootmisjuhtimine_prototype.html', badge: 'Interactive' },
-      { file: 'prototype-1/index.html', title: 'Prototype 1 — täisleht', badge: 'Interactive' },
+      { file: 'prototype-1/galerii_component.html', badge: 'Block' },
+      { file: 'prototype-1/gallery_koolitus_component.html', badge: 'Block' },
       { file: 'prototype-1/hateless_emotion_wheel.html', badge: 'Interactive' },
       { file: 'prototype-1/hateless_emotion_wheel_1.html', badge: 'Draft' },
+      { file: 'prototype-1/hero_component.html', badge: 'Block' },
+      { file: 'prototype-1/hinnad_component.html', badge: 'Block' },
+      { file: 'prototype-1/hoiatus_taimer_component.html', badge: 'Interactive' },
+      { file: 'prototype-1/index.html', title: 'Prototype 1 — täisleht', badge: 'Interactive' },
+      { file: 'prototype-1/kliendid_component.html', badge: 'Block' },
+      { file: 'prototype-1/koolitaja_component.html', badge: 'Block' },
+      { file: 'prototype-1/lean_areng_component.html', badge: 'Block' },
+      { file: 'prototype-1/mida_annab_component.html', badge: 'Block' },
+      { file: 'prototype-1/miks_valida_component.html', badge: 'Block' },
+      { file: 'prototype-1/paevane_arengutee_component.html', badge: 'Block' },
+      { file: 'prototype-1/programm_component.html', badge: 'Block' },
+      { file: 'prototype-1/registreeru_component.html', badge: 'Block' },
+      { file: 'prototype-1/teekond_component.html', badge: 'Block' },
+      { file: 'prototype-1/toetus_koolitaja_component.html', badge: 'Block' },
+      { file: 'prototype-1/tootmisjuhtimine_prototype.html', badge: 'Interactive' },
+      { file: 'prototype-1/tunnistus_component.html', badge: 'Block' },
       { file: 'prototype-2/apple.html', badge: 'Block' },
       { file: 'prototype-2/index_apple.html', badge: 'Interactive' },
       { file: 'prototype-3/blueprint.html', badge: 'Block' },
@@ -165,9 +173,6 @@
       { file: 'prototype-4/index_smartfactory.html', badge: 'Interactive' },
       { file: 'prototype-5/index.html', badge: 'Interactive' },
       { file: 'prototype-5/index_swiss.html', badge: 'Interactive' },
-      { file: 'index_apple.html', badge: 'Interactive' },
-      { file: 'index_blueprint.html', badge: 'Interactive' },
-      { file: 'index-swiss-prototype.html', title: 'Šveitsi täisprototüüp (varukoopia)', badge: 'Interactive' },
     ];
 
     const BADGE_STYLES = {
@@ -185,18 +190,25 @@
         .join(' ');
     }
 
-    function resolveUrl(file) {
-      return new URL(file, window.location.href).href;
+    /** Relative href/src from this gallery page: ./segment/… ; encodes each segment (spaces → %20). */
+    function relativeHref(file) {
+      const norm = String(file).trim().replace(/^\.+\//, '');
+      const encoded = norm
+        .split('/')
+        .filter((seg) => seg.length)
+        .map((seg) => encodeURIComponent(seg))
+        .join('/');
+      return encoded ? `./${encoded}` : './';
     }
 
     function openModal(file, displayTitle) {
-      const url = resolveUrl(file);
+      const href = relativeHref(file);
       const modal = document.getElementById('preview-modal');
       const iframe = document.getElementById('iframe-preview');
       document.getElementById('modal-title').textContent = displayTitle;
       document.getElementById('modal-path').textContent = file;
-      document.getElementById('modal-open-tab').href = url;
-      iframe.src = url;
+      document.getElementById('modal-open-tab').setAttribute('href', href);
+      iframe.setAttribute('src', href);
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
@@ -250,14 +262,14 @@
         const title = item.title || titleFromFile(file);
         const badge = item.badge && BADGE_STYLES[item.badge] ? item.badge : 'Block';
         const badgeClass = BADGE_STYLES[badge];
-        const url = resolveUrl(file);
+        const href = relativeHref(file);
 
         const card = document.createElement('article');
         card.className =
           'group flex flex-col rounded-2xl border border-white/[0.07] bg-surface-raised/80 p-5 shadow-card transition duration-200 hover:border-white/[0.12] hover:bg-surface-raised';
         card.innerHTML = `
           <div class="mb-4 flex items-start justify-between gap-3">
-            <span class="rounded-xl bg-accent-dim p-2.5 text-accent [&_svg]:block" data-lucide-wrap></span>
+            <span class="rounded-xl bg-accent-dim p-2.5 text-accent [&_svg]:block [&_svg]:h-5 [&_svg]:w-5"><i data-lucide="file-code" aria-hidden="true"></i></span>
             <span class="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ring-1 ring-inset ${badgeClass}">${badge}</span>
           </div>
           <h3 class="mb-1 text-base font-semibold text-white group-hover:text-white">${escapeHtml(title)}</h3>
@@ -266,7 +278,7 @@
             <button type="button" class="btn-preview flex-1 min-w-[120px] rounded-xl bg-white text-surface px-4 py-2.5 text-sm font-semibold hover:bg-white/95 transition-colors">
               View prototype
             </button>
-            <a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer" class="btn-newtab inline-flex flex-1 min-w-[120px] items-center justify-center rounded-xl border border-white/[0.12] bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-white/85 hover:bg-white/[0.08] transition-colors">
+            <a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer" class="btn-newtab inline-flex flex-1 min-w-[120px] items-center justify-center rounded-xl border border-white/[0.12] bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-white/85 hover:bg-white/[0.08] transition-colors">
               Open in new tab
             </a>
           </div>
