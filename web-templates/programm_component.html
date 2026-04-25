@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koolitusprogramm 2026–2027 — tootmisjuhtimine.ee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --dark: #111214; --dark2: #1a1c20; --dark3: #242628;
+  --border: rgba(255,255,255,0.08); --white: #f5f4f0;
+  --white2: rgba(245,244,240,0.7); --white3: rgba(245,244,240,0.35);
+  --blue: #0099cc; --blue2: #33bbee;
+  --bluebg: rgba(0,153,204,0.08); --blueborder: rgba(0,153,204,0.25);
+}
+body { font-family: 'Outfit', sans-serif; background: var(--dark2); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s}
+
+/* ══ SECTION ══ */
+.prog-section {
+  padding: 100px 64px;
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.prog-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.prog-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+
+/* ── HEADER ── */
+.prog-header { text-align: center; margin-bottom: 56px; }
+.prog-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+}
+.prog-eyebrow::before, .prog-eyebrow::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--blue);
+}
+.prog-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2.4vw, 28px);
+  font-weight: 900; line-height: 1.2; color: var(--white);
+  max-width: 820px; margin: 0 auto;
+}
+.prog-title em { font-style: italic; color: var(--blue); }
+
+/* ── STAT STRIP ── */
+.prog-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 3px; margin-bottom: 3px;
+}
+.prog-stat {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  padding: 20px 24px; text-align: center;
+  transition: border-color .25s;
+}
+.prog-stat:hover { border-color: var(--blueborder); }
+.prog-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 900;
+  color: var(--blue); line-height: 1; margin-bottom: 6px;
+}
+.prog-stat-label {
+  font-size: 10px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--white3);
+}
+
+/* ── MAIN GRID ── */
+.prog-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+
+/* shared card */
+.prog-card {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  padding: 36px 36px;
+  position: relative; overflow: hidden;
+  transition: border-color .3s;
+}
+.prog-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; bottom: 0; width: 2px;
+  background: var(--blue); opacity: 0; transition: opacity .3s;
+}
+.prog-card:hover { border-color: var(--blueborder); }
+.prog-card:hover::before { opacity: 1; }
+
+.prog-card-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--blue);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 16px;
+}
+.prog-card-label::before { content: ''; width: 14px; height: 1px; background: var(--blue); }
+
+.prog-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700; color: var(--white);
+  margin-bottom: 14px; line-height: 1.25;
+}
+.prog-card-text {
+  font-size: 13.5px; color: var(--white2); line-height: 1.72;
+  margin-bottom: 10px;
+}
+.prog-card-text:last-child { margin-bottom: 0; }
+.prog-card-text strong { color: var(--white); }
+
+/* ── PÄEVAKAVA timeline ── */
+.paeva-list { list-style: none; margin-top: 4px; }
+.paeva-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0;
+  position: relative;
+}
+.paeva-item::before {
+  content: ''; position: absolute;
+  left: 99px; top: 0; bottom: 0; width: 1px;
+  background: var(--border);
+}
+.paeva-item:last-child::before { bottom: auto; height: 20px; }
+.paeva-time {
+  font-size: 12px; font-weight: 700; color: var(--blue);
+  padding: 10px 16px 10px 0;
+  letter-spacing: .04em; text-align: right;
+  line-height: 1.3;
+}
+.paeva-content {
+  padding: 10px 0 10px 20px;
+  position: relative;
+}
+.paeva-content::before {
+  content: ''; position: absolute;
+  left: -4px; top: 16px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--dark2); border: 2px solid var(--blue);
+}
+.paeva-label {
+  font-size: 13px; font-weight: 600; color: var(--white);
+  line-height: 1.3;
+}
+.paeva-note {
+  font-size: 11.5px; color: var(--white3); margin-top: 2px;
+}
+
+/* ── MOODULID grid ── */
+.moodulid-grid {
+  display: flex; flex-direction: column; gap: 0;
+}
+.moodul-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 16px; align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background .2s;
+}
+.moodul-row:first-child { padding-top: 0; }
+.moodul-row:last-child { border-bottom: none; padding-bottom: 0; }
+.moodul-row:hover .moodul-num { color: var(--blue2); }
+
+.moodul-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 900;
+  color: var(--blue); line-height: 1;
+  transition: color .2s;
+}
+.moodul-info { flex: 1; }
+.moodul-title {
+  font-size: 13px; font-weight: 600; color: var(--white);
+  line-height: 1.3; margin-bottom: 2px;
+}
+.moodul-sub {
+  font-size: 11.5px; color: var(--white3);
+}
+.moodul-date {
+  font-size: 12px; font-weight: 700; color: var(--white2);
+  white-space: nowrap; text-align: right;
+  letter-spacing: .02em;
+}
+.moodul-date.special {
+  color: var(--blue); font-style: italic; font-weight: 400;
+}
+
+/* notice */
+.prog-notice {
+  margin-top: 16px; padding: 14px 18px;
+  background: var(--bluebg); border: 1px solid var(--blueborder);
+  border-radius: 3px;
+  font-size: 12px; font-style: italic; color: var(--white3);
+  display: flex; align-items: center; gap: 10px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .prog-section { padding: 72px 20px; }
+  .prog-grid { grid-template-columns: 1fr; }
+  .prog-stats { grid-template-columns: repeat(2, 1fr); }
+  .moodul-row { grid-template-columns: 60px 1fr; }
+  .moodul-date { display: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="prog-section">
+  <div class="prog-inner">
+
+    <!-- HEADER -->
+    <div class="prog-header reveal">
+      <div class="prog-eyebrow">Ajakava</div>
+      <h2 class="prog-title">
+        2026–2027. aasta koolitusprogramm toimub<br>
+        <em>oktoober 2026 kuni märts 2027</em>
+      </h2>
+    </div>
+
+    <!-- STATS -->
+    <div class="prog-stats reveal">
+      <div class="prog-stat">
+        <div class="prog-stat-num">9</div>
+        <div class="prog-stat-label">Kohtumist kokku</div>
+      </div>
+      <div class="prog-stat">
+        <div class="prog-stat-num">64h</div>
+        <div class="prog-stat-label">Akadeemilist tundi</div>
+      </div>
+      <div class="prog-stat">
+        <div class="prog-stat-num">140</div>
+        <div class="prog-stat-label">Kalendripäeva</div>
+      </div>
+      <div class="prog-stat">
+        <div class="prog-stat-num">Nelj.</div>
+        <div class="prog-stat-label">Toimub neljapäeviti</div>
+      </div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="prog-grid">
+
+      <!-- LEFT: info + päevakava -->
+      <div class="prog-card reveal d1">
+        <div class="prog-card-label">Üldinfo</div>
+        <div class="prog-card-title">Koolituse formaat</div>
+        <p class="prog-card-text">Tootmisjuhtimise 2026–2027. aasta koolitus algab oktoobris ja kestab järgmise aasta märtsini. Me kohtume kokku <strong>9 korda.</strong> Õppeperiood katab <strong>140 kalendripäeva</strong>, mis on piisav harjutamiseks ja kinnistamiseks.</p>
+        <p class="prog-card-text">Koolitus toimub näidatud ajakava alusel ja esmase valikuna <strong>neljapäeviti.</strong></p>
+        <p class="prog-card-text" style="margin-bottom:20px">Rikkalik ja maitsev lõunasöök, pausipalad ja joogid sisalduvad hinnas, mida serveerib seminaripaiga restoran.</p>
+
+        <div class="prog-card-label">Päevakava</div>
+        <ul class="paeva-list">
+          <li class="paeva-item">
+            <div class="paeva-time">9:00</div>
+            <div class="paeva-content">
+              <div class="paeva-label">Kogunemine</div>
+              <div class="paeva-note">Hommikukohv, muljed ja saiake</div>
+            </div>
+          </li>
+          <li class="paeva-item">
+            <div class="paeva-time">9:30–11:00</div>
+            <div class="paeva-content">
+              <div class="paeva-label">Esimene sessioon</div>
+              <div class="paeva-note">Väike paus</div>
+            </div>
+          </li>
+          <li class="paeva-item">
+            <div class="paeva-time">11:15–12:30</div>
+            <div class="paeva-content">
+              <div class="paeva-label">Teine sessioon</div>
+            </div>
+          </li>
+          <li class="paeva-item">
+            <div class="paeva-time">12:30–13:00</div>
+            <div class="paeva-content">
+              <div class="paeva-label">Lõuna</div>
+              <div class="paeva-note">Seminaripaiga restoran</div>
+            </div>
+          </li>
+          <li class="paeva-item">
+            <div class="paeva-time">13:00–14:30</div>
+            <div class="paeva-content">
+              <div class="paeva-label">Kolmas sessioon</div>
+              <div class="paeva-note">Väike paus</div>
+            </div>
+          </li>
+          <li class="paeva-item">
+            <div class="paeva-time">14:45–16:00</div>
+            <div class="paeva-content">
+              <div class="paeva-label">Neljas sessioon</div>
+              <div class="paeva-note">Lõpp</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- RIGHT: moodulid -->
+      <div class="prog-card reveal d2">
+        <div class="prog-card-label">Moodulid</div>
+        <div class="prog-card-title">Kohtume Sinuga 9 korral — kokku 64 akadeemilist kontakttundi</div>
+
+        <div class="moodulid-grid">
+          <div class="moodul-row">
+            <div class="moodul-num">M1</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Nädal 42 · Neljapäev</div>
+              <div class="moodul-sub">Seminar</div>
+            </div>
+            <div class="moodul-date">22.10.2026</div>
+          </div>
+          <div class="moodul-row">
+            <div class="moodul-num">M2</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Nädal 45 · Neljapäev</div>
+              <div class="moodul-sub">Seminar</div>
+            </div>
+            <div class="moodul-date">12.11.2026</div>
+          </div>
+          <div class="moodul-row">
+            <div class="moodul-num">M3</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Ettevõtete külastus</div>
+              <div class="moodul-sub">GEMBA — lepime kokku koolitusel</div>
+            </div>
+            <div class="moodul-date special">Kokkuleppel</div>
+          </div>
+          <div class="moodul-row">
+            <div class="moodul-num">M4</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Nädal 49 · Neljapäev</div>
+              <div class="moodul-sub">Seminar</div>
+            </div>
+            <div class="moodul-date">10.12.2026</div>
+          </div>
+          <div class="moodul-row">
+            <div class="moodul-num">M5</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Nädal 2 · Neljapäev</div>
+              <div class="moodul-sub">Seminar</div>
+            </div>
+            <div class="moodul-date">14.01.2027</div>
+          </div>
+          <div class="moodul-row">
+            <div class="moodul-num">M6</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Nädal 4 · Neljapäev</div>
+              <div class="moodul-sub">Seminar</div>
+            </div>
+            <div class="moodul-date">28.01.2027</div>
+          </div>
+          <div class="moodul-row">
+            <div class="moodul-num">M7</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Ettevõtete külastus</div>
+              <div class="moodul-sub">GEMBA — lepime kokku koolitusel</div>
+            </div>
+            <div class="moodul-date special">Kokkuleppel</div>
+          </div>
+          <div class="moodul-row">
+            <div class="moodul-num">M8</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Nädal 8 · Neljapäev</div>
+              <div class="moodul-sub">Seminar</div>
+            </div>
+            <div class="moodul-date">25.02.2027</div>
+          </div>
+          <div class="moodul-row">
+            <div class="moodul-num">M9</div>
+            <div class="moodul-info">
+              <div class="moodul-title">Nädal 10 · Neljapäev</div>
+              <div class="moodul-sub">Lõputseremoonia · Tunnistused</div>
+            </div>
+            <div class="moodul-date">11.03.2027</div>
+          </div>
+        </div>
+
+        <div class="prog-notice">
+          ℹ️ Muudatustest annan teada.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

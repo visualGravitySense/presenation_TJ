@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koolitus Gallery — tootmisjuhtimine.ee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --dark: #111214; --dark2: #1a1c20; --dark3: #242628;
+  --border: rgba(255,255,255,0.08); --white: #f5f4f0;
+  --white2: rgba(245,244,240,0.7); --white3: rgba(245,244,240,0.35);
+  --blue: #0099cc; --blue2: #33bbee;
+  --bluebg: rgba(0,153,204,0.08); --blueborder: rgba(0,153,204,0.25);
+}
+body { font-family: 'Outfit', sans-serif; background: var(--dark); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{transition-delay:.05s} .d2{transition-delay:.1s} .d3{transition-delay:.15s}
+.d4{transition-delay:.2s} .d5{transition-delay:.25s} .d6{transition-delay:.3s}
+.d7{transition-delay:.35s} .d8{transition-delay:.4s}
+
+/* ══════════════════════
+   PHOTO STRIP
+══════════════════════ */
+.photo-strip {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: var(--black);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* fade edges */
+.photo-strip::before,
+.photo-strip::after {
+  content: ''; position: absolute; top: 0; bottom: 0; z-index: 2; width: 120px;
+  pointer-events: none;
+}
+.photo-strip::before { left: 0; background: linear-gradient(90deg, var(--black), transparent); }
+.photo-strip::after  { right: 0; background: linear-gradient(-90deg, var(--black), transparent); }
+
+.strip-track {
+  display: flex;
+  gap: 4px;
+  width: max-content;
+  animation: stripScroll 40s linear infinite;
+}
+.strip-track:hover { animation-play-state: paused; }
+
+@keyframes stripScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.strip-photo {
+  height: 200px;
+  width: 280px;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+.strip-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(.75) saturate(.9);
+  transition: filter .4s;
+}
+.strip-photo:hover img { filter: brightness(1) saturate(1.1); }
+
+/* placeholder when no real photos */
+.strip-photo-placeholder {
+  width: 100%; height: 100%;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; color: var(--white3); font-size: 12px;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.strip-photo-placeholder span { font-size: 28px; opacity: .4; }
+
+/* ══════════════════════
+   MAIN SECTION
+══════════════════════ */
+.koolitus-section {
+  padding: 96px 64px 100px;
+  background: var(--dark);
+  position: relative; overflow: hidden;
+}
+.koolitus-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.koolitus-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+
+/* header */
+.koolitus-header { text-align: center; margin-bottom: 64px; }
+.koolitus-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+}
+.koolitus-eyebrow::before, .koolitus-eyebrow::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--blue);
+}
+.koolitus-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2.6vw, 32px);
+  font-weight: 900; line-height: 1.2; color: var(--white);
+  max-width: 800px; margin: 0 auto;
+}
+.koolitus-title em { font-style: italic; color: var(--blue); }
+
+/* grid */
+.koolitus-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+
+/* card */
+.k-card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  padding: 32px 28px;
+  display: flex; gap: 20px; align-items: flex-start;
+  position: relative; overflow: hidden;
+  transition: border-color .3s, background .3s;
+  cursor: default;
+}
+.k-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; bottom: 0; width: 2px;
+  background: var(--blue); opacity: 0; transition: opacity .3s;
+}
+.k-card:hover { background: var(--dark3); border-color: var(--blueborder); }
+.k-card:hover::before { opacity: 1; }
+
+.k-icon {
+  width: 46px; height: 46px; flex-shrink: 0;
+  background: var(--bluebg); border: 1px solid var(--blueborder);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  transition: background .3s;
+}
+.k-card:hover .k-icon { background: rgba(0,153,204,0.16); }
+
+.k-body { flex: 1; }
+.k-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 7px;
+}
+.k-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 700; line-height: 1.3;
+  color: var(--white); margin-bottom: 10px;
+}
+.k-text {
+  font-size: 13.5px; color: var(--white2); line-height: 1.7;
+}
+.k-text strong { color: var(--white); }
+
+/* wide card */
+.k-card--wide { grid-column: span 2; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .koolitus-section { padding: 72px 24px; }
+  .koolitus-grid { grid-template-columns: 1fr; }
+  .k-card--wide { grid-column: span 1; }
+  .strip-photo { height: 140px; width: 200px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PHOTO STRIP ══ -->
+<div class="photo-strip">
+  <div class="strip-track">
+    <!-- Set 1 — replace src with real photos -->
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>📸</span>Seminar</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>🏭</span>Ettevõte</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>👥</span>Grupp</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>📋</span>Koolitus</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>🔧</span>Praktika</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>📸</span>Külastus</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>🏭</span>Tehas</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>👥</span>Meeskond</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>📋</span>Workshop</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>🔧</span>LEAN</div></div>
+    <!-- Set 2 — exact duplicate for seamless loop -->
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>📸</span>Seminar</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>🏭</span>Ettevõte</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>👥</span>Grupp</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>📋</span>Koolitus</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>🔧</span>Praktika</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>📸</span>Külastus</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>🏭</span>Tehas</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>👥</span>Meeskond</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>📋</span>Workshop</div></div>
+    <div class="strip-photo"><div class="strip-photo-placeholder"><span>🔧</span>LEAN</div></div>
+  </div>
+</div>
+
+<!-- ══ CONTENT SECTION ══ -->
+<section class="koolitus-section">
+  <div class="koolitus-inner">
+
+    <div class="koolitus-header reveal">
+      <div class="koolitus-eyebrow">Meetodid</div>
+      <h2 class="koolitus-title">
+        Tootmisjuhtimise koolitus loob uusi teadmisi,<br>
+        <em>arendab praktikaid ja suhtumisi</em>
+      </h2>
+    </div>
+
+    <div class="koolitus-grid">
+
+      <div class="k-card reveal d1">
+        <div class="k-icon">💬</div>
+        <div class="k-body">
+          <div class="k-label">01</div>
+          <div class="k-title">Avatud ja asjakohased arutelud</div>
+          <p class="k-text">Koolitatavad arutavad omavahel innustatuna koolitaja täpsetest, vürtsikatest küsimustest. Nii tekib tööstus­valdkondade vaheline teadmiste sünergia.</p>
+        </div>
+      </div>
+
+      <div class="k-card reveal d2">
+        <div class="k-icon">🏭</div>
+        <div class="k-body">
+          <div class="k-label">02</div>
+          <div class="k-title">Nina sisse mudel ja ettevõtete külastused — GEMBA</div>
+          <p class="k-text">Oma tegevust, kogemust ja protsesse on meiega jaganud Wendre, Ensto Ensek, Gren, Cleveron, Scanfil, Magnum Logistics, MS Balti Transformers, Radius Machining, Note, Viljandi Aken ja Uks, Harmet ja mitmed teised edukad ning avatud suhtumisega ettevõtted.</p>
+        </div>
+      </div>
+
+      <div class="k-card reveal d3">
+        <div class="k-icon">🔍</div>
+        <div class="k-body">
+          <div class="k-label">03</div>
+          <div class="k-title">Koolitusel osalejate endi ettevõtete külastused</div>
+          <p class="k-text">Sobivusel külastame koolitusel osalejate endi ettevõtteid. Need külastused on eriti rakenduslikud tänu vahetule teabele.</p>
+        </div>
+      </div>
+
+      <div class="k-card reveal d4">
+        <div class="k-icon">📈</div>
+        <div class="k-body">
+          <div class="k-label">04</div>
+          <div class="k-title">Reaalselt tulemust andev parendusprojekt</div>
+          <p class="k-text">Iga koolitatav alustab esimesel kohtumisel reaalse parendusprojekti planeerimisega, mille edukust hindame igal kohtumisel võtmemõõdikute ülevaatamisega. Sellele lisandub koolitaja koolitusväline tugi e-kirja või telefoni teel.</p>
+        </div>
+      </div>
+
+      <div class="k-card reveal d5">
+        <div class="k-icon">👥</div>
+        <div class="k-body">
+          <div class="k-label">05</div>
+          <div class="k-title">Tootmismõtlemist arendavad rühma- ja individuaaltööd</div>
+          <p class="k-text">Tootmisjuhtimise koolitus sisaldab tootmismõtlemist arendavaid rühmatöid. Need ei pruugi olla lihtsad, aga on elulised ja töös rakendatavad — <strong>loovad reaalset väärtust.</strong></p>
+        </div>
+      </div>
+
+      <div class="k-card reveal d6">
+        <div class="k-icon">✈️</div>
+        <div class="k-body">
+          <div class="k-label">06</div>
+          <div class="k-title">Meeskonnamängud</div>
+          <p class="k-text">Meeskonnamäng simuleerib konkureerivate lennukitehaste tootmisteenuse pakkumist hinnapakkumisest kuni reaalsete, lendavate lennukite tootmiseni. See sisaldab ka tööturu muutuste efekti.</p>
+        </div>
+      </div>
+
+      <div class="k-card reveal d7">
+        <div class="k-icon">🖥️</div>
+        <div class="k-body">
+          <div class="k-label">07</div>
+          <div class="k-title">Esitlus ja slaidid</div>
+          <p class="k-text">Koolituselt ei puudu valge tahvel, paber, marker ning koolitaja monoloog loenguna.</p>
+        </div>
+      </div>
+
+      <div class="k-card reveal d8">
+        <div class="k-icon">📚</div>
+        <div class="k-body">
+          <div class="k-label">08</div>
+          <div class="k-title">Koolituskeskond — trükitud ja e-abimaterjalid</div>
+          <p class="k-text">Kasuta ka tulevikus koolituselt saadud mudeltöölehti, arvutustabeleid, juhendit <strong>„Tulemuslik tootmine – 5S-süsteemi juurutamine"</strong> ja värvitrükis köidetud koolituse slaide (märkmete tegemise võimalusega).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

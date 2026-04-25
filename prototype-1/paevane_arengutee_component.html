@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9-Päevane Arengutee — tootmisjuhtimine.ee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --dark: #111214; --dark2: #1a1c20; --dark3: #242628;
+  --border: rgba(255,255,255,0.08); --white: #f5f4f0;
+  --white2: rgba(245,244,240,0.7); --white3: rgba(245,244,240,0.35);
+  --blue: #0099cc; --blue2: #33bbee;
+  --bluebg: rgba(0,153,204,0.08); --blueborder: rgba(0,153,204,0.25);
+}
+body { font-family: 'Outfit', sans-serif; background: var(--dark); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ══ SECTION ══ */
+.paev-section {
+  padding: 100px 64px;
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.paev-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.paev-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+
+/* ── HEADER ── */
+.paev-header { text-align: center; margin-bottom: 56px; }
+.paev-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+}
+.paev-eyebrow::before, .paev-eyebrow::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--blue);
+}
+.paev-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2.6vw, 32px);
+  font-weight: 900; line-height: 1.2; color: var(--white);
+}
+.paev-title em { font-style: italic; color: var(--blue); }
+
+/* ── TABS NAV ── */
+.tabs-nav {
+  display: flex; gap: 3px;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  flex: 1; min-width: 80px;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  color: var(--white3);
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 14px 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all .2s;
+  position: relative;
+}
+.tab-btn::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--blue); opacity: 0; transition: opacity .2s;
+}
+.tab-btn:hover { background: var(--dark3); color: var(--white2); border-color: var(--blueborder); }
+.tab-btn.active {
+  background: var(--dark3);
+  border-color: var(--blueborder);
+  color: var(--blue);
+}
+.tab-btn.active::after { opacity: 1; }
+
+.tab-btn .tab-num {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 900;
+  color: inherit; line-height: 1;
+  margin-bottom: 4px;
+}
+
+/* ── TAB CONTENT ── */
+.tab-panels { position: relative; }
+.tab-panel {
+  display: none;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  padding: 44px 48px;
+  animation: fadeIn .35s ease;
+}
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* panel header */
+.panel-day {
+  font-size: 10px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--blue);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.panel-day::before { content: ''; width: 20px; height: 1px; background: var(--blue); }
+
+.panel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700; color: var(--white);
+  margin-bottom: 8px; line-height: 1.25;
+}
+.panel-goal {
+  font-size: 14px; font-style: italic;
+  color: var(--white3);
+  border-left: 2px solid var(--blue);
+  padding-left: 16px;
+  margin-bottom: 32px; line-height: 1.6;
+}
+
+/* panel list */
+.panel-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.panel-list li {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px; color: var(--white2); line-height: 1.6;
+}
+.panel-list li:first-child { padding-top: 0; }
+.panel-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.panel-list .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); flex-shrink: 0; margin-top: 7px;
+}
+.panel-list strong { color: var(--white); }
+
+/* two-col list for longer days */
+.panel-list--two { columns: 2; gap: 0; display: block; }
+.panel-list--two li { break-inside: avoid; }
+
+/* progress bar */
+.panel-progress {
+  margin-top: 28px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 16px;
+}
+.progress-bar {
+  flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--blue); border-radius: 2px;
+  transition: width .4s ease;
+}
+.progress-label {
+  font-size: 11px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--white3); white-space: nowrap;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .paev-section { padding: 72px 20px; }
+  .tab-panel { padding: 28px 24px; }
+  .panel-list--two { columns: 1; }
+  .tab-btn .tab-num { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<section class="paev-section">
+  <div class="paev-inner">
+
+    <div class="paev-header reveal">
+      <div class="paev-eyebrow">Programm</div>
+      <h2 class="paev-title">
+        9-päevane arengutee:<br>
+        <em>Süsteemne tootmisjuhtimine teoorias ja praktikas</em>
+      </h2>
+    </div>
+
+    <!-- TAB NAV -->
+    <div class="tabs-nav reveal">
+      <button class="tab-btn active" onclick="switchTab(1)"><span class="tab-num">1</span>Päev</button>
+      <button class="tab-btn" onclick="switchTab(2)"><span class="tab-num">2</span>Päev</button>
+      <button class="tab-btn" onclick="switchTab(3)"><span class="tab-num">3</span>Päev</button>
+      <button class="tab-btn" onclick="switchTab(4)"><span class="tab-num">4</span>Päev</button>
+      <button class="tab-btn" onclick="switchTab(5)"><span class="tab-num">5</span>Päev</button>
+      <button class="tab-btn" onclick="switchTab(6)"><span class="tab-num">6</span>Päev</button>
+      <button class="tab-btn" onclick="switchTab(7)"><span class="tab-num">7</span>Päev</button>
+      <button class="tab-btn" onclick="switchTab(8)"><span class="tab-num">8</span>Päev</button>
+      <button class="tab-btn" onclick="switchTab(9)"><span class="tab-num">9</span>Päev</button>
+    </div>
+
+    <!-- TAB PANELS -->
+    <div class="tab-panels">
+
+      <!-- PÄEV 1 -->
+      <div class="tab-panel active" id="panel-1">
+        <div class="panel-day">Päev 1 · Seminar</div>
+        <div class="panel-title">Süsteemne vundament ja Opstar Profit™ raamistik</div>
+        <div class="panel-goal">"Luua selge arusaam juhtimissüsteemist ja käivitada praktiline parendusprojekt."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>Opstar Profit™ olemus:</strong> tootmisjuhtimine kui süsteemne inimkesksus, mitte üksikud episoodid.</span></li>
+          <li><span class="dot"></span><span><strong>Lean-Agile sünergia:</strong> agiilsus kui tootmise loomulik osa – miks ilma kohanemiseta ellu ei jää?</span></li>
+          <li><span class="dot"></span><span><strong>Tootmisjuhtimise kihid:</strong> strateegiline siht, taktikaline plaan ja operatiivne teostus ühes rütmis.</span></li>
+          <li><span class="dot"></span><span><strong>Tootmissüsteemide evolutsioon:</strong> kohandame parimad praktikad (Henry Ford, TPS, LEAN, jt) Eesti reaalsusesse.</span></li>
+          <li><span class="dot"></span><span><strong>Tarneahela sidusus:</strong> kuidas siduda organisatsiooni struktuur ja tootmissüsteem ühtseks tervikuks.</span></li>
+          <li><span class="dot"></span><span><strong>Parendusfookuse valik:</strong> peamiste murede ja takistuste tuvastamine ning süsteemne mõistmine.</span></li>
+          <li><span class="dot"></span><span><strong>Andres Kase 3M meetod: Mõõda – Mõista – Muuda.</strong> Kuidas liikuda andmetelt reaalse parenduseni?</span></li>
+          <li><span class="dot"></span><span><strong>Hoshin planeerimine:</strong> fookuse hoidmine olulisel ja parendusprojekti mõõdetav käivitamine.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">1 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:11%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">11%</span>
+        </div>
+      </div>
+
+      <!-- PÄEV 2 -->
+      <div class="tab-panel" id="panel-2">
+        <div class="panel-day">Päev 2 · Seminar</div>
+        <div class="panel-title">Väärtusloome ja raiskamiste süsteemne mõistmine</div>
+        <div class="panel-goal">"Näha ettevõtet läbi väärtusloome prisma ja tuvastada peamised raiskamised."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>Väärtuse definitsioon:</strong> mida klient tegelikult ostab ja kuidas see väljendub protsessides.</span></li>
+          <li><span class="dot"></span><span><strong>7+1 raiskamise tüüpi:</strong> TIMWOOD + töötaja potentsiaali raiskamine igapäevatöös.</span></li>
+          <li><span class="dot"></span><span><strong>Väärtusahela kaardistamine (VSM):</strong> praeguse ja tuleviku seisundi visualiseerimine.</span></li>
+          <li><span class="dot"></span><span><strong>OEE mõõtmine:</strong> seadmete üldise efektiivsuse hindamine ja parendamine.</span></li>
+          <li><span class="dot"></span><span><strong>Raiskamiste kõrvaldamise prioritiseerimine:</strong> kust alustada suurima mõjuga.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">2 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:22%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">22%</span>
+        </div>
+      </div>
+
+      <!-- PÄEV 3 -->
+      <div class="tab-panel" id="panel-3">
+        <div class="panel-day">Päev 3 · Ettevõttekülastus</div>
+        <div class="panel-title">GEMBA — õppimine päris tootmispõrandalt</div>
+        <div class="panel-goal">"Näha teoorias õpitut reaalses tootmiskeskkonnas — partnerettevõtte külastus."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>GEMBA walk:</strong> struktureeritud vaatlus tootmispõrandal koos juhendamisega.</span></li>
+          <li><span class="dot"></span><span><strong>Visuaalse juhtimise näited:</strong> kuidas parimad ettevõtted teevad probleemid nähtavaks.</span></li>
+          <li><span class="dot"></span><span><strong>Praktiline arutelu:</strong> mida saab oma ettevõttesse üle võtta, mida kohandada.</span></li>
+          <li><span class="dot"></span><span><strong>Parendusprojekti vaheülevaade:</strong> esimesed tulemused ja korrigeerimine.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">3 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">33%</span>
+        </div>
+      </div>
+
+      <!-- PÄEV 4 -->
+      <div class="tab-panel" id="panel-4">
+        <div class="panel-day">Päev 4 · Seminar</div>
+        <div class="panel-title">5S ja visuaalne juhtimine — kord kui konkurentsieelis</div>
+        <div class="panel-goal">"Juurutada 5S-süsteem kui tootmiskorralduse alus."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>5S filosoofia:</strong> miks kord ja puhtus on tootlikkuse eeldus, mitte lisatöö.</span></li>
+          <li><span class="dot"></span><span><strong>Sorteeri – Seira – Säästa – Standardiseeri – Säilita:</strong> iga samm praktikas.</span></li>
+          <li><span class="dot"></span><span><strong>Visuaalsed standardid:</strong> töökoha märgistus, voolujoonised, infoekraanid.</span></li>
+          <li><span class="dot"></span><span><strong>5S auditi läbiviimine:</strong> kuidas hoida saavutatud taset ja mõõta edenemist.</span></li>
+          <li><span class="dot"></span><span><strong>Meeskonnamäng:</strong> lennukitehaste simulatsioon — tootlikkuse kasv läbi korra.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">4 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:44%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">44%</span>
+        </div>
+      </div>
+
+      <!-- PÄEV 5 -->
+      <div class="tab-panel" id="panel-5">
+        <div class="panel-day">Päev 5 · Seminar</div>
+        <div class="panel-title">Standardiseeritud töö ja taktaeg</div>
+        <div class="panel-goal">"Luua stabiilne tootmisrütm läbi standardiseeritud töö."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>Taktaeg:</strong> tootmise rütmi sidumine kliendi nõudlusega.</span></li>
+          <li><span class="dot"></span><span><strong>Standardiseeritud tööjuhendid:</strong> kuidas dokumenteerida parim viis töö tegemiseks.</span></li>
+          <li><span class="dot"></span><span><strong>Tasakaalustamine (Line Balancing):</strong> töö jaotamine ühtlaselt meeskonna vahel.</span></li>
+          <li><span class="dot"></span><span><strong>Kiirete muutustega toimetulek:</strong> paindliku standardiseerimise põhimõtted.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">5 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:56%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">56%</span>
+        </div>
+      </div>
+
+      <!-- PÄEV 6 -->
+      <div class="tab-panel" id="panel-6">
+        <div class="panel-day">Päev 6 · Seminar</div>
+        <div class="panel-title">Kaizen — pidev parendus kui kultuur</div>
+        <div class="panel-goal">"Käivitada Kaizen mõtteviis ja praktiline parenduste juhtimissüsteem."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>Kaizen filosoofia:</strong> väikesed igapäevased parendused vs suured projektid.</span></li>
+          <li><span class="dot"></span><span><strong>PDCA tsükkel:</strong> Plan–Do–Check–Act igapäevases juhtimises.</span></li>
+          <li><span class="dot"></span><span><strong>A3 probleemlahendus:</strong> struktureeritud lähenemine keeruliste probleemide lahendamiseks.</span></li>
+          <li><span class="dot"></span><span><strong>Kaizen sündmuse korraldamine:</strong> intensiivne parendusüritus meeskonnaga.</span></li>
+          <li><span class="dot"></span><span><strong>Töötajate kaasamine:</strong> kuidas luua ettevõttes parenduskultuuri.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">6 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">67%</span>
+        </div>
+      </div>
+
+      <!-- PÄEV 7 -->
+      <div class="tab-panel" id="panel-7">
+        <div class="panel-day">Päev 7 · Ettevõttekülastus</div>
+        <div class="panel-title">GEMBA II — edasijõudnud praktika</div>
+        <div class="panel-goal">"Sügavam sukeldus tootmisprotsessidesse — teine partnerkülastu."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>Teine ettevõttekülastus:</strong> erineva tööstusharu kogemus ja võrdlus.</span></li>
+          <li><span class="dot"></span><span><strong>Juhtimissüsteemi analüüs:</strong> kuidas teine ettevõte lahendab sarnaseid probleeme.</span></li>
+          <li><span class="dot"></span><span><strong>Parendusprojekti ülevaade:</strong> tulemuste mõõtmine ja järgmiste sammude planeerimine.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">7 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">78%</span>
+        </div>
+      </div>
+
+      <!-- PÄEV 8 -->
+      <div class="tab-panel" id="panel-8">
+        <div class="panel-day">Päev 8 · Seminar</div>
+        <div class="panel-title">Digitaalsed lahendused ja tootmisjuhtimise tulevik</div>
+        <div class="panel-goal">"Mõista digitaliseerimise rolli tootmisjuhtimises ja vältida digilõkse."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>Tootmise digitaliseerimine:</strong> millal ja kuidas — protsess enne tarkvara.</span></li>
+          <li><span class="dot"></span><span><strong>MES, ERP, IoT:</strong> mis on mis ja kuidas valida õige tase.</span></li>
+          <li><span class="dot"></span><span><strong>Andmepõhine juhtimine:</strong> milliseid mõõdikuid jälgida ja kuidas tõlgendada.</span></li>
+          <li><span class="dot"></span><span><strong>Inimene ja tehnoloogia:</strong> kuidas hoida fookus inimesel, mitte süsteemil.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">8 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:89%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">89%</span>
+        </div>
+      </div>
+
+      <!-- PÄEV 9 -->
+      <div class="tab-panel" id="panel-9">
+        <div class="panel-day">Päev 9 · Lõputseremoonia</div>
+        <div class="panel-title">Parendusprojektide esitlus ja tunnistuste üleandmine</div>
+        <div class="panel-goal">"Esitleda oma parendusprojekti tulemusi ja saada tunnustust läbitud teekonna eest."</div>
+        <ul class="panel-list">
+          <li><span class="dot"></span><span><strong>Parendusprojektide esitlused:</strong> iga osaleja esitleb oma projekti tulemusi grupile.</span></li>
+          <li><span class="dot"></span><span><strong>Võtmemõõdikute tulemused:</strong> enne ja pärast — numbrites mõõdetud areng.</span></li>
+          <li><span class="dot"></span><span><strong>Grupiarutelu ja tagasiside:</strong> kogemuste jagamine ja üksteiselt õppimine.</span></li>
+          <li><span class="dot"></span><span><strong>Tunnistuste üleandmine:</strong> Opstar Profit™ tootmisjuhtimise arenguprogrammi lõpetamise tunnistus.</span></li>
+          <li><span class="dot"></span><span><strong>Edasised sammud:</strong> II taseme programm ja pikaajalise arengu planeerimine.</span></li>
+        </ul>
+        <div class="panel-progress">
+          <span class="progress-label">9 / 9</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+          <span class="progress-label" style="color:var(--blue)">✓ Valmis</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+function switchTab(n) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===n-1));
+  document.querySelectorAll('.tab-panel').forEach((p,i) => p.classList.toggle('active', i===n-1));
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

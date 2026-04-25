@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mida annab + Kellele — tootmisjuhtimine.ee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --dark: #111214; --dark2: #1a1c20; --dark3: #242628;
+  --border: rgba(255,255,255,0.08); --white: #f5f4f0;
+  --white2: rgba(245,244,240,0.7); --white3: rgba(245,244,240,0.35);
+  --blue: #0099cc; --blue2: #33bbee;
+  --bluebg: rgba(0,153,204,0.08); --blueborder: rgba(0,153,204,0.25);
+}
+body { font-family: 'Outfit', sans-serif; background: var(--dark2); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{transition-delay:.05s} .d2{transition-delay:.12s} .d3{transition-delay:.19s}
+.d4{transition-delay:.26s} .d5{transition-delay:.33s} .d6{transition-delay:.40s}
+.d7{transition-delay:.47s} .d8{transition-delay:.54s}
+
+/* ══ SECTION ══ */
+.annab-section {
+  padding: 100px 64px;
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.annab-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.annab-inner {
+  position: relative; z-index: 1;
+  max-width: 1160px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3px;
+  align-items: start;
+}
+
+/* ══ SHARED CARD ══ */
+.annab-card {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  padding: 48px 44px;
+  position: relative; overflow: hidden;
+  transition: border-color .3s;
+  height: 100%;
+}
+.annab-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: var(--blue); opacity: 0; transition: opacity .3s;
+}
+.annab-card:hover { border-color: var(--blueborder); }
+.annab-card:hover::before { opacity: 1; }
+
+.card-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+}
+.card-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--blue); }
+
+.card-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(19px, 2vw, 25px);
+  font-weight: 700; line-height: 1.25;
+  color: var(--white); margin-bottom: 32px;
+}
+.card-heading em { font-style: italic; color: var(--blue); }
+
+/* ── LIST (left card) ── */
+.annab-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.annab-list li {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px; color: var(--white2); line-height: 1.6;
+  transition: color .2s;
+}
+.annab-list li:first-child { padding-top: 0; }
+.annab-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.annab-list li:hover { color: var(--white); }
+.annab-list .li-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--blue); flex-shrink: 0;
+  width: 20px; margin-top: 1px;
+}
+
+/* ── RIGHT CARD content ── */
+.kellele-block { margin-bottom: 28px; }
+.kellele-block:last-child { margin-bottom: 0; }
+.kellele-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.kellele-label::before { content: ''; width: 16px; height: 1px; background: var(--blue); }
+.kellele-text {
+  font-size: 13.5px; color: var(--white2); line-height: 1.72;
+}
+.kellele-text strong { color: var(--white); }
+
+/* divider */
+.kellele-divider {
+  border: none; border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+/* contact box */
+.contact-box {
+  background: var(--bluebg);
+  border: 1px solid var(--blueborder);
+  border-radius: 4px;
+  padding: 18px 20px;
+  margin-top: 28px;
+}
+.contact-box-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 10px;
+}
+.contact-box-row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13.5px; color: var(--white2);
+  margin-bottom: 6px;
+}
+.contact-box-row:last-child { margin-bottom: 0; }
+.contact-box-row .ico { font-size: 14px; flex-shrink: 0; }
+.contact-box-row a {
+  color: var(--blue); text-decoration: none;
+  border-bottom: 1px solid var(--blueborder);
+  transition: color .2s;
+}
+.contact-box-row a:hover { color: var(--blue2); }
+
+/* ── MOBILE ── */
+@media (max-width: 960px) {
+  .annab-section { padding: 72px 24px; }
+  .annab-inner { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<section class="annab-section">
+  <div class="annab-inner">
+
+    <!-- LEFT — Mida annab -->
+    <div class="annab-card reveal">
+      <div class="card-eyebrow">Tulemus</div>
+      <h2 class="card-heading">
+        Mida tootmisjuhtimise arenguprogrammi<br>
+        <em>edukas läbimine Sulle annab?</em>
+      </h2>
+
+      <ul class="annab-list">
+        <li>
+          <span class="li-num">01</span>
+          Sünkroniseerib juhtimistasandid ja suudab sünkroniseerida strateegilise, taktikalise ja operatiivtasandi juhtimis­tegevused ühtseks väärtusloome ahelaks.
+        </li>
+        <li>
+          <span class="li-num">02</span>
+          Omandab individuaalseid-organisatoorseid oskuseid ja hoiakuid organiseerituse, süsteemsuse, efektiivsuse osas.
+        </li>
+        <li>
+          <span class="li-num">03</span>
+          Mõistab juhtimissüsteemi ja süsteemse juhtimise eesmärki, olemust, vajalikkust ning oma rolli tähenduslikkust.
+        </li>
+        <li>
+          <span class="li-num">04</span>
+          Õpib tundma operatsioonide ja üldiseid juhtimise funktsioone ja nende omavahelist koostoimet.
+        </li>
+        <li>
+          <span class="li-num">05</span>
+          Õpib tundma tarneahela-, protsesside juhtimise ja organisatsiooni struktuuri, rollide ülesannete ning vastutuse sidusust.
+        </li>
+        <li>
+          <span class="li-num">06</span>
+          Mõistab ja väärtustab väärtusloomise olulisust ettevõttele ja tunneb peamisi raiskamisi, oskab neid välistada.
+        </li>
+        <li>
+          <span class="li-num">07</span>
+          Teab ja tunneb LEAN-meetodi ja agiilse juhtimise olemust ning tööriistu, oskab neid rakendada oma rolliga seonduvalt.
+        </li>
+        <li>
+          <span class="li-num">08</span>
+          Teab ja tunneb tootmiskorralduse, tootmissüsteemi olemust, eesmärki ja funktsioone.
+        </li>
+      </ul>
+    </div>
+
+    <!-- RIGHT — Kellele + Kontakt -->
+    <div class="annab-card reveal d2">
+      <div class="card-eyebrow">Sihtgrupp</div>
+      <h2 class="card-heading">
+        Kellele tootmisjuhtimise<br>
+        <em>arenguprogramm kasu toob?</em>
+      </h2>
+
+      <div class="kellele-block">
+        <div class="kellele-label">Põhisihtgrupp</div>
+        <p class="kellele-text">
+          Koolitus on välja töötatud <strong>suurema ettevõtte kesk- ja operatiivtasandi juhtidele</strong> ning mikro-, väikeste- ja keskmise suurusega ettevõtete meistritele, (tootmis)juhtidele.
+        </p>
+      </div>
+
+      <hr class="kellele-divider">
+
+      <div class="kellele-block">
+        <div class="kellele-label">Laiem kasu</div>
+        <p class="kellele-text">
+          Koolitus annab hea ülevaate ettevõtte operatsioonide ja tarneahela toimimistest ka teistele ettevõtte võtmeisikutele — <strong>kvaliteedi-, ostu-, lao- ja projektijuhtidele ning protsessiinseneridele.</strong>
+        </p>
+      </div>
+
+      <div class="contact-box">
+        <div class="contact-box-label">Küsi lisateavet</div>
+        <div class="contact-box-row">
+          <span class="ico">📞</span>
+          <span>Andres Kase · <strong>513 8403</strong></span>
+        </div>
+        <div class="contact-box-row">
+          <span class="ico">✉</span>
+          <a href="mailto:andreskase@tootmisjuhtimine.ee">andreskase@tootmisjuhtimine.ee</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
