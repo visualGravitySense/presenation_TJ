@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Template Previews</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .preview-card { width: 320px; height: 180px; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <h1 class="text-2xl font-bold mb-6">Template Preview Generator</h1>
+    <div id="previews" class="grid grid-cols-3 gap-4"></div>
+    
+    <script>
+        const templates = [
+            // Root level templates
+            { name: 'index-swiss-prototype', title: 'Swiss Prototype', color: 'from-red-600 to-red-800' },
+            { name: 'index_apple', title: 'Apple Design', color: 'from-gray-600 to-gray-800' },
+            { name: 'index_blueprint', title: 'Blueprint', color: 'from-indigo-600 to-indigo-800' },
+            
+            // Prototype-1 templates
+            { name: 'arvamused_component', title: 'Reviews Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'asukoht_component', title: 'Location Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'footer_component', title: 'Footer Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'galerii_component', title: 'Gallery Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'gallery_koolitus_component', title: 'Training Gallery', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hateless_emotion_wheel', title: 'Emotion Wheel', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hateless_emotion_wheel_1', title: 'Emotion Wheel v1', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hero_component', title: 'Hero Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hinnad_component', title: 'Pricing Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hoiatus_taimer_component', title: 'Timer Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'index', title: 'Prototype 1 Index', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'kliendid_component', title: 'Clients Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'koolitaja_component', title: 'Trainer Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'lean_areng_component', title: 'Lean Development', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'mida_annab_component', title: 'Benefits Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'miks_valida_component', title: 'Why Choose Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'paevane_arengutee_component', title: 'Daily Development', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'programm_component', title: 'Program Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'registreeru_component', title: 'Register Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'teekond_component', title: 'Journey Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'toetus_koolitaja_component', title: 'Support Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'tootmisjuhtimine_prototype', title: 'Management Prototype', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'tunnistus_component', title: 'Certificate Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            
+            // Prototype-2 templates
+            { name: 'apple', title: 'Apple Component', color: 'from-gray-600 to-gray-800', folder: 'prototype-2' },
+            { name: 'index_apple', title: 'Apple Index', color: 'from-gray-600 to-gray-800', folder: 'prototype-2' },
+            
+            // Prototype-3 templates
+            { name: 'blueprint', title: 'Blueprint Component', color: 'from-indigo-600 to-indigo-800', folder: 'prototype-3' },
+            { name: 'index_blueprint', title: 'Blueprint Index', color: 'from-indigo-600 to-indigo-800', folder: 'prototype-3' },
+            
+            // Prototype-4 templates
+            { name: 'index', title: 'Smart Factory', color: 'from-purple-600 to-purple-800', folder: 'prototype-4' },
+            { name: 'index_smartfactory', title: 'Smart Factory Index', color: 'from-purple-600 to-purple-800', folder: 'prototype-4' },
+            
+            // Prototype-5 templates
+            { name: 'index', title: 'Swiss Design', color: 'from-red-600 to-red-800', folder: 'prototype-5' },
+            { name: 'index_swiss', title: 'Swiss Index', color: 'from-red-600 to-red-800', folder: 'prototype-5' },
+            
+            // Web-templates (same as prototype-1)
+            { name: 'arvamused_component', title: 'Reviews Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'asukoht_component', title: 'Location Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'footer_component', title: 'Footer Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'galerii_component', title: 'Gallery Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'gallery_koolitus_component', title: 'Training Gallery Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'hero_component', title: 'Hero Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'hinnad_component', title: 'Pricing Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'hoiatus_taimer_component', title: 'Timer Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'kliendid_component', title: 'Clients Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'koolitaja_component', title: 'Trainer Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'lean_areng_component', title: 'Lean Development Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'mida_annab_component', title: 'Benefits Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'miks_valida_component', title: 'Why Choose Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'paevane_arengutee_component', title: 'Daily Development Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'programm_component', title: 'Program Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'registreeru_component', title: 'Register Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'teekond_component', title: 'Journey Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'toetus_koolitaja_component', title: 'Support Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
+            { name: 'tunnistus_component', title: 'Certificate Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' }
+        ];
+
+        function createPreviewCard(template) {
+            const folder = template.folder || './';
+            return `
+                <div class="preview-card bg-gradient-to-br ${template.color} rounded-lg p-6 flex flex-col justify-center items-center text-center border border-white/10">
+                    <div class="text-4xl mb-2">📄</div>
+                    <div class="text-sm font-semibold text-white/90">${template.title}</div>
+                    <div class="text-xs text-white/60 mt-1">${template.name}.html</div>
+                </div>
+            `;
+        }
+
+        function generateAllPreviews() {
+            const container = document.getElementById('previews');
+            container.innerHTML = templates.map(template => createPreviewCard(template)).join('');
+            
+            // Generate download links
+            setTimeout(() => {
+                templates.forEach(template => {
+                    console.log(`Would create: ${template.name}-preview.png`);
+                });
+            }, 1000);
+        }
+
+        generateAllPreviews();
+    </script>
+</body>
+</html>

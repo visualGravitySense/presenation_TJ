@@ -287,9 +287,19 @@
         const card = document.createElement('article');
         card.className =
           'group flex flex-col rounded-2xl border border-white/[0.07] bg-surface-raised/80 p-5 shadow-card transition duration-200 hover:border-white/[0.12] hover:bg-surface-raised';
+        // Generate preview image path based on file
+        const previewImage = getPreviewImagePath(file);
+        
         card.innerHTML = `
-          <div class="mb-4 flex items-start justify-between gap-3">
-            <span class="rounded-xl bg-accent-dim p-2.5 text-accent [&_svg]:block [&_svg]:h-5 [&_svg]:w-5"><i data-lucide="file-code" aria-hidden="true"></i></span>
+          <div class="mb-4 aspect-video w-full overflow-hidden rounded-lg border border-white/[0.08] bg-black/40">
+            ${previewImage ? 
+              `<img src="${escapeAttr(previewImage)}" alt="${escapeHtml(title)} preview" class="h-full w-full object-cover" loading="lazy">` :
+              `<div class="flex h-full w-full items-center justify-center">
+                <span class="rounded-xl bg-accent-dim p-2.5 text-accent [&_svg]:block [&_svg]:h-5 [&_svg]:w-5"><i data-lucide="file-code" aria-hidden="true"></i></span>
+              </div>`
+            }
+          </div>
+          <div class="mb-3 flex items-start justify-between gap-3">
             <span class="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ring-1 ring-inset ${badgeClass}">${badge}</span>
           </div>
           <h3 class="mb-1 text-base font-semibold text-white group-hover:text-white">${escapeHtml(title)}</h3>
@@ -328,6 +338,97 @@
       return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
     }
 
+    function getPreviewImagePath(file) {
+      // Mapping of template files to their actual preview images
+      const actualPreviewMap = {
+        // Existing tootmisjuhtimine screenshots
+        'tootmisjuhtimine/audience_section_advanced.html': './tootmisjuhtimine/screencapture-file-C-Users-Admin-Downloads-audience-section-advanced-html-2026-04-05-08_17_31.png',
+        'tootmisjuhtimine/certificate_section_advanced.html': './tootmisjuhtimine/screencapture-file-C-Users-Admin-Downloads-certificate-section-advanced-html-2026-04-05-09_02_04.png',
+        'tootmisjuhtimine/cohorts_section_advanced.html': './tootmisjuhtimine/screencapture-file-C-Users-Admin-Downloads-cohorts-section-advanced-html-2026-04-05-08_51_23.png',
+        'tootmisjuhtimine/features_section_advanced.html': './tootmisjuhtimine/screencapture-file-C-Users-Admin-Downloads-features-section-advanced-html-2026-04-05-08_29_42.png',
+        'tootmisjuhtimine/investment_section_advanced.html': './tootmisjuhtimine/screencapture-file-C-Users-Admin-Downloads-investment-section-advanced-html-2026-04-05-08_57_02.png',
+        'tootmisjuhtimine/koolitus_hero_advanced.html': './tootmisjuhtimine/screencapture-file-C-Users-Admin-Downloads-koolitus-hero-advanced-html-2026-04-05-08_11_16.png',
+        'tootmisjuhtimine/nine_days_section_advanced.html': './tootmisjuhtimine/screencapture-file-C-Users-Admin-Downloads-nine-days-section-advanced-html-2026-04-05-08_23_46.png',
+        'tootmisjuhtimine/testimonials_advanced.html': './tootmisjuhtimine/screencapture-file-C-Users-Admin-Downloads-testimonials-advanced-html-2026-04-05-09_07_13.png',
+        
+        // Root level templates - using existing screenshots where possible
+        'index-swiss-prototype.html': './prototype-5/screencapture-index_swiss-html-2026-04-25-15_30_00.png',
+        'index_apple.html': './prototype-2/screencapture-index_apple-html-2026-04-25-15_30_00.png',
+        'index_blueprint.html': './prototype-3/screencapture-index_blueprint-html-2026-04-25-15_30_00.png',
+        
+        // Prototype-1 templates
+        'prototype-1/arvamused_component.html': './prototype-1/screencapture-arvamused_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/asukoht_component.html': './prototype-1/screencapture-asukoht_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/footer_component.html': './prototype-1/screencapture-footer_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/galerii_component.html': './prototype-1/screencapture-galerii_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/gallery_koolitus_component.html': './prototype-1/screencapture-gallery_koolitus_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/hateless_emotion_wheel.html': './prototype-1/screencapture-hateless_emotion_wheel-html-2026-04-25-15_30_00.png',
+        'prototype-1/hateless_emotion_wheel_1.html': './prototype-1/screencapture-hateless_emotion_wheel_1-html-2026-04-25-15_30_00.png',
+        'prototype-1/hero_component.html': './prototype-1/screencapture-hero_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/hinnad_component.html': './prototype-1/screencapture-hinnad_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/hoiatus_taimer_component.html': './prototype-1/screencapture-hoiatus_taimer_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/index.html': './prototype-1/screencapture-index-html-2026-04-25-15_30_00.png',
+        'prototype-1/kliendid_component.html': './prototype-1/screencapture-kliendid_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/koolitaja_component.html': './prototype-1/screencapture-koolitaja_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/lean_areng_component.html': './prototype-1/screencapture-lean_areng_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/mida_annab_component.html': './prototype-1/screencapture-mida_annab_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/miks_valida_component.html': './prototype-1/screencapture-miks_valida_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/paevane_arengutee_component.html': './prototype-1/screencapture-paevane_arengutee_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/programm_component.html': './prototype-1/screencapture-programm_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/registreeru_component.html': './prototype-1/screencapture-registreeru_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/teekond_component.html': './prototype-1/screencapture-teekond_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/toetus_koolitaja_component.html': './prototype-1/screencapture-toetus_koolitaja_component-html-2026-04-25-15_30_00.png',
+        'prototype-1/tootmisjuhtimine_prototype.html': './prototype-1/screencapture-tootmisjuhtimine_prototype-html-2026-04-25-15_30_00.png',
+        'prototype-1/tunnistus_component.html': './prototype-1/screencapture-tunnistus_component-html-2026-04-25-15_30_00.png',
+        
+        // Prototype-2 templates
+        'prototype-2/apple.html': './prototype-2/screencapture-apple-html-2026-04-25-15_30_00.png',
+        'prototype-2/index_apple.html': './prototype-2/screencapture-index_apple-html-2026-04-25-15_30_00.png',
+        
+        // Prototype-3 templates
+        'prototype-3/blueprint.html': './prototype-3/screencapture-blueprint-html-2026-04-25-15_30_00.png',
+        'prototype-3/index_blueprint.html': './prototype-3/screencapture-index_blueprint-html-2026-04-25-15_30_00.png',
+        
+        // Prototype-4 templates
+        'prototype-4/index.html': './prototype-4/screencapture-index-html-2026-04-25-15_30_00.png',
+        'prototype-4/index_smartfactory.html': './prototype-4/screencapture-index_smartfactory-html-2026-04-25-15_30_00.png',
+        
+        // Prototype-5 templates
+        'prototype-5/index.html': './prototype-5/screencapture-index-html-2026-04-25-15_30_00.png',
+        'prototype-5/index_swiss.html': './prototype-5/screencapture-index_swiss-html-2026-04-25-15_30_00.png',
+        
+        // Web-templates
+        'web-templates/arvamused_component.html': './web-templates/screencapture-arvamused_component-html-2026-04-25-15_30_00.png',
+        'web-templates/asukoht_component.html': './web-templates/screencapture-asukoht_component-html-2026-04-25-15_30_00.png',
+        'web-templates/footer_component.html': './web-templates/screencapture-footer_component-html-2026-04-25-15_30_00.png',
+        'web-templates/galerii_component.html': './web-templates/screencapture-galerii_component-html-2026-04-25-15_30_00.png',
+        'web-templates/gallery_koolitus_component.html': './web-templates/screencapture-gallery_koolitus_component-html-2026-04-25-15_30_00.png',
+        'web-templates/hero_component.html': './web-templates/screencapture-hero_component-html-2026-04-25-15_30_00.png',
+        'web-templates/hinnad_component.html': './web-templates/screencapture-hinnad_component-html-2026-04-25-15_30_00.png',
+        'web-templates/hoiatus_taimer_component.html': './web-templates/screencapture-hoiatus_taimer_component-html-2026-04-25-15_30_00.png',
+        'web-templates/kliendid_component.html': './web-templates/screencapture-kliendid_component-html-2026-04-25-15_30_00.png',
+        'web-templates/koolitaja_component.html': './web-templates/screencapture-koolitaja_component-html-2026-04-25-15_30_00.png',
+        'web-templates/lean_areng_component.html': './web-templates/screencapture-lean_areng_component-html-2026-04-25-15_30_00.png',
+        'web-templates/mida_annab_component.html': './web-templates/screencapture-mida_annab_component-html-2026-04-25-15_30_00.png',
+        'web-templates/miks_valida_component.html': './web-templates/screencapture-miks_valida_component-html-2026-04-25-15_30_00.png',
+        'web-templates/paevane_arengutee_component.html': './web-templates/screencapture-paevane_arengutee_component-html-2026-04-25-15_30_00.png',
+        'web-templates/programm_component.html': './web-templates/screencapture-programm_component-html-2026-04-25-15_30_00.png',
+        'web-templates/registreeru_component.html': './web-templates/screencapture-registreeru_component-html-2026-04-25-15_30_00.png',
+        'web-templates/teekond_component.html': './web-templates/screencapture-teekond_component-html-2026-04-25-15_30_00.png',
+        'web-templates/toetus_koolitaja_component.html': './web-templates/screencapture-toetus_koolitaja_component-html-2026-04-25-15_30_00.png',
+        'web-templates/tunnistus_component.html': './web-templates/screencapture-tunnistus_component-html-2026-04-25-15_30_00.png',
+      };
+      
+      // Return actual preview if available
+      if (actualPreviewMap[file]) {
+        return actualPreviewMap[file];
+      }
+      
+      // Fallback for any missing templates
+      return null;
+    }
+
+    
     document.getElementById('modal-close').addEventListener('click', closeModal);
     document.getElementById('modal-backdrop').addEventListener('click', closeModal);
     document.getElementById('btn-device-desktop').addEventListener('click', () => setDeviceMode('desktop'));
