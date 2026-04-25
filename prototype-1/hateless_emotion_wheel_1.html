@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>HATE-LESS Emotion Wheel</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@700;800&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                background: #f2ede8;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
+            }
+            .scene {
+                width: 960px;
+                height: 540px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+            svg {
+                filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.13))
+                    drop-shadow(0 4px 12px rgba(0, 0, 0, 0.07));
+                opacity: 0;
+                transform: scale(0.82) rotate(-20deg);
+                animation: wheelIn 0.9s cubic-bezier(0.34, 1.3, 0.64, 1) 0.3s
+                    forwards;
+            }
+            @keyframes wheelIn {
+                to {
+                    opacity: 1;
+                    transform: scale(1) rotate(0deg);
+                }
+            }
+            .arrow-g {
+                opacity: 0;
+                animation: fadeIn 0.4s ease var(--d) forwards;
+            }
+            @keyframes fadeIn {
+                to {
+                    opacity: 1;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="scene">
+            <svg
+                id="wheel"
+                viewBox="0 0 500 500"
+                width="500"
+                height="500"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <defs>
+                    <radialGradient id="g0" cx="65%" cy="25%" r="75%">
+                        <stop offset="0%" stop-color="#FF4444" />
+                        <stop offset="100%" stop-color="#BB0000" />
+                    </radialGradient>
+                    <radialGradient id="g1" cx="75%" cy="60%" r="75%">
+                        <stop offset="0%" stop-color="#FF9A3C" />
+                        <stop offset="100%" stop-color="#D06000" />
+                    </radialGradient>
+                    <radialGradient id="g2" cx="55%" cy="85%" r="75%">
+                        <stop offset="0%" stop-color="#9B6FD0" />
+                        <stop offset="100%" stop-color="#4A2880" />
+                    </radialGradient>
+                    <radialGradient id="g3" cx="35%" cy="80%" r="75%">
+                        <stop offset="0%" stop-color="#44CC70" />
+                        <stop offset="100%" stop-color="#1A7A40" />
+                    </radialGradient>
+                    <radialGradient id="g4" cx="25%" cy="55%" r="75%">
+                        <stop offset="0%" stop-color="#4AA0E8" />
+                        <stop offset="100%" stop-color="#1555A0" />
+                    </radialGradient>
+                    <radialGradient id="g5" cx="38%" cy="20%" r="75%">
+                        <stop offset="0%" stop-color="#96D43A" />
+                        <stop offset="100%" stop-color="#4A8010" />
+                    </radialGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <script>
+            const svg = document.getElementById("wheel");
+            const NS = "http://www.w3.org/2000/svg";
+            const cx = 250,
+                cy = 250;
+            const R = 230;
+            const r = 62;
+            const GAP = 2.5;
+
+            const segments = [
+                { label: "ANGER", color: "url(#g0)" },
+                { label: "FEAR", color: "url(#g1)" },
+                { label: "EMPATHY", color: "url(#g2)" },
+                { label: "RELIEF", color: "url(#g3)" },
+                { label: "COMPASSION", color: "url(#g4)" },
+                { label: "JOY", color: "url(#g5)" },
+            ];
+
+            const N = segments.length;
+            const slice = 360 / N;
+
+            function toRad(deg) {
+                return (deg * Math.PI) / 180;
+            }
+            function pt(radius, angleDeg) {
+                const a = toRad(angleDeg);
+                return [cx + radius * Math.cos(a), cy + radius * Math.sin(a)];
+            }
+
+            // ---- Draw segments ----
+            segments.forEach((seg, i) => {
+                const s = -90 + i * slice + GAP / 2;
+                const e = -90 + (i + 1) * slice - GAP / 2;
+                const [x1, y1] = pt(R, s);
+                const [x2, y2] = pt(R, e);
+                const [x3, y3] = pt(r, e);
+                const [x4, y4] = pt(r, s);
+                const la = e - s > 180 ? 1 : 0;
+
+                const path = document.createElementNS(NS, "path");
+                path.setAttribute(
+                    "d",
+                    `M${x1},${y1} A${R},${R} 0 ${la} 1 ${x2},${y2} L${x3},${y3} A${r},${r} 0 ${la} 0 ${x4},${y4} Z`,
+                );
+                path.setAttribute("fill", seg.color);
+                path.setAttribute("stroke", "white");
+                path.setAttribute("stroke-width", "3");
+                svg.appendChild(path);
+
+                // Label at mid-angle, mid-radius
+                const mid = s + (e - s) / 2;
+                const lr = (R + r) / 2 + 30;
+                const [lx, ly] = pt(lr, mid);
+
+                const txt = document.createElementNS(NS, "text");
+                txt.setAttribute("x", lx);
+                txt.setAttribute("y", ly);
+                txt.setAttribute("text-anchor", "middle");
+                txt.setAttribute("dominant-baseline", "middle");
+                txt.setAttribute("font-family", "'DM Sans', sans-serif");
+                txt.setAttribute("font-weight", "800");
+                const fs =
+                    seg.label.length > 7
+                        ? "13"
+                        : seg.label.length > 5
+                          ? "15"
+                          : "17";
+                txt.setAttribute("font-size", fs);
+                txt.setAttribute("fill", "white");
+                txt.setAttribute(
+                    "transform",
+                    `rotate(${mid + 90}, ${lx}, ${ly})`,
+                );
+                txt.textContent = seg.label;
+                svg.appendChild(txt);
+            });
+
+            // ---- Draw arrows ----
+            // Each arrow: clean line + proper arrowhead(s) along segment bisector
+            const arrowDefs = [
+                { seg: 0, type: "both" }, // ANGER top-right
+                { seg: 1, type: "in" }, // FEAR right
+                { seg: 2, type: "both" }, // EMPATHY bottom-right
+                { seg: 3, type: "both" }, // FEAR bottom-left
+                { seg: 4, type: "out" }, // ANGER left
+                { seg: 5, type: "both" }, // JOY top-left
+            ];
+
+            const arrowColors = [
+                "rgba(255,255,255,0.95)",
+                "rgba(255,225,170,0.95)",
+                "rgba(215,185,255,0.95)",
+                "rgba(160,245,185,0.95)",
+                "rgba(175,220,255,0.95)",
+                "rgba(215,255,115,0.95)",
+            ];
+
+            function makeArrowHead(px, py, angleDeg, color, size = 9) {
+                // tip at (px,py), pointing in angleDeg direction
+                const a = toRad(angleDeg);
+                const lx = px - size * Math.cos(a) + size * 0.5 * Math.sin(a);
+                const ly = py - size * Math.sin(a) - size * 0.5 * Math.cos(a);
+                const rx = px - size * Math.cos(a) - size * 0.5 * Math.sin(a);
+                const ry = py - size * Math.sin(a) + size * 0.5 * Math.cos(a);
+                const poly = document.createElementNS(NS, "polygon");
+                poly.setAttribute(
+                    "points",
+                    `${px},${py} ${lx},${ly} ${rx},${ry}`,
+                );
+                poly.setAttribute("fill", color);
+                return poly;
+            }
+
+            arrowDefs.forEach(({ seg, type }, idx) => {
+                const s = -90 + seg * slice + GAP / 2;
+                const e = -90 + (seg + 1) * slice - GAP / 2;
+                const mid = s + (e - s) / 2;
+
+                const labelR = (R + r) / 2 + 8;
+                const arrowStart = labelR + 20; // ← УВЕЛИЧЬ чтобы короче, УМЕНЬШИ чтобы длиннее
+                const arrowEnd = r + 5; // ← УМЕНЬШИ чтобы длиннее (не меньше 0)
+
+                const [ax1, ay1] = pt(arrowStart, mid); // start near text
+                const [ax2, ay2] = pt(arrowEnd, mid); // end near center
+
+                const ac = arrowColors[seg];
+
+                const g = document.createElementNS(NS, "g");
+                g.setAttribute("class", "arrow-g");
+                g.style.setProperty("--d", `${1.0 + idx * 0.1}s`);
+
+                // Line
+                const line = document.createElementNS(NS, "line");
+                line.setAttribute("x1", ax1);
+                line.setAttribute("y1", ay1);
+                line.setAttribute("x2", ax2);
+                line.setAttribute("y2", ay2);
+                line.setAttribute("stroke", ac);
+                line.setAttribute("stroke-width", "3");
+                line.setAttribute("stroke-linecap", "round");
+                g.appendChild(line);
+
+                // Arrowhead at center end (pointing inward)
+                if (type === "both" || type === "in") {
+                    g.appendChild(makeArrowHead(ax2, ay2, mid + 180, ac));
+                }
+
+                // Arrowhead at text end (pointing outward)
+                if (type === "both" || type === "out") {
+                    g.appendChild(makeArrowHead(ax1, ay1, mid, ac));
+                }
+
+                svg.appendChild(g);
+            });
+
+            // ---- Center donut hole ----
+            const bg = document.createElementNS(NS, "circle");
+            bg.setAttribute("cx", cx);
+            bg.setAttribute("cy", cy);
+            bg.setAttribute("r", r - 3);
+            bg.setAttribute("fill", "#F2EDE8");
+            svg.appendChild(bg);
+
+            const wc = document.createElementNS(NS, "circle");
+            wc.setAttribute("cx", cx);
+            wc.setAttribute("cy", cy);
+            wc.setAttribute("r", r - 3);
+            wc.setAttribute("fill", "white");
+            wc.setAttribute("opacity", "0.88");
+            svg.appendChild(wc);
+
+            // HATE-LESS text
+            const t1 = document.createElementNS(NS, "text");
+            t1.setAttribute("x", cx);
+            t1.setAttribute("y", cy - 6);
+            t1.setAttribute("text-anchor", "middle");
+            t1.setAttribute("dominant-baseline", "middle");
+            t1.setAttribute("font-family", "'Bebas Neue', sans-serif");
+            t1.setAttribute("font-size", "15");
+            t1.setAttribute("letter-spacing", "2");
+            t1.setAttribute("fill", "#CC0000");
+            t1.textContent = "HATE";
+            svg.appendChild(t1);
+
+            const sep = document.createElementNS(NS, "line");
+            sep.setAttribute("x1", cx - 16);
+            sep.setAttribute("y1", cy + 1);
+            sep.setAttribute("x2", cx + 16);
+            sep.setAttribute("y2", cy + 1);
+            sep.setAttribute("stroke", "#CC0000");
+            sep.setAttribute("stroke-width", "1.2");
+            svg.appendChild(sep);
+
+            const t2 = document.createElementNS(NS, "text");
+            t2.setAttribute("x", cx);
+            t2.setAttribute("y", cy + 10);
+            t2.setAttribute("text-anchor", "middle");
+            t2.setAttribute("dominant-baseline", "middle");
+            t2.setAttribute("font-family", "'Bebas Neue', sans-serif");
+            t2.setAttribute("font-size", "15");
+            t2.setAttribute("letter-spacing", "2");
+            t2.setAttribute("fill", "#CC0000");
+            t2.textContent = "LESS";
+            svg.appendChild(t2);
+        </script>
+    </body>
+</html>

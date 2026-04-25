@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hinnad — tootmisjuhtimine.ee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --dark: #111214; --dark2: #1a1c20; --dark3: #242628;
+  --border: rgba(255,255,255,0.08); --white: #f5f4f0;
+  --white2: rgba(245,244,240,0.7); --white3: rgba(245,244,240,0.35);
+  --blue: #0099cc; --blue2: #33bbee;
+  --bluebg: rgba(0,153,204,0.08); --blueborder: rgba(0,153,204,0.25);
+}
+body { font-family: 'Outfit', sans-serif; background: var(--dark2); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{transition-delay:.08s} .d2{transition-delay:.18s} .d3{transition-delay:.28s}
+
+/* ══ SECTION ══ */
+.hinnad-section {
+  padding: 100px 64px;
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.hinnad-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.hinnad-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+
+/* ── HEADER ── */
+.hinnad-header { text-align: center; margin-bottom: 52px; }
+.hinnad-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+}
+.hinnad-eyebrow::before, .hinnad-eyebrow::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--blue);
+}
+.hinnad-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 900; color: var(--white);
+}
+.hinnad-title em { font-style: italic; color: var(--blue); }
+
+/* ── PRICING GRID ── */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  margin-bottom: 3px;
+}
+
+/* ── CARD ── */
+.price-card {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.price-card:hover { border-color: var(--blueborder); transform: translateY(-3px); }
+
+/* featured card */
+.price-card--featured {
+  border-color: var(--blueborder);
+  background: var(--dark);
+}
+.price-card--featured::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--blue2));
+}
+
+/* BADGE */
+.price-badge {
+  position: absolute; top: 16px; right: -28px;
+  background: var(--blue); color: #fff;
+  font-size: 9px; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; padding: 5px 36px;
+  transform: rotate(35deg);
+  transform-origin: center;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+.price-badge--group { background: #7c3aed; }
+.price-badge--solo  { background: #059669; }
+
+/* CARD HEADER */
+.price-header {
+  padding: 28px 32px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.price-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--blue);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+.price-label::before { content: ''; width: 14px; height: 1px; background: var(--blue); }
+.price-plan {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 700;
+  color: var(--white); line-height: 1.2;
+}
+
+/* PRICE */
+.price-body {
+  padding: 28px 32px 24px;
+  flex: 1; display: flex; flex-direction: column;
+}
+.price-amount {
+  display: flex; align-items: flex-start; gap: 4px;
+  margin-bottom: 24px;
+}
+.price-currency {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--blue); margin-top: 10px;
+}
+.price-number {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 5vw, 72px);
+  font-weight: 900; line-height: 1;
+  color: var(--white);
+}
+.price-number--ask {
+  font-size: clamp(36px, 3.5vw, 52px);
+  color: var(--blue);
+  font-style: italic;
+}
+.price-per {
+  font-size: 11px; color: var(--white3);
+  letter-spacing: .06em; margin-top: auto;
+  align-self: flex-end; padding-bottom: 10px;
+}
+
+/* INCLUDES */
+.price-includes {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 0;
+  margin-bottom: 28px;
+}
+.price-includes li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 0; border-bottom: 1px solid var(--border);
+  font-size: 13px; color: var(--white2);
+}
+.price-includes li:last-child { border-bottom: none; }
+.price-includes .check {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--bluebg); border: 1px solid var(--blueborder);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--blue); flex-shrink: 0;
+}
+.price-includes .cross {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: var(--white3); flex-shrink: 0;
+}
+
+/* CTA BUTTON */
+.price-cta {
+  display: block; width: 100%;
+  background: var(--blue); color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; text-align: center;
+  padding: 16px 24px; border: none; cursor: pointer;
+  text-decoration: none;
+  transition: background .2s;
+  margin-top: auto;
+}
+.price-cta:hover { background: var(--blue2); }
+.price-cta--outline {
+  background: transparent;
+  border: 1px solid var(--blueborder);
+  color: var(--blue);
+}
+.price-cta--outline:hover { background: var(--bluebg); color: var(--blue2); }
+
+.price-footnote {
+  font-size: 11px; color: var(--white3);
+  text-align: center; margin-top: 10px;
+  letter-spacing: .04em;
+}
+
+/* ── BOTTOM NOTE ── */
+.hinnad-note {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  padding: 28px 40px;
+  display: flex; gap: 20px; align-items: flex-start;
+  position: relative; overflow: hidden;
+  transition: border-color .3s;
+}
+.hinnad-note::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; bottom: 0; width: 2px;
+  background: var(--blue);
+}
+.hinnad-note-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.hinnad-note-text {
+  font-size: 14px; color: var(--white2); line-height: 1.7;
+}
+.hinnad-note-text strong { color: var(--white); }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .hinnad-section { padding: 72px 20px; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .price-card:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<section class="hinnad-section">
+  <div class="hinnad-inner">
+
+    <div class="hinnad-header reveal">
+      <div class="hinnad-eyebrow">Investeering</div>
+      <h2 class="hinnad-title">Vali endale <em>sobiv osalemine</em></h2>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- CARD 1: Grupp -->
+      <div class="price-card reveal d1">
+        <div class="price-badge price-badge--group">Hea grupile</div>
+        <div class="price-header">
+          <div class="price-label">Grupisoodus</div>
+          <div class="price-plan">Kolm või enam osalejat<br>samast ettevõttest</div>
+        </div>
+        <div class="price-body">
+          <div class="price-amount">
+            <span class="price-currency">€</span>
+            <span class="price-number price-number--ask">Küsi hinda</span>
+          </div>
+          <ul class="price-includes">
+            <li><span class="check">✓</span>Lõunasöök hinnas</li>
+            <li><span class="check">✓</span>9 päeva praktikat</li>
+            <li><span class="check">✓</span>7 seminari + 2 ettevõttekülastust</li>
+            <li><span class="check">✓</span>Koolituskeskond ja materjalid</li>
+            <li><span class="check">✓</span>Parendusprojekti tugi</li>
+          </ul>
+          <a href="mailto:andreskase@tootmisjuhtimine.ee" class="price-cta price-cta--outline">Küsi grupihinda</a>
+          <div class="price-footnote">+ käibemaks · individuaalne pakkumine</div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Kaks — FEATURED -->
+      <div class="price-card price-card--featured reveal d2">
+        <div class="price-badge">Populaarne</div>
+        <div class="price-header">
+          <div class="price-label">Kolleegiga</div>
+          <div class="price-plan">Kahekesi kolleegiga<br>samast ettevõttest</div>
+        </div>
+        <div class="price-body">
+          <div class="price-amount">
+            <span class="price-currency">€</span>
+            <span class="price-number">1796</span>
+          </div>
+          <ul class="price-includes">
+            <li><span class="check">✓</span>Lõunasöök hinnas</li>
+            <li><span class="check">✓</span>9 päeva praktikat</li>
+            <li><span class="check">✓</span>7 seminari + 2 ettevõttekülastust</li>
+            <li><span class="check">✓</span>Koolituskeskond ja materjalid</li>
+            <li><span class="check">✓</span>Parendusprojekti tugi</li>
+          </ul>
+          <a href="mailto:andreskase@tootmisjuhtimine.ee" class="price-cta">Registreeru</a>
+          <div class="price-footnote">inimese kohta + käibemaks</div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Üks -->
+      <div class="price-card reveal d3">
+        <div class="price-badge price-badge--solo">Avasta üksi</div>
+        <div class="price-header">
+          <div class="price-label">Individuaalne</div>
+          <div class="price-plan">Üksi osaledes<br>&nbsp;</div>
+        </div>
+        <div class="price-body">
+          <div class="price-amount">
+            <span class="price-currency">€</span>
+            <span class="price-number">1896</span>
+          </div>
+          <ul class="price-includes">
+            <li><span class="check">✓</span>Lõunasöök hinnas</li>
+            <li><span class="check">✓</span>9 päeva praktikat</li>
+            <li><span class="check">✓</span>7 seminari + 2 ettevõttekülastust</li>
+            <li><span class="check">✓</span>Koolituskeskond ja materjalid</li>
+            <li><span class="check">✓</span>Parendusprojekti tugi</li>
+          </ul>
+          <a href="mailto:andreskase@tootmisjuhtimine.ee" class="price-cta">Registreeru</a>
+          <div class="price-footnote">+ käibemaks</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- NOTE -->
+    <div class="hinnad-note reveal">
+      <div class="hinnad-note-icon">📋</div>
+      <p class="hinnad-note-text">
+        Peale registreerumist väljastan arve, mille palun tasuda mõistliku ajaga enne koolituse algust.
+        <strong>Arve tasumisega kinnitad Sina osalemissoovi ja mina tagan Sulle koolitusel koha.</strong>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

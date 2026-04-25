@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerii — tootmisjuhtimine.ee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --dark: #111214; --dark2: #1a1c20; --dark3: #242628;
+  --border: rgba(255,255,255,0.08); --white: #f5f4f0;
+  --white2: rgba(245,244,240,0.7); --white3: rgba(245,244,240,0.35);
+  --blue: #0099cc; --blue2: #33bbee;
+  --bluebg: rgba(0,153,204,0.08); --blueborder: rgba(0,153,204,0.25);
+}
+body { font-family: 'Outfit', sans-serif; background: var(--dark2); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ══ SECTION ══ */
+.galerii-section {
+  padding: 100px 64px;
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.galerii-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.galerii-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+
+/* ── HEADER ── */
+.galerii-header { text-align: center; margin-bottom: 52px; }
+.galerii-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+}
+.galerii-eyebrow::before, .galerii-eyebrow::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--blue);
+}
+.galerii-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 900; color: var(--white);
+}
+.galerii-title em { font-style: italic; color: var(--blue); }
+
+/* ── MASONRY GRID ── */
+.masonry {
+  columns: 4;
+  column-gap: 3px;
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 3px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.masonry-item img {
+  width: 100%; display: block;
+  filter: brightness(.75) saturate(.85);
+  transition: filter .4s, transform .5s;
+}
+.masonry-item:hover img {
+  filter: brightness(1) saturate(1.1);
+  transform: scale(1.04);
+}
+.masonry-item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 50%);
+  opacity: 0; transition: opacity .3s;
+  display: flex; align-items: flex-end;
+  padding: 16px;
+}
+.masonry-item:hover .masonry-item-overlay { opacity: 1; }
+.masonry-item-label {
+  font-size: 11px; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: rgba(255,255,255,.7);
+}
+
+/* tall item */
+.masonry-item--tall img { aspect-ratio: 3/4; object-fit: cover; }
+.masonry-item--wide img { aspect-ratio: 16/9; object-fit: cover; }
+.masonry-item--sq   img { aspect-ratio: 1/1;  object-fit: cover; }
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,.92);
+  align-items: center; justify-content: center;
+  padding: 40px;
+}
+.lightbox.open { display: flex; }
+.lightbox-img {
+  max-width: 90vw; max-height: 85vh;
+  object-fit: contain; display: block;
+  border: 1px solid var(--border);
+}
+.lightbox-close {
+  position: fixed; top: 24px; right: 32px;
+  font-size: 28px; color: var(--white2); cursor: pointer;
+  background: none; border: none; line-height: 1;
+  transition: color .2s;
+}
+.lightbox-close:hover { color: var(--blue); }
+.lightbox-nav {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  font-size: 24px; color: var(--white2); cursor: pointer;
+  background: var(--dark2); border: 1px solid var(--border);
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.lightbox-nav:hover { color: var(--blue); border-color: var(--blueborder); }
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+.lightbox-counter {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--white3);
+}
+
+/* ── SHOW MORE ── */
+.gallery-more-wrap { margin-top: 3px; }
+.gallery-more-btn {
+  width: 100%; background: var(--dark); border: 1px solid var(--border);
+  color: var(--white2); font-family: 'Outfit', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; padding: 16px 24px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  transition: all .2s;
+}
+.gallery-more-btn:hover { background: var(--dark3); border-color: var(--blueborder); color: var(--white); }
+.gallery-more-count {
+  background: var(--bluebg); border: 1px solid var(--blueborder);
+  color: var(--blue); font-size: 11px; font-weight: 700;
+  padding: 2px 10px; border-radius: 2px;
+}
+
+.hidden-photos { display: none; }
+.hidden-photos.visible { display: block; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .galerii-section { padding: 72px 20px; }
+  .masonry { columns: 2; }
+}
+@media (max-width: 480px) {
+  .masonry { columns: 1; }
+}
+</style>
+</head>
+<body>
+
+<section class="galerii-section">
+  <div class="galerii-inner">
+
+    <div class="galerii-header reveal">
+      <div class="galerii-eyebrow">Galerii</div>
+      <h2 class="galerii-title">Koolitused <em>piltides</em></h2>
+    </div>
+
+    <div class="masonry reveal" id="masonry-grid">
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(0)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/V1880195-768x576.jpg" alt="Ettevõttekülastus">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Ettevõttekülastus</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(1)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2025/08/20230112_082225113_iOS-768x576.jpg" alt="Grupp koolitusel">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Grupp koolitusel</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(2)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/VMT-ees__01-768x576.jpg" alt="VMT Tehased">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">VMT Tehased</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(3)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/Cleveronis-1-768x576.jpg" alt="Cleveron külastus">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Cleveron — GEMBA</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(4)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/20191010_114526533_iOS-768x576.jpg" alt="Tehase külastus">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Tehase külastus</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--sq" onclick="openLightbox(5)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/IMG_20180910_121636-768x768.jpg" alt="Seminar">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Seminar</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(6)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2025/08/20230112_104134835_iOS-768x576.jpg" alt="Koolitus">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Koolitus</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(7)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2019/02/img-20190214-092626-768x576.jpg" alt="Grupi arutelu">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Grupi arutelu</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(8)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/2018-02-15-09.41.18-768x576.jpg" alt="Seminariruum">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Seminariruum</span></div>
+      </div>
+
+      <div class="masonry-item masonry-item--wide" onclick="openLightbox(9)">
+        <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2019/02/img-20190214-142504-768x576.jpg" alt="Praktika">
+        <div class="masonry-item-overlay"><span class="masonry-item-label">Praktika</span></div>
+      </div>
+
+    </div>
+
+    <!-- MORE BUTTON -->
+    <div class="gallery-more-wrap reveal">
+      <button class="gallery-more-btn" id="gallery-more-btn" onclick="toggleGallery()">
+        <span id="gallery-btn-text">Näita rohkem fotosid</span>
+        <span class="gallery-more-count" id="gallery-count">+20</span>
+        <span id="gallery-arrow">↓</span>
+      </button>
+    </div>
+
+    <!-- HIDDEN PHOTOS — add more real URLs here when available -->
+    <div class="hidden-photos" id="hidden-photos">
+      <div class="masonry" style="margin-top:3px">
+        <div class="masonry-item masonry-item--wide" onclick="openLightbox(10)">
+          <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2019/02/img-20190214-142504-768x576.jpg" alt="Praktika">
+          <div class="masonry-item-overlay"><span class="masonry-item-label">Praktika</span></div>
+        </div>
+        <div class="masonry-item masonry-item--sq" onclick="openLightbox(11)">
+          <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/IMG_20180910_121636-768x768.jpg" alt="Seminar">
+          <div class="masonry-item-overlay"><span class="masonry-item-label">Seminar</span></div>
+        </div>
+        <div class="masonry-item masonry-item--wide" onclick="openLightbox(12)">
+          <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/Cleveronis-1-768x576.jpg" alt="Cleveron">
+          <div class="masonry-item-overlay"><span class="masonry-item-label">Cleveron GEMBA</span></div>
+        </div>
+        <div class="masonry-item masonry-item--wide" onclick="openLightbox(13)">
+          <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2025/08/20230112_082225113_iOS-768x576.jpg" alt="Grupp">
+          <div class="masonry-item-overlay"><span class="masonry-item-label">Grupp</span></div>
+        </div>
+        <div class="masonry-item masonry-item--wide" onclick="openLightbox(14)">
+          <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/2018-02-15-09.41.18-768x576.jpg" alt="Seminariruum">
+          <div class="masonry-item-overlay"><span class="masonry-item-label">Seminariruum</span></div>
+        </div>
+        <div class="masonry-item masonry-item--wide" onclick="openLightbox(15)">
+          <img src="https://tootmisjuhtimine.ee/wp-content/uploads/2022/02/VMT-ees__01-768x576.jpg" alt="VMT Tehased">
+          <div class="masonry-item-overlay"><span class="masonry-item-label">VMT Tehased</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">←</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">→</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+
+<script>
+let currentIdx = 0;
+
+function getAllItems() {
+  return Array.from(document.querySelectorAll('.masonry-item'));
+}
+
+function openLightbox(idx) {
+  const items = getAllItems();
+  currentIdx = idx;
+  updateLightbox(items);
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateLightbox(items) {
+  const img = items[currentIdx]?.querySelector('img');
+  const label = items[currentIdx]?.querySelector('.masonry-item-label');
+  if (img) {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-img').alt = img.alt;
+  }
+  document.getElementById('lightbox-counter').textContent =
+    `${currentIdx + 1} / ${items.length}`;
+}
+
+function navLightbox(dir) {
+  const items = getAllItems();
+  currentIdx = (currentIdx + dir + items.length) % items.length;
+  updateLightbox(items);
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeLightboxBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') navLightbox(1);
+  if (e.key === 'ArrowLeft')  navLightbox(-1);
+  if (e.key === 'Escape')     closeLightbox();
+});
+
+let galleryOpen = false;
+function toggleGallery() {
+  galleryOpen = !galleryOpen;
+  const hidden = document.getElementById('hidden-photos');
+  hidden.classList.toggle('visible', galleryOpen);
+  document.getElementById('gallery-btn-text').textContent =
+    galleryOpen ? 'Peida fotod' : 'Näita rohkem fotosid';
+  document.getElementById('gallery-count').textContent = galleryOpen ? '' : '+20';
+  document.getElementById('gallery-arrow').textContent = galleryOpen ? '↑' : '↓';
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

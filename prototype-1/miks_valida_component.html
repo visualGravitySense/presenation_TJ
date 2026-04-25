@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miks Valida — tootmisjuhtimine.ee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --dark: #111214; --dark2: #1a1c20; --dark3: #242628;
+  --border: rgba(255,255,255,0.08); --white: #f5f4f0;
+  --white2: rgba(245,244,240,0.7); --white3: rgba(245,244,240,0.35);
+  --blue: #0099cc; --blue2: #33bbee;
+  --bluebg: rgba(0,153,204,0.08); --blueborder: rgba(0,153,204,0.25);
+}
+body { font-family: 'Outfit', sans-serif; background: var(--dark2); color: var(--white); line-height: 1.6; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{transition-delay:.05s} .d2{transition-delay:.1s} .d3{transition-delay:.15s}
+.d4{transition-delay:.2s} .d5{transition-delay:.25s} .d6{transition-delay:.3s}
+.d7{transition-delay:.35s} .d8{transition-delay:.4s} .d9{transition-delay:.45s}
+.d10{transition-delay:.5s}
+
+/* ══ SECTION ══ */
+.miks-section {
+  padding: 100px 64px;
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.miks-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.miks-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+
+/* ── HEADER ── */
+.miks-header { text-align: center; margin-bottom: 64px; }
+.miks-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+}
+.miks-eyebrow::before, .miks-eyebrow::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--blue);
+}
+.miks-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.8vw, 36px);
+  font-weight: 900; line-height: 1.15; color: var(--white);
+}
+.miks-title em { font-style: italic; color: var(--blue); }
+
+/* ── GRID ── */
+.miks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+
+/* ── CARD ── */
+.miks-card {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  padding: 36px 32px;
+  display: flex; gap: 22px; align-items: flex-start;
+  position: relative; overflow: hidden;
+  transition: border-color .3s, background .3s;
+  cursor: default;
+}
+.miks-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; bottom: 0; width: 2px;
+  background: var(--blue); opacity: 0; transition: opacity .3s;
+}
+.miks-card:hover { background: var(--dark3); border-color: var(--blueborder); }
+.miks-card:hover::before { opacity: 1; }
+
+/* icon circle */
+.miks-icon {
+  width: 48px; height: 48px; flex-shrink: 0;
+  background: var(--bluebg); border: 1px solid var(--blueborder);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  transition: background .3s;
+}
+.miks-card:hover .miks-icon { background: rgba(0,153,204,0.15); }
+
+.miks-body { flex: 1; }
+.miks-card-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
+}
+.miks-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 700; line-height: 1.25;
+  color: var(--white); margin-bottom: 10px;
+}
+.miks-card-text {
+  font-size: 13.5px; color: var(--white2); line-height: 1.7;
+}
+.miks-card-text strong { color: var(--white); }
+
+/* wide card — spans 2 cols */
+.miks-card--wide {
+  grid-column: span 2;
+}
+.miks-card--wide .miks-card-text { columns: 2; gap: 32px; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .miks-section { padding: 72px 24px; }
+  .miks-grid { grid-template-columns: 1fr; }
+  .miks-card--wide { grid-column: span 1; }
+  .miks-card--wide .miks-card-text { columns: 1; }
+}
+</style>
+</head>
+<body>
+
+<section class="miks-section">
+  <div class="miks-inner">
+
+    <div class="miks-header reveal">
+      <div class="miks-eyebrow">Põhjused</div>
+      <h2 class="miks-title">Miks valida <em>OPSTAR PROFIT™</em> arenguprogramm?</h2>
+    </div>
+
+    <div class="miks-grid">
+
+      <div class="miks-card reveal d1">
+        <div class="miks-icon">⭐</div>
+        <div class="miks-body">
+          <div class="miks-card-label">01 · Koolitaja</div>
+          <div class="miks-card-title">Kogenud koolitaja</div>
+          <p class="miks-card-text">Kõige olulisem on plaanide teostumine, kohandamine ja sisuline toimima panek. Just seda tootmisjuhtimise koolitus õpetab! <strong>Kogenud ja hinnatud koolitaja Andres Kase</strong> on laiapõhjaliste teadmistega, integreeritud kogemustega praktik.</p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d2">
+        <div class="miks-icon">👥</div>
+        <div class="miks-body">
+          <div class="miks-card-label">02 · Sihtgrupp</div>
+          <div class="miks-card-title">Avar sihtrühm</div>
+          <p class="miks-card-text">Koolitus on suunatud suurema ettevõtte kesk- ja <strong>operatiivtasandi juhtidele, aga ka mikro-, väikeste- ja keskmise suurusega ettevõtte meistritele, tootmisjuhtidele ja -juhtidele.</strong> Siiski on koolitus vajalik kõikidele tootmisahela võtmeisikutele.</p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d3">
+        <div class="miks-icon">✌️</div>
+        <div class="miks-body">
+          <div class="miks-card-label">03 · Suunitlus</div>
+          <div class="miks-card-title">Tootmis- ja tööstus­juhtimise suunitlus</div>
+          <p class="miks-card-text"><strong>Just need juhtimisprintsiibid, -süsteemid, -meetmed on võetud kasutusele ka teeninduses, logistikas, meditsiinis, vahenduses ja paljudes teistes valdkondades.</strong> Kuigi LEAN, 20 Keys, Six Sigma ja TPS on pärit tootmisest, on nad tänaseks kasutusel ka mujal.</p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d4">
+        <div class="miks-icon">⚡</div>
+        <div class="miks-body">
+          <div class="miks-card-label">04 · Rakendamine</div>
+          <div class="miks-card-title">Kohene rakendamine</div>
+          <p class="miks-card-text">Tootmisjuhtimise koolitus on <strong>praktilise suunitlusega – teadmisi ja uusi kogemusi rakendatakse juba koolituse käigus.</strong> Osaleja teeb kodused tööd, sealhulgas parendusprojekti endale olulisel teemal oma ettevõtte põhjal, kuid kogemusi vahetame koolitusel kõik koos.</p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d5">
+        <div class="miks-icon">📊</div>
+        <div class="miks-body">
+          <div class="miks-card-label">05 · Meetod</div>
+          <div class="miks-card-title">Tõhus meetod</div>
+          <p class="miks-card-text">Tootmisjuhtimise koolitus tõhustab õpitu omandamist ja kohene rakendamine ettevõttes <strong>kannab investeeritud väärtuse ilma raiskamisteta ettevõtte protsessidesse.</strong></p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d6">
+        <div class="miks-icon">🎯</div>
+        <div class="miks-body">
+          <div class="miks-card-label">06 · Mõju</div>
+          <div class="miks-card-title">Vahetu mõju</div>
+          <p class="miks-card-text">Koolitusel omandatul ja rakendatul on vahetu mõju osalejale ning tema kaudu <strong>ettevõtte tootlikkusele, tulemuslikkusele ja kliendi tootmisteenindustasemele.</strong> Ettevõtted vajavad sisulist tootmisjuhtimist, mitte ainult teooriat.</p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d7">
+        <div class="miks-icon">🚌</div>
+        <div class="miks-body">
+          <div class="miks-card-label">07 · Külastused</div>
+          <div class="miks-card-title">Ettevõtete külastused</div>
+          <p class="miks-card-text">Koolitust elavdav osa on erinevate ettevõtete külastamine. Partneriteks siin on avatud suhtumisega ettevõtjad ja ettevõtted: ETS NORD, Legrand Eesti, GPI Estonia, Baltic Workboats, Ouman Eesti, Wendre, Scanfil, Lotus Timber, Matek, Palmse Mehaanikakoda, Karl Stolz, MS Balti Trafo, Harmet, Radius Machining, Gren, VMT Tehased, Kolmeks, Viljandi Aken ja Uks, Magnum Logistics ja paljud teised.</p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d8">
+        <div class="miks-icon">🎓</div>
+        <div class="miks-body">
+          <div class="miks-card-label">08 · Teadmine</div>
+          <div class="miks-card-title">Sisuline teadmine</div>
+          <p class="miks-card-text">Seminariruumis käsitleme teooriat rakenduslikul moel. Igal osalejal on parendusprojekt, mis sisaldab tootmisjuhtimise olulisi aspekte ja katab peamised tootmisjuhtimise funktsioonid. <strong>Mõõdame edasiminekut faktidel põhinevate võtmemõõdikutega, mille põhjal õpib osaleja tootmist juhtima ja vajalikku ära tegema.</strong></p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d9">
+        <div class="miks-icon">🔬</div>
+        <div class="miks-body">
+          <div class="miks-card-label">09 · Praktilisus</div>
+          <div class="miks-card-title">Praktilisus</div>
+          <p class="miks-card-text">Tootmisjuhtimise koolitus <strong>kombineerib teoreetilisi teadmisi ja praktilisi oskusi nii strateegilise, nõudlusest tuleneva taktikalise planeerimise kui ka operatiivtasandi igapäevatöö tõhusa teostamise asjus.</strong> See tagab pikaajalise järjepidevuse ja tulemuslikkuse. Koolitusel ühendame eesmärgi, inimese, protsessid, logistika ja seadmed ning <strong>digitaalsed lahendused.</strong></p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d10">
+        <div class="miks-icon">📈</div>
+        <div class="miks-body">
+          <div class="miks-card-label">10 · Areng</div>
+          <div class="miks-card-title">Ettevõtted ja koolitatavad arenevad</div>
+          <p class="miks-card-text"><strong>Koolitusel osalenutest on saanud kompetentsed kasvupotentsiaaliga praktikud.</strong> Nad räägivad pädevalt kaasa strateegilises-, taktikalises- või operatiivtasandi juhtimises, aidates ettevõtetel areneda ja pareneda.</p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d3">
+        <div class="miks-icon">🏭</div>
+        <div class="miks-body">
+          <div class="miks-card-label">11 · Tööstusharud</div>
+          <div class="miks-card-title">Arvud ja tööstusharud</div>
+          <p class="miks-card-text"><strong>10 aastaga on Andres Kase mikroprogrammidega jaganud ja kinnistanud teadmisi rohkem kui 150-le erineva tasandi juhile!</strong> Esindatud nii tervishoiu- ja toiduainetööstus, puidutööstus, elektroonikatööstus, masina- ja aparaaditööstus, metallitööstus ning innovatiilistest, spetsiifilisematest projektitüüpi tootmisettevõtted.</p>
+        </div>
+      </div>
+
+      <div class="miks-card reveal d4">
+        <div class="miks-icon">🤝</div>
+        <div class="miks-body">
+          <div class="miks-card-label">12 · Partnerlus</div>
+          <div class="miks-card-title">Partnerlus</div>
+          <p class="miks-card-text"><strong>Koolitaja ja koolitatava koostöö on järjepideval tulemuslikkusel põhinev – alustad sel aastal ühe juhiga, jätkad teisel aastal kahega.</strong> Peamine on pikaajaline areng: juhtimise süstematiseerimine ja standardiseerimine nõuab järjepidevust lähenemisele.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

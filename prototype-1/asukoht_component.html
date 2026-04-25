@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asukoht — tootmisjuhtimine.ee</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --dark: #111214; --dark2: #1a1c20; --dark3: #242628;
+  --border: rgba(255,255,255,0.08); --white: #f5f4f0;
+  --white2: rgba(245,244,240,0.7); --white3: rgba(245,244,240,0.35);
+  --blue: #0099cc; --blue2: #33bbee;
+  --bluebg: rgba(0,153,204,0.08); --blueborder: rgba(0,153,204,0.25);
+}
+body { font-family: 'Outfit', sans-serif; background: var(--dark); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{transition-delay:.08s} .d2{transition-delay:.16s}
+
+/* ══ SECTION ══ */
+.asukoht-section {
+  padding: 100px 64px 0;
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.asukoht-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.asukoht-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+
+/* ── HEADER ── */
+.asukoht-header { text-align: center; margin-bottom: 52px; }
+.asukoht-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 20px;
+}
+.asukoht-eyebrow::before, .asukoht-eyebrow::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--blue);
+}
+.asukoht-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 900; color: var(--white);
+}
+.asukoht-title em { font-style: italic; color: var(--blue); }
+
+/* ── MAIN GRID ── */
+.asukoht-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3px;
+  margin-bottom: 3px;
+}
+
+/* INFO CARD */
+.info-card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  padding: 36px 36px;
+  display: flex; flex-direction: column; gap: 28px;
+  position: relative; overflow: hidden;
+  transition: border-color .3s;
+}
+.info-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--blue2), transparent);
+}
+
+.info-block {}
+.info-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--blue);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+.info-label::before { content: ''; width: 14px; height: 1px; background: var(--blue); }
+
+/* address */
+.address-box {
+  background: var(--bluebg);
+  border: 1px solid var(--blueborder);
+  border-radius: 3px;
+  padding: 16px 20px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.address-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.address-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 700; color: var(--white);
+  margin-bottom: 4px;
+}
+.address-street {
+  font-size: 13px; color: var(--white2);
+}
+
+/* train note */
+.train-note {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 16px;
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+.train-icon { font-size: 18px; flex-shrink: 0; }
+.train-text { font-size: 13px; color: var(--white2); line-height: 1.6; }
+.train-text strong { color: var(--white); }
+
+/* contact */
+.contact-rows { display: flex; flex-direction: column; gap: 8px; }
+.contact-row {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13.5px; color: var(--white2);
+}
+.contact-row .ico { font-size: 15px; flex-shrink: 0; }
+.contact-row a { color: var(--blue); text-decoration: none; border-bottom: 1px solid var(--blueborder); transition: color .2s; }
+.contact-row a:hover { color: var(--blue2); }
+
+/* MAP CARD */
+.map-card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  min-height: 360px;
+}
+.map-card iframe {
+  width: 100%; height: 100%;
+  min-height: 360px;
+  display: block; border: none;
+  filter: invert(90%) hue-rotate(180deg) saturate(0.7) brightness(0.85);
+  transition: filter .3s;
+}
+.map-card:hover iframe {
+  filter: invert(90%) hue-rotate(180deg) saturate(1) brightness(0.95);
+}
+.map-overlay-btn {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--dark); border: 1px solid var(--blueborder);
+  color: var(--blue); font-family: 'Outfit', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 8px 16px;
+  display: flex; align-items: center; gap: 6px;
+  transition: all .2s;
+  z-index: 10;
+}
+.map-overlay-btn:hover { background: var(--bluebg); color: var(--blue2); }
+
+/* ══ SUBSIDY BANNER ══ */
+.subsidy-banner {
+  background: var(--dark2);
+  border: 1px solid var(--blueborder);
+  position: relative; overflow: hidden;
+  cursor: pointer;
+  transition: border-color .3s, background .3s;
+  display: block; text-decoration: none;
+}
+.subsidy-banner::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--blue2), var(--blue));
+}
+.subsidy-banner:hover { background: var(--dark3); border-color: var(--blue); }
+
+.subsidy-inner {
+  padding: 32px 48px;
+  display: flex; align-items: center; gap: 40px;
+}
+
+.subsidy-pct {
+  flex-shrink: 0;
+  text-align: center;
+}
+.subsidy-pct-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px; font-weight: 900; line-height: 1;
+  color: var(--blue);
+}
+.subsidy-pct-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--white3);
+  margin-top: 4px;
+}
+
+.subsidy-divider {
+  width: 1px; height: 72px; background: var(--border); flex-shrink: 0;
+}
+
+.subsidy-content { flex: 1; }
+.subsidy-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 10px;
+}
+.subsidy-tag::before { content: ''; width: 14px; height: 1px; background: var(--blue); }
+
+.subsidy-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px, 1.8vw, 22px);
+  font-weight: 900; color: var(--white);
+  line-height: 1.25; margin-bottom: 8px;
+}
+.subsidy-text {
+  font-size: 13.5px; color: var(--white2); line-height: 1.6;
+}
+
+.subsidy-cta {
+  flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.subsidy-btn {
+  background: var(--blue);
+  color: #fff; font-family: 'Outfit', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 14px 28px; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.subsidy-btn:hover { background: var(--blue2); }
+.subsidy-btn-note {
+  font-size: 10px; color: var(--white3); text-align: center;
+  letter-spacing: .04em;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .asukoht-section { padding: 72px 20px 0; }
+  .asukoht-grid { grid-template-columns: 1fr; }
+  .map-card { min-height: 280px; }
+  .map-card iframe { min-height: 280px; }
+  .subsidy-inner { flex-direction: column; gap: 24px; padding: 28px 24px; }
+  .subsidy-divider { display: none; }
+  .subsidy-pct-num { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+
+<section class="asukoht-section">
+  <div class="asukoht-inner">
+
+    <!-- HEADER -->
+    <div class="asukoht-header reveal">
+      <div class="asukoht-eyebrow">Asukoht</div>
+      <h2 class="asukoht-title">Koolitus toimub <em>Grand Hotel Viljandis</em></h2>
+    </div>
+
+    <!-- GRID -->
+    <div class="asukoht-grid">
+
+      <!-- INFO -->
+      <div class="info-card reveal d1">
+
+        <div class="info-block">
+          <div class="info-label">Seminaripaik</div>
+          <div class="address-box">
+            <div class="address-icon">📍</div>
+            <div>
+              <div class="address-name">Grand Hotel Viljandi</div>
+              <div class="address-street">Tartu 11 / Lossi 29<br>71004 Viljandi, Eesti</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-label">Transport</div>
+          <div class="train-note">
+            <div class="train-icon">🚂</div>
+            <div class="train-text"><strong>NB!</strong> Väikese möödusega sobib Tallinn–Viljandi–Tallinn rongisõidu graafik. Seda võimalust on kasutatud.</div>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-label">Registreerimine</div>
+          <div class="contact-rows">
+            <div class="contact-row">
+              <span class="ico">📞</span>
+              <span><strong>513 8403</strong></span>
+            </div>
+            <div class="contact-row">
+              <span class="ico">✉</span>
+              <a href="mailto:andreskase@tootmisjuhtimine.ee">andreskase@tootmisjuhtimine.ee</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MAP -->
+      <div class="map-card reveal d2">
+        <a class="map-overlay-btn"
+           href="https://maps.google.com/?q=Grand+Hotel+Viljandi,+Tartu+11,+Viljandi"
+           target="_blank">
+          ↗ Ava kaardil
+        </a>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2100.!2d25.5953!3d58.3639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46eb370670aaaaab%3A0x6c2b1a0e6b0e1234!2sGrand%20Hotel%20Viljandi!5e0!3m2!1set!2see!4v1"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Grand Hotel Viljandi asukoht">
+        </iframe>
+      </div>
+
+    </div>
+
+    <!-- SUBSIDY BANNER -->
+    <a class="subsidy-banner reveal"
+       href="https://tootmisjuhtimine.ee/taiendkoolituse-standard/"
+       target="_blank">
+      <div class="subsidy-inner">
+
+        <div class="subsidy-pct">
+          <div class="subsidy-pct-num">80%</div>
+          <div class="subsidy-pct-label">Toetus</div>
+        </div>
+
+        <div class="subsidy-divider"></div>
+
+        <div class="subsidy-content">
+          <div class="subsidy-tag">Töötukassa koolitustoetus</div>
+          <div class="subsidy-title">Võimalik taodelda koolitustoetust Töötukassast — kuni 80% koolituse hinnast</div>
+          <p class="subsidy-text">Uuri lisaks täiendkoolituse standardile vastavust — kliki sellel tekstil.</p>
+        </div>
+
+        <div class="subsidy-cta">
+          <div class="subsidy-btn">Uuri lähemalt ↗</div>
+          <div class="subsidy-btn-note">Täiendkoolituse standard</div>
+        </div>
+
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

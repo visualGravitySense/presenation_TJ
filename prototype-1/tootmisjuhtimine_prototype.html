@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html lang="et">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tootmisjuhtimine.ee — Uus sait (prototüüp)</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #0a0a0a;
+      --dark: #111214;
+      --dark2: #1a1c20;
+      --dark3: #242628;
+      --border: rgba(255, 255, 255, 0.08);
+      --white: #f5f4f0;
+      --white2: rgba(245, 244, 240, 0.7);
+      --white3: rgba(245, 244, 240, 0.35);
+      --gold: #0099CC;
+      --gold2: #33bbff;
+      --goldbg: rgba(0, 153, 204, 0.08);
+      --goldborder: rgba(0, 153, 204, 0.25);
+      --red: #c0392b;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-delay-1 {
+      transition-delay: .1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: .2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: .3s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: .4s;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 48px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+      transition: transform .3s ease;
+    }
+
+    .nav-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--white3);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-cta {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 8px 20px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 64px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 60% at 68% 50%, rgba(0, 153, 204, 0.07) 0%, transparent 65%),
+        linear-gradient(180deg, #0a0a0a 0%, #111214 100%);
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 153, 204, 0.25) 40%, rgba(0, 153, 204, 0.25) 60%, transparent 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    /* LEFT */
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 3.8vw, 52px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -.01em;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(14px, 1.8vw, 20px);
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--white2);
+      margin-top: -14px;
+      margin-bottom: 28px;
+    }
+
+    .hero-desc {
+      font-size: 16.5px;
+      color: var(--white2);
+      line-height: 1.75;
+      margin-bottom: 44px;
+      max-width: 500px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 15px 32px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold2);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--white3);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color .2s;
+    }
+
+    .btn-secondary:hover {
+      color: var(--white);
+    }
+
+    .btn-secondary::after {
+      content: '→';
+      color: var(--gold);
+    }
+
+    /* RIGHT — STATS GRID */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    /* Regular stat box — 4 big numbers */
+    .stat-box {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      padding: 30px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, background .3s;
+      cursor: default;
+    }
+
+    .stat-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .stat-box:hover {
+      background: var(--dark3);
+      border-color: rgba(0, 153, 204, 0.3);
+    }
+
+    .stat-box:hover::before {
+      opacity: 1;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .stat-num span {
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--white3);
+    }
+
+    /* Info stat box — spans full width, horizontal layout */
+    .stat-box--info {
+      grid-column: span 2;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 24px;
+    }
+
+    .stat-box--info .stat-num {
+      font-size: 30px;
+      margin-bottom: 0;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+
+    .stat-box--info .stat-num span {
+      color: var(--gold);
+    }
+
+    .stat-box--info .stat-info {
+      flex: 1;
+    }
+
+    .stat-box--info .stat-label {
+      font-size: 10px;
+      margin-bottom: 2px;
+      color: var(--white3);
+    }
+
+    .stat-box--info .stat-desc {
+      font-size: 13px;
+      color: var(--white2);
+      line-height: 1.4;
+    }
+
+    /* ── HERO CTA BLOCK ── */
+    .hero-cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: var(--black);
+      background: var(--gold);
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+
+    .btn-cta:hover {
+      background: var(--gold2);
+      transform: translateY(-2px);
+    }
+
+    .hero-deadline {
+      font-size: 12px;
+      color: var(--white3);
+      font-style: italic;
+    }
+
+    /* ── HERO PROPS ── */
+    .hero-props {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-prop {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--white2);
+      line-height: 1.55;
+    }
+
+    .hero-prop-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    /* ── TEEKOND SECTION ── */
+    .teekond {
+      padding: 100px 64px;
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .teekond::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .teekond-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .teekond-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .teekond-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .teekond-eyebrow::before,
+    .teekond-eyebrow::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .teekond-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -.01em;
+      color: var(--white);
+    }
+
+    .teekond-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    .teekond-card {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, background .3s;
+      cursor: default;
+    }
+
+    .teekond-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .teekond-card:hover {
+      background: var(--dark3);
+      border-color: var(--goldborder);
+    }
+
+    .teekond-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      background: var(--goldbg);
+      border: 1px solid var(--goldborder);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: background .3s, border-color .3s;
+    }
+
+    .teekond-card:hover .card-icon {
+      background: rgba(0, 153, 204, 0.16);
+      border-color: rgba(0, 153, 204, 0.5);
+    }
+
+    .card-body {
+      flex: 1;
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--white2);
+      line-height: 1.65;
+    }
+
+    .d1 {
+      transition-delay: .1s;
+    }
+
+    .d2 {
+      transition-delay: .2s;
+    }
+
+    .d3 {
+      transition-delay: .3s;
+    }
+
+    .d4 {
+      transition-delay: .4s;
+    }
+
+    /* ── INFO SECTION (Toetus + Koolitaja) ── */
+    .info-section {
+      padding: 100px 64px;
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .info-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    .info-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .info-card:hover {
+      border-color: var(--goldborder);
+    }
+
+    .info-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .card-eyebrow::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 2vw, 26px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .card-text {
+      font-size: 14.5px;
+      color: var(--white2);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .card-text:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .card-text a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0, 153, 204, 0.3);
+      transition: border-color .2s, color .2s;
+    }
+
+    .card-text a:hover {
+      color: var(--gold2);
+      border-color: var(--gold2);
+    }
+
+    .highlight-box {
+      background: var(--goldbg);
+      border: 1px solid var(--goldborder);
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .highlight-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .highlight-num span {
+      font-size: 20px;
+    }
+
+    .highlight-text {
+      font-size: 13px;
+      color: var(--white2);
+      line-height: 1.5;
+    }
+
+    .highlight-text strong {
+      color: var(--white);
+      display: block;
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    .koolitaja-quote {
+      border-left: 2px solid var(--gold);
+      padding-left: 20px;
+      margin: 24px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--white2);
+      line-height: 1.65;
+    }
+
+    .koolitaja-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .koolitaja-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border: 1px solid var(--border);
+      color: var(--white3);
+      border-radius: 2px;
+      transition: border-color .2s, color .2s;
+    }
+
+    .info-card:hover .koolitaja-tag {
+      border-color: var(--goldborder);
+      color: var(--white2);
+    }
+
+    .d5 {
+      transition-delay: .25s;
+    }
+
+    .d6 {
+      transition-delay: .3s;
+    }
+
+    .d7 {
+      transition-delay: .35s;
+    }
+
+    .d8 {
+      transition-delay: .4s;
+    }
+
+    .d9 {
+      transition-delay: .45s;
+    }
+
+    .d10 {
+      transition-delay: .5s;
+    }
+
+    /* ── MIKS VALIDA SECTION ── */
+    .miks-section {
+      padding: 100px 64px;
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .miks-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .miks-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .miks-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .miks-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .miks-eyebrow::before,
+    .miks-eyebrow::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .miks-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 2.8vw, 36px);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--white);
+    }
+
+    .miks-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .miks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    .miks-card {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, background .3s;
+      cursor: default;
+    }
+
+    .miks-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .miks-card:hover {
+      background: var(--dark3);
+      border-color: var(--goldborder);
+    }
+
+    .miks-card:hover::before {
+      opacity: 1;
+    }
+
+    .miks-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      background: var(--goldbg);
+      border: 1px solid var(--goldborder);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: background .3s;
+    }
+
+    .miks-card:hover .miks-icon {
+      background: rgba(0, 153, 204, 0.15);
+    }
+
+    .miks-body {
+      flex: 1;
+    }
+
+    .miks-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .miks-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .miks-card-text {
+      font-size: 13.5px;
+      color: var(--white2);
+      line-height: 1.7;
+    }
+
+    .miks-card-text strong {
+      color: var(--white);
+    }
+
+    .miks-card--wide {
+      grid-column: span 2;
+    }
+
+    .miks-card--wide .miks-card-text {
+      columns: 2;
+      gap: 32px;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 100px 48px;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--white2);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 56px;
+    }
+
+    .about-photo-wrap {
+      position: relative;
+    }
+
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, var(--dark3) 0%, #0f1012 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--white3);
+    }
+
+    .about-photo-placeholder svg {
+      width: 64px;
+      height: 64px;
+      opacity: .3;
+    }
+
+    .about-photo-placeholder span {
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -1px;
+      left: -1px;
+      right: -1px;
+      background: var(--gold);
+      padding: 12px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--black);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .about-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .about-role {
+      font-size: 14px;
+      color: var(--gold);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .about-text {
+      font-size: 15.5px;
+      color: var(--white2);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--white3);
+    }
+
+    /* ── CLIENTS ── */
+    .clients {
+      background: var(--dark);
+    }
+
+    .clients-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 2px;
+    }
+
+    .client-box {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      aspect-ratio: 2/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white3);
+      transition: all .25s;
+      cursor: default;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .client-box:hover {
+      background: var(--dark3);
+      border-color: rgba(0, 153, 204, 0.25);
+      color: var(--white);
+    }
+
+    .client-box.featured {
+      background: var(--goldbg);
+      border-color: rgba(0, 153, 204, 0.2);
+      color: var(--gold);
+    }
+
+    /* ── PROGRAM ── */
+    .program {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 56px;
+    }
+
+    .prog-item {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      transition: border-color .3s;
+      cursor: default;
+    }
+
+    .prog-item:hover {
+      border-color: rgba(0, 153, 204, 0.25);
+    }
+
+    .prog-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: rgba(0, 153, 204, 0.15);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .prog-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .prog-desc {
+      font-size: 14px;
+      color: var(--white2);
+      line-height: 1.65;
+    }
+
+    .prog-duration {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(0, 153, 204, 0.3);
+      padding: 4px 12px;
+    }
+
+    /* ── BLOG ── */
+    .blog {
+      background: var(--dark);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .blog-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .3s;
+      cursor: default;
+    }
+
+    .blog-card:hover {
+      border-color: rgba(0, 153, 204, 0.25);
+    }
+
+    .blog-card.featured {
+      background: var(--dark3);
+    }
+
+    .blog-cat {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .blog-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .blog-card.featured .blog-title {
+      font-size: 26px;
+    }
+
+    .blog-excerpt {
+      font-size: 13.5px;
+      color: var(--white2);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .blog-meta {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--white3);
+    }
+
+    .blog-read {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 11.5px;
+      letter-spacing: .06em;
+      text-decoration: none;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 56px;
+    }
+
+
+
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      font-size: 15px;
+      color: var(--white2);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      font-size: 14.5px;
+    }
+
+    .contact-detail .ico {
+      width: 38px;
+      height: 38px;
+      background: var(--goldbg);
+      border: 1px solid rgba(0, 153, 204, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .contact-detail a {
+      color: var(--white2);
+      text-decoration: none;
+    }
+
+    .contact-detail a:hover {
+      color: var(--gold);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--white3);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color .2s;
+      border-radius: 2px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(0, 153, 204, 0.5);
+    }
+
+    .form-group textarea {
+      height: 110px;
+      resize: none;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 14px;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background .2s;
+    }
+
+    .form-submit:hover {
+      background: var(--gold2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--white3);
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-logo img {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      section {
+        padding: 72px 20px;
+      }
+
+      .hero {
+        padding: 100px 20px 72px;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .clients-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .program-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 28px 20px;
+      }
+
+      .hero-bg::after {
+        left: -100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo"><img src="logo-retina.png" alt="Tootmisjuhtimine"></div>
+    <ul class="nav-links">
+      <li><a href="#about">Andres Kase</a></li>
+      <li><a href="#program">Koolitus</a></li>
+      <li><a href="#clients">Kliendid</a></li>
+      <li><a href="#blog">Blogi</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Registreeru</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+
+      <!-- LEFT -->
+      <div class="hero-left">
+
+        <div class="hero-eyebrow reveal">OPSTAR PROFIT™ RAAMISTIK</div>
+
+        <h1 class="reveal reveal-delay-1">
+          LEAN-AGILE<br>TOOTMISJUHTIMISE
+          <em>ARENGUPROGRAMM</em>
+        </h1>
+        <p class="hero-subtitle reveal reveal-delay-2">SÜSTEEMNE JA PRAKTILINE</p>
+
+        <p class="hero-desc reveal reveal-delay-2">
+          25 aastat praktilise tootmisjuhtimise kogemust. Koolitused, mis ei ole loenguteõpetlikkus — vaid tööriistad,
+          mida kasutate järgmisel esmaspäeval.
+        </p>
+
+        <!-- CTA -->
+        <div class="hero-cta-block reveal reveal-delay-3">
+          <a href="#contact" class="btn-cta">Broneeri koht grupis</a>
+          <span class="hero-deadline">Registreerudes kuni 31. juunini kehtib 2025. aasta hind.</span>
+        </div>
+
+        <!-- value props -->
+        <div class="hero-props reveal reveal-delay-4">
+          <div class="hero-prop"><span class="hero-prop-dot"></span>Ettevõte ei pea head tootmisjuhti väljast värbama.
+            Sageli on parim kandidaat ettevõttes olemas.</div>
+          <div class="hero-prop"><span class="hero-prop-dot"></span>Arenda oma inimest sama ajaga, mis kuluks
+            värbamisele.
+          </div>
+          <div class="hero-prop"><span class="hero-prop-dot"></span>Töötajana ei pea arenemiseks ettevõtet vahetama. Õpi
+            juurde ja kasva koos oma ettevõttega.</div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT — STATS -->
+      <div class="hero-stats reveal reveal-delay-2">
+
+        <!-- 4 big number boxes -->
+        <div class="stat-box">
+          <div class="stat-num">147<span>+</span></div>
+          <div class="stat-label">Gruppi lõpetanud</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">25<span>a</span></div>
+          <div class="stat-label">Kogemust</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1796</div>
+          <div class="stat-label">Osalejat I tase</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1896</div>
+          <div class="stat-label">Osalejat II tase</div>
+        </div>
+
+        <!-- 3 info boxes full width -->
+        <div class="stat-box stat-box--info">
+          <div class="stat-num">12<span>a</span></div>
+          <div class="stat-info">
+            <div class="stat-label">Arenguprogramm</div>
+            <div class="stat-desc">Tootmisjuhtimise arenguprogrammi Viljandis Andres Kase'ga</div>
+          </div>
+        </div>
+        <div class="stat-box stat-box--info">
+          <div class="stat-num">64<span>h</span></div>
+          <div class="stat-info">
+            <div class="stat-label">Akadeemilist tundi</div>
+            <div class="stat-desc">Nelja kuuga ja parendusprojekt töökohal</div>
+          </div>
+        </div>
+        <div class="stat-box stat-box--info">
+          <div class="stat-num">9<span>p</span></div>
+          <div class="stat-info">
+            <div class="stat-label">Päeva kokku</div>
+            <div class="stat-desc">7 seminari ja 2 ettevõttekülastust</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ TEEKOND SECTION ══ -->
+  <section class="teekond" id="teekond">
+    <div class="teekond-inner">
+
+      <!-- header -->
+      <div class="teekond-header reveal">
+        <div class="teekond-eyebrow">Programm</div>
+        <h2 class="teekond-title">
+          Teekond süsteemse ja inimkeskse<br>
+          <em style="font-style:italic; color: var(--gold);">juhtimise ja tulemuseni</em>
+        </h2>
+      </div>
+
+      <!-- cards -->
+      <div class="teekond-grid">
+
+        <div class="teekond-card reveal d1">
+          <div class="card-icon">👥</div>
+          <div class="card-body">
+            <div class="card-label">01 · Praktiline areng</div>
+            <div class="card-title">Mahult ja sisult "mini"-mikrokraadi vääriline arengutee: 64 akadeemilist tundi.
+            </div>
+            <p class="card-desc">Pea 10 aastat olen arendanud mikrokraadi sarnast koolitusprogrammi. Praktilised
+              seminarid,
+              kus õpime päris kogemusest ja külastame ettevõtteid.</p>
+          </div>
+        </div>
+
+        <div class="teekond-card reveal d2">
+          <div class="card-icon">🎯</div>
+          <div class="card-body">
+            <div class="card-label">02 · Reaalne parendusprojekt</div>
+            <div class="card-title">Rakendad õpitut töökohal, lahendades konkreetset probleemi.</div>
+            <p class="card-desc">Programm sobib nii algajale kui ka edasijõudnule – iga osaleja liigub edasi oma
+              lähtekohast.</p>
+          </div>
+        </div>
+
+        <div class="teekond-card reveal d3">
+          <div class="card-icon">🤝</div>
+          <div class="card-body">
+            <div class="card-label">03 · Süsteemne inimkesksus</div>
+            <div class="card-title">Ühendame tootmisjuhtimistarkuse, inimese ja vastutuse.</div>
+            <p class="card-desc">Õpime olema tulemuslikud kollektiivi liikmed, kes mõistavad oma rolli tervikus ning
+              oskavad
+              juhtida nii protsessi kui inimest.</p>
+          </div>
+        </div>
+
+        <div class="teekond-card reveal d4">
+          <div class="card-icon">⚙️</div>
+          <div class="card-body">
+            <div class="card-label">04 · Sihtgrupp</div>
+            <div class="card-title">Lähtun printsiibist, et iga ettevõtte vajab head ja tarka töökorraldust.</div>
+            <p class="card-desc">Iga teenindus, ehitus, laondus, vahendus, ka põllumajandus on olemuselt
+              tootmisprotsess.
+              Õpid juhtima liini, tehast, tootmist, väikeettevõtet, ladu. Ka talu!</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ INFO SECTION (Toetus + Koolitaja) ══ -->
+  <section class="info-section">
+    <div class="info-inner">
+
+      <!-- CARD 1: KOOLITUSTOETUS -->
+      <div class="info-card reveal d1">
+        <div class="card-eyebrow">Rahastus</div>
+        <h2 class="card-title">Koolitustoetuse võimalus tööandjale</h2>
+
+        <div class="highlight-box">
+          <div class="highlight-num">80<span>%</span></div>
+          <div class="highlight-text">
+            <strong>kuni 2500 € töötaja kohta</strong>
+            hüvitatakse kogumaksumusest Töötukassa koolitustoetusena
+          </div>
+        </div>
+
+        <p class="card-text">
+          Olenevalt koolituse eesmärgist ja käimasolevatest muudatustest on võimalik taotleda Töötukassast töötaja
+          teadmiste ja oskuste arendamiseks makstavat koolitustoetust muutuste olukorras.
+          <a href="#">Uuri lisaks siit.</a> Või küsi ka minult otse.
+        </p>
+        <p class="card-text">
+          See on punkt, mida üle õla vaatav ülemus võiks märgata. Aga ka ilma toetuseta on koolitus tasuv. Tegemist on
+          parima hinna–tulemuslikkuse suhtega tootmisjuhtimise täiendõppega.
+        </p>
+      </div>
+
+      <!-- CARD 2: KOOLITAJA ANDRES -->
+      <div class="info-card reveal d2">
+        <div class="card-eyebrow">Koolitaja</div>
+        <h2 class="card-title">Andres Kase</h2>
+
+        <div class="koolitaja-quote">
+          "Õpetan seda, mida on ise tehases teinud — ja seda, mida tegid Henry Ford sajand tagasi ja Jaapani juhid
+          Toyotas."
+        </div>
+
+        <p class="card-text">
+          Andres ei õpeta lihtsalt teooriat. Õpetab seda, millele tugineb tugev teooria — ehk töötavat praktikat. Jagan
+          kogemust 100+ Eesti tehase põrandalt. Teen puust ja punaselt ette ja asi saab selgeks.
+        </p>
+        <p class="card-text">
+          Tutvu koolituse vastavusega <a href="#">täiendkoolituse standardile</a> siin.
+        </p>
+
+        <div class="koolitaja-tags">
+          <span class="koolitaja-tag">LEAN</span>
+          <span class="koolitaja-tag">Toyota TPS</span>
+          <span class="koolitaja-tag">Kaizen</span>
+          <span class="koolitaja-tag">100+ tehast</span>
+          <span class="koolitaja-tag">25a kogemust</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ MIKS VALIDA SECTION ══ -->
+  <section class="miks-section">
+    <div class="miks-inner">
+
+      <div class="miks-header reveal">
+        <div class="miks-eyebrow">Põhjused</div>
+        <h2 class="miks-title">Miks valida <em>OPSTAR PROFIT™</em> arenguprogramm?</h2>
+      </div>
+
+      <div class="miks-grid">
+
+        <div class="miks-card reveal d1">
+          <div class="miks-icon">⭐</div>
+          <div class="miks-body">
+            <div class="miks-card-label">01 · Koolitaja</div>
+            <div class="miks-card-title">Kogenud koolitaja</div>
+            <p class="miks-card-text">Kõige olulisem on plaanide teostumine, kohandamine ja sisuline toimima panek. Just
+              seda tootmisjuhtimise koolitus õpetab! <strong>Kogenud ja hinnatud koolitaja Andres Kase</strong> on
+              laiapõhjaliste teadmistega, integreeritud kogemustega praktik.</p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d2">
+          <div class="miks-icon">👥</div>
+          <div class="miks-body">
+            <div class="miks-card-label">02 · Sihtgrupp</div>
+            <div class="miks-card-title">Avar sihtrühm</div>
+            <p class="miks-card-text">Koolitus on suunatud suurema ettevõtte kesk- ja <strong>operatiivtasandi
+                juhtidele,
+                aga ka mikro-, väikeste- ja keskmise suurusega ettevõtte meistritele, tootmisjuhtidele ja
+                -juhtidele.</strong> Siiski on koolitus vajalik kõikidele tootmisahela võtmeisikutele.</p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d3">
+          <div class="miks-icon">✌️</div>
+          <div class="miks-body">
+            <div class="miks-card-label">03 · Suunitlus</div>
+            <div class="miks-card-title">Tootmis- ja tööstus­juhtimise suunitlus</div>
+            <p class="miks-card-text"><strong>Just need juhtimisprintsiibid, -süsteemid, -meetmed on võetud kasutusele
+                ka
+                teeninduses, logistikas, meditsiinis, vahenduses ja paljudes teistes valdkondades.</strong> Kuigi LEAN,
+              20 Keys, Six Sigma ja TPS on pärit tootmisest, on nad tänaseks kasutusel ka mujal.</p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d4">
+          <div class="miks-icon">⚡</div>
+          <div class="miks-body">
+            <div class="miks-card-label">04 · Rakendamine</div>
+            <div class="miks-card-title">Kohene rakendamine</div>
+            <p class="miks-card-text">Tootmisjuhtimise koolitus on <strong>praktilise suunitlusega – teadmisi ja uusi
+                kogemusi rakendatakse already koolituse käigus.</strong> Osaleja teeb kodused tööd, sealhulgas
+              parendusprojekti endale olulisel teemal oma ettevõtte põhjal, kuid kogemusi vahetame koolitusel kõik koos.
+            </p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d5">
+          <div class="miks-icon">📊</div>
+          <div class="miks-body">
+            <div class="miks-card-label">05 · Meetod</div>
+            <div class="miks-card-title">Tõhus meetod</div>
+            <p class="miks-card-text">Tootmisjuhtimise koolitus tõhustab õpitu omandamist ja kohene rakendamine
+              ettevõttes <strong>kannab investeeritud väärtuse ilma raiskamisteta ettevõtte protsessidesse.</strong></p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d6">
+          <div class="miks-icon">🎯</div>
+          <div class="miks-body">
+            <div class="miks-card-label">06 · Mõju</div>
+            <div class="miks-card-title">Vahetu mõju</div>
+            <p class="miks-card-text">Koolitusel omandatul ja rakendatul on vahetu mõju osalejale ning tema kaudu
+              <strong>ettevõtte tootlikkusele, tulemuslikkusele ja kliendi tootmisteenindustasemele.</strong> Ettevõtted
+              vajavad sisulist tootmisjuhtimist, mitte ainult teooriat.
+            </p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d7">
+          <div class="miks-icon">🚌</div>
+          <div class="miks-body">
+            <div class="miks-card-label">07 · Külastused</div>
+            <div class="miks-card-title">Ettevõtete külastused</div>
+            <p class="miks-card-text">Koolitust elavdav osa on erinevate ettevõtete külastamine. Partneriteks siin on
+              avatud suhtumisega ettevõtjad ja ettevõtted: ETS NORD, Legrand Eesti, GPI Estonia, Baltic Workboats, Ouman
+              Eesti, Wendre, Scanfil, Lotus Timber, Matek, Palmse Mehaanikakoda, Karl Stolz, MS Balti Trafo, Harmet,
+              Radius Machining, Gren, VMT Tehased, Kolmeks, Viljandi Aken ja Uks, Magnum Logistics ja paljud teised.</p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d8">
+          <div class="miks-icon">🎓</div>
+          <div class="miks-body">
+            <div class="miks-card-label">08 · Teadmine</div>
+            <div class="miks-card-title">Sisuline teadmine</div>
+            <p class="miks-card-text">Seminariruumis käsitleme teooriat rakenduslikul moel. Igal osalejal on
+              parendusprojekt, mis sisaldab tootmisjuhtimise olulisi aspekte ja katab peamised tootmisjuhtimise
+              funktsioonid. <strong>Mõõdame edasiminekut faktidel põhinevate võtmemõõdikutega, mille põhjal õpib
+                osaleja tootmist juhtima ja vajalikku ära tegema.</strong></p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d9">
+          <div class="miks-icon">🔬</div>
+          <div class="miks-body">
+            <div class="miks-card-label">09 · Praktilisus</div>
+            <div class="miks-card-title">Praktilisus</div>
+            <p class="miks-card-text">Tootmisjuhtimise koolitus <strong>kombineerib teoreetilisi teadmisi ja praktilisi
+                oskusi nii strateegilise, nõudlusest tuleneva taktikalise planeerimise kui ka operatiivtasandi
+                igapäevatöö tõhusa teostamise asjus.</strong> See tagab pikaajalise järjepidevuse ja tulemuslikkuse.
+              Koolitusel ühendame eesmärgi, inimese, protsessid, logistika ja seadmed ning <strong>digitaalsed
+                lahendused.</strong></p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d10">
+          <div class="miks-icon">📈</div>
+          <div class="miks-body">
+            <div class="miks-card-label">10 · Areng</div>
+            <div class="miks-card-title">Ettevõtted ja koolitatavad arenevad</div>
+            <p class="miks-card-text"><strong>Koolitusel osalenutest on saanud kompetentsed kasvupotentsiaaliga
+                praktikud.</strong> Nad räägivad pädevalt kaasa strateegilises-, taktikalises- või operatiivtasandi
+              juhtimises, aidates ettevõtetel areneda ja pareneda.</p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d3">
+          <div class="miks-icon">🏭</div>
+          <div class="miks-body">
+            <div class="miks-card-label">11 · Tööstusharud</div>
+            <div class="miks-card-title">Arvud ja tööstusharud</div>
+            <p class="miks-card-text"><strong>10 aastaga on Andres Kase mikroprogrammidega jaganud ja kinnistanud
+                teadmisi rohkem kui 150-le erineva tasandi juhile!</strong> Esindatud nii tervishoiu- ja
+              toiduainetööstus, puidutööstus, elektroonikatööstus, masina- ja aparaaditööstus, metallitööstus ning
+              innovatiilistest, spetsiifilisematest projektitüüpi tootmisettevõtted.</p>
+          </div>
+        </div>
+
+        <div class="miks-card reveal d4">
+          <div class="miks-icon">🤝</div>
+          <div class="miks-body">
+            <div class="miks-card-label">12 · Partnerlus</div>
+            <div class="miks-card-title">Partnerlus</div>
+            <p class="miks-card-text"><strong>Koolitaja ja koolitatava koostöö on järjepideval tulemuslikkusel põhinev –
+                alustad sel aastal ühe juhiga, jätkad teisel aastal kahega.</strong> Peamine on pikaajaline areng:
+              juhtimise süstematiseerimine ja standardiseerimine nõuab järjepidevust lähenemisele.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section class="clients" id="clients">
+    <div class="section-inner">
+      <div class="clients-header">
+        <div>
+          <div class="section-label reveal">Kliendid</div>
+          <h2 class="section-title reveal reveal-delay-1">Eesti juhtivad<br>tootmisettevõtted.</h2>
+        </div>
+        <p class="reveal" style="font-size:14px;color:var(--white3);max-width:240px;text-align:right;line-height:1.6">
+          Üle 60 ettevõtte on usaldanud meie koolitust oma juhtidele.</p>
+      </div>
+      <div class="clients-grid reveal">
+        <div class="client-box featured">ABB</div>
+        <div class="client-box featured">Cleveron</div>
+        <div class="client-box featured">Nordecon</div>
+        <div class="client-box">Sievert</div>
+        <div class="client-box">BHC</div>
+        <div class="client-box">Ferrolog</div>
+        <div class="client-box">Voka Masun</div>
+        <div class="client-box">Scarpio</div>
+        <div class="client-box">Ekoy</div>
+        <div class="client-box">DAO</div>
+        <div class="client-box">Boardic</div>
+        <div class="client-box">Estrotandem</div>
+        <div class="client-box">Alvika</div>
+        <div class="client-box">CSL Grupp</div>
+        <div class="client-box">Tinel</div>
+        <div class="client-box">Clever</div>
+        <div class="client-box">Grindex</div>
+        <div class="client-box">+ 45 ettevõtet</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section class="program" id="program">
+    <div class="section-inner">
+      <div class="section-label reveal">Koolitus</div>
+      <h2 class="section-title reveal reveal-delay-1">Kahetasemeline<br>koolitusprogram.</h2>
+      <p class="section-sub reveal reveal-delay-2">Süsteemne lähenemine — I tasemest kuni kogenud juhi tasemeni.</p>
+      <div class="program-grid">
+        <div class="prog-item reveal reveal-delay-1">
+          <div class="prog-num">I</div>
+          <div class="prog-title">Tootmisjuhtimise alused</div>
+          <p class="prog-desc">LEAN mõtlemine, raiskamise tuvastamine, visuaalne juhtimine, 5S, standardiseeritud töö.
+            Juhtidele, kes alles alustavad süsteemset tootmisjuhtimist.</p>
+          <span class="prog-duration">1796 osalejat lõpetanud</span>
+        </div>
+        <div class="prog-item reveal reveal-delay-2">
+          <div class="prog-num">II</div>
+          <div class="prog-title">Edasijõudnute tase</div>
+          <p class="prog-desc">Väärtusahela kaardistamine, takt-aeg, pull-süsteemid, Kaizen juhtimine. Juhtidele, kes
+            soovivad süsteemselt edasi areneda.</p>
+          <span class="prog-duration">1896 osalejat lõpetanud</span>
+        </div>
+        <div class="prog-item reveal reveal-delay-3" style="grid-column: span 2;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;">
+            <div>
+              <div class="prog-num" style="font-size:32px;margin-bottom:8px;">📅</div>
+              <div class="prog-title" style="font-size:15px;">Grupp täitub ette</div>
+              <p class="prog-desc">Grupid on tavaliselt täis mitu kuud ette. Registreeru varakult.</p>
+            </div>
+            <div>
+              <div class="prog-num" style="font-size:32px;margin-bottom:8px;">🏭</div>
+              <div class="prog-title" style="font-size:15px;">Praktiline formaat</div>
+              <p class="prog-desc">Koolitus toimub reaalsetes tootmiskeskkondades, mitte klassiruumis.</p>
+            </div>
+            <div>
+              <div class="prog-num" style="font-size:32px;margin-bottom:8px;">🤝</div>
+              <div class="prog-title" style="font-size:15px;">Klient soovitab</div>
+              <p class="prog-desc">Suurem osa osalejatest tuleb soovituse teel — see räägib ise eest.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="blog" id="blog">
+    <div class="section-inner">
+      <div class="section-label reveal">Blogi</div>
+      <h2 class="section-title reveal reveal-delay-1">Mõtted tootmisest.</h2>
+      <div class="blog-grid">
+        <div class="blog-card featured reveal">
+          <div class="blog-cat">LEAN · Juhtimine</div>
+          <div class="blog-title">Miks enamik LEAN projekte ebaõnnestub — ja kuidas seda vältida</div>
+          <p class="blog-excerpt">LEAN ei ole tööriistakast. See on mõtteviis. Enamik ettevõtteid juurutab 5S, paigaldab
+            sildid ja arvab, et on LEAN. Tegelikkus on keerulisem...</p>
+          <div class="blog-meta">
+            <span>Märts 2025 · 8 min</span>
+            <a href="#" class="blog-read">Loe edasi →</a>
+          </div>
+        </div>
+        <div class="blog-card reveal reveal-delay-1">
+          <div class="blog-cat">Kaizen</div>
+          <div class="blog-title">Kaizen — mida see tegelikult tähendab?</div>
+          <p class="blog-excerpt">Kaizen tähendab jaapani keeles "pidev parendus". Kuid tõeline Kaizen on palju enamat
+            kui parendusettepanekute box seinal...</p>
+          <div class="blog-meta">
+            <span>Veebr 2025 · 5 min</span>
+            <a href="#" class="blog-read">Loe →</a>
+          </div>
+        </div>
+        <div class="blog-card reveal reveal-delay-2">
+          <div class="blog-cat">TPS</div>
+          <div class="blog-title">Toyota tootmissüsteem Eesti ettevõttes</div>
+          <p class="blog-excerpt">Kas TPS töötab väljaspool Jaapanit? Minu 25-aastane kogemus ütleb: jah — aga seda
+            tuleb õigesti rakendada...</p>
+          <div class="blog-meta">
+            <span>Jaan 2025 · 6 min</span>
+            <a href="#" class="blog-read">Loe →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="section-inner">
+      <div class="section-label reveal">Kontakt</div>
+      <h2 class="section-title reveal reveal-delay-1">Registreeru koolitusele.</h2>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <p>Grupid täituvad ette. Saatke kiri — vaatame, millal järgmine grupp algab ja kas Teile on koht.</p>
+          <div class="contact-detail">
+            <div class="ico">✉</div>
+            <a href="mailto:andres@tootmisjuhtimine.ee">andres@tootmisjuhtimine.ee</a>
+          </div>
+          <div class="contact-detail">
+            <div class="ico">📞</div>
+            <a href="tel:+3725xxxxxx">+372 5xx xxxx</a>
+          </div>
+          <div class="contact-detail">
+            <div class="ico">in</div>
+            <a href="#">LinkedIn · Andres Kase</a>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="form-group">
+            <label>Teie nimi</label>
+            <input type="text" placeholder="Andres Tamm">
+          </div>
+          <div class="form-group">
+            <label>E-post</label>
+            <input type="email" placeholder="andres@ettevote.ee">
+          </div>
+          <div class="form-group">
+            <label>Teade</label>
+            <textarea
+              placeholder="Huvitab I taseme koolitus, tahaksin teada, millal algab järgmine grupp..."></textarea>
+          </div>
+          <button class="form-submit">Saada sõnum →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo"><img src="logo-retina.png" alt="Tootmisjuhtimine.ee"></div>
+    <div>© 2025 Andres Kase · Tootmisjuhtimine OÜ</div>
+    <div>Tallinn, Eesti</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      nav.style.background = window.scrollY > 60
+        ? 'rgba(10,10,10,0.97)'
+        : 'rgba(10,10,10,0.85)';
+    });
+
+    // Stat counter animation
+    function animateCounters() {
+      document.querySelectorAll('.stat-num').forEach(el => {
+        const raw = el.innerHTML;
+        const num = parseInt(raw.replace(/\D/g, ''));
+        if (!num) return;
+        const suffix = raw.replace(/[0-9]/g, '');
+        let cur = 0;
+        const step = num / 45;
+        const t = setInterval(() => {
+          cur = Math.min(cur + step, num);
+          el.innerHTML = Math.floor(cur) + suffix;
+          if (cur >= num) clearInterval(t);
+        }, 28);
+      });
+    }
+    const heroObs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { animateCounters(); heroObs.disconnect(); }
+    }, { threshold: 0.3 });
+    heroObs.observe(document.querySelector('.hero-stats'));
+  </script>
+</body>
+
+</html>
