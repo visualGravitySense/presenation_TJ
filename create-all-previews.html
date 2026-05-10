@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Template Previews</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .preview-card { width: 320px; height: 180px; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <h1 class="text-2xl font-bold mb-6">Template Preview Generator</h1>
+    <div id="previews" class="grid grid-cols-3 gap-4"></div>
+    
+    <script>
+        const templates = [
+            // Root level templates (keep in sync with index.html GALLERY_ITEMS)
+            { name: '1_index_apple', title: 'Full page — Apple (1)', color: 'from-gray-600 to-gray-800' },
+            { name: '2_index_blueprint', title: 'Full page — Blueprint (2)', color: 'from-indigo-600 to-indigo-800' },
+            { name: 'index-swiss-prototype', title: 'Swiss Prototype', color: 'from-red-600 to-red-800' },
+            { name: 'index_apple', title: 'Apple Design', color: 'from-gray-600 to-gray-800' },
+            { name: 'index_blueprint', title: 'Blueprint', color: 'from-indigo-600 to-indigo-800' },
+            { name: 'andres-kase', title: 'Andres Kase', color: 'from-slate-600 to-slate-800' },
+            { name: 'apple_glass_icon_library', title: 'Apple Glass Icons', color: 'from-zinc-600 to-zinc-800' },
+            { name: 'blogi-post', title: 'Blog post', color: 'from-teal-600 to-teal-800' },
+            { name: 'blogi', title: 'Blog listing', color: 'from-teal-600 to-teal-800' },
+            { name: 'frosted_glass_icons', title: 'Frosted glass icons', color: 'from-sky-600 to-sky-800' },
+            { name: 'hero-apple-redesign-final-1', title: 'Hero Apple final 1', color: 'from-neutral-600 to-neutral-800' },
+            { name: 'hero-apple-redesign-final-2', title: 'Hero Apple final 2', color: 'from-neutral-600 to-neutral-800' },
+            { name: 'hero-final', title: 'Hero final', color: 'from-stone-600 to-stone-800' },
+            { name: 'hero-v3-apple', title: 'Hero v3 Apple', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (1)', title: 'Hero v3 Apple var 1', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (2)', title: 'Hero v3 Apple var 2', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (3)', title: 'Hero v3 Apple var 3', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (4)', title: 'Hero v3 Apple var 4', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (5)', title: 'Hero v3 Apple var 5', color: 'from-orange-600 to-orange-800' },
+            { name: 'icon-library', title: 'Icon library', color: 'from-violet-600 to-violet-800' },
+            { name: 'koolitus (2)', title: 'Koolitus (2)', color: 'from-emerald-600 to-emerald-800' },
+            { name: 'logo_marquee', title: 'Logo marquee', color: 'from-pink-600 to-pink-800' },
+            { name: 'main-exp-2', title: 'Main experiment 2', color: 'from-blue-600 to-blue-800' },
+            { name: 'main-page-design-2', title: 'Main page design 2', color: 'from-blue-600 to-blue-800' },
+            { name: 'main-page-design-2 - Hero', title: 'Main page design 2 — Hero', color: 'from-blue-600 to-blue-800' },
+            { name: 'main-page-design-2-ok', title: 'Main page design 2 OK', color: 'from-blue-600 to-blue-800' },
+            { name: 'main-page-design-v1-ok', title: 'Main page design v1 OK', color: 'from-blue-600 to-blue-800' },
+            { name: 'opstar-profit', title: 'Opstar profit', color: 'from-green-600 to-green-800' },
+            { name: 'social_proof_avatars', title: 'Social proof avatars', color: 'from-rose-600 to-rose-800' },
+            { name: 'stats_section', title: 'Stats section', color: 'from-cyan-600 to-cyan-800' },
+
+            // Prototype-1 templates
+            { name: 'arvamused_component', title: 'Reviews Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'asukoht_component', title: 'Location Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'footer_component', title: 'Footer Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'galerii_component', title: 'Gallery Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'gallery_koolitus_component', title: 'Training Gallery', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hateless_emotion_wheel', title: 'Emotion Wheel', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hateless_emotion_wheel_1', title: 'Emotion Wheel v1', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hero_component', title: 'Hero Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hinnad_component', title: 'Pricing Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'hoiatus_taimer_component', title: 'Timer Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'index', title: 'Prototype 1 Index', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'kliendid_component', title: 'Clients Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'koolitaja_component', title: 'Trainer Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'lean_areng_component', title: 'Lean Development', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'mida_annab_component', title: 'Benefits Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'miks_valida_component', title: 'Why Choose Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'paevane_arengutee_component', title: 'Daily Development', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'programm_component', title: 'Program Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'registreeru_component', title: 'Register Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'teekond_component', title: 'Journey Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'toetus_koolitaja_component', title: 'Support Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'tootmisjuhtimine_prototype', title: 'Management Prototype', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            { name: 'tunnistus_component', title: 'Certificate Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
+            
+            // Prototype-2 templates
+            { name: 'apple', title: 'Apple Component', color: 'from-gray-600 to-gray-800', folder: 'prototype-2' },
+            { name: 'index_apple', title: 'Apple Index', color: 'from-gray-600 to-gray-800', folder: 'prototype-2' },
+            
+            // Prototype-3 templates
+            { name: 'blueprint', title: 'Blueprint Component', color: 'from-indigo-600 to-indigo-800', folder: 'prototype-3' },
+            { name: 'index_blueprint', title: 'Blueprint Index', color: 'from-indigo-600 to-indigo-800', folder: 'prototype-3' },
+            
+            // Prototype-4 templates
+            { name: 'index', title: 'Smart Factory', color: 'from-purple-600 to-purple-800', folder: 'prototype-4' },
+            { name: 'index_smartfactory', title: 'Smart Factory Index', color: 'from-purple-600 to-purple-800', folder: 'prototype-4' },
+            
+            // Prototype-5 templates
+            { name: 'index', title: 'Swiss Design', color: 'from-red-600 to-red-800', folder: 'prototype-5' },
+            { name: 'index_swiss', title: 'Swiss Index', color: 'from-red-600 to-red-800', folder: 'prototype-5' }
+        ];
+
+        function createPreviewCard(template) {
+            const folder = template.folder || './';
+            return `
+                <div class="preview-card bg-gradient-to-br ${template.color} rounded-lg p-6 flex flex-col justify-center items-center text-center border border-white/10">
+                    <div class="text-4xl mb-2">📄</div>
+                    <div class="text-sm font-semibold text-white/90">${template.title}</div>
+                    <div class="text-xs text-white/60 mt-1">${template.name}.html</div>
+                </div>
+            `;
+        }
+
+        function generateAllPreviews() {
+            const container = document.getElementById('previews');
+            container.innerHTML = templates.map(template => createPreviewCard(template)).join('');
+            
+            // Generate download links
+            setTimeout(() => {
+                templates.forEach(template => {
+                    console.log(`Would create: ${template.name}-preview.png`);
+                });
+            }, 1000);
+        }
+
+        generateAllPreviews();
+    </script>
+</body>
+</html>

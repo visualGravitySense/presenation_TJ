@@ -9,6 +9,7 @@
     GitHub Pages: paths are case-sensitive. Repo folder in this monorepo is presenation_TJ (no “e” in presentation).
     If the GitHub repo is named differently, keep using relative href/src here — no hard-coded site base URL needed.
     Filenames with spaces become %20 via relativeHref(); prefer underscores in filenames when renaming.
+    Card thumbnails: JPEGs in portfolio-previews/ — regenerate locally with npm run preview:portfolio (Playwright Chromium).
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -124,14 +125,40 @@
   <script>
     /**
      * GALLERY CONFIG — `file` must match disk exactly (GitHub Pages is case-sensitive).
-     * Audited from repo: all *.html in ./ and ./tootmisjuhtimine/ plus ./prototype-* (same casing as on disk).
+     * Covers all *.html in the repo except this page (`index.html`) and `create-all-previews.html` (preview tool).
+     * Duplicate byte-identical HTML under web-templates/ was removed — use prototype-1/* equivalents.
      * Optional: title, badge: "Draft" | "Interactive" | "Block"
      */
     const GALLERY_ITEMS = [
-      // —— repository root (exact filenames) ——
+      // —— repository root ——
+      { file: '1_index_apple.html', title: 'Täisleht — Apple (1)', badge: 'Interactive' },
+      { file: '2_index_blueprint.html', title: 'Täisleht — Blueprint (2)', badge: 'Interactive' },
       { file: 'index-swiss-prototype.html', title: 'Šveitsi täisprototüüp (varukoopia)', badge: 'Interactive' },
       { file: 'index_apple.html', badge: 'Interactive' },
-      { file: 'index_blueprint.html', badge: 'Interactive' },
+      { file: 'andres-kase.html', badge: 'Interactive' },
+      { file: 'apple_glass_icon_library.html', badge: 'Interactive' },
+      { file: 'blogi-post.html', badge: 'Interactive' },
+      { file: 'blogi.html', badge: 'Interactive' },
+      { file: 'frosted_glass_icons.html', badge: 'Interactive' },
+      { file: 'hero-apple-redesign-final-1.html', badge: 'Interactive' },
+      { file: 'hero-apple-redesign-final-2.html', badge: 'Interactive' },
+      { file: 'hero-final.html', badge: 'Interactive' },
+      { file: 'hero-v3-apple.html', badge: 'Interactive' },
+      { file: 'hero-v3-apple (1).html', title: 'Hero v3 Apple — var 1–2', badge: 'Draft' },
+      { file: 'hero-v3-apple (3).html', title: 'Hero v3 Apple — var 3', badge: 'Draft' },
+      { file: 'hero-v3-apple (4).html', title: 'Hero v3 Apple — var 4', badge: 'Draft' },
+      { file: 'hero-v3-apple (5).html', title: 'Hero v3 Apple — var 5', badge: 'Draft' },
+      { file: 'icon-library.html', badge: 'Interactive' },
+      { file: 'koolitus (2).html', badge: 'Interactive' },
+      { file: 'logo_marquee.html', badge: 'Interactive' },
+      { file: 'main-exp-2.html', badge: 'Interactive' },
+      { file: 'main-page-design-2.html', badge: 'Interactive' },
+      { file: 'main-page-design-2 - Hero.html', title: 'Main page design 2 — Hero', badge: 'Interactive' },
+      { file: 'main-page-design-2-ok.html', badge: 'Interactive' },
+      { file: 'main-page-design-v1-ok.html', badge: 'Interactive' },
+      { file: 'opstar-profit.html', badge: 'Interactive' },
+      { file: 'social_proof_avatars.html', badge: 'Interactive' },
+      { file: 'stats_section.html', badge: 'Block' },
       // —— tootmisjuhtimine/ ——
       { file: 'tootmisjuhtimine/audience_section_advanced.html', badge: 'Block' },
       { file: 'tootmisjuhtimine/certificate_section_advanced.html', badge: 'Block' },
@@ -173,26 +200,6 @@
       { file: 'prototype-4/index_smartfactory.html', badge: 'Interactive' },
       { file: 'prototype-5/index.html', badge: 'Interactive' },
       { file: 'prototype-5/index_swiss.html', badge: 'Interactive' },
-      // —— web-templates/ ——
-      { file: 'web-templates/arvamused_component.html', badge: 'Block' },
-      { file: 'web-templates/asukoht_component.html', badge: 'Block' },
-      { file: 'web-templates/footer_component.html', badge: 'Block' },
-      { file: 'web-templates/galerii_component.html', badge: 'Block' },
-      { file: 'web-templates/gallery_koolitus_component.html', badge: 'Block' },
-      { file: 'web-templates/hero_component.html', badge: 'Block' },
-      { file: 'web-templates/hinnad_component.html', badge: 'Block' },
-      { file: 'web-templates/hoiatus_taimer_component.html', badge: 'Interactive' },
-      { file: 'web-templates/kliendid_component.html', badge: 'Block' },
-      { file: 'web-templates/koolitaja_component.html', badge: 'Block' },
-      { file: 'web-templates/lean_areng_component.html', badge: 'Block' },
-      { file: 'web-templates/mida_annab_component.html', badge: 'Block' },
-      { file: 'web-templates/miks_valida_component.html', badge: 'Block' },
-      { file: 'web-templates/paevane_arengutee_component.html', badge: 'Block' },
-      { file: 'web-templates/programm_component.html', badge: 'Block' },
-      { file: 'web-templates/registreeru_component.html', badge: 'Block' },
-      { file: 'web-templates/teekond_component.html', badge: 'Block' },
-      { file: 'web-templates/toetus_koolitaja_component.html', badge: 'Block' },
-      { file: 'web-templates/tunnistus_component.html', badge: 'Block' },
     ];
 
     const BADGE_STYLES = {
@@ -287,9 +294,16 @@
         const card = document.createElement('article');
         card.className =
           'group flex flex-col rounded-2xl border border-white/[0.07] bg-surface-raised/80 p-5 shadow-card transition duration-200 hover:border-white/[0.12] hover:bg-surface-raised';
+        const previewImage = getPreviewImagePath(file);
+
         card.innerHTML = `
-          <div class="mb-4 flex items-start justify-between gap-3">
-            <span class="rounded-xl bg-accent-dim p-2.5 text-accent [&_svg]:block [&_svg]:h-5 [&_svg]:w-5"><i data-lucide="file-code" aria-hidden="true"></i></span>
+          <div class="mb-4 aspect-video w-full overflow-hidden rounded-lg border border-white/[0.08] bg-black/40 relative isolate">
+            <div class="gallery-thumb-fallback absolute inset-0 hidden h-full w-full items-center justify-center bg-black/40">
+              <span class="rounded-xl bg-accent-dim p-2.5 text-accent [&_svg]:block [&_svg]:h-5 [&_svg]:w-5"><i data-lucide="file-code" aria-hidden="true"></i></span>
+            </div>
+            <img src="${escapeAttr(previewImage)}" alt="${escapeHtml(title)} preview" class="gallery-thumb-img relative z-[1] h-full w-full object-cover bg-[#14141a]" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 33vw">
+          </div>
+          <div class="mb-3 flex items-start justify-between gap-3">
             <span class="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ring-1 ring-inset ${badgeClass}">${badge}</span>
           </div>
           <h3 class="mb-1 text-base font-semibold text-white group-hover:text-white">${escapeHtml(title)}</h3>
@@ -303,6 +317,21 @@
             </a>
           </div>
         `;
+
+        const thumbImg = card.querySelector('.gallery-thumb-img');
+        const thumbFb = card.querySelector('.gallery-thumb-fallback');
+        if (thumbImg && thumbFb) {
+          thumbImg.addEventListener(
+            'error',
+            () => {
+              thumbImg.classList.add('hidden');
+              thumbFb.classList.remove('hidden');
+              thumbFb.classList.add('flex');
+              if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+            },
+            { once: true },
+          );
+        }
 
         card.querySelector('.btn-preview').addEventListener('click', () => openModal(file, title));
         card.addEventListener('click', (e) => {
@@ -328,6 +357,29 @@
       return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
     }
 
+    /** Must match slug logic in scripts/generate-portfolio-previews.mjs */
+    function portfolioPreviewSlug(relPath) {
+      return (
+        String(relPath || '')
+          .trim()
+          .replace(/\.html?$/i, '')
+          .replace(/\//g, '__')
+          .replace(/[:*?"<>|]/g, '-')
+          .replace(/[()]/g, '')
+          .replace(/\s+/g, '_')
+          .replace(/_+/g, '_')
+          .replace(/^_|_$/g, '') || 'preview'
+      );
+    }
+
+    /**
+     * Generated JPEG thumbnails under ./portfolio-previews/ — run `npm install` then `npx playwright install chromium` then `npm run preview:portfolio`.
+     */
+    function getPreviewImagePath(file) {
+      return `./portfolio-previews/${portfolioPreviewSlug(file)}.jpg`;
+    }
+
+    
     document.getElementById('modal-close').addEventListener('click', closeModal);
     document.getElementById('modal-backdrop').addEventListener('click', closeModal);
     document.getElementById('btn-device-desktop').addEventListener('click', () => setDeviceMode('desktop'));
