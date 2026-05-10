@@ -1,0 +1,12 @@
+{
+  "name": "presenation-tj-gallery",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "npx --yes serve . -l 3000",
+    "preview:portfolio": "node scripts/generate-portfolio-previews.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.50.1"
+  }
+}

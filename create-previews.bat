@@ -39,14 +39,5 @@ if not exist "prototype-5" mkdir "prototype-5"
 copy "tootmisjuhtimine\screencapture-file-C-Users-Admin-Downloads-koolitus-hero-advanced-html-2026-04-05-08_11_16.png" "prototype-5\screencapture-index_swiss-html-2026-04-25-15_30_00.png" /Y
 copy "prototype-5\screencapture-index_swiss-html-2026-04-25-15_30_00.png" "prototype-5\screencapture-index-html-2026-04-25-15_30_00.png" /Y
 
-:: Web-templates directory
-if not exist "web-templates" mkdir "web-templates"
-copy "tootmisjuhtimine\screencapture-file-C-Users-Admin-Downloads-features-section-advanced-html-2026-04-05-08_29_42.png" "web-templates\screencapture-hero_component-html-2026-04-25-15_30_00.png" /Y
-
-:: Create web-template previews by copying from the first few
-for %%f in (arvamused_component asukoht_component footer_component galerii_component gallery_koolitus_component hinnad_component hoiatus_taimer_component kliendid_component koolitaja_component lean_areng_component mida_annab_component miks_valida_component paevane_arengutee_component programm_component registreeru_component teekond_component toetus_koolitaja_component tunnistus_component) do (
-    copy "web-templates\screencapture-hero_component-html-2026-04-25-15_30_00.png" "web-templates\screencapture-%%f-html-2026-04-25-15_30_00.png" /Y
-)
-
 echo Preview images created successfully!
 pause

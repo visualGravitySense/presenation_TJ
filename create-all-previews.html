@@ -13,11 +13,38 @@
     
     <script>
         const templates = [
-            // Root level templates
+            // Root level templates (keep in sync with index.html GALLERY_ITEMS)
+            { name: '1_index_apple', title: 'Full page — Apple (1)', color: 'from-gray-600 to-gray-800' },
+            { name: '2_index_blueprint', title: 'Full page — Blueprint (2)', color: 'from-indigo-600 to-indigo-800' },
             { name: 'index-swiss-prototype', title: 'Swiss Prototype', color: 'from-red-600 to-red-800' },
             { name: 'index_apple', title: 'Apple Design', color: 'from-gray-600 to-gray-800' },
             { name: 'index_blueprint', title: 'Blueprint', color: 'from-indigo-600 to-indigo-800' },
-            
+            { name: 'andres-kase', title: 'Andres Kase', color: 'from-slate-600 to-slate-800' },
+            { name: 'apple_glass_icon_library', title: 'Apple Glass Icons', color: 'from-zinc-600 to-zinc-800' },
+            { name: 'blogi-post', title: 'Blog post', color: 'from-teal-600 to-teal-800' },
+            { name: 'blogi', title: 'Blog listing', color: 'from-teal-600 to-teal-800' },
+            { name: 'frosted_glass_icons', title: 'Frosted glass icons', color: 'from-sky-600 to-sky-800' },
+            { name: 'hero-apple-redesign-final-1', title: 'Hero Apple final 1', color: 'from-neutral-600 to-neutral-800' },
+            { name: 'hero-apple-redesign-final-2', title: 'Hero Apple final 2', color: 'from-neutral-600 to-neutral-800' },
+            { name: 'hero-final', title: 'Hero final', color: 'from-stone-600 to-stone-800' },
+            { name: 'hero-v3-apple', title: 'Hero v3 Apple', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (1)', title: 'Hero v3 Apple var 1', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (2)', title: 'Hero v3 Apple var 2', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (3)', title: 'Hero v3 Apple var 3', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (4)', title: 'Hero v3 Apple var 4', color: 'from-orange-600 to-orange-800' },
+            { name: 'hero-v3-apple (5)', title: 'Hero v3 Apple var 5', color: 'from-orange-600 to-orange-800' },
+            { name: 'icon-library', title: 'Icon library', color: 'from-violet-600 to-violet-800' },
+            { name: 'koolitus (2)', title: 'Koolitus (2)', color: 'from-emerald-600 to-emerald-800' },
+            { name: 'logo_marquee', title: 'Logo marquee', color: 'from-pink-600 to-pink-800' },
+            { name: 'main-exp-2', title: 'Main experiment 2', color: 'from-blue-600 to-blue-800' },
+            { name: 'main-page-design-2', title: 'Main page design 2', color: 'from-blue-600 to-blue-800' },
+            { name: 'main-page-design-2 - Hero', title: 'Main page design 2 — Hero', color: 'from-blue-600 to-blue-800' },
+            { name: 'main-page-design-2-ok', title: 'Main page design 2 OK', color: 'from-blue-600 to-blue-800' },
+            { name: 'main-page-design-v1-ok', title: 'Main page design v1 OK', color: 'from-blue-600 to-blue-800' },
+            { name: 'opstar-profit', title: 'Opstar profit', color: 'from-green-600 to-green-800' },
+            { name: 'social_proof_avatars', title: 'Social proof avatars', color: 'from-rose-600 to-rose-800' },
+            { name: 'stats_section', title: 'Stats section', color: 'from-cyan-600 to-cyan-800' },
+
             // Prototype-1 templates
             { name: 'arvamused_component', title: 'Reviews Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
             { name: 'asukoht_component', title: 'Location Component', color: 'from-blue-600 to-blue-800', folder: 'prototype-1' },
@@ -57,28 +84,7 @@
             
             // Prototype-5 templates
             { name: 'index', title: 'Swiss Design', color: 'from-red-600 to-red-800', folder: 'prototype-5' },
-            { name: 'index_swiss', title: 'Swiss Index', color: 'from-red-600 to-red-800', folder: 'prototype-5' },
-            
-            // Web-templates (same as prototype-1)
-            { name: 'arvamused_component', title: 'Reviews Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'asukoht_component', title: 'Location Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'footer_component', title: 'Footer Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'galerii_component', title: 'Gallery Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'gallery_koolitus_component', title: 'Training Gallery Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'hero_component', title: 'Hero Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'hinnad_component', title: 'Pricing Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'hoiatus_taimer_component', title: 'Timer Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'kliendid_component', title: 'Clients Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'koolitaja_component', title: 'Trainer Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'lean_areng_component', title: 'Lean Development Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'mida_annab_component', title: 'Benefits Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'miks_valida_component', title: 'Why Choose Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'paevane_arengutee_component', title: 'Daily Development Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'programm_component', title: 'Program Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'registreeru_component', title: 'Register Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'teekond_component', title: 'Journey Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'toetus_koolitaja_component', title: 'Support Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' },
-            { name: 'tunnistus_component', title: 'Certificate Template', color: 'from-cyan-600 to-cyan-800', folder: 'web-templates' }
+            { name: 'index_swiss', title: 'Swiss Index', color: 'from-red-600 to-red-800', folder: 'prototype-5' }
         ];
 
         function createPreviewCard(template) {

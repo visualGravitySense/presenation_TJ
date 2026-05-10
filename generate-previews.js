@@ -18,8 +18,7 @@ function createPlaceholderSVG(text, color = '#7c6cf5') {
 const templates = [
   // Root level templates
   'index-swiss-prototype',
-  'index_apple', 
-  'index_blueprint',
+  'index_apple',
   
   // Prototype-1 templates
   'arvamused_component',
@@ -60,32 +59,11 @@ const templates = [
   
   // Prototype-5 templates
   'index',
-  'index_swiss',
-  
-  // Web-templates (same as prototype-1)
-  'arvamused_component',
-  'asukoht_component',
-  'footer_component',
-  'galerii_component',
-  'gallery_koolitus_component',
-  'hero_component',
-  'hinnad_component',
-  'hoiatus_taimer_component',
-  'kliendid_component',
-  'koolitaja_component',
-  'lean_areng_component',
-  'mida_annab_component',
-  'miks_valida_component',
-  'paevane_arengutee_component',
-  'programm_component',
-  'registreeru_component',
-  'teekond_component',
-  'toetus_koolitaja_component',
-  'tunnistus_component'
+  'index_swiss'
 ];
 
 // Create preview directories if they don't exist
-const previewDirs = ['previews', 'prototype-1/previews', 'prototype-2/previews', 'prototype-3/previews', 'prototype-4/previews', 'prototype-5/previews', 'web-templates/previews'];
+const previewDirs = ['previews', 'prototype-1/previews', 'prototype-2/previews', 'prototype-3/previews', 'prototype-4/previews', 'prototype-5/previews'];
 
 previewDirs.forEach(dir => {
   if (!fs.existsSync(dir)) {
